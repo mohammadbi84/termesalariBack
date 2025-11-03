@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -41,7 +44,7 @@ Route::get('/password/resetPassword','Auth\ForgetPasswordMobileController@resetP
 Route::post('/password/updatePassword','Auth\ForgetPasswordMobileController@updatePassword')->name('password.updatePassword');
 
 
-Route::get('/shop','HomestoreController@index')->name('homeStore.index');
+Route::get('/shoptest','HomestoreController@index')->name('homeStore.index');
 
 Route::post('/shop/filter/', 'homestoreController@filter')->name('homestore.filter');
 Route::get('/shop/privacy-and-policy',function(){

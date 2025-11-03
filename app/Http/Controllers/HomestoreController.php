@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bedcover;
 use Illuminate\Http\Request;
 use App\Tablecloth;
 use App\Shoe;
@@ -9,6 +10,8 @@ use App\Orderitem;
 use App\Price;
 use App\Slideshow;
 use App\Category;
+use App\Pillow;
+use App\Prayermat;
 use Illuminate\Support\Facades\DB;
 
 class HomestoreController extends Controller
@@ -19,27 +22,42 @@ class HomestoreController extends Controller
         $topRequests = Orderitem::with('orderitemable')
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')
-            ->orderby('sum','desc')
+            ->orderby('sum', 'desc')
             ->take(20)
             ->get();
 
-        $topRequests = $topRequests->filter(function($item){
+        $topRequests = $topRequests->filter(function ($item) {
             // dd($item);
             if ($item->orderitemable == null) {
                 return false;
-            }
-            else if ($item->orderitemable->visibility == 0) {
+            } else if ($item->orderitemable->visibility == 0) {
                 return false;
-            }
-            else
+            } else
                 return true;
         });
 
-        $allSermeh = Category::where('title','like','%سرمه%')
+        $newestProducts = Orderitem::with('orderitemable')
+            ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
+            ->groupBy('orderitemable_id', 'orderitemable_type')
+            ->latest()
+            ->take(20)
+            ->get();
+
+        $newestProducts = $newestProducts->filter(function ($item) {
+            // dd($item);
+            if ($item->orderitemable == null) {
+                return false;
+            } else if ($item->orderitemable->visibility == 0) {
+                return false;
+            } else
+                return true;
+        });
+
+        $allSermeh = Category::where('title', 'like', '%سرمه%')
             ->get();
         $sermehProducts = [];
-        foreach ($allSermeh as $sermeh) { 
-            $products = $sermeh->model::where('category_id',$sermeh->id)
+        foreach ($allSermeh as $sermeh) {
+            $products = $sermeh->model::where('category_id', $sermeh->id)
                 ->get();
             foreach ($products as $product) {
                 if ($product->visibility == 1) {
@@ -51,64 +69,82 @@ class HomestoreController extends Controller
 
         $allCategories = Category::where('parent_id', 0)
             ->get();
+        foreach ($allCategories as $key => $category) {
+            $count = 0;
+            switch ($category->model) {
+                case ('App\Tablecloth'):
+                    $count += Tablecloth::where('visibility', 1)->count();
+                    break;
+                case ('App\Pillow'):
+                    $count += Pillow::where('visibility', 1)->count();
+                    break;
+                case ('App\Prayermat'):
+                    $count += Prayermat::where('visibility', 1)->count();
+                    break;
+                case ('App\Bedcover'):
+                    $count += Bedcover::where('visibility', 1)->count();
+                    break;
+                case ('App\Shoe'):
+                    $count += Shoe::where('visibility', 1)->count();
+                    break;
+            }
+            $category['productsCount'] = $count;
+        }
 
-        $category = Category::where('title','رومیزی')
-            ->where('parent_id','0')
+        $category = Category::where('title', 'رومیزی')
+            ->where('parent_id', '0')
             ->where('active', 1)
             ->first();
 
-        $tableclothsCategories = Category::where('parent_id',$category->id)
+        $tableclothsCategories = Category::where('parent_id', $category->id)
             ->where('active', 1)
             ->get();
 
         $specials = Price::with('priceable')
             ->select(DB::raw('*'))
-            ->where('local','تومان')
-            ->where('offPrice','>',0)
+            ->where('local', 'تومان')
+            ->where('offPrice', '>', 0)
             ->get();
         // dd($specials);
 
-        $specials = $specials->filter(function($item){
+        $specials = $specials->filter(function ($item) {
             // dd($item);
             if ($item->priceable == null) {
                 return false;
-            }
-            else if ($item->priceable->visibility == 0) {
+            } else if ($item->priceable->visibility == 0) {
                 return false;
-            }
-            else
+            } else
                 return true;
         });
 
-        $slideshowImagesB = Slideshow::where('position','homeStore-B')
-            ->orderby('order','asc')
+        $slideshowImagesB = Slideshow::where('position', 'homeStore-B')
+            ->orderby('order', 'asc')
             ->get();
 
-        $slideshows = Slideshow::where('position','homeStore-A')
-            ->where('visibility',1)
+        $slideshows = Slideshow::where('position', 'homeStore-A')
+            ->where('visibility', 1)
             ->get();
 
-    	return view('homeStore')
-            ->with('topRequests',$topRequests)
-            ->with('slideshowImagesB',$slideshowImagesB)
-            ->with('tableclothsCategories',$tableclothsCategories)
-            ->with('allCategories',$allCategories)
-            ->with('sermehProducts',$sermehProducts)
-            ->with('slideshows',$slideshows)
-    		->with('specials',$specials);
+        return view('shop.shop')
+            ->with('topRequests', $topRequests)
+            ->with('slideshowImagesB', $slideshowImagesB)
+            ->with('tableclothsCategories', $tableclothsCategories)
+            ->with('allCategories', $allCategories)
+            ->with('sermehProducts', $sermehProducts)
+            ->with('slideshows', $slideshows)
+            ->with('newestProducts', $newestProducts)
+            ->with('specials', $specials);
     }
 
 
     public function filter(Request $request)
     {
         // dd($request->all());
-        $model = "App\\".$request->model;
+        $model = "App\\" . $request->model;
         $condition = $request->condition;
-        $query = $model::where('visibility',1)->get();
-        return $query = $query->when($request->col, function ($query) use($request) {
+        $query = $model::where('visibility', 1)->get();
+        return $query = $query->when($request->col, function ($query) use ($request) {
             $query->where($request->col, $request->value);
         });
-        
     }
-
 }

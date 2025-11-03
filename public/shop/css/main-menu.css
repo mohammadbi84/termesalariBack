@@ -1,0 +1,339 @@
+:root {
+    --main-menu-back: white;
+    --main-menu-back-small: rgba(255, 255, 255, 0.8);
+    --main-menu-margin-top: 20px;
+    --main-menu-margin: 6.5%;
+    --main-menu-padding-default: 10px;
+    --main-menu-padding-small: 0px;
+    /*  اگر متغیر --raduis را تعریف نکرده اید، این خط را اضافه کنید: */
+    --raduis: 5px;
+    /* یا هر مقدار دلخواه دیگر */
+}
+
+.main-menu {
+    background-color: var(--main-menu-back);
+    position: fixed;
+    height: fit-content;
+    z-index: 1000;
+    top: var(--main-menu-margin-top);
+    left: var(--main-menu-margin);
+    right: var(--main-menu-margin);
+    padding: var(--main-menu-padding-default) var(--main-menu-padding-default);
+    transition: 500ms;
+    box-sizing: content-box !important;
+}
+
+.main-menu.small {
+    left: 0;
+    right: 0;
+    top: 5px;
+    padding: var(--main-menu-padding-small) 100px;
+    /*background-color: var(--main-menu-back-small);  اگر می خواهید پس زمینه نیمه شفاف باشد */
+    /*backdrop-filter: blur(2px); اگر می خواهید پس زمینه محو باشد */
+    box-shadow: 0px 4px 5px #8484845e;
+    /*border-radius: 10px; اگر می خواهید گوشه ها گرد باشند */
+}
+
+.main-menu.with-bookmark {
+    top: 70px;
+}
+
+.main-menu.smallBookmark {
+    top: 60px !important;
+}
+
+.main-menu.small .navbar .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.main-menu .navbar .navbar-brand {
+    margin-right: 0;
+}
+
+.main-menu .navbar .navbar-brand img {
+    height: 45px;
+    transform: scale(1);
+    -ms-transform: scale(1);
+}
+
+.main-menu.small .navbar .navbar-brand img {
+    margin-right: 0;
+    margin-left: 0;
+    transform: scale(0.8);
+    -ms-transform: scale(0.8);
+}
+
+.main-menu .navbar .btn-text {
+    color: var(--bs-nav-link-color) !important;
+    padding: 4px 10px;
+    border-radius: var(--raduis);
+    /* added border-radius */
+
+}
+
+.main-menu .navbar .btn-text:hover {
+    /*background-color: var(--primary-color--50); */
+    color: white !important;
+}
+
+.main-menu .navbar .nav-item .dropdown-menu .dropdown-item {
+    text-align: center;
+}
+
+
+.main-menu .nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.main-menu .nav-link:hover {
+    color: var(--primary-color);
+}
+
+/* انیمیشن خط زیر لینک‌ها */
+.main-menu .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 12%;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.main-menu .nav-link:hover::after {
+    width: 80%;
+}
+
+.cart-badge {
+    padding: 0;
+    padding-top: 1px;
+    position: absolute !important;
+    top: 0px !important;
+    right: 0px;
+    width: 14px;
+    height: 13px;
+    background-color: #4fba6b;
+}
+
+.dropdown-menu {
+    width: 350px;
+    max-height: 500px;
+    overflow-y: scroll;
+    padding-top: 0 !important;
+}
+
+.dropdown-menu::-webkit-scrollbar {
+    width: 5px;
+    background-color: white;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 10px;
+}
+
+.dropdown-menu.dropdown-animated {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+    display: block;
+    left: 0 !important;
+    /* برای نمایش درست توسط بوت‌استرپ */
+}
+
+.dropdown .show+.dropdown-animated {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+}
+
+/* دکمه دسته‌بندی‌ها */
+.categories-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.categories-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* منوی کشویی دسته‌بندی‌ها */
+.categories-dropdown {
+    position: relative;
+}
+
+.categories-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 250px;
+    background: transparent;
+    z-index: 1000;
+    display: none;
+}
+
+.categories-dropdown:hover .categories-menu {
+    display: block;
+}
+
+.category-container {
+    background-color: #f7f7f7;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+.category-item {
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.category-item:hover {
+    color: var(--primary-color);
+    padding-right: 2rem;
+}
+
+.category-item i {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* زیرمنو */
+.submenu {
+    position: absolute;
+    top: 0;
+    right: 101%;
+    width: 200px;
+    background: #f7f7f7;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 5px 0;
+    display: none;
+}
+
+.has-submenu:hover .submenu {
+    display: block;
+}
+
+.submenu-item {
+    padding: 0.5rem 1.5rem;
+    display: block;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.submenu-item:hover {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+    padding-right: 2rem;
+}
+
+@media (max-width: 992px) {
+    .main-menu {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        margin: 0;
+        padding: 0px;
+    }
+
+    .main-menu.small {
+        padding: var(--main-menu-padding-small) 20px;
+    }
+}
+
+
+
+
+/* استایل بوکمارک */
+.bookmark-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.bookmark {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
+    color: white;
+    /* border-radius: 10px 10px 0 0; */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    /* overflow: hidden; */
+    transition: all 0.4s ease;
+    margin-bottom: 20px;
+}
+
+.bookmark.expanded {
+    height: 60px;
+}
+
+.bookmark.collapsed {
+    height: 5px;
+    padding-bottom: 5px;
+}
+
+.bookmark.collapsed .bookmark-content {
+    height: 5px;
+    position: relative;
+    bottom: 10px;
+}
+
+/* محتوای بوکمارک */
+.bookmark-content {
+    padding: 0px 20px;
+    height: 60px;
+
+    overflow: hidden;
+}
+
+/* دکمه پایین بوکمارک */
+.bookmark-tab {
+    position: absolute;
+    bottom: -40px;
+    left: 30px;
+    width: 120px;
+    height: 40px;
+    background: #28a745;
+    border-radius: 0px 0px 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.bookmark-tab:hover {
+    background: linear-gradient(135deg, #239c56, #1db984);
+}
+
+.bookmark-tab i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.bookmark.collapsed .bookmark-tab i {
+    transform: rotate(180deg);
+}
