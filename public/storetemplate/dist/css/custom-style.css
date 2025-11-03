@@ -1,0 +1,538 @@
+/*@font-face {
+    font-family: Vazir;
+    src: url('../fonts/Vazir.eot');
+    src: url('../fonts/Vazir.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Vazir.woff2') format('woff2'),
+    url('../fonts/Vazir.woff') format('woff'),
+    url('../fonts/Vazir.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/Vazir-Bold.eot');
+    src: url('../fonts/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Vazir-Bold.woff2') format('woff2'),
+    url('../fonts/Vazir-Bold.woff') format('woff'),
+    url('../fonts/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/Vazir-Light.eot');
+    src: url('../fonts/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Vazir-Light.woff2') format('woff2'),
+    url('../fonts/Vazir-Light.woff') format('woff'),
+    url('../fonts/Vazir-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/Vazir-Medium.eot');
+    src: url('../fonts/Vazir-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Vazir-Medium.woff2') format('woff2'),
+    url('../fonts/Vazir-Medium.woff') format('woff'),
+    url('../fonts/Vazir-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/Vazir-Thin.eot');
+    src: url('../fonts/Vazir-Thin.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Vazir-Thin.woff2') format('woff2'),
+    url('../fonts/Vazir-Thin.woff') format('woff'),
+    url('../fonts/Vazir-Thin.ttf') format('truetype');
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('../fonts/Vazir-Black.eot');
+    src: url('../fonts/Vazir-Black.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Vazir-Black.woff2') format('woff2'),
+    url('../fonts/Vazir-Black.woff') format('woff'),
+    url('../fonts/Vazir-Black.ttf') format('truetype');
+    font-weight: 900;
+}*/
+
+/*---------------------------------- End of fonts ---------------------------------- */
+
+body {
+    /*font-family: 'Vazir', sans-serif !important;*/
+}
+
+.ltr {
+    direction:ltr;
+}
+
+
+ul {
+    padding-inline-start: 0px;
+}
+
+.dropdown-item {
+    text-align: right;
+}
+.dropdown-footer, .dropdown-header {
+    text-align: center;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    padding-left: .5rem;
+}
+
+
+/*------------------------------------ contacts-list ------------------------------------*/
+
+.contacts-list-img {
+    float: right;
+}
+
+.contacts-list-info {
+    margin-right: 45px;
+    margin-left: 0;
+}
+
+
+/* sidebar */
+
+.sidebar {
+    direction: ltr;
+}
+
+.sidebar > div:first-child {
+    direction: rtl;
+}
+
+.control-sidebar, .control-sidebar:before {
+    left: -250px;
+    right: auto;
+    transition: left .3s ease-in-out;
+}
+
+.control-sidebar-slide-open .control-sidebar, .control-sidebar-slide-open .control-sidebar:before {
+    left: 0;
+    right: auto;
+}
+
+.small-box .icon {
+    right:auto;
+    left:10px;
+}
+
+.nav-sidebar .nav-link>p>.right {
+    left: 1rem;
+    right: auto;
+}
+
+.nav-sidebar>.nav-item .nav-icon {
+    margin-right: 0;
+    margin-left: .2rem;
+}
+
+@media (min-width: 992px) {
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-right: 4.6rem;
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-left: 0rem !important;
+        margin-right: 4.6rem !important;
+        z-index:100;
+    }
+
+    .sidebar-mini.sidebar-collapse .main-sidebar, .sidebar-mini.sidebar-collapse .main-sidebar:before {
+        margin-right: 0;
+        width: 4.6rem;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .content-wrapper, .main-footer, .main-header {
+        transition: margin-right .3s ease-in-out;
+        margin-right: 250px;
+        margin-left : 0;
+        z-index: 1000;
+        /*z-index: 3000;*/
+    }
+}
+
+@media (max-width: 991.98px) {
+    .main-sidebar, .main-sidebar:before {
+        box-shadow: none!important;
+        margin-right: -250px;
+        margin-left: 0;
+    }
+
+    .content-wrapper, .content-wrapper:before, .main-footer, .main-footer:before, .main-header, .main-header:before {
+        margin-right: 0;
+    }
+
+    .sidebar-open .main-sidebar, .sidebar-open .main-sidebar:before {
+        margin-right: 0;
+        z-index: 4000;
+    }
+}
+
+.sidebar-collapse .main-sidebar, .sidebar-collapse .main-sidebar:before {
+    margin-right: -250px;
+}
+
+.main-sidebar {
+    left: auto;
+    right:0;
+}
+
+/* Cards */
+
+.card-header>.card-tools {
+    right:auto;
+    left:1rem;
+}
+
+.user-block img {
+     float: right;
+}
+
+.attachment-block .attachment-img {
+    float: right;
+}
+
+.attachment-block .attachment-pushed {
+    margin-left: 0px;
+    margin-right: 110px;
+}
+
+.card-comments .card-comment img, .img-lg, .img-md, .img-sm, .user-block.user-block-sm img {
+    float: right;
+}
+
+.card-comments .comment-text {
+    margin-right: 40px;
+    margin-left: 0;
+}
+
+.card-comments .card-comment img+.img-push, .img-sm+.img-push, .user-block.user-block-sm img+.img-push {
+    margin-left: 0px;
+    margin-right: 40px;
+}
+
+.user-block .comment, .user-block .description, .user-block .username {
+    margin-right: 50px;
+    margin-left: 0px;
+}
+
+.btn-group-vertical {
+    align-items: center;
+}
+
+
+/*------------------------- Form ----------------------------*/
+.select2-container .select2-search--inline {
+    float: right;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    text-align: right;
+}
+
+/*----------------------- Extra Page ---------------------------*/
+.error-page>.headline {
+    float: right;
+}
+
+.error-page>.error-content {
+    margin-right: 190px;
+    margin-left: 0;
+}
+
+.lockscreen-image {
+    left: auto;
+    right:-10px;
+}
+
+.lockscreen-credentials {
+    margin-left: 0px;
+    margin-right: 70px;
+}
+
+.nav {
+    padding-inline-start: 0px !important;
+}
+
+/*---------------------------------- Persian Date Picker ---------------------------------- */
+
+.datepicker-plot-area {
+    font-family: 'Vazir', sans-serif;
+}
+
+
+
+/*salari css*/
+.card-header {
+    padding: 0px;
+}
+
+.card-header .card-title>span{
+    border-bottom: 2px solid red;
+    display: inline-block;
+    padding: .75rem 1.25rem;
+}
+
+/*Loading*/
+    .loader{
+        display: none;
+        text-align: center;
+        vertical-align: top;
+        position: fixed;
+        z-index: 99999;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background-color: rgb(0,0,0,0.3);
+    }
+
+    .loader svg{
+        position: absolute;
+        top: 50%;
+        margin-top: -12px;
+    }
+
+    .loader svg path,
+    .loader svg rect{
+      fill: #ef3a4e;
+    }
+
+
+
+
+
+
+    .ui-chat-container{
+        position: relative;
+    }
+
+    .ui-chat-container .btn_chat_lancher {
+        display: block;
+        width: 44px;
+        height: 44px;
+        background-color: #c40f22;
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
+        z-index: 999;
+        border-radius: 40px;
+        border: none;
+        cursor: pointer;
+        outline: none;
+    }
+    .ui-chat-container .btn_chat_lancher span.open_me {
+        display: block;
+        width: 100%;
+        height: 100%;
+        /*background: url(https://admin.v12dev.com/youssef/ui_chat/assets/img/v12_chat_icon_red.svg) no-repeat center;
+        background-size: 35px;*/
+        position: absolute;
+        color: white;
+        font-size: 1.2rem;
+        line-height: 50px;
+        text-align: center;
+        left: 0px;
+        /*bottom: 0px;*/
+        border-radius: 40px;
+        cursor: pointer;
+        transition: all ease 400ms;
+        transform: scale(0) rotate(40deg);
+        opacity: 0;
+    }
+
+    .ui-chat-container .btn_chat_lancher span.open_me {
+        bottom: -11px;
+    }
+
+    .ui-chat-container .btn_chat_lancher span.open_me.active {
+        transform: scale(1) rotate(0deg);
+        opacity: 1; 
+    }
+
+    .ui-chat-container .btn_chat_lancher span.close_me {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        border-radius: 40px;
+        cursor: pointer;
+        transition: all ease 400ms;
+        transform: scale(0) rotate(40deg);
+        opacity: 0;
+    }
+
+    .ui-chat-container .btn_chat_lancher span.close_me:before {
+        content: "";
+        width: 4px;
+        height: 25px;
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 4px;
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .ui-chat-container .btn_chat_lancher span.close_me:after {
+        content: "";
+        width: 4px;
+        height: 25px;
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 4px;
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .ui-chat-container .btn_chat_lancher span.close_me.active {
+        transform: scale(1) rotate(0deg);
+        opacity: 1; 
+    }
+
+    #chat-box{
+        position: fixed;
+        left: 25px;
+        bottom: 80px;
+        z-index: 35;
+        overflow: hidden;
+        -webkit-box-shadow: 0 3px 8px 0 rgba(0,0,0,.2);
+        box-shadow: 0 3px 8px 0 rgba(0,0,0,.2);
+        border-radius: 9px;
+        /*padding: .5rem .5rem 0 .5rem;*/
+
+        width: 222px;
+        height: 372px;
+        border-radius: 9px;
+        background-color: #fff;
+        
+        /*cursor: pointer;*/
+        display: none;
+    }
+
+    #chat-box form .validation{
+        font-size: .7rem;
+        color: #ef3a4e;
+    }
+
+    #chat-box form .form-group{
+        margin-bottom: .5rem !important;
+    }
+
+    #chat-box p{
+        font-size: 0.85rem !important;
+        line-height: 25px;
+        text-align: justify;
+    }
+
+    #chat-box form input,
+    #chat-box form textarea{
+        font-size: 0.85rem !important;
+    }
+
+    .chat-box-footer{
+        background-color: #ef3a4e;
+        position: absolute;
+        /*bottom: 0px;*/
+        bottom: 0px;
+        right: 0;
+        left: 0;
+        height: 35px;
+        padding: .5rem;
+        padding-top: 0px;
+        color: white;
+        /*margin: auto; */
+    }
+
+    .chat-box-footer a {
+      font-family: "Vazir";
+      direction: rtl;
+      color: #fff !important;
+      font-weight: 200;
+      text-decoration: none;
+      text-align: center;
+      /*border-bottom: 1px dashed #4dd871;*/
+      /*border-radius: 2px;*/
+    }
+
+    .chat-box-footer .social{
+        text-align: center;
+    }
+
+    .chat-box-footer .social>a {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      width: 30px;
+      font-size: 14px;
+      color: #fff;
+      /*border: 1px solid #ef3a4e;*/
+      border-radius: 50%;
+      margin: 3px 9px 3px 9px;
+      -webkit-transition: 0.2s all;
+      transition: 0.2s all;
+    }
+    .chat-box-footer .social>a:hover {
+      color: #ef3a4e !important;
+      background-color: #fff;
+      /*border-color: #ef3a4e;*/
+    }
+
+    .icon-box{
+        text-align: center;
+        background: #fefefe;
+        box-shadow: 0px 5px 90px 0px rgb(110 123 131 / 10%);
+        padding: 50px 60px;
+        transition: all 150ms;
+        -webkit-transition: all 150ms;
+        color: #18d26e;
+        cursor: pointer;
+        border:1px solid transparent;
+    }
+
+    .icon-box a{
+        color: #18d26e;
+    }
+
+    .icon-box:hover {
+        /*background: #18d26e;*/
+        border:1px solid #18d26e;
+        /*color: gray !important;*/
+    }
+
+    .icon-box img ,
+    .icon-box h1
+    {
+        margin: 0 auto;
+        width: 150px;
+        /*height: 64px;*/
+        transition: all .3s ease-out 0s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        transform-style: preserve-3d;
+        position: relative;
+        z-index: 2
+    }
+	
+	.input-group-append>span{
+		height:47px;
+	}

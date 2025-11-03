@@ -1,0 +1,263 @@
+	.card-danger.card-outline.card-sale{
+		border-bottom: 3px solid #dc3545;
+		background-color: #f6f6f5;
+	}
+
+	.card-sale .card-title , 
+	.card-sale .card-body p
+	{
+		border-bottom: 1px solid #e4e3e2;
+	}
+	.card-sale .card-body p{
+		padding: 0 0 20px 0;
+	}
+
+	.price,
+	.off
+	{
+		color: #ef3a4e;
+		font-size: 0.8rem;
+	}
+
+	.price span,
+	.off span{
+		font-size: 1.4rem;
+		font-weight: bold;
+	}
+
+	.price{
+		
+		text-align: right;
+	}
+
+	.table-data tr td:first-child{
+		color: gray;
+		font-weight: bold;
+		width: 30%;
+	}
+
+	ul{
+		list-style: none;
+		margin: 0px;
+	}
+
+	.owl-item{
+		webkit-transition: -webkit-box-shadow .2s cubic-bezier(.4,0,1,1),-webkit-transform .2s cubic-bezier(.4,0,1,1);
+	    transition: -webkit-box-shadow .2s cubic-bezier(.4,0,1,1),-webkit-transform .2s cubic-bezier(.4,0,1,1);
+	    transition: box-shadow .2s cubic-bezier(.4,0,1,1),transform .2s cubic-bezier(.4,0,1,1);
+	    transition: box-shadow .2s cubic-bezier(.4,0,1,1),transform .2s cubic-bezier(.4,0,1,1),-webkit-box-shadow .2s cubic-bezier(.4,0,1,1),-webkit-transform .2s cubic-bezier(.4,0,1,1);
+	}
+
+	
+
+	#carouselItems .owl-stage-outer{
+		/*height: 290px;*/
+	}
+
+	.like-box{
+		color: black;
+		/*height:270px;*/
+	}
+
+	.like-box div{
+		font-size: .8rem;
+    	padding-bottom: 10px;
+    	color: black;
+	}
+
+	.like-box-price{
+		text-align: left;
+	}
+
+	.like-box .product-price{
+		font-weight: bold;
+		font-size: 1rem;
+	}
+
+	.like-box img{
+		padding-bottom: 10px;
+		width: 200px;
+		height: 120px;
+	}
+
+	.like-box .like-box-title{
+		height: 60px;
+		overflow: hidden;
+  		text-overflow: ellipsis; 
+		text-align: justify;
+		direction: rtl;
+	}
+
+	.like-box-off{
+		text-align: left;
+	}
+
+	.like-box-off .old-price ,
+	.like-box-off .percentage{
+		text-align: left;
+		display: inline-block;
+	}
+
+	.like-box-off .old-price{
+		color: gray;
+	}
+
+	.like-box-off .percentage{
+		border-radius: 16px;
+		background-color: #ef3a4e;
+		color: white;
+		padding: 3px 5px 3px 5px;
+		margin-right: 5px;
+		font-weight: bold;
+	}
+
+	.product-header-info{
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: stretch;
+	}
+
+	.product-header-info>div{
+		flex-grow: 0;
+
+		/*border:1px solid red;*/
+
+	}
+	
+	.product-header-info>div:laft-of type{
+		background-color: red;
+	}
+	.card-sale h3{
+		font-size: 1rem;
+		text-align: center;
+	}
+
+	.quantity{
+		font-size: 0.8rem;
+	}
+
+	.table{
+			border-collapse: collapse !important;
+	}
+
+	.table .multi-line{
+		white-space: pre-wrap;
+		line-height: 2rem;
+	}
+
+	#dataTable-table_filter,
+	#dataTable-messages_filter{
+		float: left;
+	}
+
+	.br-wrapper{
+		display: inline-block;
+		padding: 0.35rem;
+	}
+
+	.bg-skyblue{
+		background-color: skyblue !important;
+	}
+
+	.success-color{
+		color: #28a745;
+	}
+
+	.danger-color{
+		color: #dc3545;
+	}
+
+	.modal{
+		white-space: normal;
+	}
+
+	.modal-body p
+	{
+		text-align: justify;
+		line-height: 2rem;
+	}
+
+	.swal-text{
+		text-align: right !important;
+	}
+
+	.file-preview .close, .fa-plus-circle{
+		display: none !important;
+	}
+
+	.card-recipients,
+	.card-recipients .card,
+	.card-recipients .card-footer a,
+	.card-recipients .card-title
+	{
+		font-size: .8rem !important;
+	}
+
+
+	.card-recipients .card{
+		width: 100%;
+		/*font-size: 0.8rem;*/
+	}
+
+	.card-recipients label{
+		width: 100%;
+	}
+
+	.card-recipients .card-header{
+		padding: 5px;
+	}
+
+	.card-recipients .card-title{
+		/*font-size: .9rem;*/
+	}
+
+	.card-recipients .card-body{
+		line-height: 30px;
+		height: 170px;
+		overflow: auto;
+		padding: 0.5rem;
+	}
+
+	.card-recipients .add-recipient{
+		height: 258px;
+		border: 1px dashed gray;
+	}
+
+	.card-input-element {
+	    display: none;
+	}
+
+	.card-recipients .card:hover {
+	    cursor: pointer;
+	}
+
+	.card-input-element:checked + div.card {
+	     border: 1px solid #ef3a4e;
+	     background-color: rgb(239,58,78,0.04);
+	     box-shadow: 0 0 2px #ef3a4e;
+	 }
+
+	#formAddRecipient ,
+	#formAddRecipient .modal-title,
+	#formAddRecipient .modal-footer button,
+	#formAddRecipient .modal-body input {
+	 	font-size: 0.8rem;
+	 }
+
+	 .card-recipients{
+	 	display: none;
+	 }
+
+	 .post label,
+	 .pay label{
+	 	font-weight: normal !important;
+	 }
+
+	/*Class For Select2 Plugin When Has Error*/
+	.is-invalid .select2-selection,
+	.needs-validation ~ span > .select2-dropdown{
+	 	border-color: #ef3a4e !important;
+	}
+
+	

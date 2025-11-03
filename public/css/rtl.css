@@ -1,0 +1,43 @@
+/*------------------------------------------------------------------
+ *
+ * Author: PersianMeida
+ * Author URI: https://Persianmedia.co
+ * Copyright 2019 PersianMedia .
+ -------------------------------------------------------------------*/
+/* this file for rtl style*/
+
+.form-content h3 {
+    text-align: center;
+    direction: rtl;
+    font-size: 22px;
+    letter-spacing: -1px;
+    font-family: Dana;
+}
+
+.form-content p {
+    text-align: center;
+    direction: rtl;
+    font-family: Dana;
+    letter-spacing: -1px;
+}
+
+.form-content input, .form-content .dropdown-toggle.btn-default {
+    text-align: right;
+    font-family:Dana;
+}
+
+.form-content .btn.btn-primary {
+    letter-spacing: -1px;
+    font-family: Dana;
+}
+
+.form-content .time-counter .count .label {
+    color: #fff;
+    font-family: Dana;
+}
+
+.other-links span {
+    font-family: Dana;
+    font-size: 19px;
+    letter-spacing: -1px;
+}
