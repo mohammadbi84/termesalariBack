@@ -592,10 +592,10 @@
                                                 </div>
                                             </div>
                                             <div class="row g-0 w-100 product-footer-outrange">
-                                                <div class="col-3 pe-2">
+                                                <div class="col-3 ps-2">
                                                     <button class="buy-button add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
                                                 </div>
-                                                <div class="col-9 ps-2">
+                                                <div class="col-9 pe-2">
                                                     <a class="buy-button text-decoration-none"
                                                         href="
                                                         @switch($product->orderitemable_type)
