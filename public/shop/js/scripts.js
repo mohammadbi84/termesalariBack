@@ -246,19 +246,37 @@ $(document).ready(function () {
   // branch slider ==============================================================================================
   const rightSlider = new Swiper(".right-slider", {
     direction: "vertical",
-    slidesPerView: 4,
+    slidesPerView: "auto", // تغییر به auto برای اسکرول طبیعی
     spaceBetween: 15,
     watchSlidesProgress: true,
     slideToClickedSlide: true,
-    pagination: {
-      el: ".right-slider .swiper-pagination",
-      clickable: true,
-    },
+    freeMode: true, // فعال کردن حالت آزاد
+    mousewheel: true, // امکان اسکرول با ماوس
+    pagination: false, // غیرفعال کردن پیجینیشن
+    navigation: false, // غیرفعال کردن ناوبری
+    allowTouchMove: false, // غیرفعال کردن درگ
+    simulateTouch: false, // غیرفعال کردن شبیه‌سازی تاچ
     breakpoints: {
-      1200: { slidesPerView: 4, spaceBetween: 15 },
-      992: { slidesPerView: 3, spaceBetween: 12 },
-      768: { slidesPerView: 2, spaceBetween: 10 },
-      0: { slidesPerView: 2, spaceBetween: 8 },
+      1200: {
+        slidesPerView: "auto",
+        spaceBetween: 15,
+        allowTouchMove: false,
+      },
+      992: {
+        slidesPerView: "auto",
+        spaceBetween: 12,
+        allowTouchMove: false,
+      },
+      768: {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        allowTouchMove: false,
+      },
+      0: {
+        slidesPerView: "auto",
+        spaceBetween: 8,
+        allowTouchMove: false,
+      },
     },
   });
 
@@ -266,33 +284,83 @@ $(document).ready(function () {
   const leftSlider = new Swiper(".left-slider", {
     effect: "fade",
     fadeEffect: { crossFade: true },
-    allowTouchMove: false, // ❌ درگ غیرفعال
-    navigation: false, // ❌ دکمه‌های قبل و بعد غیرفعال
+    allowTouchMove: false,
+    navigation: {
+      nextEl: ".left-slider .swiper-button-next",
+      prevEl: ".left-slider .swiper-button-prev",
+    },
     pagination: {
       el: ".left-slider .swiper-pagination",
-      clickable: false, // ❌ کاربر نتونه از Pagination استفاده کنه
+      clickable: true,
     },
     thumbs: {
       swiper: rightSlider,
     },
+    breakpoints: {
+      // در موبایل کنترل‌ها فعال شوند
+      576: {
+        allowTouchMove: true,
+        navigation: {
+          nextEl: ".left-slider .swiper-button-next",
+          prevEl: ".left-slider .swiper-button-prev",
+        },
+      },
+    },
   });
 
   // ✅ جلوگیری از انتشار کلیک‌های داخلی
+  // مدیریت ریسپانسیو برای نمایش کنترل‌ها
+  function handleResize() {
+    const isMobile = window.innerWidth <= 576;
+
+    if (isMobile) {
+      // در موبایل: فعال کردن کنترل‌های اسلایدر اصلی
+      leftSlider.params.allowTouchMove = true;
+      leftSlider.update();
+
+      // مخفی کردن اسلایدر سمت راست در موبایل (اگر نیاز باشد)
+      document.querySelector(".right-slider").style.display = "none";
+    } else {
+      // در دسکتاپ: غیرفعال کردن کنترل‌های اسلایدر اصلی
+      leftSlider.params.allowTouchMove = false;
+      leftSlider.update();
+
+      // نمایش اسلایدر سمت راست در دسکتاپ
+      document.querySelector(".right-slider").style.display = "block";
+    }
+  }
+
+  // افزودن event listener برای تغییر سایز
+  window.addEventListener("resize", handleResize);
+  handleResize(); // فراخوانی اولیه
+
+  // ✅ کلیک روی اسلایدهای کوچک (تغییر فقط اسلایدر اصلی)
   document
-    .querySelectorAll(
-      ".inner-slider-controls .swiper-button-next, .inner-slider-controls .swiper-button-prev, .inner-slider-controls .swiper-pagination"
-    )
-    .forEach((el) => {
-      el.addEventListener("click", (e) => e.stopPropagation());
+    .querySelectorAll(".right-slider .swiper-slide")
+    .forEach((slide, index) => {
+      slide.addEventListener("click", () => {
+        leftSlider.slideTo(index);
+        // اضافه کردن کلاس active به اسلاید انتخاب شده
+        document
+          .querySelectorAll(".right-slider .swiper-slide")
+          .forEach((s) => {
+            s.classList.remove("swiper-slide-thumb-active");
+          });
+        slide.classList.add("swiper-slide-thumb-active");
+      });
     });
 
-  // ✅ اسلایدرهای داخلی (برای عکس‌های داخل هر اسلاید)
+  // ✅ اسلایدرهای داخلی (بدون تغییر)
   const innerSliders = [];
   document.querySelectorAll(".inner-image-slider").forEach((sliderElement) => {
     const innerSwiper = new Swiper(sliderElement, {
       slidesPerView: 1,
       spaceBetween: 0,
       loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
       pagination: {
         el: sliderElement.querySelector(".swiper-pagination"),
         clickable: true,
@@ -304,15 +372,6 @@ $(document).ready(function () {
     });
     innerSliders.push(innerSwiper);
   });
-
-  // ✅ کلیک روی اسلایدهای کوچک (تغییر فقط اسلایدر اصلی)
-  document
-    .querySelectorAll(".right-slider .swiper-slide")
-    .forEach((slide, index) => {
-      slide.addEventListener("click", () => {
-        leftSlider.slideTo(index);
-      });
-    });
 
   // go to top button ===================================================================================
   // JavaScript
@@ -387,7 +446,7 @@ $(document).ready(function () {
 
     // آیکون سفارشی
     const customIcon = L.icon({
-      iconUrl: "assets/svgs/location-dot-solid-full.svg",
+      iconUrl: "/shop/assets/svgs/location-dot-solid-full.svg",
       iconSize: [40, 40],
       iconAnchor: [20, 40],
       popupAnchor: [0, -40],
@@ -396,4 +455,22 @@ $(document).ready(function () {
     // اضافه کردن marker
     currentMarker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
   }
+});
+
+
+
+// نمایش خودکار پاپ‌آپ بعد از لود صفحه
+document.addEventListener("DOMContentLoaded", function () {
+  var myModal = new bootstrap.Modal(document.getElementById("customModal"));
+  myModal.show();
+  new Splide("#modal-slider", {
+    type: "slide",
+    perPage: 1,
+    pagination: true,
+    arrows: false,
+    rewind: true,
+    height: "400px",
+    cover: true,
+    autoplay: true,
+  }).mount();
 });

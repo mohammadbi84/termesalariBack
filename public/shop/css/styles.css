@@ -4,6 +4,16 @@
     --dark-color: #343a40;
     --light-color: #f8f9fa;
 }
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+    border: 1px solid var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    opacity: 0.8;
+    border: 1px solid var(--primary-color);
+}
 
 .bg-primary {
     background-color: var(--primary-color) !important;
@@ -401,8 +411,8 @@ i {
 }
 
 .buy-button {
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity: 0;
+    transform: translateY(20px); */
     transition: all 0.3s ease 0.1s;
     background: #28b21e;
     border: none;
@@ -412,16 +422,33 @@ i {
     font-weight: 600;
     box-shadow: 0 4px 10px rgb(139 139 139 / 30%);
     width: 100%;
+    display: block;
+    text-align: center;
 }
-
-.product-card:hover .buy-button {
+.product-footer-outrange{
+    opacity: 0;
+    transform: translateY(20px);
+}
+.product-card:hover .product-footer-outrange {
     opacity: 1;
     transform: translateY(0);
+    transition: all 0.3s ease 0.1s;
 }
 
 .buy-button:hover {
     background: #1f8717;
     transform: translateY(-2px);
+}
+.add-to-cart{
+    background-color: #4fba6c2e;
+    color: var(--primary-color) !important;
+    padding: 0 !important;
+    height: 100%;
+    border: 1px solid transparent;
+}
+.add-to-cart:hover{
+    background-color: #4fba6c2e;
+    border: 1px solid var(--primary-color) !important;
 }
 
 .container {
@@ -702,12 +729,16 @@ i {
     height: 500px;
     position: relative;
     padding: 5px 13px;
+    overflow: hidden; /* اضافه شده */
 }
 
 .right-slider .swiper-wrapper {
     direction: ltr;
     overflow-y: auto;
     padding: 4px 8px;
+    transform: none !important; /* غیرفعال کردن transform برای اسکرول طبیعی */
+    flex-direction: column; /* تغییر به حالت عمودی */
+    display: block; /* تغییر از flex به block برای اسکرول */
 }
 
 .right-slider .swiper-wrapper::-webkit-scrollbar {
@@ -730,6 +761,12 @@ i {
     cursor: pointer;
     transition: 0.3s;
     border: 2px solid transparent;
+    margin-bottom: 10px; /* فاصله بین اسلایدها */
+    width: 100% !important; /* عرض کامل */
+    height: auto !important; /* ارتفاع خودکار */
+}
+.right-slider-controls {
+    display: none; /* مخفی کردن کنترل‌ها در دسکتاپ */
 }
 
 .right-slider .swiper-slide:hover {
@@ -744,9 +781,9 @@ i {
 }
 
 .right-slider img {
-    width: 80px;
+    width: 60px;
     height: 60px;
-    border-radius: 8px;
+    border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
 }
@@ -832,18 +869,6 @@ i {
     display: none;
 }
 
-/* کنترل‌های اسلایدر کوچک */
-.right-slider-controls {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    height: 40px;
-}
-
 /* کنترل‌های اسلایدر داخلی */
 .inner-slider-controls {
     position: absolute;
@@ -855,18 +880,19 @@ i {
     align-items: center;
     padding: 0 20px;
     z-index: 10;
+    top: 0;
+    height: 100%;
 }
 
 .inner-slider-controls .swiper-pagination {
-    /* position: relative; */
-    /* bottom: auto; */
     width: auto;
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: -200px;
     left: 10px;
     gap: 5px;
+        justify-content: center;
+    top: 0;
 }
 
 .inner-slider-controls .swiper-button-next,
@@ -887,6 +913,37 @@ i {
     font-size: 14px;
     color: #1abc9c;
     font-weight: bold;
+}
+
+
+.inner-slider-controls .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: #fff; /* رنگ دایره توپر */
+  opacity: 1;
+  margin: 6px !important;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* وقتی دکمه فعال میشه */
+.inner-slider-controls .swiper-pagination-bullet-active {
+  background-color: #fff; /* رنگ وسط */
+}
+
+/* حلقه دور دکمه فعال */
+.inner-slider-controls .swiper-pagination-bullet-active::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff; /* رنگ حلقه */
+  border-radius: 50%;
+  opacity: 0.9;
+  transition: all 0.3s ease;
 }
 
 /* ریسپانسیو */
@@ -932,11 +989,6 @@ i {
 }
 
 @media (max-width: 576px) {
-    .left-slider-controls {
-        margin-top: 0px;
-        /* display: flex; */
-    }
-
     .swiper-pagination {
         margin-top: 0;
     }
@@ -962,6 +1014,10 @@ i {
 
     .right-slider span {
         font-size: 0.8rem;
+    }
+
+    .left-slider-controls {
+        display: flex; /* نمایش کنترل‌ها در موبایل */
     }
 }
 
@@ -1051,4 +1107,107 @@ i {
     #mapModal .modal-body {
         height: 400px;
     }
+}
+
+
+
+
+/* popup ============================================================================================ */
+/* modal pup up */
+.modal-close-btn:hover i {
+    color: var(--primary-color);
+}
+
+.modal-close-btn:hover {
+    background-color: #f8f9fa !important;
+}
+
+.modal-image-container {
+    position: relative;
+    height: 100%;
+}
+
+.modal-content {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.btn-text-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.btn-text-link:hover {
+    color: var(--primary-color);
+}
+
+.btn-close {
+    z-index: 2;
+    background-color: #f7f7f7 !important;
+    opacity: 1 !important;
+}
+
+#modal-slider .splide__pagination {
+    display: flex !important;
+    /* justify-self: baseline !important; */
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 25px;
+    position: absolute !important;
+    bottom: -7px;
+    /* left: auto !important;
+    right: auto; */
+    left: 50%;
+    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
+    z-index: 1;
+    background: white;
+    border-radius: 30px 30px 0 0;
+    position: relative;
+    overflow: visible;
+    width: fit-content;
+}
+
+/* مثلث سمت چپ */
+#modal-slider .splide__pagination::before {
+    content: "";
+    position: absolute;
+    left: -22px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 22px solid transparent;
+    border-right: 34px solid white;
+    border-bottom: 0 solid transparent;
+}
+
+/* مثلث سمت راست */
+#modal-slider .splide__pagination::after {
+    content: "";
+    position: absolute;
+    right: -23px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 22px solid transparent;
+    border-left: 34px solid white;
+    border-bottom: 0 solid transparent;
+}
+
+#modal-slider .splide__pagination__page.is-active {
+    background: var(--primary-color);
+}
+
+#modal-slider .splide__arrow {
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+}
+
+#modal-slider .splide__arrow svg {
+    fill: #333;
 }

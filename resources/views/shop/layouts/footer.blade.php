@@ -49,7 +49,7 @@
                     در خبرنامه عضو شوید.
                 </p>
                 <div class="newsletter-form">
-                    <form action="{{ route('newsletter.store') }}" method="post">
+                    <form action="{{ route('newsletter.store') }}" class="d-flex" method="post">
                         @csrf
                         <input type="email" name="email_join_newsletter" id="email_join_newsletter"
                             placeholder="آدرس ایمیل خود را بنویسید" value="{{ old('email_join_newsletter') }}" />

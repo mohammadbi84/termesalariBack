@@ -36,7 +36,7 @@
 
     .sweet-alert{
       direction: rtl;
-    } 
+    }
 
     .sweet-alert h2{
       font-family: 'Vazir';
@@ -47,7 +47,7 @@
     }
 
     .nav-menu > li {
-      margin-left: 0px !important; 
+      margin-left: 0px !important;
     }
 
     .nav-menu>li>a {
@@ -152,7 +152,7 @@
           <li><a href="#clients">مشتریان</a></li>
           <li><a href="#services">نمایندگی ها</a></li>
           <li><a href="#call-to-action">سفارش محصول</a></li>
-          <li><a href="#portfolio">نمونه محصولات</a></li> 
+          <li><a href="#portfolio">نمونه محصولات</a></li>
           <li><a class="storeLink rounded" href="http://www.termehsalari.com/shop">فروشگاه <i class="fa fa-shopping-cart"></i></a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
@@ -449,7 +449,7 @@
               <h2 class="title"><a href="#">آسید علی سالاری</a></h2>
               <p>
                   ترمه بافی در خاندان سالاری حدود 90 سال پیش بدست مرحوم آسیدعلی سالاری ملقب به آسیدعلی سید حیدر آغاز شد. ترمه ای که در آن زمان بافته می شد نوعی بقچه و سوزنی حاشیه دار بود که نام خود بافنده در آن بافت شده است.
-                  <br><br><br><br>  
+                  <br><br><br><br>
               </p>
             </div>
           </div>
@@ -744,7 +744,7 @@
               <li data-filter=".filter-tablecloth">رومیزی</li>
               <li data-filter=".filter-sermeh">سرمه دوزی</li>
               <li data-filter=".filter-bedCover">روتختی</li>
-              
+
             </ul>
           </div>
         </div>
@@ -1291,13 +1291,13 @@
             </div>
           </div>
 
-          
+
 
         </div>
 
       </div>
     </section><!-- #portfolio -->
-    
+
     <!--==========================
       Skills Section
     ============================-->
@@ -1324,7 +1324,7 @@
         <header class="section-header">
           <h3>مشتریان ما</h3>
           <p>فعالیت های ترمه سالاری  تنها محدود به مناطق و شهرهای داخل کشورمان نیست.مفتخریم که عنوان کنیم محصولات ترمه سالاری را به کشورهای <strong> آلمان، سوئد، سنگاپور و مالزی </strong> صادر کرده ایم.
-            
+
             امید است با تلاش فراوان و همچنین کمک خداوند متعال بتوانیم ، بهترین محصولات را در اختیار خریداران محترم قرار بدهیم تا برای آبادانی کشور قدمی برداشته باشیم.
           </p>
         </header>
@@ -1522,7 +1522,7 @@
               <li><i class="ion-ios-arrow-left"></i> <a href="http://www.termehsalari.com/shop">ورود به فروشگاه</a></li>
               <li><i class="ion-ios-arrow-left"></i> <a href="{{ route('terms') }}">شرایط و قوانین</a></li>
               <li><i class="ion-ios-arrow-left"></i> <a href="{{ route('privacy-policy') }}">حریم خصوصی</a></li>
-              
+
             </ul>
           </div>
 
@@ -1532,7 +1532,7 @@
               فروشگاه مرکزی : میدان امیرچقماق<br>
               <strong>تلفن:</strong> 37 06 3626 035<br>
               فروشگاه شماره2 : جنب شیرینی سازی حاج خلیفه رهبر .سرای ترمه <br>
-              <strong>تلفن:</strong> 80 38 3622 035<br>              
+              <strong>تلفن:</strong> 80 38 3622 035<br>
               <strong>ایمیل:</strong> Info@TermehSalari.com<br>
               <i class="far fa-paper-plane"></i> <i class="fab fa-whatsapp"></i>  09134577500
             </p>
