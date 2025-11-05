@@ -149,6 +149,25 @@
                                     @php
                                         $prices = $topRequest->orderitemable->prices->where('local', 'تومان')->first();
                                     @endphp
+                                    @php
+			              	        	$price = 0;
+			                        	$off = 0;
+			              	        	if($prices->offPrice > 0)
+			              	        	{
+		                	        		if($prices->offType == 'مبلغ')
+		                	        		{
+	                		        			$price = $prices->price - $prices->offPrice;
+	                		        			$off =$prices->offPrice;
+	                		        		}
+	                		        		elseif($prices->offType == 'درصد')
+	                		        		{
+	                		        			$off = $prices->price * ($prices->offPrice/100);
+	                		        			$price = $prices->price - $off;
+	                		        		}
+	                		        	}
+	                		        	else
+	                		        		$price = $prices->price;
+	                		        @endphp
                                     <li class="splide__slide">
                                         <a href="
                                     @switch($topRequest->orderitemable_type)
@@ -214,7 +233,7 @@
                                                                 <div
                                                                     class=" w-50 h-100 text-center d-flex justify-content-center align-items-center px-1">
                                                                     <div class="countdown-timer timer-short justify-content-between"
-                                                                        id="countdown-1" data-end-date="2026-10-30">
+                                                                        id="countdown-1" data-end-date="2025-12-30">
                                                                         <div class="timer-col">
                                                                             <span class="timer-number days">12
                                                                             </span>
@@ -318,22 +337,54 @@
                                                                 </span>
                                                             </div>
                                                         @endif
-
                                                         <div
-                                                            class="d-flex align-items-center align-content-center justify-content-start mb-2 h-100">
-                                                            <h5 class="product-title text-start">
-                                                                {{ $topRequest->orderitemable->category->title }} طرح
-                                                                {{ $topRequest->orderitemable->color_design->design->title }}
-                                                                رنگ
-                                                                {{ $topRequest->orderitemable->color_design->color->color }}
-                                                            </h5>
+                                                            class="d-flex align-items-center align-content-center justify-content-center mb-2 h-100 w-100" style="flex-direction: column;">
+                                                            <div class="text-center">
+                                                                <h5 class="product-title text-center">
+                                                                            {{ $topRequest->orderitemable->category->title }} طرح
+                                                                            {{ $topRequest->orderitemable->color_design->design->title }}
+                                                                            رنگ
+                                                                            {{ $topRequest->orderitemable->color_design->color->color }}
+                                                                        </h5>
+                                                                <a href="
+                                                                @switch($topRequest->orderitemable_type)
+                                                                    @case('App\Tablecloth')
+                                                                      {{ route('tablecloth.show', [$topRequest->orderitemable->id]) }}
+                                                                      @break
+                                                                    @case('App\Pillow')
+                                                                      {{ route('pillow.show', [$topRequest->orderitemable->id]) }}
+                                                                      @break
+                                                                    @case('App\Prayermat')
+                                                                      {{ route('prayermat.show', [$topRequest->orderitemable->id]) }}
+                                                                      @break
+                                                                    @case('App\Bedcover')
+                                                                      {{ route('bedcover.show', [$topRequest->orderitemable->id]) }}
+                                                                      @break
+                                                                    @case('App\Shoe')
+                                                                      {{ route('shoe.show', [$topRequest->orderitemable->id]) }}
+                                                                      @break
+                                                                @endswitch" class="btn btn-primary">مشاهده محصول</a>
+                                                            </div>
+                                                            <div class="position-absolute bottom-0 w-100 row justify-content-between align-items-center px-2">
+                                                                <div class="col-9">
+                                                                    <span>
+                                                                        @if($topRequest->quantity == 0) اتمام موجودی در انبار
+                                                                          @elseif($topRequest->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
+                                                                        @endif
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-3 p-0">
+                                                                    {{-- <button class="buy-button add-to-cart"><i class="fa-solid fa-cart-plus"></i></button> --}}
+                                                                    <input @if($topRequest->quantity > 0) id="addToCart" @endif type="submit" value="<i class='fa-solid fa-cart-plus'></i>" class="buy-button add-to-cart @if($topRequest->quantity==0) disabled @endif" data-id = "{{$topRequest->id}}" data-moddel = "topRequest" data-design="{{ $topRequest->color_design->design->title ?? '' }}" data-color="{{ $topRequest->color_design->color->color?? '' }}" data-title="{{ $topRequest->title }}" data-price="{{ $prices->price }}" data-pay="{{ $price }}" data-off="{{ $off }}" data-local="{{ $prices->local }}" >
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div
                                                             class="product-details d-flex align-items-center justify-content-between gap-2">
                                                             <div
                                                                 class=" w-50 h-100 text-center d-flex justify-content-center align-items-center px-1">
                                                                 <div class="countdown-timer timer-short justify-content-between"
-                                                                    id="countdown-1" data-end-date="2026-10-30">
+                                                                    id="countdown-1" data-end-date="2025-12-30">
                                                                     <div class="timer-col">
                                                                         <span class="timer-number days">12
                                                                         </span>
