@@ -123,17 +123,15 @@
                         <div class="dropdown">
                             <a class="text-decoration-none btn btn-icon" id="cartBtn" data-bs-toggle="dropdown"
                                 type="button" aria-expanded="false">
-                                @isset($cart)
-                                    <span class="badge rounded-pill cart-badge">{{ $sum }}</span>
-                                @endisset
+                                <span class="badge rounded-pill cart-badge shopping-cart-badge">{{ $sum ?? 0 }}</span>
                                 <img src="{{ asset('shop/assets/svgs/cart.svg') }}" alt="cart" width="24">
                                 <!-- <i class="fa-solid fa-cart-shopping fa-lg me-1 text-secondary"></i> -->
                             </a>
                             <!-- منوی دراپ‌داون با انیمیشن -->
                             @isset($cart)
-                                <ul class="dropdown-menu dropdown-animated text-end p-1 shadow border-0">
-                                    <li class="bg-white" style="position: sticky;top: 0px;">
-                                        <h5 class="dropdown-header text-start border-bottom w-100">
+                                <ul class="dropdown-menu dropdown-animated text-end p-1 shadow border-0" id="navbarCartList">
+                                    <li class="bg-white w-100" style="position: fixed;top: 0px;">
+                                        <h5 class="dropdown-header text-end border-bottom w-100">
                                             {{ $sum }} کالا
                                         </h5>
                                     </li>
@@ -185,7 +183,7 @@
                                                     </div>
                                                     <div class="col-md-7 p-2">
                                                         <p class="drapdown-title mt-2 text-start">
-                                                            {{ Str::limit($item->title . ' طرح ' . $item->color_design->design->title . ' رنگ ' . $item->color_design->color->color, 30) }}
+                                                            {{ Str::limit($item->title . ' طرح ' . $item->color_design->design->title . ' رنگ ' . $item->color_design->color->color, 22) }}
                                                         </p>
                                                         <div class="clearfix pt-2">
                                                             <div class="float-end">
