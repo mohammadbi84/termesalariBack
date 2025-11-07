@@ -75,9 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
     pagination: false,
     direction: "rtl",
     breakpoints: {
-      1024: { perPage: 5 },
-      768: { perPage: 3 },
-      480: { perPage: 3 },
+      1024: { perPage: 3 },
+      768: { perPage: 2 },
+      480: { perPage: 2 },
     },
   });
   categorySplide.mount();

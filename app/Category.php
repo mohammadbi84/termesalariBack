@@ -8,7 +8,14 @@ class Category extends Model
 {
     protected $fillable = ['model','title','image','link','parent_id','active'];
 
-    public function bags(){ 
+    public function childs(){
+    	return $this->hasMany('App\Category','parent_id');
+    }
+    public function parent(){
+    	return $this->belongsTo('App\Category','parent_id');
+    }
+
+    public function bags(){
     	return $this->hasMany('App\Bag');
     }
 

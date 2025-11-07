@@ -34,64 +34,52 @@
                                 <i class="fas fa-bars"></i>
                                 دسته‌بندی‌ها
                             </button>
+                            @php
+                                $categories = App\Category::where('parent_id',0)->get();
+                            @endphp
 
                             <!-- منوی کشویی دسته‌بندی‌ها -->
                             <div class="categories-menu">
                                 <div class="category-container border py-2">
-                                    <!-- دسته‌بندی با زیرمنو -->
-                                    <div class="has-submenu" style="position: relative;">
-                                        <a href="#" class="category-item">
-                                            <span>دوچرخه‌ها</span>
-                                            <i class="fas fa-chevron-left"></i>
-                                        </a>
-
-                                        <!-- زیرمنو -->
-                                        <div class="submenu border">
-                                            <a href="#" class="submenu-item">دوچرخه کوهستان</a>
-                                            <a href="#" class="submenu-item">دوچرخه شهری</a>
-                                            <a href="#" class="submenu-item">دوچرخه کورسی</a>
-                                            <a href="#" class="submenu-item">دوچرخه تاشو</a>
-                                            <a href="#" class="submenu-item">دوچرخه برقی</a>
-                                        </div>
-                                    </div>
-
-                                    <a href="#" class="category-item">
-                                        <span>لوازم جانبی</span>
-                                    </a>
-
-                                    <a href="#" class="category-item">
-                                        <span>پوشاک دوچرخه‌سواری</span>
-                                    </a>
-
-                                    <a href="#" class="category-item">
-                                        <span>قطعات و ابزار</span>
-                                    </a>
-
-                                    <a href="#" class="category-item">
-                                        <span>کلاه و محافظ</span>
-                                    </a>
-
-                                    <a href="#" class="category-item">
-                                        <span>کفش مخصوص</span>
-                                    </a>
+                                    @foreach ($categories as $category)
+                                        @if ($category->childs()->count()>0)
+                                        <!-- دسته‌بندی با زیرمنو -->
+                                        <div class="has-submenu" style="position: relative;">
+                                                <a href="#" class="category-item">
+                                                    <span>{{$category->title}}</span>
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </a>
+                                                <!-- زیرمنو -->
+                                                <div class="submenu border">
+                                                    @foreach ($category->childs as $cat)
+                                                        <a href="#" class="submenu-item">{{ $cat->title }}</a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @else
+                                            <a href="#" class="category-item">
+                                                <span>{{ $category->title }}</span>
+                                            </a>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#footer">
+                            <a class="nav-link" href="#specials">
                                 <img src="{{ asset('shop/assets/svgs/badge-percent.svg') }}" alt="hots"
                                     width="18">
                                 شگفت انگیزها</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">جدیدترین ها</a>
+                            <a class="nav-link" href="#newest">جدیدترین ها</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#footer">پرفروش ترین‌ها</a>
+                            <a class="nav-link" href="#products">پرفروش ترین‌ها</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#footer">نمایندگی های فروش</a>
+                            <a class="nav-link" href="#branchs">نمایندگی های فروش</a>
                         </li>
                     </ul>
                     <!-- cart ================================================================================================================== -->

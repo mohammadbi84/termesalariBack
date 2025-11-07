@@ -57,13 +57,14 @@
                     </form>
                 </div>
                 <div class="footer-badges">
-                    <img src="assets/logo/pardakht.png" alt="behpardakht" />
+                    <img src="{{ asset('/storetemplate/dist/img/behpardakht.png') }}" alt="behpardakht" />
                     <a referrerpolicy="origin" target="_blank"
-                        href="https://trustseal.enamad.ir/?id=210447&amp;Code=Anvxg4lW2ecEYh0W8QsV"><img
-                            referrerpolicy="origin"
-                            src="https://Trustseal.eNamad.ir/logo.aspx?id=210447&amp;Code=Anvxg4lW2ecEYh0W8QsV"
-                            alt="" style="cursor:pointer;width: 100px;filter:contrast(200%) brightness(150%);"
-                            id="Anvxg4lW2ecEYh0W8QsV"></a>
+                                href="https://trustseal.enamad.ir/?id=210447&amp;Code=Anvxg4lW2ecEYh0W8QsV"><img
+                                    referrerpolicy="origin"
+                                    src="https://Trustseal.eNamad.ir/logo.aspx?id=210447&amp;Code=Anvxg4lW2ecEYh0W8QsV"
+                                    alt=""
+                                    style="cursor:pointer;width: 100px;filter:contrast(200%) brightness(150%);"
+                                    id="Anvxg4lW2ecEYh0W8QsV"></a>
                 </div>
             </div>
         </div>

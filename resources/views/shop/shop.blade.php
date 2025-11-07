@@ -125,7 +125,7 @@
         <!-- end slider -->
         <!-- special offers -->
         @if (isset($topRequests) and count($topRequests) > 0)
-            <section>
+            <section id="specials">
                 <div class="container mb-5 px-0">
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                         <div class="d-flex align-items-center gap-2">
@@ -200,7 +200,7 @@
                                                         class="details h-100 d-flex flex-column justify-content-between text-start pt-2">
                                                         <div
                                                             class="d-flex align-items-center align-content-center justify-content-start mb-2">
-                                                            <h5 class="product-title text-start">
+                                                            <h5 class="product-title text-end">
                                                                 {{ $topRequest->orderitemable->category->title }} طرح
                                                                 {{ $topRequest->orderitemable->color_design->design->title }}
                                                                 رنگ
@@ -495,7 +495,7 @@
                                 <li class="splide__slide">
                                     <a href="{{ $category->link }}" class="text-decoration-none text-reset">
                                         <div class="category-card">
-                                            <img src="{{ asset('/storage/images/categories/thumbnails/' . $category->image) }}"
+                                            <img src="{{ asset($category->image) }}"
                                                 alt="تصاویر">
                                             <div class="title">{{ $category->title }}</div>
                                             <div class="count">{{ $category['productsCount'] }}</div>
@@ -510,7 +510,7 @@
         </section>
         <!-- end categories -->
         <!-- start newest products -->
-        <section>
+        <section id="newest">
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center gap-2 p-2">
                     <img src="{{ asset('shop/assets/svgs/hot.svg') }}" alt="جدیدترین محصولات" width="26">
@@ -748,7 +748,7 @@
         </section>
         <!-- end video -->
         <!-- start products -->
-        <section>
+        <section id="products">
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                     <div class="d-flex align-items-center gap-2">
@@ -879,7 +879,7 @@
         </section>
         <!-- end products -->
         <!-- start Branchs -->
-        <section>
+        <section id="branchs">
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center gap-2 p-2 pb-0">
                     <img src="{{ asset('shop/assets/svgs/shop-solid-full.svg') }}" alt="نمایندگی های ترمه سالاری"
@@ -1346,20 +1346,23 @@
 
                 // افزودن آیتم به لیست
                 const newItem = `
-            <div class="row border-bottom py-2">
-                <div class="col-4">
-                    <img src="${item.image ?? '/images/no-image.png'}" class="w-100" alt="">
-                </div>
-                <div class="col-8">
-                    <p class="dropdown-title mb-1">${item.title}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>${item.quantity} عدد</span>
-                        <span>${Number(item.price).toLocaleString()} <small>تومان</small></span>
-                    </div>
-                </div>
-            </div>
-        `;
-
+                    <li class="dropdown-item">
+                        <div class="row border-bottom">
+                            <div class="col-md-5 p-2">
+                                <a href="#">
+                                    <img src="${item.image ?? '/images/no-image.png'}" alt="name" class="w-100">
+                                </a>
+                            </div>
+                            <div class="col-md-7 p-2">
+                                <p class="drapdown-title mt-2 text-start">${item.title}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>${item.quantity} عدد</span>
+                                    <span>${Number(item.price).toLocaleString()} <small>تومان</small></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `;
                 $cartList.prepend(newItem);
             }
         });

@@ -46,7 +46,7 @@
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="{{ asset('shop/css/leaflet.css') }}" />
-    @yield('title')
+    @yield('head')
 </head>
 
 <body>

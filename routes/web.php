@@ -44,7 +44,7 @@ Route::get('/password/resetPassword','Auth\ForgetPasswordMobileController@resetP
 Route::post('/password/updatePassword','Auth\ForgetPasswordMobileController@updatePassword')->name('password.updatePassword');
 
 
-Route::get('/shoptest','HomestoreController@index')->name('homeStore.index');
+Route::get('/store','HomestoreController@index')->name('homeStore.index');
 
 Route::post('/shop/filter/', 'homestoreController@filter')->name('homestore.filter');
 Route::get('/shop/privacy-and-policy',function(){

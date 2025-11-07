@@ -153,7 +153,7 @@
           <li><a href="#services">نمایندگی ها</a></li>
           <li><a href="#call-to-action">سفارش محصول</a></li>
           <li><a href="#portfolio">نمونه محصولات</a></li>
-          <li><a class="storeLink rounded" href="http://www.termehsalari.com/shop">فروشگاه <i class="fa fa-shopping-cart"></i></a></li>
+          <li><a class="storeLink rounded" href="http://www.termehsalari.com/store">فروشگاه <i class="fa fa-shopping-cart"></i></a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
