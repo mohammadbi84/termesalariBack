@@ -521,6 +521,21 @@
                         @php
                             $prices = $product->orderitemable->prices->where('local', 'تومان')->first();
                         @endphp
+                        @php
+                            $price = 0;
+                            $off = 0;
+                            if ($prices->offPrice > 0) {
+                                if ($prices->offType == 'مبلغ') {
+                                    $price = $prices->price - $prices->offPrice;
+                                    $off = $prices->offPrice;
+                                } elseif ($prices->offType == 'درصد') {
+                                    $off = $prices->price * ($prices->offPrice / 100);
+                                    $price = $prices->price - $off;
+                                }
+                            } else {
+                                $price = $prices->price;
+                            }
+                        @endphp
 
                         <!-- محصول 1 -->
                         <div class="col-md-4 col-lg-3 p-2">
@@ -637,8 +652,20 @@
                                             </div>
                                             <div class="row g-0 w-100 product-footer-outrange">
                                                 <div class="col-3 ps-2">
-                                                    <button class="buy-button add-to-cart"><i
-                                                            class="fa-solid fa-cart-plus"></i></button>
+                                                    <button
+                                                        class="buy-button add-to-cart @if ($product->orderitemable->quantity != 0) addToCart @endif"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                                        data-id="{{ $product->orderitemable->id }}"
+                                                        data-moddel="{{ substr($product->orderitemable_type, 4) }}"
+                                                        data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $product->orderitemable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}"
+                                                        data-off="{{ $off }}"
+                                                        data-local="{{ $prices->local }}"><i
+                                                            class="fa-solid fa-cart-plus"></i>
+                                                    </button>
                                                 </div>
                                                 <div class="col-9 pe-2">
                                                     <a class="buy-button text-decoration-none"
@@ -748,6 +775,21 @@
                                 @php
                                     $prices = $topRequest->orderitemable->prices->where('local', 'تومان')->first();
                                 @endphp
+                                @php
+                                    $price = 0;
+                                    $off = 0;
+                                    if ($prices->offPrice > 0) {
+                                        if ($prices->offType == 'مبلغ') {
+                                            $price = $prices->price - $prices->offPrice;
+                                            $off = $prices->offPrice;
+                                        } elseif ($prices->offType == 'درصد') {
+                                            $off = $prices->price * ($prices->offPrice / 100);
+                                            $price = $prices->price - $off;
+                                        }
+                                    } else {
+                                        $price = $prices->price;
+                                    }
+                                @endphp
                                 <li class="splide__slide">
                                     <div class="product-div p-2">
                                         <div class="hot-product-card">
@@ -765,30 +807,22 @@
                                                 <div
                                                     class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
                                                     <div class="d-flex align-items-center justify-content-center gap-2">
-                                                        <a href="
-                                                        @switch($topRequest->orderitemable_type)
-                                                          @case('App\Tablecloth')
-                                                            {{ route('tablecloth.show', [$topRequest->orderitemable->id]) }}
-                                                            @break
-                                                          @case('App\Pillow')
-                                                            {{ route('pillow.show', [$topRequest->orderitemable->id]) }}
-                                                            @break
-                                                          @case('App\Prayermat')
-                                                            {{ route('prayermat.show', [$topRequest->orderitemable->id]) }}
-                                                            @break
-                                                          @case('App\Bedcover')
-                                                            {{ route('bedcover.show', [$topRequest->orderitemable->id]) }}
-                                                            @break
-                                                          @case('App\Shoe')
-                                                            {{ route('shoe.show', [$topRequest->orderitemable->id]) }}
-                                                            @break
-                                                        @endswitch
-                                                        "
-                                                            class="btn w-100 btn-buy text-decoration-none">
-                                                            مشاهده
+                                                        <button
+                                                            class="btn w-100 btn-buy @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
+                                                            data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                            data-id="{{ $topRequest->orderitemable->id }}"
+                                                            data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                            data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                            data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                            data-title="{{ $topRequest->orderitemable->title }}"
+                                                            data-price="{{ $prices->price }}"
+                                                            data-pay="{{ $price }}"
+                                                            data-off="{{ $off }}"
+                                                            data-local="{{ $prices->local }}">
+                                                            خرید
                                                             <img src="{{ asset('shop/assets/svgs/cart-white.svg') }}"
                                                                 alt="cart" width="20">
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                     <div class="d-flex flex-column hot-product-price">
 
