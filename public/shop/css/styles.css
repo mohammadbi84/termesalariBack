@@ -14,7 +14,6 @@
     opacity: 0.8;
     border: 1px solid var(--primary-color);
 }
-
 .bg-primary {
     background-color: var(--primary-color) !important;
 }
@@ -34,6 +33,9 @@ i {
 
 .fs-small {
     font-size: smaller;
+}
+.fs-10{
+    font-size: 10px;
 }
 
 .title {
@@ -139,9 +141,9 @@ i {
     transform: translateZ(50px);
 }
 
-.flip-card-back div {
+/* .flip-card-back div {
     transform: translateZ(50px);
-}
+} */
 
 .flip-card-back .adv-btn {
     transform: translateZ(50px);
@@ -236,7 +238,10 @@ i {
     background: white;
     color: #ccc;
 }
-
+.offer-cart-btn{
+    width: 40px !important;
+    height: 40px !important;
+}
 
 
 /* categories */
@@ -360,9 +365,13 @@ i {
 
 .product-title {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 0.4rem;
+    text-align: justify;
     color: #333;
+}
+.product-details{
+    border-top: 1px solid #ccc;
 }
 
 .product-description {
@@ -393,7 +402,7 @@ i {
 
 .product-card:hover .product-footer {
     flex: 0.8;
-    transform: translateY(0px);
+    transform: translateY(-5px);
 }
 
 .price-container {
@@ -414,7 +423,7 @@ i {
     /* opacity: 0;
     transform: translateY(20px); */
     transition: all 0.3s ease 0.1s;
-    background: #28b21e;
+    background: var(--primary-color);
     border: none;
     padding: 0.5rem 1.5rem;
     border-radius: 8px;
@@ -424,6 +433,7 @@ i {
     width: 100%;
     display: block;
     text-align: center;
+    height: 100%;
 }
 .product-footer-outrange{
     opacity: 0;
@@ -440,15 +450,19 @@ i {
     transform: translateY(-2px);
 }
 .add-to-cart{
-    background-color: #4fba6c2e;
+    background-color: #52AC661F;
     color: var(--primary-color) !important;
-    padding: 0 !important;
-    height: 100%;
+    padding: 0;
     border: 1px solid transparent;
+    width: 45px;
+    height: 45px;
 }
 .add-to-cart:hover{
-    background-color: #4fba6c2e;
+    background-color: var(--primary-color);
     border: 1px solid var(--primary-color) !important;
+}
+.add-to-cart:hover i{
+    color: white;
 }
 
 .container {
@@ -653,14 +667,14 @@ i {
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 30px 15px;
     position: relative;
 }
 
 /* اسلایدر اصلی (سمت چپ) */
 .left-slider {
     width: 70%;
-    border-radius: 16px;
+    border-radius: 8px;
     overflow: hidden;
     background: white;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -685,14 +699,14 @@ i {
 }
 
 .left-slider h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.1rem;
     color: #2c3e50;
 }
 
 .left-slider .teacher {
     color: #7f8c8d;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
     font-size: 0.95rem;
 }
 
@@ -707,7 +721,7 @@ i {
     background: var(--primary-color);
     color: white;
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 0.8rem;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
@@ -729,16 +743,22 @@ i {
     height: 500px;
     position: relative;
     padding: 5px 13px;
-    overflow: hidden; /* اضافه شده */
+    overflow: hidden;
+    padding-right: 0;
+    /* اضافه شده */
 }
 
 .right-slider .swiper-wrapper {
     direction: ltr;
     overflow-y: auto;
     padding: 4px 8px;
-    transform: none !important; /* غیرفعال کردن transform برای اسکرول طبیعی */
-    flex-direction: column; /* تغییر به حالت عمودی */
-    display: block; /* تغییر از flex به block برای اسکرول */
+    transform: none !important;
+    /* غیرفعال کردن transform برای اسکرول طبیعی */
+    flex-direction: column;
+    /* تغییر به حالت عمودی */
+    display: block;
+
+    /* تغییر از flex به block برای اسکرول */
 }
 
 .right-slider .swiper-wrapper::-webkit-scrollbar {
@@ -756,28 +776,31 @@ i {
     justify-content: space-between;
     gap: 12px;
     background: #f0f0f0;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 12px;
     cursor: pointer;
     transition: 0.3s;
     border: 2px solid transparent;
-    margin-bottom: 10px; /* فاصله بین اسلایدها */
-    width: 100% !important; /* عرض کامل */
-    height: auto !important; /* ارتفاع خودکار */
-}
-.right-slider-controls {
-    display: none; /* مخفی کردن کنترل‌ها در دسکتاپ */
+    margin-bottom: 10px;
+    /* فاصله بین اسلایدها */
+    width: 100% !important;
+    /* عرض کامل */
+    height: auto !important;
+    /* ارتفاع خودکار */
 }
 
-.right-slider .swiper-slide:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+.right-slider-controls {
+    display: none;
+    /* مخفی کردن کنترل‌ها در دسکتاپ */
 }
 
 .right-slider .swiper-slide-thumb-active {
-    background: #e8f5e9;
-    border-color: var(--primary-color);
+    background: #52ac66;
     transform: scale(1.02);
+    color: white;
+}
+.right-slider .swiper-slide-thumb-active span {
+    color: white;
 }
 
 .right-slider img {
@@ -891,7 +914,7 @@ i {
     position: absolute;
     left: 10px;
     gap: 5px;
-        justify-content: center;
+    justify-content: center;
     top: 0;
 }
 
@@ -917,33 +940,36 @@ i {
 
 
 .inner-slider-controls .swiper-pagination-bullet {
-  width: 6px;
-  height: 6px;
-  background-color: #fff; /* رنگ دایره توپر */
-  opacity: 1;
-  margin: 6px !important;
-  border-radius: 50%;
-  position: relative;
-  transition: all 0.3s ease;
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+    /* رنگ دایره توپر */
+    opacity: 1;
+    margin: 6px !important;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 /* وقتی دکمه فعال میشه */
 .inner-slider-controls .swiper-pagination-bullet-active {
-  background-color: #fff; /* رنگ وسط */
+    background-color: #fff;
+    /* رنگ وسط */
 }
 
 /* حلقه دور دکمه فعال */
 .inner-slider-controls .swiper-pagination-bullet-active::after {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  width: 14px;
-  height: 14px;
-  border: 2px solid #fff; /* رنگ حلقه */
-  border-radius: 50%;
-  opacity: 0.9;
-  transition: all 0.3s ease;
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    /* رنگ حلقه */
+    border-radius: 50%;
+    opacity: 0.9;
+    transition: all 0.3s ease;
 }
 
 /* ریسپانسیو */
@@ -1017,7 +1043,8 @@ i {
     }
 
     .left-slider-controls {
-        display: flex; /* نمایش کنترل‌ها در موبایل */
+        display: flex;
+        /* نمایش کنترل‌ها در موبایل */
     }
 }
 
@@ -1094,8 +1121,9 @@ i {
     width: 100%;
     border-radius: 0 0 0.375rem 0.375rem;
 }
-#mapModal .btn-close{
-    margin:0;
+
+#mapModal .btn-close {
+    margin: 0;
 }
 
 /* ریسپانسیو */
@@ -1108,7 +1136,6 @@ i {
         height: 400px;
     }
 }
-
 
 
 

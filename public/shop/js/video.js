@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // رویداد کلیک روی ویدیو
   videoOverlay.addEventListener("click", function () {
-    alert('okk')
     togglePlayPause();
   });
 

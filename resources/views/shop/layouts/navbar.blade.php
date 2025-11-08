@@ -3,7 +3,7 @@
     <div class="bookmark-container">
         <div class="bookmark expanded" id="bookmark">
             <div class="bookmark-content">
-                <div class="bookmark-text d-flex align-items-center justify-content-between h-100 gap-3">
+                <div class="bookmark-text d-flex align-items-center justify-content-start h-100 gap-3">
                     <h6 class="m-0">توجه!</h6>
                     <p class="m-0">رنگ تصاویر با رنگ واقعی محصولات 20% تفاوت دارد.</p>
                     <button class="btn btn-close bg-light" id="bookmarkToggle"></button>
@@ -17,53 +17,24 @@
             <div class="container p-0">
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ route('homeStore.index') }}">
                     <img src="{{ asset('/hometemplate/img/logo.png') }}" alt="website logo">
-                    <h5 class="me-3 mb-0 fw-bold">فروشگاه ترمه سالاری</h5>
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" id="mobileMenuToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0 column-gap-2">
+                    <ul class="navbar-nav mb-2 mb-lg-0 column-gap-2 px-0">
                         <!-- دکمه دسته‌بندی‌ها -->
-                        <div class="categories-dropdown d-flex">
+                        <div class="categories-dropdown d-flex" id="categoryTrigger">
                             <button class="categories-btn">
                                 <i class="fas fa-bars"></i>
                                 دسته‌بندی‌ها
                             </button>
                             @php
-                                $categories = App\Category::where('parent_id',0)->get();
+                                $categories = App\Category::where('parent_id', 0)->get();
+                                $chunks = $categories->chunk(ceil($categories->count() / 4)); // تقسیم به 4 قسمت
                             @endphp
-
-                            <!-- منوی کشویی دسته‌بندی‌ها -->
-                            <div class="categories-menu">
-                                <div class="category-container border py-2">
-                                    @foreach ($categories as $category)
-                                        @if ($category->childs()->count()>0)
-                                        <!-- دسته‌بندی با زیرمنو -->
-                                        <div class="has-submenu" style="position: relative;">
-                                                <a href="#" class="category-item">
-                                                    <span>{{$category->title}}</span>
-                                                    <i class="fas fa-chevron-left"></i>
-                                                </a>
-                                                <!-- زیرمنو -->
-                                                <div class="submenu border">
-                                                    @foreach ($category->childs as $cat)
-                                                        <a href="#" class="submenu-item">{{ $cat->title }}</a>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        @else
-                                            <a href="#" class="category-item">
-                                                <span>{{ $category->title }}</span>
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
                         </div>
 
                         <li class="nav-item">
@@ -111,13 +82,15 @@
                         <div class="dropdown">
                             <a class="text-decoration-none btn btn-icon" id="cartBtn" data-bs-toggle="dropdown"
                                 type="button" aria-expanded="false">
-                                <span class="badge rounded-pill cart-badge shopping-cart-badge">{{ $sum ?? 0 }}</span>
+                                <span
+                                    class="badge rounded-pill cart-badge shopping-cart-badge">{{ $sum ?? 0 }}</span>
                                 <img src="{{ asset('shop/assets/svgs/cart.svg') }}" alt="cart" width="24">
                                 <!-- <i class="fa-solid fa-cart-shopping fa-lg me-1 text-secondary"></i> -->
                             </a>
                             <!-- منوی دراپ‌داون با انیمیشن -->
                             @isset($cart)
-                                <ul class="dropdown-menu dropdown-animated text-end p-1 shadow border-0" id="navbarCartList">
+                                <ul class="dropdown-menu dropdown-animated text-end p-1 shadow border-0"
+                                    id="navbarCartList">
                                     <li class="bg-white w-100" style="position: fixed;top: 0px;">
                                         <h5 class="dropdown-header text-end border-bottom w-100">
                                             {{ $sum }} کالا
@@ -234,7 +207,8 @@
                                         ورود | ثبت نام <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
                                     </a>
                                 @else
-                                    <a href="{{ route('user.profile') }}" class="text-muted text-decoration-none px-2">
+                                    <a href="{{ route('user.profile') }}"
+                                        class="text-muted text-decoration-none px-2">
                                         <i class="fa-solid fa-user me-1"></i>
                                         {{ Auth::user()->name }} {{ Auth::user()->family }}
                                     </a>
@@ -245,5 +219,52 @@
                 </div>
             </div>
         </nav>
+        <!-- منوی دسته‌بندی برای دسکتاپ -->
+        <div class="category-menu" id="categoryMenu">
+            <div class="category-content">
+                <div class="row">
+                    @foreach ($chunks as $chunk)
+                        <!-- ستون 1 -->
+                        <div class="col-lg-3 col-md-6 category-column">
+                            @foreach ($chunk as $category)
+                                <a href="{{ route($category->link) ?? '#' }}" class="main-categories">{{ $category->title ?? '--' }}</a>
+                                @if ($category->childs()->count() > 0)
+                                    <ul class="sub-categories">
+                                        @foreach ($category->childs as $cat)
+                                            <li><a href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- آکاردئون موبایل -->
+    <div class="mobile-category-menu" id="mobileCategoryMenu">
+        <div class="mobile-category-header">
+            <span>دسته‌بندی‌ها</span>
+            <button type="button" id="closeMobileMenu" class="btn-close btn-close-white"></button>
+        </div>
+        <div class="mobile-category-content">
+            @foreach ($categories as $category)
+                <div class="mobile-main-category">
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#mobileElectronics">
+                        {{ $category->title ?? '--' }}
+                    </button>
+                    @if ($category->childs()->count() > 0)
+                        <ul class="mobile-sub-categories collapse" id="mobileElectronics">
+                            @foreach ($category->childs as $cat)
+                                <li><a href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a></li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+    <!-- overlay برای بستن منوی موبایل -->
+    <div class="overlay" id="overlay"></div>
 </header>

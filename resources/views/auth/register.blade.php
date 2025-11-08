@@ -155,21 +155,21 @@
                         <ul class="splide__list h-100">
                             <li class="splide__slide position-relative">
                                 <a href="#">
-                                    <img src="{{ asset('/hometemplate/img/intro-carousel/7.jpg') }}" class="h-100"
+                                    <img src="{{ asset('shop/assets/sliders/l1.jpg') }}" class="h-100"
                                         style="object-fit: cover;width: 100%;height: 100%;">
                                     <div class="slide-caption">فروشگاه ترمه سالاری</div>
                                 </a>
                             </li>
                             <li class="splide__slide position-relative">
                                 <a href="#">
-                                    <img src="{{ asset('/hometemplate/img/intro-carousel/6.jpg') }}" class="h-100"
+                                    <img src="{{ asset('shop/assets/sliders/l2.jpg') }}" class="h-100"
                                         style="object-fit: cover;width: 100%;height: 100%;">
                                     <div class="slide-caption">فروشگاه ترمه سالاری</div>
                                 </a>
                             </li>
                             <li class="splide__slide position-relative">
                                 <a href="#">
-                                    <img src="{{ asset('/hometemplate/img/intro-carousel/5.jpg') }}" class="h-100"
+                                    <img src="{{ asset('shop/assets/sliders/l3.jpg') }}" class="h-100"
                                         style="object-fit: cover;width: 100%;height: 100%;">
                                     <div class="slide-caption">فروشگاه ترمه سالاری</div>
                                 </a>

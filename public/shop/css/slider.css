@@ -360,7 +360,7 @@
 }
 
 .pagination-item.active {
-    border-color: #fdfdfd;
+    border-color: var(--primary-color);
     transform: scale(1.1);
 }
 
@@ -384,10 +384,5 @@
 @media (max-width: 768px) {
     .vertical-pagination {
         left: 10px;
-    }
-
-    .pagination-item {
-        width: 40px;
-        height: 40px;
     }
 }

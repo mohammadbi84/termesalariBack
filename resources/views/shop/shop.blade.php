@@ -470,7 +470,7 @@
         <!-- start categories -->
         <section>
             <div class="container mb-5 px-0">
-                <div class=" d-flex align-items-center justify-content-between w-100 p-2 pb-0">
+                <div class=" d-flex align-items-center justify-content-between w-100 p-2">
                     <div class="d-flex align-items-center gap-2">
                         <img src="{{ asset('shop/assets/svgs/layer-group-solid-full.svg') }}" alt="دسته‌بندی محصولات"
                             width="30">
@@ -493,7 +493,7 @@
                         <ul class="splide__list justify-content-cecnter" style="justify-content: center;">
                             @foreach ($allCategories as $category)
                                 <li class="splide__slide">
-                                    <a href="{{ $category->link }}" class="text-decoration-none text-reset">
+                                    <a href="{{ route($category->link) ?? '#' }}" class="text-decoration-none text-reset">
                                         <div class="category-card">
                                             <img src="{{ asset($category->image) }}"
                                                 alt="تصاویر">
