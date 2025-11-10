@@ -31,7 +31,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerate();
         session()->put('cart', $data);
-        return $this->loggedOut($request) ?: redirect('/shop');
+        return $this->loggedOut($request) ?: redirect('/store');
     }
 
     /**
@@ -59,7 +59,7 @@ class LoginController extends Controller
         request()->merge([$fieldType => $login]);
         return $fieldType;
     }
-    
+
     protected function authenticated($request,$user){
         if($user->isAdmin()){
             return redirect()->route('dashboard'); //redirect to admin panel

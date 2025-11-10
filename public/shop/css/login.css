@@ -2,6 +2,9 @@
 a {
     text-decoration: none;
 }
+p {
+    text-align: justify;
+}
 .wrapper {
     min-height: 100vh;
     margin-top: 40px;
@@ -108,8 +111,13 @@ a {
     font-size: 16px;
 }
 
+.splide__pagination{
+    bottom: 1rem !important;
+}
+
 .splide .splide__pagination .splide__pagination__page {
-    height: 8px !important;
+    height: 4px !important;
+    margin: 5px;
     width: 50px !important;
     border-radius: 5px !important;
     background: #e0e0e0 !important;
@@ -123,4 +131,25 @@ a {
 .splide .splide__pagination .splide__pagination__page.is-active {
     background: var(--primary-color) !important;
     transform: none;
+}
+
+.back-btn{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    border: 1px solid #ccc;
+}
+.back-btn:hover{
+    background-color: #f8f9fa;
+    border-color: #ccc;
+    opacity: 1 !important;
+}
+.left-col{
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .login-card {
+        width: 100% !important;
+    }
 }

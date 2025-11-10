@@ -14,15 +14,13 @@
     <!-- navbar -->
     <div class="main-menu rounded-3">
         <nav class="navbar navbar-expand-lg">
-            <div class="container p-0">
-                <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ route('homeStore.index') }}">
+            <div class="container p-0 px-3 position-relative">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
                     <img src="{{ asset('/hometemplate/img/logo.png') }}" alt="website logo">
                 </a>
-
                 <button class="navbar-toggler" type="button" id="mobileMenuToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0 column-gap-2 px-0">
                         <!-- دکمه دسته‌بندی‌ها -->
@@ -203,12 +201,17 @@
                         <div class="flex justify-center items-center">
                             <div class="button-container border border-secondary rounded p-2">
                                 @if (!Auth::check())
-                                    <a href="{{ route('login') }}" class="text-muted text-decoration-none px-2">
-                                        ورود | ثبت نام <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
+                                    <a href="{{ route('login') }}" class="text-muted text-decoration-none px-1">
+                                        ورود
                                     </a>
+                                    |
+                                    <a href="{{ route('register') }}" class="text-muted text-decoration-none px-1">
+                                        ثبت نام
+                                    </a>
+                                    <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
                                 @else
                                     <a href="{{ route('user.profile') }}"
-                                        class="text-muted text-decoration-none px-2">
+                                        class="text-muted text-decoration-none px-1">
                                         <i class="fa-solid fa-user me-1"></i>
                                         {{ Auth::user()->name }} {{ Auth::user()->family }}
                                     </a>
@@ -217,45 +220,91 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-        <!-- منوی دسته‌بندی برای دسکتاپ -->
-        <div class="category-menu" id="categoryMenu">
-            <div class="category-content">
-                <div class="row">
-                    @foreach ($chunks as $chunk)
-                        <!-- ستون 1 -->
-                        <div class="col-lg-3 col-md-6 category-column">
-                            @foreach ($chunk as $category)
-                                <a href="{{ route($category->link) ?? '#' }}" class="main-categories">{{ $category->title ?? '--' }}</a>
-                                @if ($category->childs()->count() > 0)
-                                    <ul class="sub-categories">
-                                        @foreach ($category->childs as $cat)
-                                            <li><a href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a></li>
-                                        @endforeach
-                                    </ul>
-                                @endif
+                <!-- منوی دسته‌بندی برای دسکتاپ -->
+                <div class="category-menu" id="categoryMenu">
+                    <div class="category-content">
+                        <div class="row">
+                            @foreach ($chunks as $chunk)
+                                <!-- ستون 1 -->
+                                <div class="col-lg-3 col-md-6 category-column">
+                                    @foreach ($chunk as $category)
+                                        <a href="{{ route($category->link) ?? '#' }}"
+                                            class="main-categories">{{ $category->title ?? '--' }}</a>
+                                        @if ($category->childs()->count() > 0)
+                                            <ul class="sub-categories">
+                                                @foreach ($category->childs as $cat)
+                                                    <li><a
+                                                            href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endforeach
+                                </div>
                             @endforeach
                         </div>
-                    @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
     <!-- آکاردئون موبایل -->
     <div class="mobile-category-menu" id="mobileCategoryMenu">
         <div class="mobile-category-header">
-            <span>دسته‌بندی‌ها</span>
-            <button type="button" id="closeMobileMenu" class="btn-close btn-close-white"></button>
+            <span>فروشگاه ترمه سالاری</span>
+            <button type="button" id="closeMobileMenu" class="btn-close"></button>
         </div>
         <div class="mobile-category-content">
+            <!-- ورود و ثبت نام -->
+            <div class="flex justify-center items-center mb-2">
+                <div class="button-container border border-secondary rounded text-center p-2">
+                    @if (!Auth::check())
+                        <a href="{{ route('login') }}" class="text-muted text-decoration-none px-1">
+                            ورود
+                        </a>
+                        |
+                        <a href="{{ route('register') }}" class="text-muted text-decoration-none px-1">
+                            ثبت نام
+                        </a>
+                        <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
+                    @else
+                        <a href="{{ route('user.profile') }}" class="text-muted text-decoration-none px-1">
+                            <i class="fa-solid fa-user me-1"></i>
+                            {{ Auth::user()->name }} {{ Auth::user()->family }}
+                        </a>
+                    @endif
+                </div>
+            </div>
+            <div class="mobile-main-category py-3">
+                <a href="{{ route('cart.index') }}" class="text-reset text-decoration-none fw-bold">
+                    <img src="{{ asset('shop/assets/svgs/cart.svg') }}" alt="cart" width="24">
+                    سبد خرید
+                </a>
+            </div>
+            <div class="mobile-main-category py-3">
+                <a class="nav-link fw-bold" href="#specials">
+                    <img src="{{ asset('shop/assets/svgs/badge-percent.svg') }}" alt="hots" width="18">
+                    شگفت انگیزها</a>
+            </div>
+            <div class="mobile-main-category py-3">
+                <a class="nav-link fw-bold" href="#newest">جدیدترین ها</a>
+
+            </div>
+            <div class="mobile-main-category py-3">
+                <a class="nav-link fw-bold" href="#products">پرفروش ترین‌ها</a>
+
+            </div>
+            <div class="mobile-main-category py-3">
+                <a class="nav-link fw-bold" href="#branchs">نمایندگی های فروش</a>
+
+            </div>
             @foreach ($categories as $category)
                 <div class="mobile-main-category">
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#mobileElectronics">
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#{{ $category->id }}">
                         {{ $category->title ?? '--' }}
                     </button>
                     @if ($category->childs()->count() > 0)
-                        <ul class="mobile-sub-categories collapse" id="mobileElectronics">
+                        <ul class="mobile-sub-categories collapse" id="{{ $category->id }}">
                             @foreach ($category->childs as $cat)
                                 <li><a href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a></li>
                             @endforeach

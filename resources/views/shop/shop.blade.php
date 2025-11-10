@@ -127,7 +127,7 @@
         @if (isset($topRequests) and count($topRequests) > 0)
             <section id="specials">
                 <div class="container mb-5 px-0">
-                    <div class=" d-flex align-items-center justify-content-between w-100  p-2">
+                    <div class=" d-flex align-items-center justify-content-between w-100  p-2 offer-header">
                         <div class="d-flex align-items-center gap-2">
                             <img src="{{ asset('shop/assets/svgs/badge-percent-title.svg') }}" alt="پیشنهاد ویژه"
                                 width="30">
@@ -139,6 +139,7 @@
                                 <button class="splide-prev-btn splide-offer-prev-btn">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+                                <span id="events-range" class="slide-range">1-4</span>
                                 <button class="splide-next-btn splide-offer-next-btn">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
@@ -316,7 +317,7 @@
                                                     <div class="d-flex align-items-center align-content-center justify-content-center mb-2 h-100 w-100"
                                                         style="flex-direction: column;">
                                                         <div class="text-center">
-                                                            <h5 class="product-title text-center">
+                                                            <h5 class="product-title text-center mb-4">
                                                                 {{ $topRequest->orderitemable->category->title }} طرح
                                                                 {{ $topRequest->orderitemable->color_design->design->title }}
                                                                 رنگ
@@ -482,6 +483,7 @@
                             <button class="splide-prev-btn splide-category-prev-btn">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
+                            <span id="category-range" class="slide-range">1-5</span>
                             <button class="splide-next-btn splide-category-next-btn">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
@@ -733,9 +735,9 @@
         <!-- start video -->
         <section>
             <div class="video-full-container mb-5 px-0">
-                <video id="fullscreen-video" loop>
+                <video id="fullscreen-video" poster="{{ asset('shop/assets/cover.png') }}">
                     <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
-                    <source src="{{ asset('shop/assets/sliders/fazel.mp4') }}" type="video/mp4">
+                    <source src="{{ asset('shop/assets/termesalari.mp4') }}" type="video/mp4">
                     مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
                 </video>
 
@@ -762,6 +764,7 @@
                             <button class="splide-prev-btn splide-hot-prev-btn">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
+                            <span id="hot-range" class="slide-range">1-4</span>
                             <button class="splide-next-btn splide-hot-next-btn">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>

@@ -127,7 +127,7 @@
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
     <style>
-        .splide__pagination{
+        .splide__pagination {
             bottom: 1.7rem;
         }
     </style>
@@ -174,7 +174,7 @@
                     <div class="mb-3 mt-4">
                         <div class="autocomplete mb-3" id="autocompleteBoxlogin">
                             <input type="text" id="searchInputlogin" class="" name="login"
-                                oninput="nameinput('login')" >
+                                oninput="nameinput('login')">
                             <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
                             <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')">×</span>
                         </div>
@@ -195,7 +195,7 @@
 
                         <input type="checkbox" class="flat-red" name="remember" id="remember"
                             {{ old('remember') ? 'checked' : '' }}>
-                            <label for="remember">من را به خاطر بسپار</label>
+                        <label for="remember">من را به خاطر بسپار</label>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
@@ -214,8 +214,11 @@
 @endsection
 @section('script')
     <script>
-            const menu = $(".main-menu");
-            menu.addClass('small');
+        const menu = $(".main-menu");
+        menu.addClass('small');
+        const bookmarkFirst = $("#bookmark");
+        bookmarkFirst.removeClass('expanded');
+        bookmarkFirst.addClass('collapsed');
     </script>
     <!-- slider -->
     <script>

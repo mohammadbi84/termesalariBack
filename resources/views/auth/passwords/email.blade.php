@@ -141,7 +141,7 @@
                 </section>
             </div>
             <!-- فورم سمت چپ -->
-            <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
+            <div class="col-md-6 p-5 d-flex flex-column justify-content-center left-col">
                 <h4 class="mb-4">بازیابی رمز عبور</h4>
                 <p class="text-justify text-muted mb-5">اطلاعات مربوط به بازیابی رمز عبور به ایمیل/شماره موبایل شما ارسال
                     خواهد شد</p>
@@ -160,16 +160,24 @@
                     </div>
 
                     <button type="submit" id="submit" class="btn btn-primary w-100 mb-3">ارسال</button>
-                    <a href="{{ route('login') }}" class="btn btn-flat btn-danger">بازگشت</a>
+                    <a href="{{ route('login') }}" class="btn btn-flat back-btn">
+                        <i class="fa fa-arrow-right ms-1"></i>
+                        بازگشت
+                    </a>
                 </form>
             </div>
         </div>
     </div>
 @endsection
 @section('script')
-    <script>
+<script>
         const menu = $(".main-menu");
         menu.addClass('small');
+        const bookmarkFirst = $("#bookmark");
+        bookmarkFirst.removeClass('expanded');
+        bookmarkFirst.addClass('collapsed');
+    </script>
+    <script>
 
         $("#submit").click(function() {
             var data = $("#searchInputemail").val();

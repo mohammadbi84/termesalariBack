@@ -220,6 +220,11 @@
     <script>
         const menu = $(".main-menu");
         menu.addClass('small');
+        const bookmarkFirst = $("#bookmark");
+        bookmarkFirst.removeClass('expanded');
+        bookmarkFirst.addClass('collapsed');
+    </script>
+    <script>
 
         $("#resendSMS").click(function() {
             event.preventDefault();

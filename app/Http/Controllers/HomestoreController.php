@@ -135,7 +135,10 @@ class HomestoreController extends Controller
             ->with('newestProducts', $newestProducts)
             ->with('specials', $specials);
     }
-
+    public function index3()
+    {
+        return 'hiii';
+    }
 
     public function filter(Request $request)
     {

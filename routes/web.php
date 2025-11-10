@@ -45,6 +45,7 @@ Route::post('/password/updatePassword','Auth\ForgetPasswordMobileController@upda
 
 
 Route::get('/store','HomestoreController@index')->name('homeStore.index');
+Route::get('/store3','HomestoreController@index3')->name('etc.storeIndex');
 
 Route::post('/shop/filter/', 'homestoreController@filter')->name('homestore.filter');
 Route::get('/shop/privacy-and-policy',function(){

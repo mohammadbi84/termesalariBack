@@ -72,5 +72,5 @@
 </footer>
 <div class="container-fluid text-light text-center py-4" style="background-color: #030f08;">
     <span class="fs-small">© Copyright <b>termehsalari</b>. All Rights Reserved <br>
-        Designed by <a href="https://www.fazeledu.com/" class="text-success">FazelEdu</a></span>
+        Designed by <a href="http://www.fazeledu.com/" class="text-success">FazelEdu</a></span>
 </div>
