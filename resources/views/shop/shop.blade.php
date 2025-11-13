@@ -363,7 +363,7 @@
                                                                         class="buy-button text-decoration-none">مشاهده</a>
                                                                 </div>
                                                             </div>
-                                                            <div class="text-center">
+                                                            <div class="text-start">
                                                                 <span class="fs-10 p-0">
                                                                     @if ($topRequest->orderitemable->quantity == 0)
                                                                         اتمام موجودی در انبار
@@ -828,7 +828,6 @@
                                                         </button>
                                                     </div>
                                                     <div class="d-flex flex-column hot-product-price">
-
                                                         @if ($prices->offPrice > 0)
                                                             <span
                                                                 class="d-flex align-items-center justify-content-between mb-1"
@@ -866,10 +865,19 @@
                                                                 </svg>
                                                             </span>
                                                         @endif
-
-
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="text-end hot-description">
+                                                <span>
+                                                    @if ($topRequest->orderitemable->quantity == 0)
+                                                        اتمام موجودی در انبار
+                                                    @elseif($topRequest->orderitemable->quantity <= 5)
+                                                        کمتر از 5 عدد موجود می باشد .
+                                                    @else
+                                                    تا تموم نشده بخرید.     
+                                                    @endif
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -990,10 +998,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">تهران</h3>
-                                    <p>بازار کفاش ها - خانه ترمه ایران</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    <p class="flex-grow-1">بازار کفاش ها - خانه ترمه ایران
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
+                                    </p>
+                                    <div class="text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="تهران"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1021,10 +1031,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">تهران</h3>
-                                    <p>مینی سیتی - شهرک شهید محلاتی</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">تهران</h3> --}}
+                                    <p class="flex-grow-1">مینی سیتی - شهرک شهید محلاتی
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="تهران"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1052,10 +1065,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">مشهد</h3>
-                                    <p>چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">مشهد</h3> --}}
+                                    <p class="flex-grow-1">چهارراه خسروی - پاساژ جواد - طبقه اول
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 05132253572
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="مشهد"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1083,10 +1099,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">رفسنجان</h3>
-                                    <p>خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی 03434265741</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">رفسنجان</h3> --}}
+                                    <p class="flex-grow-1">خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 03434265741
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="رفسنجان"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1114,10 +1133,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">اصفهان</h3>
-                                    <p>میدان نقش جهان</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">اصفهان</h3> --}}
+                                    <p class="flex-grow-1">میدان نقش جهان
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="اصفهان"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1145,10 +1167,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">کرمان</h3>
-                                    <p>سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم 03432239460</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">کرمان</h3> --}}
+                                    <p class="flex-grow-1">سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 03432239460
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="کرمان"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1176,10 +1201,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">قزوین</h3>
-                                    <p>خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان 02833359101</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">قزوین</h3> --}}
+                                    <p class="flex-grow-1">خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 02833359101
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="قزوین"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1207,10 +1235,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">یاسوج</h3>
-                                    <p>خیابان30 متری معاد</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">یاسوج</h3> --}}
+                                    <p class="flex-grow-1">خیابان30 متری معاد
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="یاسوج"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
@@ -1238,10 +1269,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info">
-                                    <h3 class="mb-3">نجف آباد اصفهان</h3>
-                                    <p>مجتمع تجاری فردوسی - صنایع ترمه</p>
-                                    <div class="w-100 text-start">
+                                <div class="info d-flex justify-content-between align-items-center">
+                                    {{-- <h3 class="mb-3">نجف آباد اصفهان</h3> --}}
+                                    <p class="flex-grow-1">مجتمع تجاری فردوسی - صنایع ترمه
+                                        <br>
+                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
+                                    </p>
+                                    <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
                                             data-location="نجف آباد اصفهان" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی نقشه</button>
