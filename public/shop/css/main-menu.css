@@ -126,6 +126,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     padding-top: 34px !important;
+    padding-bottom: 0 !important;
 }
 /* .dropdown:hover .dropdown-menu {
     display: block;
@@ -334,7 +335,9 @@
     position:absolute;
     left: 20px;
 }
-
+.login-link:hover{
+    color: var(--primary-color) !important;
+}
 
 
 

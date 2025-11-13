@@ -78,7 +78,7 @@
                             }
                         @endphp
                         <div class="dropdown" id="cart_dropdown">
-                            <a class="text-decoration-none btn btn-icon" id="cartBtn" data-bs-toggle="dropdown"
+                            <a class="text-decoration-none btn btn-icon border-0" id="cartBtn" data-bs-toggle="dropdown"
                                 type="button" aria-expanded="false">
                                 <span
                                     class="badge rounded-pill cart-badge shopping-cart-badge">{{ $sum ?? 0 }}</span>
@@ -201,11 +201,11 @@
                         <div class="flex justify-center items-center">
                             <div class="button-container border border-secondary rounded p-2">
                                 @if (!Auth::check())
-                                    <a href="{{ route('login') }}" class="text-muted text-decoration-none px-1">
+                                    <a href="{{ route('login') }}" class="text-muted text-decoration-none px-1 login-link">
                                         ورود
                                     </a>
                                     |
-                                    <a href="{{ route('register') }}" class="text-muted text-decoration-none px-1">
+                                    <a href="{{ route('register') }}" class="text-muted text-decoration-none px-1 login-link">
                                         ثبت نام
                                     </a>
                                     <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>

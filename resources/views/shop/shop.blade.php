@@ -545,7 +545,7 @@
                                 {{-- <div class="discount-badge">20% تخفیف</div> --}}
                                 <div class="product-image">
                                     <img src="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
-                                        alt="هدفون حرفه ای">
+                                        alt="{{ $product->orderitemable->category->title }}">
                                 </div>
                                 <div class="product-body">
                                     <div class="product-info">
@@ -554,7 +554,7 @@
                                             رنگ
                                             {{ $product->orderitemable->color_design->color->color }}</h3>
                                         <p class="product-description">
-                                            {{ Str::limit($product->description, 30, '...') }}
+                                            {{ $product->orderitemable->category->title }}
                                         </p>
                                     </div>
                                     <div class="product-footer">

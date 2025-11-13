@@ -337,6 +337,7 @@ i {
     height: 280px;
     overflow: hidden;
     position: relative;
+    border-bottom: 1px solid #dedede;
 }
 
 .product-image img {
@@ -718,6 +719,7 @@ i {
     margin-bottom: 2px !important;
     color: #2c3e50;
 }
+
 .left-slider p {
     margin-bottom: 2px !important;
 }

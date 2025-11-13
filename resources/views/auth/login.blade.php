@@ -172,18 +172,19 @@
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="mb-3 mt-4">
-                        <div class="autocomplete mb-3" id="autocompleteBoxlogin">
-                            <input type="text" id="searchInputlogin" class="" name="login"
-                                oninput="nameinput('login')">
+                        <div class="autocomplete @error('login') filled @enderror" id="autocompleteBoxlogin">
+                            <input type="text" id="searchInputlogin" value="{{ old('login') }}" class=""
+                                name="login" oninput="nameinput('login')">
                             <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
-                            <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')">×</span>
+                            <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                @if (old('login')) style="display:block !important" @endif>×</span>
                         </div>
                         @error('login')
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
-
-
-                        <div class="autocomplete mb-3" id="autocompleteBoxpassword">
+                    </div>
+                    <div class="mb-3">
+                        <div class="autocomplete" id="autocompleteBoxpassword">
                             <input type="password" id="searchInputpassword" class="" name="password"
                                 oninput="nameinput('password')">
                             <label for="searchInputpassword">رمز عبور</label>
@@ -192,7 +193,8 @@
                         @error('password')
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
-
+                    </div>
+                    <div class="mb-3">
                         <input type="checkbox" class="flat-red" name="remember" id="remember"
                             {{ old('remember') ? 'checked' : '' }}>
                         <label for="remember">من را به خاطر بسپار</label>

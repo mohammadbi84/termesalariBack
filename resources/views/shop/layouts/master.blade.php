@@ -65,6 +65,31 @@
     <!-- Leaflet JS -->
     <script src="{{ asset('shop/js/leaflet.js') }}"></script>
     @yield('script')
+
+    @if (session('fail'))
+        <script>
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                text: "{{ Session::get('fail') }}",
+                showConfirmButton: false,
+                width: 400,
+                timer: 2000,
+            });
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                text: "{{ Session::get('success') }}",
+                showConfirmButton: false,
+                width: 400,
+                timer: 2000,
+            });
+        </script>
+    @endif
 </body>
 
 </html>
