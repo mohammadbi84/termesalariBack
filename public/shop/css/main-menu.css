@@ -125,8 +125,13 @@
     max-height: 500px;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding-top: 0 !important;
+    padding-top: 34px !important;
 }
+/* .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+} */
+
 
 .dropdown-menu::-webkit-scrollbar {
     width: 5px;

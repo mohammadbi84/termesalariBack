@@ -133,6 +133,7 @@
     }
 
     .play-pause-btn {
+        display: flex;
         width: 60px;
         height: 60px;
     }

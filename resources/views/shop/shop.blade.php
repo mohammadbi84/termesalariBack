@@ -315,7 +315,7 @@
                                                         </div>
                                                     @endif
                                                     <div class="d-flex align-items-center align-content-center justify-content-center mb-2 h-100 w-100"
-                                                        style="flex-direction: column;">
+                                                        style="flex-direction: column;padding: 0 17px;">
                                                         <div class="text-center">
                                                             <h5 class="product-title text-center mb-4">
                                                                 {{ $topRequest->orderitemable->category->title }} طرح
@@ -994,7 +994,7 @@
                                     <h3 class="mb-3">تهران</h3>
                                     <p>بازار کفاش ها - خانه ترمه ایران</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="تهران"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="تهران"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1025,7 +1025,7 @@
                                     <h3 class="mb-3">تهران</h3>
                                     <p>مینی سیتی - شهرک شهید محلاتی</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="تهران"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="تهران"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1056,7 +1056,7 @@
                                     <h3 class="mb-3">مشهد</h3>
                                     <p>چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="مشهد"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="مشهد"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1087,7 +1087,7 @@
                                     <h3 class="mb-3">رفسنجان</h3>
                                     <p>خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی 03434265741</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="رفسنجان"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="رفسنجان"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1118,7 +1118,7 @@
                                     <h3 class="mb-3">اصفهان</h3>
                                     <p>میدان نقش جهان</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="اصفهان"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="اصفهان"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1149,7 +1149,7 @@
                                     <h3 class="mb-3">کرمان</h3>
                                     <p>سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم 03432239460</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="کرمان"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="کرمان"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1180,7 +1180,7 @@
                                     <h3 class="mb-3">قزوین</h3>
                                     <p>خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان 02833359101</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="قزوین"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="قزوین"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1211,7 +1211,7 @@
                                     <h3 class="mb-3">یاسوج</h3>
                                     <p>خیابان30 متری معاد</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal" data-location="یاسوج"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="یاسوج"
                                             data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1242,7 +1242,7 @@
                                     <h3 class="mb-3">نجف آباد اصفهان</h3>
                                     <p>مجتمع تجاری فردوسی - صنایع ترمه</p>
                                     <div class="w-100 text-start">
-                                        <button data-bs-toggle="modal" data-bs-target="#mapModal"
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
                                             data-location="نجف آباد اصفهان" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی نقشه</button>
                                     </div>
