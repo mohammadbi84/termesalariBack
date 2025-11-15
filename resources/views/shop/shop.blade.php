@@ -875,7 +875,7 @@
                                                     @elseif($topRequest->orderitemable->quantity <= 5)
                                                         کمتر از 5 عدد موجود می باشد .
                                                     @else
-                                                    تا تموم نشده بخرید.     
+                                                    تا تموم نشده بخرید.
                                                     @endif
                                                 </span>
                                             </div>
