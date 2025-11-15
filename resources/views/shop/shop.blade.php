@@ -314,8 +314,8 @@
                                                             </span>
                                                         </div>
                                                     @endif
-                                                    <div class="d-flex align-items-center align-content-center justify-content-center mb-2 h-100 w-100"
-                                                        style="flex-direction: column;padding: 0 17px;">
+                                                    <div class="d-flex btn-row align-items-center align-content-center justify-content-center mb-2 h-100 w-100"
+                                                        style="flex-direction: column;padding: 0 22px;">
                                                         <div class="text-center">
                                                             <h5 class="product-title text-center mb-4">
                                                                 {{ $topRequest->orderitemable->category->title }} طرح
@@ -323,7 +323,6 @@
                                                                 رنگ
                                                                 {{ $topRequest->orderitemable->color_design->color->color }}
                                                             </h5>
-
                                                             <div class="row g-0 w-100">
                                                                 <div class="col-3 ps-2">
                                                                     <button
@@ -361,16 +360,14 @@
                                                                         @endswitch
                                                                         "
                                                                         class="buy-button text-decoration-none">مشاهده</a>
+                                                                    <span class="fs-10 p-0">
+                                                                        @if ($topRequest->orderitemable->quantity == 0)
+                                                                            اتمام موجودی در انبار
+                                                                        @elseif($topRequest->orderitemable->quantity <= 5)
+                                                                            کمتر از 5 عدد موجود می باشد .
+                                                                        @endif
+                                                                    </span>
                                                                 </div>
-                                                            </div>
-                                                            <div class="text-start">
-                                                                <span class="fs-10 p-0">
-                                                                    @if ($topRequest->orderitemable->quantity == 0)
-                                                                        اتمام موجودی در انبار
-                                                                    @elseif($topRequest->orderitemable->quantity <= 5)
-                                                                        کمتر از 5 عدد موجود می باشد .
-                                                                    @endif
-                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -495,10 +492,10 @@
                         <ul class="splide__list justify-content-cecnter" style="justify-content: center;">
                             @foreach ($allCategories as $category)
                                 <li class="splide__slide">
-                                    <a href="{{ route($category->link) ?? '#' }}" class="text-decoration-none text-reset">
+                                    <a href="{{ route($category->link) ?? '#' }}"
+                                        class="text-decoration-none text-reset">
                                         <div class="category-card">
-                                            <img src="{{ asset($category->image) }}"
-                                                alt="تصاویر">
+                                            <img src="{{ asset($category->image) }}" alt="تصاویر">
                                             <div class="title">{{ $category->title }}</div>
                                             <div class="count">{{ $category['productsCount'] }}</div>
                                         </div>
@@ -514,9 +511,16 @@
         <!-- start newest products -->
         <section id="newest">
             <div class="container mb-5 px-0">
-                <div class=" d-flex align-items-center gap-2 p-2">
-                    <img src="{{ asset('shop/assets/svgs/hot.svg') }}" alt="جدیدترین محصولات" width="26">
-                    <h2 class="title m-0">جدیدترین محصولات</h2>
+                <div class=" d-flex justify-content-between align-items-center p-2 w-100">
+                    <div class=" d-flex align-items-center gap-2">
+                        <img src="{{ asset('shop/assets/svgs/cup.svg') }}" alt="دسته‌بندی محصولات" width="30">
+                        <h2 class="title m-0">جدیدترین محصولات</h2>
+                    </div>
+                    <div class="">
+                        <a href="#" class="btn btn-primary">
+                            مشاهده بیشتر
+                        </a>
+                    </div>
                 </div>
                 <div class="row g-0 p-2">
                     @foreach ($newestProducts as $key => $product)
@@ -553,7 +557,7 @@
                                             {{ $product->orderitemable->color_design->design->title }}
                                             رنگ
                                             {{ $product->orderitemable->color_design->color->color }}</h3>
-                                        <p class="product-description">
+                                        <p class="product-description">دسته بندی
                                             {{ $product->orderitemable->category->title }}
                                         </p>
                                     </div>
@@ -662,8 +666,7 @@
                                                         data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
                                                         data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
                                                         data-title="{{ $product->orderitemable->title }}"
-                                                        data-price="{{ $prices->price }}"
-                                                        data-pay="{{ $price }}"
+                                                        data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-local="{{ $prices->local }}"><i
                                                             class="fa-solid fa-cart-plus"></i>
@@ -754,7 +757,7 @@
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="{{ asset('shop/assets/svgs/shopping-cart.svg') }}" alt="پرفروش ترین محصولات"
+                        <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="پرفروش ترین محصولات"
                             width="30">
                         <h2 class="title m-0">پرفروش ترین محصولات</h2>
                     </div>
@@ -810,22 +813,26 @@
                                                 <div
                                                     class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
                                                     <div class="d-flex align-items-center justify-content-center gap-2">
-                                                        <button
-                                                            class="btn w-100 btn-buy @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
-                                                            data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
-                                                            data-id="{{ $topRequest->orderitemable->id }}"
-                                                            data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                            data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                            data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                            data-title="{{ $topRequest->orderitemable->title }}"
-                                                            data-price="{{ $prices->price }}"
-                                                            data-pay="{{ $price }}"
-                                                            data-off="{{ $off }}"
-                                                            data-local="{{ $prices->local }}">
-                                                            خرید
-                                                            <img src="{{ asset('shop/assets/svgs/cart-white.svg') }}"
-                                                                alt="cart" width="20">
-                                                        </button>
+                                                        <a href="
+                                                            @switch($topRequest->orderitemable_type)
+                                                                @case('App\Tablecloth')
+                                                                  {{ route('tablecloth.show', [$topRequest->orderitemable->id]) }}
+                                                                  @break
+                                                                @case('App\Pillow')
+                                                                  {{ route('pillow.show', [$topRequest->orderitemable->id]) }}
+                                                                  @break
+                                                                @case('App\Prayermat')
+                                                                  {{ route('prayermat.show', [$topRequest->orderitemable->id]) }}
+                                                                  @break
+                                                                @case('App\Bedcover')
+                                                                  {{ route('bedcover.show', [$topRequest->orderitemable->id]) }}
+                                                                  @break
+                                                                @case('App\Shoe')
+                                                                  {{ route('shoe.show', [$topRequest->orderitemable->id]) }}
+                                                                  @break
+                                                            @endswitch
+                                                            "
+                                                            class="buy-button text-decoration-none h-100 px-3 py-1">مشاهده</a>
                                                     </div>
                                                     <div class="d-flex flex-column hot-product-price">
                                                         @if ($prices->offPrice > 0)
@@ -868,16 +875,24 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="text-end hot-description">
-                                                <span>
-                                                    @if ($topRequest->orderitemable->quantity == 0)
-                                                        اتمام موجودی در انبار
-                                                    @elseif($topRequest->orderitemable->quantity <= 5)
-                                                        کمتر از 5 عدد موجود می باشد .
-                                                    @else
-                                                    تا تموم نشده بخرید.
-                                                    @endif
-                                                </span>
+                                            <div
+                                                class="px-1 pt-2 hot-description border-top d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                                    <span class="fs-10">28 عدد فروش رفته</span>
+                                                </div>
+                                                <button
+                                                    class="buy-button shadow-none add-to-cart @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
+                                                    style="width:30px;height:30px"
+                                                    data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                    data-id="{{ $topRequest->orderitemable->id }}"
+                                                    data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                    data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                    data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                    data-title="{{ $topRequest->orderitemable->title }}"
+                                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                                    data-off="{{ $off }}"
+                                                    data-local="{{ $prices->local }}"><i
+                                                        class="fa-solid fa-cart-plus"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -1004,8 +1019,9 @@
                                         <i class="bi bi-telephone ms-1"></i> 035-36260637
                                     </p>
                                     <div class="text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="تهران"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="تهران" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1038,8 +1054,9 @@
                                         <i class="bi bi-telephone ms-1"></i> 035-36260637
                                     </p>
                                     <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="تهران"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="تهران" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1072,8 +1089,9 @@
                                         <i class="bi bi-telephone ms-1"></i> 05132253572
                                     </p>
                                     <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="مشهد"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="مشهد" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1101,13 +1119,15 @@
                                 </div>
                                 <div class="info d-flex justify-content-between align-items-center">
                                     {{-- <h3 class="mb-3">رفسنجان</h3> --}}
-                                    <p class="flex-grow-1">خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی
+                                    <p class="flex-grow-1">خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای
+                                        عربی
                                         <br>
                                         <i class="bi bi-telephone ms-1"></i> 03434265741
                                     </p>
                                     <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="رفسنجان"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="رفسنجان" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1140,8 +1160,9 @@
                                         <i class="bi bi-telephone ms-1"></i> 035-36260637
                                     </p>
                                     <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="اصفهان"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="اصفهان" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1174,8 +1195,9 @@
                                         <i class="bi bi-telephone ms-1"></i> 03432239460
                                     </p>
                                     <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="کرمان"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="کرمان" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1203,13 +1225,15 @@
                                 </div>
                                 <div class="info d-flex justify-content-between align-items-center">
                                     {{-- <h3 class="mb-3">قزوین</h3> --}}
-                                    <p class="flex-grow-1">خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان
+                                    <p class="flex-grow-1">خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه
+                                        سیان
                                         <br>
                                         <i class="bi bi-telephone ms-1"></i> 02833359101
                                     </p>
                                     <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="قزوین"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="قزوین" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1242,8 +1266,9 @@
                                         <i class="bi bi-telephone ms-1"></i> 035-36260637
                                     </p>
                                     <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal" data-location="یاسوج"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                            data-location="یاسوج" data-lat="31.89413819001718"
+                                            data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1300,8 +1325,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="mapModalLabel">موقعیت روی نقشه</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div id="map"></div>
@@ -1383,7 +1407,7 @@
 
                 // افزودن آیتم به لیست
                 const newItem = `
-                    <li class="dropdown-item">
+                    <li class="dropdown-item pb-0">
                         <div class="row border-bottom">
                             <div class="col-md-5 p-2">
                                 <a href="#">

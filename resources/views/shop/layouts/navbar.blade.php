@@ -82,7 +82,7 @@
                                 data-bs-toggle="dropdown" type="button" aria-expanded="false">
                                 <span
                                     class="badge rounded-pill cart-badge shopping-cart-badge">{{ $sum ?? 0 }}</span>
-                                <img src="{{ asset('shop/assets/svgs/cart.svg') }}" alt="cart" width="24">
+                                <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full (1).svg') }}" alt="cart" width="24">
                                 <!-- <i class="fa-solid fa-cart-shopping fa-lg me-1 text-secondary"></i> -->
                             </a>
                             <!-- منوی دراپ‌داون با انیمیشن -->
@@ -126,7 +126,7 @@
                                                     $price = $price + $p->price * $list['quantities'][$key];
                                                 }
                                             @endphp
-                                            <li class="dropdown-item">
+                                            <li class="dropdown-item pb-0">
                                                 <div class="row border-bottom">
                                                     <div class="col-md-5 p-2">
                                                         <a
@@ -172,7 +172,7 @@
                                     @endisset
                                     <li class="bg-white p-3 border-top" id="cart-button" style="position: sticky;bottom: 0;">
                                         <div class="row ">
-                                            <div class="col text-start">
+                                            <div class="col-4 text-start">
                                                 <span class="float-end mt-0 card-price">{{ number_format($price) }}<span
                                                         class="toman"><svg viewBox="0 0 15 16" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg" width="20"
@@ -182,7 +182,7 @@
                                                                 fill="#A3A3A3"></path>
                                                         </svg></span></span>
                                             </div>
-                                            <div class="col text-start">
+                                            <div class="col-8 text-start">
                                                 @if (!Auth::check())
                                                     <a href="{{ route('login') }}" class="btn btn-success my-auto"
                                                         style="margin-top: 10px">ورود و ثبت سفارش</a>
