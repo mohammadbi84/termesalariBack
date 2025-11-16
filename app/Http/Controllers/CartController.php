@@ -28,7 +28,7 @@ class CartController extends Controller
     public function index()
     {
         session()->forget(['discountCardPrice' , 'discountCardID']);
-        if (session()->has('cart')) { 
+        if (session()->has('cart')) {
             // dd(111);
             $cart = session('cart');
             $sum = 0;
@@ -50,7 +50,7 @@ class CartController extends Controller
             ->with('cart', $cart)
             ->with('sum', $sum)
             ->with('list', $list);
-        } 
+        }
         return view('cart.index');
     }
     //     else
@@ -91,11 +91,11 @@ class CartController extends Controller
         }
         elseif($q == 0 )
             return 0;
-            
+
     }
 
     public function change(Request $request)
-    { 
+    {
         // dd($request->all());
         $action = $request->action;
         $product = $request->product;
@@ -203,7 +203,7 @@ class CartController extends Controller
             }
             else
                 return view('cart.index');
-            
+
         }
     }
 
@@ -318,7 +318,7 @@ public function cartfinal(Request $request)
                 $result["res"] = "error";
                 $result["message"] = "شما از این کد تخفیف قبلا استفاده کرده اید .امکان استفاده مجدد از آن وجود ندارد.";
             }
-            elseif (isset($discountCard) and $order->count() < $discountCard->count_usable and $user_order->count() == 0) 
+            elseif (isset($discountCard) and $order->count() < $discountCard->count_usable and $user_order->count() == 0)
             {
                 date_default_timezone_set('Asia/Tehran');
                 $startDate = verta($discountCard->start_date);
@@ -356,4 +356,3 @@ public function cartfinal(Request $request)
 
 }//End
 
-        

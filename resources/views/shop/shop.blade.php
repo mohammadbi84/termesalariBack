@@ -1339,6 +1339,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            // 🛒 افزودن محصول به سبد خرید
             $(document).on('click', '.addToCart', function() {
                 const $btn = $(this);
 
@@ -1350,7 +1351,7 @@
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
                 const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
-                const image = $btn.data('image'); // اگه داری اضافه کن
+                const image = $btn.data('image') || '/images/no-image.png';
                 const url = `${document.location.origin}/cart/add/${id}/${model}`;
 
                 // درخواست AJAX
@@ -1369,7 +1370,8 @@
                                 title,
                                 price,
                                 image,
-                                quantity: 1
+                                quantity: 1,
+                                model: model
                             });
 
                             Swal.fire({
@@ -1396,35 +1398,172 @@
                 });
             });
 
+            // 🔼 🔽 افزایش و کاهش تعداد محصول در سبد خرید
+            $(document).on('click', '.increase, .decrease', function(event) {
+                event.preventDefault();
+
+                const $btn = $(this);
+                const action = $btn.hasClass('increase') ? 'increase' : 'decrease';
+                const id = $btn.data('id');
+                const model = $btn.data('model');
+                const $cartItem = $btn.closest('.cart-item, .dropdown-item, li');
+                const $quantitySpan = $btn.siblings('.count');
+
+                const url = `${document.location.origin}/cart/change`;
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        '_token': '<?php echo csrf_token(); ?>',
+                        'action': action,
+                        'product': id,
+                        'model': model
+                    },
+                    success: function(response) {
+                        if (response == "error") {
+                            Swal.fire({
+                                icon: "error",
+                                title: "خطا در اجرای عملیات",
+                                text: "اتمام موجودی در انبار"
+                            });
+                        } else if (response == "finish") {
+                            // حذف آیتم از سبد خرید
+                            $cartItem.fadeOut(300, function() {
+                                $(this).remove();
+                                // updateCartTotals(action, 0, 0); // به روزرسانی جمع کل
+                            });
+                            updateCartBadge();
+
+                        } else {
+                            // به روزرسانی تعداد
+                            const newQuantity = response.quantity;
+                            $quantitySpan.text(newQuantity);
+
+                            // به روزرسانی جمع کل
+                            // updateCartTotals(action, price, off);
+
+                            // به روزرسانی تعداد در نوبار
+                            updateNavbarQuantity(action, id, model, newQuantity);
+                            updateCartBadge();
+
+                        }
+                        $('.loader').hide();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: "error",
+                            title: "خطا در ارتباط با سرور!",
+                            text: "لطفاً دوباره تلاش کنید."
+                        });
+                        $('.loader').hide();
+                    }
+                });
+            });
+
+            function updateCartBadge() {
+                let totalItems = 0;
+                $('.item-quantity').each(function() {
+                    totalItems += parseInt($(this).text());
+                });
+                $('.shopping-cart-badge').text(totalItems);
+            }
+
             // 🧩 تابع برای آپدیت کردن dropdown در navbar
             function updateNavbarCart(item) {
                 const $badge = $(".shopping-cart-badge");
-                const $cartList = $("#navbarCartList"); // div یا container داخل dropdown
+                const $cartList = $("#navbarCartList");
 
                 // افزایش عدد badge
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
 
-                // افزودن آیتم به لیست
-                const newItem = `
-                    <li class="dropdown-item pb-0">
-                        <div class="row border-bottom">
-                            <div class="col-md-5 p-2">
-                                <a href="#">
-                                    <img src="${item.image ?? '/images/no-image.png'}" alt="name" class="w-100">
-                                </a>
-                            </div>
-                            <div class="col-md-7 p-2">
-                                <p class="drapdown-title mt-2 text-start">${item.title}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>${item.quantity} عدد</span>
-                                    <span>${Number(item.price).toLocaleString()} <small>تومان</small></span>
+                // بررسی وجود آیتم در سبد خرید
+                const existingItem = $cartList.find(`[data-id="${item.id}"][data-model="${item.model}"]`);
+
+                if (existingItem.length > 0) {
+                    // اگر آیتم وجود دارد، تعداد را افزایش بده
+                    const $quantitySpan = existingItem.find('.item-quantity');
+                    const currentQuantity = parseInt($quantitySpan.text()) || 0;
+                    $quantitySpan.text(currentQuantity + 1);
+                } else {
+                    // اگر آیتم جدید است، اضافه کن
+                    const newItem = `
+                <li class="dropdown-item pb-0 pe-2 cart-item" data-id="${item.id}" data-model="${item.model}">
+                    <div class="row border-bottom">
+                        <div class="col-md-5 p-2">
+                            <a href="#">
+                                <img src="${item.image}" alt="${item.title}" class="w-100">
+                            </a>
+                        </div>
+                        <div class="col-md-7 p-2">
+                            <p class="drapdown-title mt-2 text-start">${item.title}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="quantity-controls">
+                                    <a href="#" class="decrease" data-model="${item.model}" data-id="${item.id}">-</a>
+                                    <span class="count item-quantity">${item.quantity}</span>
+                                    <a href="#" class="increase" data-model="${item.model}" data-id="${item.id}">+</a>
                                 </div>
+                                <span>${Number(item.price).toLocaleString()} <small>تومان</small></span>
                             </div>
                         </div>
-                    </li>
-                `;
-                $cartList.prepend(newItem);
+                    </div>
+                </li>
+            `;
+                    $cartList.prepend(newItem);
+                }
+            }
+
+            // 🧮 تابع برای به روزرسانی تعداد در نوبار
+            function updateNavbarQuantity(action, id, model, newQuantity) {
+                const $badge = $(".shopping-cart-badge");
+                let currentCount = parseInt($badge.text()) || 0;
+
+                if (action === 'increase') {
+                    $badge.text(currentCount + 1);
+                } else if (action === 'decrease') {
+                    if (currentCount > 0) {
+                        $badge.text(currentCount - 1);
+                    }
+                }
+
+                // به روزرسانی تعداد در آیتم خاص
+                const $cartItem = $(`[data-id="${id}"][data-model="${item.model}"] .item-quantity`);
+                if ($cartItem.length > 0) {
+                    $cartItem.text(newQuantity);
+                }
+            }
+
+            // 💰 تابع برای به روزرسانی جمع کل سبد خرید
+            function updateCartTotals(action, price = 0, offPrice = 0) {
+                const $totalQuantity = $(".header-total-quantity, #cart-info-quantity");
+                const $cartPrice = $("#cart-info-price");
+                const $cartOff = $("#cart-info-off");
+                const $cartTotal = $("#cart-info-total, #total, #cart-info-sum, #cartTotalPrice");
+
+                let currentQuantity = parseInt($totalQuantity.text()) || 0;
+                let currentPrice = parseInt($cartPrice.text().replace(/,/gi, "")) || 0;
+                let currentOff = parseInt($cartOff.text().replace(/,/gi, "")) || 0;
+
+                if (action === 'increase') {
+                    currentQuantity++;
+                    currentPrice += parseInt(price);
+                    currentOff += parseInt(offPrice);
+                } else if (action === 'decrease') {
+                    if (currentQuantity > 0) {
+                        currentQuantity--;
+                        currentPrice -= parseInt(price);
+                        currentOff -= parseInt(offPrice);
+                    }
+                }
+
+                // به روزرسانی مقادیر
+                $totalQuantity.text(currentQuantity);
+                $cartPrice.text(currentPrice.toLocaleString());
+                $cartOff.text(currentOff.toLocaleString());
+
+                const total = currentPrice - currentOff;
+                $cartTotal.text(total.toLocaleString());
             }
         });
     </script>
