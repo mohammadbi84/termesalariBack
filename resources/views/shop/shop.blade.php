@@ -697,7 +697,6 @@
                                                     </a>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -1444,6 +1443,11 @@
                         <button class="decrease" data-model="${item.model}" data-id="${item.id}">-</button>
                         <span class="count item-quantity">${item.quantity}</span>
                         <button class="increase" data-model="${item.model}" data-id="${item.id}">+</button>
+                        <a href="#" class="delete-item me-3"
+                            data-id="${item.id}"
+                            data-model="${item.model}">
+                            <i class="far fa-trash-alt text-danger"></i>
+                        </a>
                     </div>
                 </div>
             </div>

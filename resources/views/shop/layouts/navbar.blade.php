@@ -75,11 +75,11 @@
 
                         <!-- منوی دراپ‌داون با انیمیشن -->
                         <div class="cart-container">
-                            <button class="cart-btn">
+                            <a href="{{ route('cart.index') }}" class="cart-btn">
                                 <span class="cart-badge shopping-cart-badge">{{ $sum ?? 0 }}</span>
                                 <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full (1).svg') }}"
                                     alt="cart" width="24">
-                            </button>
+                            </a>
 
                             <div class="cart-dropdown">
                                 <div class="cart-header">
@@ -88,12 +88,12 @@
                                 </div>
 
                                 <div class="cart-items" id="navbarCartList">
+                                    @php
+                                        $price = 0;
+                                        $off = 0;
+                                        $totalQuantity = 0;
+                                    @endphp
                                     @isset($cart)
-                                        @php
-                                            $price = 0;
-                                            $off = 0;
-                                            $totalQuantity = 0;
-                                        @endphp
 
                                         @foreach ($cart as $productId => $productData)
                                             @foreach ($productData as $model => $item)
@@ -190,6 +190,11 @@
                                                             <span class="count item-quantity">{{ $quantity }}</span>
                                                             <button class="increase" data-model="{{ $model }}"
                                                                 data-id="{{ $productId }}">+</button>
+                                                            <a href="#" class="delete-item me-3"
+                                                                data-id="{{ $productId }}"
+                                                                data-model="{{ $model }}">
+                                                                <i class="far fa-trash-alt text-danger"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,14 +205,11 @@
 
                                 <div class="cart-footer">
                                     <div class="cart-actions justify-content-between align-items-center">
-                                        <span class="cart-total-price">{{ number_format($price ?? 0) }}
+                                        <span class="cart-total-price">
+                                            <span class="text-mute fs-10">مبلغ قابل پرداخت</span><br>
+                                            {{ number_format($price ?? 0) }}
                                             تومان</span>
-                                        @if (!Auth::check())
-                                            <a href="{{ route('login') }}" class="btn-checkout">ورود و ثبت
-                                                سفارش</a>
-                                        @else
-                                            <a href="{{ route('cart.index') }}" class="btn-checkout">ثبت سفارش</a>
-                                        @endif
+                                        <a href="{{ route('cart.index') }}" class="btn-checkout">مشاهده سبد خرید</a>
                                     </div>
                                 </div>
                             </div>
@@ -411,6 +413,45 @@
 
                 updateCartBadge();
                 updateCartTotal();
+            }
+        });
+    });
+
+
+    $(document).on('click', '.delete-item', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const $btn = $(this);
+        const id = $btn.data('id');
+        const model = $btn.data('model');
+        const $cartItem = $btn.closest('.cart-item');
+        const quantity = parseInt($cartItem.find('.item-quantity').text());
+        $.ajax({
+            url: "{{ route('cart.deleteItem') }}",
+            method: "POST",
+            data: {
+                _token: '<?php echo csrf_token() ?>',
+                id: id,
+                model: model
+            },
+            success: function(response) {
+
+                if (response.status === "success") {
+
+                    // حذف آیتم از DOM
+                    $cartItem.fadeOut(300, function() {
+                        $(this).remove();
+                        updateCartBadge();
+                        updateCartTotal();
+                    });
+                } else {
+                    Swal.fire("خطا!", "عملیات انجام نشد.", "error");
+                }
+            },
+
+            error: function() {
+                Swal.fire("خطای سرور!", "اتصال اینترنت یا سرور بررسی شود.", "error");
             }
         });
     });

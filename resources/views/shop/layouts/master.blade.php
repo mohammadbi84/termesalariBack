@@ -47,6 +47,7 @@
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="{{ asset('shop/css/leaflet.css') }}" />
+    <link rel="shortcut icon" href="{{ asset('/hometemplate/img/favicon.png') }}" type="image/x-icon">
     @yield('head')
 </head>
 
