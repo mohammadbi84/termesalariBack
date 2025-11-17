@@ -447,7 +447,7 @@ $(document).ready(function () {
         // آپدیت عنوان مدال
         document.getElementById(
             "mapModalLabel"
-        ).textContent = `موقعیت ${locationName}`;
+        ).textContent = `${locationName}`;
 
         // مقداردهی نقشه
         initializeMap(lat, lng, locationName);

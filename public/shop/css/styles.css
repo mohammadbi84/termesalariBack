@@ -1167,6 +1167,14 @@ i {
 
 #mapModal .btn-close {
     margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 0 0 12px 0 !important;
+    padding: 0 !important;
+    z-index: 2;
+    width: 41px;
+    height: 41px;
 }
 
 /* ریسپانسیو */

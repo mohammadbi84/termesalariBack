@@ -85,6 +85,7 @@ window.addEventListener("DOMContentLoaded", () => {
 function setCssVar(name, value) {
     document.documentElement.style.setProperty(name, value);
 }
+
 document.addEventListener("DOMContentLoaded", function () {
     const categoryTrigger = document.getElementById("categoryTrigger");
     const categoryMenu = document.getElementById("categoryMenu");

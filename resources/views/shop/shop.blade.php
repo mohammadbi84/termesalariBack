@@ -211,7 +211,7 @@
                                                         <div
                                                             class="product-details d-flex align-items-center justify-content-between gap-2">
                                                             <div
-                                                                class=" w-50 h-100 text-center d-flex justify-content-center align-items-center px-1">
+                                                                class=" w-50 h-100 text-center d-flex justify-content-center align-items-center">
                                                                 <div class="countdown-timer timer-short justify-content-between"
                                                                     id="countdown-1" data-end-date="2025-12-30">
                                                                     <div class="timer-col">
@@ -232,7 +232,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class=" w-100 text-start px-1">
+                                                            <div class=" w-100 text-start">
                                                                 @if ($prices->offPrice > 0)
                                                                     @if ($prices->offType == 'مبلغ')
                                                                         {{ number_format($prices->price - $prices->offPrice) }}
@@ -336,6 +336,7 @@
                                                                         data-price="{{ $prices->price }}"
                                                                         data-pay="{{ $price }}"
                                                                         data-off="{{ $off }}"
+                                                                        data-offType="{{ $prices->offType }}"
                                                                         data-local="{{ $prices->local }}"><i
                                                                             class="fa-solid fa-cart-plus"></i></button>
                                                                 </div>
@@ -374,7 +375,7 @@
                                                     <div
                                                         class="product-details d-flex align-items-center justify-content-between gap-2">
                                                         <div
-                                                            class=" w-50 h-100 text-center d-flex justify-content-center align-items-center px-1">
+                                                            class=" w-50 h-100 text-center d-flex justify-content-center align-items-center">
                                                             <div class="countdown-timer timer-short justify-content-between"
                                                                 id="countdown-1" data-end-date="2025-12-30">
                                                                 <div class="timer-col">
@@ -395,7 +396,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class=" w-100 text-start px-1">
+                                                        <div class=" w-100 text-start">
                                                             @if ($prices->offPrice > 0)
                                                                 @if ($prices->offType == 'مبلغ')
                                                                     {{ number_format($prices->price - $prices->offPrice) }}
@@ -668,6 +669,7 @@
                                                         data-title="{{ $product->orderitemable->title }}"
                                                         data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
                                                         data-local="{{ $prices->local }}"><i
                                                             class="fa-solid fa-cart-plus"></i>
                                                     </button>
@@ -891,6 +893,7 @@
                                                     data-title="{{ $topRequest->orderitemable->title }}"
                                                     data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                     data-off="{{ $off }}"
+                                                    data-offType="{{ $prices->offType }}"
                                                     data-local="{{ $prices->local }}"><i
                                                         class="fa-solid fa-cart-plus"></i></button>
                                             </div>
@@ -1020,7 +1023,7 @@
                                     </p>
                                     <div class="text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="تهران" data-lat="31.89413819001718"
+                                            data-location="بازار کفاش ها - خانه ترمه ایران - 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1055,7 +1058,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="تهران" data-lat="31.89413819001718"
+                                            data-location="مینی سیتی - شهرک شهید محلاتی - 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1090,7 +1093,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="مشهد" data-lat="31.89413819001718"
+                                            data-location="چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1126,7 +1129,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="رفسنجان" data-lat="31.89413819001718"
+                                            data-location="خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی - 03434265741" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1161,7 +1164,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="اصفهان" data-lat="31.89413819001718"
+                                            data-location="میدان نقش جهان - 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1196,7 +1199,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="کرمان" data-lat="31.89413819001718"
+                                            data-location="سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم - 03432239460" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1232,7 +1235,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="قزوین" data-lat="31.89413819001718"
+                                            data-location="خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان - 02833359101" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1267,7 +1270,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="یاسوج" data-lat="31.89413819001718"
+                                            data-location="خیابان30 متری معاد - 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1302,7 +1305,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="نجف آباد اصفهان" data-lat="31.89413819001718"
+                                            data-location="مجتمع تجاری فردوسی - صنایع ترمه - 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی نقشه</button>
                                     </div>
                                 </div>
@@ -1348,6 +1351,7 @@
                 const model = $btn.data('moddel');
                 const price = $btn.data('price');
                 const off = $btn.data('off');
+                const offType = $btn.data('offType');
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
                 const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
@@ -1371,7 +1375,9 @@
                                 price,
                                 image,
                                 quantity: 1,
-                                model: model
+                                model: model,
+                                off: off,
+                                offType: offType,
                             });
 
                             Swal.fire({
@@ -1398,173 +1404,59 @@
                 });
             });
 
-            // 🔼 🔽 افزایش و کاهش تعداد محصول در سبد خرید
-            $(document).on('click', '.increase, .decrease', function(event) {
-                event.preventDefault();
-
-                const $btn = $(this);
-                const action = $btn.hasClass('increase') ? 'increase' : 'decrease';
-                const id = $btn.data('id');
-                const model = $btn.data('model');
-                const $cartItem = $btn.closest('.cart-item, .dropdown-item, li');
-                const $quantitySpan = $btn.siblings('.count');
-
-                const url = `${document.location.origin}/cart/change`;
-
-                $.ajax({
-                    url: url,
-                    method: "POST",
-                    data: {
-                        '_token': '<?php echo csrf_token(); ?>',
-                        'action': action,
-                        'product': id,
-                        'model': model
-                    },
-                    success: function(response) {
-                        if (response == "error") {
-                            Swal.fire({
-                                icon: "error",
-                                title: "خطا در اجرای عملیات",
-                                text: "اتمام موجودی در انبار"
-                            });
-                        } else if (response == "finish") {
-                            // حذف آیتم از سبد خرید
-                            $cartItem.fadeOut(300, function() {
-                                $(this).remove();
-                                // updateCartTotals(action, 0, 0); // به روزرسانی جمع کل
-                            });
-                            updateCartBadge();
-
-                        } else {
-                            // به روزرسانی تعداد
-                            const newQuantity = response.quantity;
-                            $quantitySpan.text(newQuantity);
-
-                            // به روزرسانی جمع کل
-                            // updateCartTotals(action, price, off);
-
-                            // به روزرسانی تعداد در نوبار
-                            updateNavbarQuantity(action, id, model, newQuantity);
-                            updateCartBadge();
-
-                        }
-                        $('.loader').hide();
-                    },
-                    error: function() {
-                        Swal.fire({
-                            icon: "error",
-                            title: "خطا در ارتباط با سرور!",
-                            text: "لطفاً دوباره تلاش کنید."
-                        });
-                        $('.loader').hide();
-                    }
-                });
-            });
-
-            function updateCartBadge() {
-                let totalItems = 0;
-                $('.item-quantity').each(function() {
-                    totalItems += parseInt($(this).text());
-                });
-                $('.shopping-cart-badge').text(totalItems);
-            }
-
             // 🧩 تابع برای آپدیت کردن dropdown در navbar
             function updateNavbarCart(item) {
                 const $badge = $(".shopping-cart-badge");
                 const $cartList = $("#navbarCartList");
 
-                // افزایش عدد badge
+                // افزایش badge
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
 
-                // بررسی وجود آیتم در سبد خرید
+                // چک وجود آیتم
                 const existingItem = $cartList.find(`[data-id="${item.id}"][data-model="${item.model}"]`);
 
                 if (existingItem.length > 0) {
-                    // اگر آیتم وجود دارد، تعداد را افزایش بده
+                    // اگر بود، فقط تعداد را افزایش بده
                     const $quantitySpan = existingItem.find('.item-quantity');
                     const currentQuantity = parseInt($quantitySpan.text()) || 0;
                     $quantitySpan.text(currentQuantity + 1);
                 } else {
-                    // اگر آیتم جدید است، اضافه کن
+                    // اگر نبود، آیتم جدید بساز (با data attributes کامل)
                     const newItem = `
-                <li class="dropdown-item pb-0 pe-2 cart-item" data-id="${item.id}" data-model="${item.model}">
-                    <div class="row border-bottom">
-                        <div class="col-md-5 p-2">
-                            <a href="#">
-                                <img src="${item.image}" alt="${item.title}" class="w-100">
-                            </a>
-                        </div>
-                        <div class="col-md-7 p-2">
-                            <p class="drapdown-title mt-2 text-start">${item.title}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="quantity-controls">
-                                    <a href="#" class="decrease" data-model="${item.model}" data-id="${item.id}">-</a>
-                                    <span class="count item-quantity">${item.quantity}</span>
-                                    <a href="#" class="increase" data-model="${item.model}" data-id="${item.id}">+</a>
-                                </div>
-                                <span>${Number(item.price).toLocaleString()} <small>تومان</small></span>
-                            </div>
-                        </div>
+            <div class="cart-item"
+                data-id="${item.id}"
+                data-model="${item.model}"
+                data-base-price="${item.price}"
+                data-base-off-price="${item.off}"
+                data-off-type="${item.offType}">
+
+                <img src="${item.image}" alt="${item.title}" class="cart-item-image">
+
+                <div class="cart-item-content">
+                    <div class="cart-item-title">${item.title}</div>
+
+                    <div class="cart-item-price">
+                        ${Number(item.price).toLocaleString()} تومان
                     </div>
-                </li>
-            `;
+
+                    <div class="quantity-controls">
+                        <button class="decrease" data-model="${item.model}" data-id="${item.id}">-</button>
+                        <span class="count item-quantity">${item.quantity}</span>
+                        <button class="increase" data-model="${item.model}" data-id="${item.id}">+</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
                     $cartList.prepend(newItem);
                 }
+
+                // جمع کل و badge را آپدیت کن
+                updateCartBadge();
+                updateCartTotal();
             }
 
-            // 🧮 تابع برای به روزرسانی تعداد در نوبار
-            function updateNavbarQuantity(action, id, model, newQuantity) {
-                const $badge = $(".shopping-cart-badge");
-                let currentCount = parseInt($badge.text()) || 0;
-
-                if (action === 'increase') {
-                    $badge.text(currentCount + 1);
-                } else if (action === 'decrease') {
-                    if (currentCount > 0) {
-                        $badge.text(currentCount - 1);
-                    }
-                }
-
-                // به روزرسانی تعداد در آیتم خاص
-                const $cartItem = $(`[data-id="${id}"][data-model="${item.model}"] .item-quantity`);
-                if ($cartItem.length > 0) {
-                    $cartItem.text(newQuantity);
-                }
-            }
-
-            // 💰 تابع برای به روزرسانی جمع کل سبد خرید
-            function updateCartTotals(action, price = 0, offPrice = 0) {
-                const $totalQuantity = $(".header-total-quantity, #cart-info-quantity");
-                const $cartPrice = $("#cart-info-price");
-                const $cartOff = $("#cart-info-off");
-                const $cartTotal = $("#cart-info-total, #total, #cart-info-sum, #cartTotalPrice");
-
-                let currentQuantity = parseInt($totalQuantity.text()) || 0;
-                let currentPrice = parseInt($cartPrice.text().replace(/,/gi, "")) || 0;
-                let currentOff = parseInt($cartOff.text().replace(/,/gi, "")) || 0;
-
-                if (action === 'increase') {
-                    currentQuantity++;
-                    currentPrice += parseInt(price);
-                    currentOff += parseInt(offPrice);
-                } else if (action === 'decrease') {
-                    if (currentQuantity > 0) {
-                        currentQuantity--;
-                        currentPrice -= parseInt(price);
-                        currentOff -= parseInt(offPrice);
-                    }
-                }
-
-                // به روزرسانی مقادیر
-                $totalQuantity.text(currentQuantity);
-                $cartPrice.text(currentPrice.toLocaleString());
-                $cartOff.text(currentOff.toLocaleString());
-
-                const total = currentPrice - currentOff;
-                $cartTotal.text(total.toLocaleString());
-            }
         });
     </script>
 @endsection
