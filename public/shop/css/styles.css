@@ -1149,7 +1149,8 @@ i {
 }
 
 .modal-title {
-    font-weight: bold;
+    /* font-weight: bold; */
+    font-size: 16px;
 }
 
 /* استایل نقشه */

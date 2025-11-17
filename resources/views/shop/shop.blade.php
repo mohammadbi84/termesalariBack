@@ -1022,7 +1022,7 @@
                                     </p>
                                     <div class="text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="بازار کفاش ها - خانه ترمه ایران - 035-36260637" data-lat="31.89413819001718"
+                                            data-location="تهران آقای صفائی بازار کفاش ها - خانه ترمه ایران 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1057,7 +1057,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="مینی سیتی - شهرک شهید محلاتی - 035-36260637" data-lat="31.89413819001718"
+                                            data-location="تهران آقای میرزایی مینی سیتی - شهرک شهید محلاتی 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1092,7 +1092,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572" data-lat="31.89413819001718"
+                                            data-location="مشهد آقای شفاجو چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1128,7 +1128,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی - 03434265741" data-lat="31.89413819001718"
+                                            data-location="رفسنجان آقای عربی خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی 03434265741" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1163,7 +1163,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="میدان نقش جهان - 035-36260637" data-lat="31.89413819001718"
+                                            data-location="اصفهان آقای شجائی میدان نقش جهان  035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1198,7 +1198,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم - 03432239460" data-lat="31.89413819001718"
+                                            data-location="کرمان آقای نیک نفس  سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم 03432239460" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1234,7 +1234,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان - 02833359101" data-lat="31.89413819001718"
+                                            data-location="قزوین خانم حاتمی خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان 02833359101" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1269,7 +1269,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="خیابان30 متری معاد - 035-36260637" data-lat="31.89413819001718"
+                                            data-location="یاسوج خانم کیانوش خیابان30 متری معاد 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
@@ -1304,7 +1304,7 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="مجتمع تجاری فردوسی - صنایع ترمه - 035-36260637" data-lat="31.89413819001718"
+                                            data-location="نجف آباد اصفهان خانم اکبری  مجتمع تجاری فردوسی - صنایع ترمه 035-36260637" data-lat="31.89413819001718"
                                             data-lng="54.36943179325213">مشاهده روی نقشه</button>
                                     </div>
                                 </div>
