@@ -4,6 +4,11 @@
     --dark-color: #343a40;
     --light-color: #f8f9fa;
 }
+/* یا برای تمام المان‌ها */
+html {
+    scroll-padding-top: 100px;
+}
+
 
 .btn-primary {
     background-color: var(--primary-color) !important;

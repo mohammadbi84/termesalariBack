@@ -45,11 +45,11 @@ function initMainMenu() {
             ) {
                 mainMenu.classList.add("small");
                 categoryMenu.classList.add("small");
-                cart_dropdown.style.top = '51px';
-                cart_dropdown.style.left = '-138px';
-                categoriesMenu.style.top = '65px';
-                categoriesMenu.style.left = '1rem';
-                categoriesMenu.style.right = '1rem';
+                cart_dropdown.style.top = "51px";
+                cart_dropdown.style.left = "-138px";
+                categoriesMenu.style.top = "65px";
+                categoriesMenu.style.left = "1rem";
+                categoriesMenu.style.right = "1rem";
 
                 if (Bookmark && Bookmark.classList.contains("expanded")) {
                     mainMenu.classList.add("smallBookmark");
@@ -58,11 +58,11 @@ function initMainMenu() {
             } else {
                 mainMenu.classList.remove("small");
                 categoryMenu.classList.remove("small");
-                cart_dropdown.style.top = '61px';
-                cart_dropdown.style.left = '-178px';
-                categoriesMenu.style.top = '75px';
-                categoriesMenu.style.left = '-10px';
-                categoriesMenu.style.right = '-10px';
+                cart_dropdown.style.top = "61px";
+                cart_dropdown.style.left = "-178px";
+                categoriesMenu.style.top = "75px";
+                categoriesMenu.style.left = "-10px";
+                categoriesMenu.style.right = "-10px";
 
                 if (Bookmark && Bookmark.classList.contains("expanded")) {
                     mainMenu.classList.remove("smallBookmark");
@@ -157,5 +157,22 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.key === "Escape") {
             closeMobileCategoryMenu();
         }
+    });
+});
+
+// مدیریت انتخاب زبان
+document.addEventListener("DOMContentLoaded", function () {
+    const languageSelectors = document.querySelectorAll(".language-selector");
+
+    languageSelectors.forEach((selector) => {
+        const btn = selector.querySelector(".language-btn");
+        const langSpan = btn.querySelector(".current-language");
+        // کلیک روی دکمه
+        btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            selector.classList.toggle("active");
+            btn.classList.toggle("active");
+            langSpan.textContent = langSpan.textContent === "Fa" ? "En" : "Fa";
+        });
     });
 });

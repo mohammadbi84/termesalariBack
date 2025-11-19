@@ -894,3 +894,108 @@
     margin-bottom: 15px;
     color: #dee2e6;
 }
+
+
+
+
+/* language ============================================================================================================================ */
+/* استایل دکمه انتخاب زبان */
+.language-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.language-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: white;
+    padding: 2px;
+    /* height: 40px; */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    margin-left: 2px;
+}
+
+.language-btn i {
+    font-size: 14px;
+    top: 0 !important;
+    color: #6c757d;
+    transition: transform 0.3s ease;
+}
+
+.language-btn.active .bi-chevron-down {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    margin-top: 5px;
+}
+
+.language-selector.active .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-list {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+}
+
+.language-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-item:hover {
+    background-color: #f8f9fa;
+}
+
+.language-item.active {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.language-flag {
+    width: 20px;
+    height: 15px;
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.language-name {
+    flex: 1;
+}
+
+.language-check {
+    color: var(--primary-color);
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.language-item.active .language-check {
+    opacity: 1;
+}

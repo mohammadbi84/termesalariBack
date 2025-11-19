@@ -53,6 +53,12 @@
                     </ul>
                     <!-- cart ================================================================================================================== -->
                     <div class="d-flex gap-2 align-items-center justify-content-center position-relative">
+                        <div class="language-selector" id="languageSelector">
+                            <button class="language-btn border-0 text-muted" id="languageBtn">
+                                <span class="current-language">Fa</span>
+                                <i class="bi bi-globe"></i>
+                            </button>
+                        </div>
                         @php
                             if (session()->has('cart')) {
                                 $cart = session('cart');
@@ -72,7 +78,6 @@
                                 }
                             }
                         @endphp
-
                         <!-- منوی دراپ‌داون با انیمیشن -->
                         <div class="cart-container">
                             <a href="{{ route('cart.index') }}" class="cart-btn">
@@ -229,7 +234,8 @@
                                     </a>
                                     <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
                                 @else
-                                    <a href="{{ route('user.profile') }}" class="text-muted text-decoration-none px-1">
+                                    <a href="{{ route('user.profile') }}"
+                                        class="text-muted text-decoration-none px-1">
                                         <i class="fa-solid fa-user me-1"></i>
                                         {{ Auth::user()->name }} {{ Auth::user()->family }}
                                     </a>
@@ -431,7 +437,7 @@
             url: "{{ route('cart.deleteItem') }}",
             method: "POST",
             data: {
-                _token: '<?php echo csrf_token() ?>',
+                _token: '<?php echo csrf_token(); ?>',
                 id: id,
                 model: model
             },
