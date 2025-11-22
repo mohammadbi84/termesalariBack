@@ -189,7 +189,7 @@
                                                             @if ($cartOff > 0)
                                                                 <span
                                                                     class="cart-item-old-price">{{ $p->offPrice }}</span>
-                                                            @endif
+                                                            @endif <small class="fs-10 text-muted">جمع جزء : </small>
                                                             {{ number_format($cartPrice * $quantity) }} تومان
                                                         </div>
                                                         <div class="quantity-controls">

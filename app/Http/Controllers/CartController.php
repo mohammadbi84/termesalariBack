@@ -46,12 +46,12 @@ class CartController extends Controller
                 }
             }
             // dd($list);
-            return view('cart.index')
+            return view('cart.new.cart')
             ->with('cart', $cart)
             ->with('sum', $sum)
             ->with('list', $list);
         }
-        return view('cart.index');
+        return view('cart.new.cart');
     }
     //     else
     //         return "<div style='color:red; text-align:center;direction:rtl;font-family:system-ui'>متاسفانه دسترسی به این صفحه برای شما وجود ندارد.</div>";

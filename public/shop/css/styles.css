@@ -1,6 +1,6 @@
 :root {
     --primary-color: #4FBA6C;
-    --secondary-color: #ffc107;
+    --secondary-color: #ffffff;
     --dark-color: #343a40;
     --light-color: #f8f9fa;
 }
@@ -19,6 +19,14 @@ html {
 .btn-primary:hover {
     background-color: #327942 !important;
     border: 1px solid #327942 !important;
+}
+.btn-secondary{
+    background-color: #00A594 !important;
+    border: 1px solid #00A594 !important;
+}
+.btn-secondary:hover{
+    background-color: #018073 !important;
+    border: 1px solid #018073 !important;
 }
 
 .bg-primary {
