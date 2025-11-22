@@ -491,6 +491,19 @@ $(document).ready(function () {
         // اضافه کردن marker
         currentMarker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
     }
+
+    // hover animation =======================================================================================================================
+    const cards = document.querySelectorAll(".product-card");
+
+    cards.forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+            card.classList.add("hovered");
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.classList.remove("hovered");
+        });
+    });
 });
 
 // نمایش خودکار پاپ‌آپ بعد از لود صفحه

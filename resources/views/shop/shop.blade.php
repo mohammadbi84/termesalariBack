@@ -776,7 +776,7 @@
                     </div>
                 </div>
                 <div class="splide" id="hot_slider" role="group" aria-label="Splide Basic HTML Example">
-                    <div class="splide__track">
+                    <div class="splide__track py-3">
                         <ul class="splide__list">
                             @foreach ($topRequests as $key => $topRequest)
                                 @php
@@ -1022,8 +1022,8 @@
                                     </p>
                                     <div class="text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="تهران آقای صفائی بازار کفاش ها - خانه ترمه ایران 035-36260637" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="تهران آقای صفائی بازار کفاش ها - خانه ترمه ایران 035-36260637"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1057,8 +1057,8 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="تهران آقای میرزایی مینی سیتی - شهرک شهید محلاتی 035-36260637" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="تهران آقای میرزایی مینی سیتی - شهرک شهید محلاتی 035-36260637"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1092,8 +1092,8 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="مشهد آقای شفاجو چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="مشهد آقای شفاجو چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1128,8 +1128,8 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="رفسنجان آقای عربی خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی 03434265741" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="رفسنجان آقای عربی خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی 03434265741"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1163,8 +1163,8 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="اصفهان آقای شجائی میدان نقش جهان  035-36260637" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="اصفهان آقای شجائی میدان نقش جهان  035-36260637"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1198,8 +1198,8 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="کرمان آقای نیک نفس  سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم 03432239460" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="کرمان آقای نیک نفس  سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم 03432239460"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1234,8 +1234,8 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="قزوین خانم حاتمی خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان 02833359101" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="قزوین خانم حاتمی خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان 02833359101"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1269,8 +1269,8 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="یاسوج خانم کیانوش خیابان30 متری معاد 035-36260637" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی
+                                            data-location="یاسوج خانم کیانوش خیابان30 متری معاد 035-36260637"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
                                             نقشه</button>
                                     </div>
                                 </div>
@@ -1304,8 +1304,9 @@
                                     </p>
                                     <div class=" text-start">
                                         <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="نجف آباد اصفهان خانم اکبری  مجتمع تجاری فردوسی - صنایع ترمه 035-36260637" data-lat="31.89413819001718"
-                                            data-lng="54.36943179325213">مشاهده روی نقشه</button>
+                                            data-location="نجف آباد اصفهان خانم اکبری  مجتمع تجاری فردوسی - صنایع ترمه 035-36260637"
+                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
+                                            نقشه</button>
                                     </div>
                                 </div>
                             </div>
@@ -1344,6 +1345,16 @@
             // 🛒 افزودن محصول به سبد خرید
             $(document).on('click', '.addToCart', function() {
                 const $btn = $(this);
+
+                const card = $btn.closest('.product-card');
+                if (card) {
+                    card.removeClass('hovered'); // حذف کلاس
+                }
+
+                // برداشتن فوکوس از روی دکمه (مهم!)
+                if (document.activeElement && document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                }
 
                 // گرفتن اطلاعات از data attributes
                 const id = $btn.data('id');

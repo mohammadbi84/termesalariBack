@@ -22,7 +22,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0 column-gap-2 px-0">
+                    <ul class="navbar-nav mb-2 mb-lg-0 px-0">
                         <!-- دکمه دسته‌بندی‌ها -->
                         <div class="categories-dropdown d-flex" id="categoryTrigger">
                             <button class="categories-btn">
@@ -50,12 +50,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#branchs">نمایندگی های فروش</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">درباره ما</a>
+                        </li>
                     </ul>
                     <!-- cart ================================================================================================================== -->
                     <div class="d-flex gap-2 align-items-center justify-content-center position-relative">
                         <div class="language-selector" id="languageSelector">
                             <button class="language-btn border-0 text-muted" id="languageBtn">
-                                <span class="current-language">Fa</span>
+                                <span class="current-language">En</span>
                                 <i class="bi bi-globe"></i>
                             </button>
                         </div>

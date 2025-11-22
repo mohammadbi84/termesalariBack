@@ -163,7 +163,7 @@
 .categories-btn {
     background-color: transparent;
     border: none;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     transition: all 0.3s ease;
     display: flex;
@@ -916,6 +916,9 @@
     transition: all 0.3s ease;
     font-size: 14px;
     margin-left: 2px;
+}
+.language-btn:hover .current-language{
+    color: var(--primary-color);
 }
 
 .language-btn i {
