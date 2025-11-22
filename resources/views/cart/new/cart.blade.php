@@ -353,7 +353,7 @@
                                     <div class="col-8 col-md-6">
                                         <h5 class="mb-1">
                                             {{ $product->title ?? $product->category->title . ' طرح ' . optional($product->color_design->design)->title }}
-                                            <small class="me-3 text-success" style="font-size: 15px;">(
+                                            <small class="me-1 text-success" style="font-size: 15px;">(
                                                 {{ number_format($cartItemPrice) }} تومان )</small>
                                         </h5>
                                         <p class="text-muted small mb-2">دسته بندی: {{ $product->category->title ?? '—' }}
@@ -377,7 +377,7 @@
                                     </div>
                                     <div class="col-12 col-md-3 mt-2 mt-md-0 text-start text-md-end">
                                         <div class="price-highlight d-flex justify-content-around align-items-center">
-                                            <small class="fs-10 text-muted">جمع جزء : </small>
+                                            <small class="text-muted" style="font-size:14px;">جمع جزء : </small>
                                             <span class="item-price">{{ number_format($cartItemPrice * $list['quantities'][$key]) }}</span>
                                             <small> تومان</small>
                                         </div>
@@ -429,7 +429,7 @@
                                                         style="border-top-left-radius: 0;border-bottom-left-radius: 0;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
                                                         placeholder="کد تخفیف..." class="form-control"
                                                         style="font-size: 0.95rem;">
-                                                    <button type="button border" id="saveDiscountCard" class="btn btn-md"
+                                                    <button type="button border" id="saveDiscountCard" class="btn btn-primary btn-md"
                                                         style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">اعمال</button>
                                                 </div>
                                             </div>
@@ -461,14 +461,14 @@
                         </div>
                     @else
                         <div class="d-flex justify-content-between mb-2">
-                            <span>کد تخفیف</span>
-                            <span><span id="cart-info-discount-special">0</span> تومان</span>
+                            <span class="text-danger">کد تخفیف</span>
+                            <span class="text-danger"><span id="cart-info-discount-special">0</span> تومان</span>
                         </div>
                     @endif
 
                     <div class="d-flex justify-content-between mb-2">
                         <span>هزینه ارسال</span>
-                        <span class="" style="color: var(--primary-color)">محاسبه در مرحله بعد</span>
+                        <span class="text-success">محاسبه در مرحله بعد</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between fw-bold">
