@@ -174,14 +174,14 @@
                                                 <!-- جلوی کارت -->
                                                 <div class="flip-card-front d-flex flex-column justify-content-between">
                                                     <div class="position-relative image-badge pb-1">
-                                                        <img src="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        <img src="{{ asset('shop/assets/sliders/l2.jpg') }}"
                                                             class="card-img-top" alt="event image">
 
                                                         @if ($prices->offPrice > 0)
                                                             <div class="discount-squer discount-squer-front"
                                                                 style="position: absolute;top: -4px;left: 20px;">
-                                                                <img src="assets/svgs/off-background.svg" width="90"
-                                                                    alt="discount">
+                                                                <img src="{{ asset('shop/assets/svgs/off-background.svg') }}"
+                                                                    width="90" alt="discount">
                                                                 <span class="d-flex"
                                                                     style="font-size: 12px;font-weight: 800;position: absolute;right: 16px;top: 7px;">
                                                                     <strong class="" style="font-size: 12px;">
@@ -196,6 +196,17 @@
                                                                 </span>
                                                             </div>
                                                         @endif
+                                                        <div class="discount-squer discount-squer-front"
+                                                            style="position: absolute;top: -4px;right: 20px;">
+                                                            <img src="{{ asset('shop/assets/svgs/heart-back.svg') }}"
+                                                                width="35" alt="discount">
+                                                            <span class="d-flex"
+                                                                style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
+                                                                <strong class="" style="font-size: 18px;">
+                                                                    <i class="fa-solid fa-heart @if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) text-danger @else text-white @endif "></i>
+                                                                </strong>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                     <div
                                                         class="details h-100 d-flex flex-column justify-content-between text-start pt-2">
@@ -299,8 +310,8 @@
                                                     @if ($prices->offPrice > 0)
                                                         <div class="discount-squer"
                                                             style="position: absolute;top: 2px;left: 19px;">
-                                                            <img src="assets/svgs/off-background.svg" width="90"
-                                                                alt="discount">
+                                                            <img src="{{ asset('shop/assets/svgs/off-background.svg') }}"
+                                                                width="90" alt="discount">
                                                             <span class="d-flex"
                                                                 style="font-size: 12px;font-weight: 800;position: absolute;right: 12px;top: 7px;">
                                                                 <strong class="" style="font-size: 12px;">
@@ -314,6 +325,20 @@
                                                             </span>
                                                         </div>
                                                     @endif
+                                                    <a href="#" class="discount-squer favorites-btn"
+                                                        data-id="{{ $topRequest->orderitemable->id }}"
+                                                        data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                        style="position: absolute;top: 4px;right: 20px;">
+                                                        <img src="{{ asset('shop/assets/svgs/heart-back.svg') }}"
+                                                            width="35" alt="discount"
+                                                            style="height: 31px;object-fit: cover;">
+                                                        <span class="d-flex"
+                                                            style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
+                                                            <strong class="" style="font-size: 18px;">
+                                                                <i class="fa-solid fa-heart @if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) text-danger @else text-white @endif "></i>
+                                                            </strong>
+                                                        </span>
+                                                    </a>
                                                     <div class="d-flex btn-row align-items-center align-content-center justify-content-center mb-2 h-100 w-100"
                                                         style="flex-direction: column;padding: 0 22px;">
                                                         <div class="text-center">
@@ -575,6 +600,17 @@
                                                         <span class="rate-count d-block">5%</span>
                                                         <span class="rate-text">رضایت</span>
                                                     </div>
+                                                    <div class="text-center">
+                                                        <span class="rate-count d-block text-danger">
+                                                            <a href="#" class="text-decoration-none text-reset favorites-btn"
+                                                            data-id="{{ $product->orderitemable->id }}"
+                                                            data-model="{{ substr($product->orderitemable_type, 4) }}">
+                                                                <i class="@if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) fa-solid text-danger @else fa-regular @endif fa-heart"
+                                                                    style="font-size: 18px;"></i>
+                                                            </a>
+                                                        </span>
+                                                        <span class="rate-text">علاقه‌مندی</span>
+                                                    </div>
                                                 </div>
                                                 <div class="d-flex flex-column">
                                                     @if ($prices->offPrice > 0)
@@ -758,8 +794,8 @@
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="پرفروش ترین محصولات"
-                            width="30">
+                        <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}"
+                            alt="پرفروش ترین محصولات" width="30">
                         <h2 class="title m-0">پرفروش ترین محصولات</h2>
                     </div>
                     <div class="">
@@ -881,20 +917,28 @@
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
                                                     <span class="fs-10">28 عدد فروش رفته</span>
                                                 </div>
-                                                <button
-                                                    class="buy-button shadow-none add-to-cart @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
-                                                    style="width:30px;height:30px"
-                                                    data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
-                                                    data-id="{{ $topRequest->orderitemable->id }}"
-                                                    data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                    data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                    data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                    data-title="{{ $topRequest->orderitemable->title }}"
-                                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
-                                                    data-off="{{ $off }}"
-                                                    data-offType="{{ $prices->offType }}"
-                                                    data-local="{{ $prices->local }}"><i
-                                                        class="fa-solid fa-cart-plus"></i></button>
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center gap-2">
+                                                    <button class="buy-button shadow-none add-to-cart favorites-btn"
+                                                        data-id="{{ $topRequest->orderitemable->id }}"
+                                                        data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                        style="width:30px;height:30px"><i
+                                                            class="@if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) fa-solid @else fa-regular @endif fa-heart text-danger"></i></button>
+                                                    <button
+                                                        class="buy-button shadow-none add-to-cart @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
+                                                        style="width:30px;height:30px"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-id="{{ $topRequest->orderitemable->id }}"
+                                                        data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}" data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
+                                                        data-local="{{ $prices->local }}"><i
+                                                            class="fa-solid fa-cart-plus"></i></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1473,5 +1517,92 @@
             }
 
         });
+
+
+
+        // favorites actions
+$(document).on("click", ".favorites-btn", function(event) {
+    event.preventDefault();
+
+    var $btn = $(this);
+    var id = $btn.data("id");
+    var model = $btn.data("model");
+
+    var url = document.location.origin + "/user/add-favorite";
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            id: id,
+            model: model
+        },
+        success: function(data) {
+
+            // اگر سرور گفت نیاز به لاگین داری
+            if (data.res === "auth") {
+                Swal.fire({
+                    icon: "error",
+                    title: "خطای احراز هویت",
+                    text: "برای افزودن به علاقه‌مندی‌ها ابتدا وارد حساب کاربری شوید."
+                });
+
+                setTimeout(() => {
+                    window.location.href = "/login";
+                }, 1200);
+                return;
+            }
+
+            // پیام اصلی
+            var title = (data.res === "error")
+                ? "خطا در اجرای عملیات"
+                : "عملیات با موفقیت انجام شد.";
+
+            // -----------------------------
+            // 🔥 تغییر حالت آیکون قلب
+            // -----------------------------
+            if (data.res === "success") {
+
+                $btn.find(".fa-heart")
+                    .removeClass("fa-regular")
+                    .removeClass("text-white")
+                    .addClass("fa-solid text-danger");
+            }
+
+            Swal.fire({
+                icon: title === "خطا در اجرای عملیات" ? "error" : "success",
+                title: title,
+                text: data.message
+            });
+        },
+
+        // 🟥 گرفتن خطاهای HTTP مثل 401, 500, 404
+        error: function(xhr) {
+
+            // اگر لاگین نیستی → سرور 401 می‌دهد
+            if (xhr.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "نیاز به ورود",
+                    text: "برای افزودن محصول به علاقه‌مندی‌ها ابتدا وارد حساب کاربری شوید."
+                });
+
+                setTimeout(() => {
+                    window.location.href = "/login";
+                }, 1200);
+
+                return;
+            }
+
+            // سایر خطاها
+            Swal.fire({
+                icon: "error",
+                title: "خطا",
+                text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
+            });
+        }
+    });
+});
+
     </script>
 @endsection

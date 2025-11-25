@@ -167,7 +167,7 @@ i {
 }
 
 .flip-card-back .discount-squer {
-    transform: translateZ(50px);
+    transform: translateZ(51px);
 }
 
 .flip-card-front .image-and-badge {
