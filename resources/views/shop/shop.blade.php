@@ -196,17 +196,33 @@
                                                                 </span>
                                                             </div>
                                                         @endif
-                                                        <div class="discount-squer discount-squer-front"
+                                                        {{-- <div class="discount-squer discount-squer-front"
                                                             style="position: absolute;top: -4px;right: 20px;">
                                                             <img src="{{ asset('shop/assets/svgs/heart-back.svg') }}"
                                                                 width="35" alt="discount">
                                                             <span class="d-flex"
                                                                 style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
                                                                 <strong class="" style="font-size: 18px;">
-                                                                    <i class="fa-solid fa-heart @if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) text-danger @else text-white @endif "></i>
+                                                                    <i
+                                                                        class="fa-solid fa-heart @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
                                                                 </strong>
                                                             </span>
-                                                        </div>
+                                                        </div> --}}
+                                                        <a href="#" class="discount-squer discount-squer-front favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                            data-id="{{ $topRequest->orderitemable->id }}"
+                                                            data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                            style="position: absolute;top: -4px;right: 20px;">
+                                                            <img src="{{ asset('shop/assets/svgs/heart-back.svg') }}"
+                                                                width="35" alt="discount"
+                                                                style="height: 31px;object-fit: cover;">
+                                                            <span class="d-flex"
+                                                                style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
+                                                                <strong class="" style="font-size: 18px;">
+                                                                    <i
+                                                                        class="fa-solid fa-heart @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
+                                                                </strong>
+                                                            </span>
+                                                        </a>
                                                     </div>
                                                     <div
                                                         class="details h-100 d-flex flex-column justify-content-between text-start pt-2">
@@ -325,7 +341,7 @@
                                                             </span>
                                                         </div>
                                                     @endif
-                                                    <a href="#" class="discount-squer favorites-btn"
+                                                    <a href="#" class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         style="position: absolute;top: 4px;right: 20px;">
@@ -335,7 +351,8 @@
                                                         <span class="d-flex"
                                                             style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
                                                             <strong class="" style="font-size: 18px;">
-                                                                <i class="fa-solid fa-heart @if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) text-danger @else text-white @endif "></i>
+                                                                <i
+                                                                    class="fa-solid fa-heart @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
                                                             </strong>
                                                         </span>
                                                     </a>
@@ -574,7 +591,7 @@
                             <div class="product-card">
                                 {{-- <div class="discount-badge">20% تخفیف</div> --}}
                                 <div class="product-image">
-                                    <img src="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                    <img src="{{ asset('shop/assets/sliders/l2.jpg') }}"
                                         alt="{{ $product->orderitemable->category->title }}">
                                 </div>
                                 <div class="product-body">
@@ -602,10 +619,11 @@
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="rate-count d-block text-danger">
-                                                            <a href="#" class="text-decoration-none text-reset favorites-btn"
-                                                            data-id="{{ $product->orderitemable->id }}"
-                                                            data-model="{{ substr($product->orderitemable_type, 4) }}">
-                                                                <i class="@if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) fa-solid text-danger @else fa-regular @endif fa-heart"
+                                                            <a href="#"
+                                                                class="text-decoration-none text-reset favorites-btn @if ($product->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                                data-id="{{ $product->orderitemable->id }}"
+                                                                data-model="{{ substr($product->orderitemable_type, 4) }}">
+                                                                <i class="@if ($product->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) fa-solid text-danger @else fa-regular @endif fa-heart"
                                                                     style="font-size: 18px;"></i>
                                                             </a>
                                                         </span>
@@ -837,7 +855,7 @@
                                     <div class="product-div p-2">
                                         <div class="hot-product-card">
                                             <div class="hot-image-container">
-                                                <img src="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                <img src="{{ asset('shop/assets/sliders/l2.jpg') }}"
                                                     alt="{{ $topRequest->orderitemable->category->title }}"
                                                     class="hot-product-image">
                                             </div>
@@ -917,13 +935,12 @@
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
                                                     <span class="fs-10">28 عدد فروش رفته</span>
                                                 </div>
-                                                <div
-                                                    class="d-flex justify-content-between align-items-center gap-2">
-                                                    <button class="buy-button shadow-none add-to-cart favorites-btn"
+                                                <div class="d-flex justify-content-between align-items-center gap-2">
+                                                    <button class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         style="width:30px;height:30px"><i
-                                                            class="@if($topRequest->orderitemable->favorites->where('user_id',Auth::id())->count() > 0 ) fa-solid @else fa-regular @endif fa-heart text-danger"></i></button>
+                                                            class="@if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) fa-solid @else fa-regular @endif fa-heart text-danger"></i></button>
                                                     <button
                                                         class="buy-button shadow-none add-to-cart @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
                                                         style="width:30px;height:30px"
@@ -1521,88 +1538,296 @@
 
 
         // favorites actions
-$(document).on("click", ".favorites-btn", function(event) {
-    event.preventDefault();
+        $(document).on("click", ".favorites-btn", function(event) {
+            event.preventDefault();
 
-    var $btn = $(this);
-    var id = $btn.data("id");
-    var model = $btn.data("model");
+            var $btn = $(this);
+            var id = $btn.data("id");
+            var model = $btn.data("model");
 
-    var url = document.location.origin + "/user/add-favorite";
-
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: {
-            id: id,
-            model: model
-        },
-        success: function(data) {
-
-            // اگر سرور گفت نیاز به لاگین داری
-            if (data.res === "auth") {
-                Swal.fire({
-                    icon: "error",
-                    title: "خطای احراز هویت",
-                    text: "برای افزودن به علاقه‌مندی‌ها ابتدا وارد حساب کاربری شوید."
-                });
-
-                setTimeout(() => {
-                    window.location.href = "/login";
-                }, 1200);
-                return;
+            if ($btn.hasClass('active')) {
+                var url = document.location.origin + "/user/remove-favorite/";
+            }else{
+                var url = document.location.origin + "/user/add-favorite";
             }
 
-            // پیام اصلی
-            var title = (data.res === "error")
-                ? "خطا در اجرای عملیات"
-                : "عملیات با موفقیت انجام شد.";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    id: id,
+                    model: model
+                },
+                success: function(data) {
 
-            // -----------------------------
-            // 🔥 تغییر حالت آیکون قلب
-            // -----------------------------
-            if (data.res === "success") {
+                    // اگر سرور گفت نیاز به لاگین داری
+                    if (data.res === "auth") {
+                        Swal.fire({
+                            title: "ورود به حساب کاربری",
+                            html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <div class="text-center">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">حساب کاربری ندارید؟ <a href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                </div>
+                            </div>
+                        </form>
+                    `,
+                            showConfirmButton: false,
+                            focusConfirm: false,
+                            allowOutsideClick: true
+                        });
 
-                $btn.find(".fa-heart")
-                    .removeClass("fa-regular")
-                    .removeClass("text-white")
-                    .addClass("fa-solid text-danger");
-            }
+                        // ارسال فرم لاگین با ایجکس
+                        $(document).on("submit", "#loginAjaxForm", function(e) {
+                            e.preventDefault();
 
-            Swal.fire({
-                icon: title === "خطا در اجرای عملیات" ? "error" : "success",
-                title: title,
-                text: data.message
+                            $.ajax({
+                                url: "/login", // مسیر Laravel login
+                                type: "POST",
+                                data: {
+                                    login: $("#searchInputlogin").val(),
+                                    password: $("#searchInputpassword").val(),
+                                    _token: '<?php echo csrf_token(); ?>',
+                                },
+                                success: function(res) {
+                                    Swal.close();
+
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "ورود موفقیت‌آمیز",
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+
+                                    setTimeout(()=> location.reload(),1200);
+                                },
+                                error: function() {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "ورود ناموفق",
+                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                    });
+                                }
+                            });
+                        });
+
+                        return; // ادامه اجرا متوقف شود
+                    }
+
+                    // پیام اصلی
+                    var title = (data.res === "error") ?
+                        "خطا در اجرای عملیات" :
+                        "عملیات با موفقیت انجام شد.";
+
+                    // -----------------------------
+                    // 🔥 تغییر حالت آیکون قلب
+                    // -----------------------------
+                    if (data.res === "success") {
+                        // شناسه محصول کلیک شده
+                        const productId = $btn.data("id");
+
+                        // 🔥 تمام دکمه‌های علاقه‌مندی با این ID را بگیر
+                        const allSameFavorites = $(`.favorites-btn[data-id='${productId}']`);
+
+                        // روی همه اعمال کن
+                        allSameFavorites.each(function(){
+                            if ($(this).hasClass('active')) {
+                                const $item = $(this);
+                                if ($item.hasClass('discount-squer')) {
+                                    $item.find(".fa-heart")
+                                    .removeClass("text-danger")
+                                    .addClass("text-white");
+                                } else {
+                                    $item.find(".fa-heart")
+                                    .removeClass("fa-solid")
+                                    .addClass("fa-regular");
+                                }
+                                $item.removeClass("active");
+                            }else{
+                                const $item = $(this);
+                                $item.addClass("active");
+                                if ($item.hasClass('discount-squer')) {
+                                    $item.find(".fa-heart")
+                                    .removeClass("text-white")
+                                    .addClass("text-danger");
+                                }else{
+                                    $item.find(".fa-heart")
+                                    .removeClass("fa-regular")
+                                    .addClass("fa-solid");
+                                }
+                                $item.find(".fa-heart")
+                                    .removeClass("fa-regular text-white")
+                                    .addClass("fa-solid text-danger");
+                            }
+
+                        });
+                    }
+
+                    // Swal.fire({
+                    //     icon: title === "خطا در اجرای عملیات" ? "error" : "success",
+                    //     title: title,
+                    //     text: data.message
+                    // });
+                },
+
+                // 🟥 گرفتن خطاهای HTTP مثل 401, 500, 404
+                error: function(xhr) {
+
+                    // اگر لاگین نیستی → سرور 401 می‌دهد
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            title: "ورود به حساب کاربری",
+                            html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <div class="text-center" style="font-size: 14px;">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                </div>
+                            </div>
+                        </form>
+                    `,
+                            showConfirmButton: false,
+                            focusConfirm: false,
+                            allowOutsideClick: true
+                        });
+
+                        // ارسال فرم لاگین با ایجکس
+                        $(document).on("submit", "#loginAjaxForm", function(e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: "/login", // مسیر Laravel login
+                                type: "POST",
+                                data: {
+                                    login: $("#searchInputlogin").val(),
+                                    password: $("#searchInputpassword").val(),
+                                    _token: '<?php echo csrf_token(); ?>',
+                                },
+                                success: function(res) {
+                                    Swal.close();
+
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "ورود موفقیت‌آمیز",
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+
+                                    setTimeout(()=> location.reload(),1200);
+                                },
+                                error: function() {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "ورود ناموفق",
+                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                    });
+                                }
+                            });
+                        });
+
+                        return; // ادامه اجرا متوقف شود
+                    }
+
+                    // سایر خطاها
+                    Swal.fire({
+                        icon: "error",
+                        title: "خطا",
+                        text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
+                    });
+                }
             });
-        },
+        });
 
-        // 🟥 گرفتن خطاهای HTTP مثل 401, 500, 404
-        error: function(xhr) {
-
-            // اگر لاگین نیستی → سرور 401 می‌دهد
-            if (xhr.status === 401) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "نیاز به ورود",
-                    text: "برای افزودن محصول به علاقه‌مندی‌ها ابتدا وارد حساب کاربری شوید."
-                });
-
-                setTimeout(() => {
-                    window.location.href = "/login";
-                }, 1200);
-
-                return;
+        $(document).on("input", ".only-number", function() {
+            this.value = this.value.replace(/[^0-9]/g, "");
+            let name = $(this).attr("name");
+            const box = document.getElementById("autocompleteBox" + name);
+            const clearBtn = document.getElementById("clearBtn_" + name);
+            let value2 = $(this).val();
+            if (value2.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
             }
+        });
 
-            // سایر خطاها
-            Swal.fire({
-                icon: "error",
-                title: "خطا",
-                text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
-            });
+        function nameinput(id) {
+            const input = document.getElementById("searchInput" + id);
+            const box = document.getElementById("autocompleteBox" + id);
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            if (input.value.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
+            }
         }
-    });
-});
 
+        function clearInput(id) {
+            const box = document.getElementById("autocompleteBox" + id);
+            box.classList.remove("filled");
+            const input = document.getElementById("searchInput" + id);
+            input.value = "";
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            clearBtn.style.display = "none";
+
+            if (id == "state") {
+                const box2 = document.getElementById("autocompleteBoxcity");
+                const input2 = document.getElementById("searchInputcity");
+                input2.value = "";
+                document.getElementById("selectedIdcity").value = "";
+                box2.classList.remove("filled");
+                const clearBtn2 = document.getElementById("clearBtn_city");
+                clearBtn2.style.display = "none";
+            }
+        }
     </script>
 @endsection

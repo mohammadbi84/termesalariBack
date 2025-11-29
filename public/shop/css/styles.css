@@ -490,6 +490,10 @@ i {
     background-color: #327942;
     border: 1px solid #327942 !important;
 }
+.add-to-cart.favorites-btn:hover {
+    background-color: #52AC661F !important;
+    color: var(--primary-color) !important;
+}
 
 .add-to-cart:hover i {
     color: white;
@@ -604,6 +608,8 @@ i {
     height: 70%;
     overflow: hidden;
     transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
 }
 
 .hot-product-image {
@@ -611,10 +617,14 @@ i {
     height: 100%;
     object-fit: cover;
     border-radius: 16px;
+    transition: all 0.5s ease;
 }
 
 .hot-product-card:hover .hot-image-container {
     height: 58%;
+}
+.hot-product-card:hover .hot-image-container .hot-product-image {
+    width: 81%;
 }
 
 .overlay {
@@ -1302,4 +1312,59 @@ i {
 
 #modal-slider .splide__arrow svg {
     fill: #333;
+}
+
+
+
+
+/* inputs ========================================================================================================================= */
+/* inputs */
+.autocomplete {
+    position: relative;
+    /* width: 300px; */
+}
+
+.autocomplete input {
+    outline: 0px solid transparent !important;
+    width: 100%;
+    padding: 10px 30px 10px 10px;
+    padding-left: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.autocomplete label {
+    position: absolute;
+    right: 15px;
+    top: 21%;
+    transition: 0.2s;
+    pointer-events: none;
+    color: #666;
+}
+
+.autocomplete .dropdown .active {
+    background-color: #F2F9FF;
+}
+
+.autocomplete input:focus+label,
+.autocomplete.filled label {
+    outline: none !important;
+    border: none !important;
+    top: -10px;
+    right: 10px;
+    background: white;
+    padding: 0 5px;
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+.autocomplete .clear-btn {
+    display: none;
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-weight: bold;
+    color: #888;
 }

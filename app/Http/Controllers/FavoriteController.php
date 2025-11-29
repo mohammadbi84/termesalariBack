@@ -52,7 +52,7 @@ class FavoriteController extends Controller
         //     // dd($exist);
         //     if($exist == 0){
         //         $user_id = Auth::id();
-                
+
         //         $favorite = new Favorite;
         //         $favorite->user_id = $user_id;
         //         $favorite->favoriteable_id = $request->id;
@@ -133,7 +133,7 @@ class FavoriteController extends Controller
             // dd($exist);
             if($exist == 0){
                 $user_id = Auth::id();
-                
+
                 $favorite = new Favorite;
                 $favorite->user_id = $user_id;
                 $favorite->favoriteable_id = $request->id;
@@ -160,6 +160,12 @@ class FavoriteController extends Controller
     {
         $this->authorize('removeFavorite', Favorite::class);
         $favorite = Favorite::find($request->id);
+        if (!$favorite) {
+            $favorite = Favorite::where('favoriteable_id', $request->id)
+                ->where('favoriteable_type', 'App\\' . $request->model)
+                ->where('user_id', Auth::id())
+                ->first();
+        }
         $favorite->delete();
         $result["res"] = "success";
         $result["message"] = "این محصول با موفقیت از لیست علاقه مندی شما حذف شد.";
