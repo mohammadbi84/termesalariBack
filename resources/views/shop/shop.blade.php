@@ -1563,7 +1563,11 @@
                     // اگر سرور گفت نیاز به لاگین داری
                     if (data.res === "auth") {
                         Swal.fire({
-                            title: "ورود به حساب کاربری",
+                             title: `
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                </div>`,
                             html: `
                         <form id="loginAjaxForm">
                             <div class="mx-5 text-center">
@@ -1594,7 +1598,8 @@
                                 </div>
                             </div>
                         </form>
-                    `,
+                        `,
+                            showCloseButton: true,
                             showConfirmButton: false,
                             focusConfirm: false,
                             allowOutsideClick: true
@@ -1699,7 +1704,11 @@
                     // اگر لاگین نیستی → سرور 401 می‌دهد
                     if (xhr.status === 401) {
                         Swal.fire({
-                            title: "ورود به حساب کاربری",
+                            title: `
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                </div>`,
                             html: `
                         <form id="loginAjaxForm">
                             <div class="mx-5 text-center">
@@ -1730,7 +1739,8 @@
                                 </div>
                             </div>
                         </form>
-                    `,
+                            `,
+                            showCloseButton: true,
                             showConfirmButton: false,
                             focusConfirm: false,
                             allowOutsideClick: true

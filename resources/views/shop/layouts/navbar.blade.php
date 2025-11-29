@@ -54,13 +54,53 @@
                             <a class="nav-link" href="#">درباره ما</a>
                         </li>
                     </ul>
-                    <!-- cart ================================================================================================================== -->
+                    <!-- cart language, favorites and login ================================================================================================================== -->
                     <div class="d-flex gap-2 align-items-center justify-content-center position-relative">
                         <div class="language-selector" id="languageSelector">
                             <button class="language-btn border-0 text-muted" id="languageBtn">
                                 <span class="current-language">En</span>
                                 <i class="bi bi-globe"></i>
                             </button>
+                        </div>
+                        {{-- favorites menu --}}
+                        <div class="favorites-container">
+                            <a href="#" class="cart-btn">
+                                <span class="cart-badge shopping-cart-badge">2</span>
+                                <img src="{{ asset('shop/assets/svgs/heart-solid-full.svg') }}" alt="favorites"
+                                    width="24">
+                            </a>
+
+                            <div class="favorites-dropdown">
+                                <div class="cart-header">
+                                    <span class="mb-0">لیست علاقه‌مندی ها</span>
+                                    <span class="text-muted cart-items-count">2 کالا</span>
+                                </div>
+
+                                <div class="cart-items" id="navbarFavoritesList">
+                                    <div class="cart-item">
+                                        <img src="{{ asset('shop/assets/sliders/l2.jpg') }}" alt="test"
+                                            class="cart-item-image">
+                                        <div class="cart-item-content">
+                                            <div class="cart-item-title">نام محصول</div>
+                                            <div class="cart-item-price">
+                                                <span class="cart-item-old-price">200,000,000</span>
+                                                <small class="fs-10 text-muted">جمع جزء : </small>
+                                                200,000,000 تومان
+                                            </div>
+                                            <div class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                                                <button class="buy-button add-to-cart" style="width: 30px;height:30px"><i class="fa-solid fa-heart text-danger fa-lg"></i></button>
+                                                <button class="buy-button add-to-cart" style="width: 30px;height:30px"><i class="fa-solid fa-cart-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="cart-footer">
+                                    <div class="cart-actions justify-content-between align-items-center">
+                                        <a href="#" class="btn-checkout">مشاهده لیست علاقه‌مندی‌ها</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         @php
                             if (session()->has('cart')) {
@@ -189,7 +229,8 @@
                                                             @if ($cartOff > 0)
                                                                 <span
                                                                     class="cart-item-old-price">{{ $p->offPrice }}</span>
-                                                            @endif <small class="fs-10 text-muted">جمع جزء : </small>
+                                                            @endif <small class="fs-10 text-muted">جمع
+                                                                جزء : </small>
                                                             {{ number_format($cartPrice * $quantity) }} تومان
                                                         </div>
                                                         <div class="quantity-controls">

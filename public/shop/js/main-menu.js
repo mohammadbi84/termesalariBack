@@ -13,6 +13,7 @@ function initMainMenu() {
         let screenWidth = document.body.clientWidth;
         let offerHeaderParentWidth = document.querySelector(".offer-header");
         let cart_dropdown = document.querySelector(".cart-dropdown");
+        let favorites_dropdown = document.querySelector(".favorites-dropdown");
         let categoriesMenu = document.querySelector("#categoryMenu");
         if (offerHeaderParentWidth) {
             setCssVar(
@@ -45,8 +46,9 @@ function initMainMenu() {
             ) {
                 mainMenu.classList.add("small");
                 categoryMenu.classList.add("small");
+                favorites_dropdown.style.top = "51px";
                 cart_dropdown.style.top = "51px";
-                cart_dropdown.style.left = "-138px";
+                cart_dropdown.style.left = "-117px";
                 categoriesMenu.style.top = "65px";
                 categoriesMenu.style.left = "1rem";
                 categoriesMenu.style.right = "1rem";
@@ -58,8 +60,9 @@ function initMainMenu() {
             } else {
                 mainMenu.classList.remove("small");
                 categoryMenu.classList.remove("small");
+                favorites_dropdown.style.top = "61px";
                 cart_dropdown.style.top = "61px";
-                cart_dropdown.style.left = "-178px";
+                cart_dropdown.style.left = "-155px";
                 categoriesMenu.style.top = "75px";
                 categoriesMenu.style.left = "-10px";
                 categoriesMenu.style.right = "-10px";

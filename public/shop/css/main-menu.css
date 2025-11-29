@@ -675,6 +675,10 @@
     position: relative;
     display: inline-block;
 }
+.favorites-container {
+    position: relative;
+    display: inline-block;
+}
 
 .cart-btn {
     position: relative;
@@ -701,10 +705,10 @@
     border-radius: 8px;
 }
 
-.cart-dropdown {
+.cart-dropdown, .favorites-dropdown {
     position: absolute;
     top: 61px;
-    left: -178px;
+    left: -155px;
     width: 340px;
     background: white;
     border: 1px solid #dee2e6;
@@ -719,6 +723,11 @@
 }
 
 .cart-container:hover .cart-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.favorites-container:hover .favorites-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
