@@ -55,7 +55,7 @@
                         </li>
                     </ul>
                     <!-- cart language, favorites and login ================================================================================================================== -->
-                    <div class="d-flex gap-2 align-items-center justify-content-center position-relative">
+                    <div class="d-flex gap-1 align-items-center justify-content-center position-relative">
                         <div class="language-selector" id="languageSelector">
                             <button class="language-btn border-0 text-muted" id="languageBtn">
                                 <span class="current-language">En</span>
@@ -633,7 +633,7 @@
                     'visibility': 'hidden',
                     'transform': 'translateY(10px)'
                 });
-            }, 300);
+            }, 200);
         }
     );
 
@@ -649,7 +649,7 @@
                     'visibility': 'hidden',
                     'transform': 'translateY(10px)'
                 });
-            }, 300);
+            }, 200);
         }
     );
 </script>
