@@ -162,7 +162,7 @@
 
                                 <div class="cart-footer">
                                     <div class="cart-actions justify-content-between align-items-center">
-                                        <a href="#" class="btn-checkout">مشاهده لیست علاقه‌مندی‌ها</a>
+                                        <a href="{{route('user.favorites')}}" class="btn-checkout">مشاهده لیست علاقه‌مندی‌ها</a>
                                     </div>
                                 </div>
                             </div>
