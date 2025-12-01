@@ -47,8 +47,9 @@ function initMainMenu() {
                 mainMenu.classList.add("small");
                 categoryMenu.classList.add("small");
                 favorites_dropdown.style.top = "51px";
+                favorites_dropdown.style.left = "-190px";
                 cart_dropdown.style.top = "51px";
-                cart_dropdown.style.left = "-117px";
+                cart_dropdown.style.left = "-138px";
                 categoriesMenu.style.top = "65px";
                 categoriesMenu.style.left = "1rem";
                 categoriesMenu.style.right = "1rem";
@@ -61,8 +62,9 @@ function initMainMenu() {
                 mainMenu.classList.remove("small");
                 categoryMenu.classList.remove("small");
                 favorites_dropdown.style.top = "61px";
+                favorites_dropdown.style.left = "-230px";
                 cart_dropdown.style.top = "61px";
-                cart_dropdown.style.left = "-155px";
+                cart_dropdown.style.left = "-178px";
                 categoriesMenu.style.top = "75px";
                 categoriesMenu.style.left = "-10px";
                 categoriesMenu.style.right = "-10px";

@@ -63,36 +63,101 @@
                             </button>
                         </div>
                         {{-- favorites menu --}}
+                        @php
+                        if (Auth::check()) {
+                            $favorites = App\Favorite::where('user_id', Auth::id())->get();
+                        } else {
+                            $favorites = collect();
+                        }
+                        @endphp
                         <div class="favorites-container">
                             <a href="#" class="cart-btn">
-                                <span class="cart-badge shopping-cart-badge">2</span>
+                                <span class="cart-badge favorites-badge">{{ $favorites->count() }}</span>
                                 <img src="{{ asset('shop/assets/svgs/heart-solid-full.svg') }}" alt="favorites"
                                     width="24">
                             </a>
 
                             <div class="favorites-dropdown">
-                                <div class="cart-header">
+                                <div class="favorites-header">
                                     <span class="mb-0">لیست علاقه‌مندی ها</span>
-                                    <span class="text-muted cart-items-count">2 کالا</span>
+                                    <span class="text-muted favorites-items-count">{{ $favorites->count() }} کالا</span>
                                 </div>
 
-                                <div class="cart-items" id="navbarFavoritesList">
-                                    <div class="cart-item">
-                                        <img src="{{ asset('shop/assets/sliders/l2.jpg') }}" alt="test"
-                                            class="cart-item-image">
-                                        <div class="cart-item-content">
-                                            <div class="cart-item-title">نام محصول</div>
-                                            <div class="cart-item-price">
-                                                <span class="cart-item-old-price">200,000,000</span>
-                                                <small class="fs-10 text-muted">جمع جزء : </small>
-                                                200,000,000 تومان
-                                            </div>
-                                            <div class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
-                                                <button class="buy-button add-to-cart" style="width: 30px;height:30px"><i class="fa-solid fa-heart text-danger fa-lg"></i></button>
-                                                <button class="buy-button add-to-cart" style="width: 30px;height:30px"><i class="fa-solid fa-cart-plus"></i></button>
+                                <div class="favorites-items" id="navbarFavoritesList">
+                                    @foreach ($favorites as $favorite)
+                                        <div class="favorites-item"
+                                            data-id="{{ $favorite->favoriteable->id }}"
+                                            data-model="{{ substr($favorite->favoriteable_type, 4) }}">
+                                            @php $image = $favorite->favoriteable->images->first(); @endphp
+                                            <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                                alt="product" class="favorites-item-image">
+                                            <div class="favorites-item-content">
+                                                <div class="favorites-item-title">
+                                                    {{ $favorite->favoriteable->category->title }} طرح
+                                                    {{ $favorite->favoriteable->color_design->design->title }} رنگ
+                                                    {{ $favorite->favoriteable->color_design->color->color }}
+                                                </div>
+                                                <div class="favorites-item-price">
+                                                    @if ($favorite->favoriteable->quantity > 0)
+                                                        @php
+                                                            $price = $favorite->favoriteable->prices
+                                                                ->where('local', 'تومان')
+                                                                ->first();
+                                                        @endphp
+                                                        @if ($price->offPrice > 0)
+                                                            @if ($price->offType == 'مبلغ')
+                                                                <span
+                                                                    class="favorites-item-old-price">{{ number_format($price->price - $price->offPrice) }}</span>
+                                                            @elseif($price->offType == 'درصد')
+                                                                <span
+                                                                    class="favorites-item-old-price">{{ number_format($price->price - $price->price * ($price->offPrice / 100)) }}</span>
+                                                            @endif
+                                                            {{ number_format($price->price) }}
+                                                            تومان
+                                                        @else
+                                                            {{ number_format($price->price) }}
+                                                            تومان
+                                                        @endif
+                                                    @else
+                                                        ناموجود
+                                                    @endif
+                                                </div>
+                                                <div
+                                                    class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                                                    <button class="buy-button add-to-cart favorites-btn active"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                        data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $favorite->favoriteable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}"
+                                                        data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
+                                                        data-local="{{ $prices->local }}"
+                                                        data-id="{{ $favorite->favoriteable->id }}"
+                                                        data-model="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                        style="width: 30px;height:30px"><i
+                                                            class="fa-solid fa-heart text-danger fa-lg"></i></button>
+                                                    <button class="buy-button add-to-cart addToCart"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                        data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $favorite->favoriteable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}"
+                                                        data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
+                                                        data-local="{{ $prices->local }}"
+                                                        data-id="{{ $favorite->favoriteable->id }}"
+                                                        data-model="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                        style="width: 30px;height:30px"><i
+                                                            class="fa-solid fa-cart-plus"></i></button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="cart-footer">
@@ -218,7 +283,8 @@
                                                 @endphp
 
                                                 <div class="cart-item" data-id="{{ $productId }}"
-                                                    data-model="{{ $model }}" data-base-price="{{ $basePrice }}"
+                                                    data-model="{{ $model }}"
+                                                    data-base-price="{{ $basePrice }}"
                                                     data-base-off-price="{{ $baseOffPrice }}"
                                                     data-off-type="{{ $offType }}">
                                                     <img src="{{ $image }}" alt="{{ $title }}"
@@ -255,7 +321,7 @@
                                 <div class="cart-footer">
                                     <div class="cart-actions justify-content-between align-items-center">
                                         <span class="cart-total-price">
-                                            <span class="text-mute fs-10">مبلغ قابل پرداخت</span><br>
+                                            <span class="text-muted fs-10">مبلغ قابل پرداخت</span><br>
                                             {{ number_format($price ?? 0) }}
                                             تومان</span>
                                         <a href="{{ route('cart.index') }}" class="btn-checkout">مشاهده سبد خرید</a>
@@ -546,7 +612,7 @@
         });
 
         // تزریق در HTML
-        $('.cart-total-price').text(totalPayable.toLocaleString() + ' تومان');
+        $('.cart-total-price').html('<span class="text-muted fs-10">مبلغ قابل پرداخت</span><br>'+totalPayable.toLocaleString() + ' تومان');
     }
 
     // مدیریت هاور روی سبد خرید

@@ -174,7 +174,7 @@
                                                 <!-- جلوی کارت -->
                                                 <div class="flip-card-front d-flex flex-column justify-content-between">
                                                     <div class="position-relative image-badge pb-1">
-                                                        <img src="{{ asset('shop/assets/sliders/l2.jpg') }}"
+                                                        <img src="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                             class="card-img-top" alt="event image">
 
                                                         @if ($prices->offPrice > 0)
@@ -342,6 +342,16 @@
                                                         </div>
                                                     @endif
                                                     <a href="#" class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}"
+                                                        data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
+                                                        data-local="{{ $prices->local }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         style="position: absolute;top: 4px;right: 20px;">
@@ -591,7 +601,7 @@
                             <div class="product-card">
                                 {{-- <div class="discount-badge">20% تخفیف</div> --}}
                                 <div class="product-image">
-                                    <img src="{{ asset('shop/assets/sliders/l2.jpg') }}"
+                                    <img src="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
                                         alt="{{ $product->orderitemable->category->title }}">
                                 </div>
                                 <div class="product-body">
@@ -621,6 +631,18 @@
                                                         <span class="rate-count d-block text-danger">
                                                             <a href="#"
                                                                 class="text-decoration-none text-reset favorites-btn @if ($product->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                                data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                                                data-moddel="{{ substr($product->orderitemable_type, 4) }}"
+                                                                data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
+                                                                data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
+                                                                data-title="{{ $product->orderitemable->title }}"
+                                                                data-price="{{ $prices->price }}"
+                                                                data-pay="{{ $price }}"
+                                                                data-off="{{ $off }}"
+                                                                data-offType="{{ $prices->offType }}"
+                                                                data-local="{{ $prices->local }}"
+                                                                data-id="{{ $product->orderitemable->id }}"
+                                                                data-model="{{ substr($product->orderitemable_type, 4) }}"
                                                                 data-id="{{ $product->orderitemable->id }}"
                                                                 data-model="{{ substr($product->orderitemable_type, 4) }}">
                                                                 <i class="@if ($product->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) fa-solid text-danger @else fa-regular @endif fa-heart"
@@ -855,7 +877,7 @@
                                     <div class="product-div p-2">
                                         <div class="hot-product-card">
                                             <div class="hot-image-container">
-                                                <img src="{{ asset('shop/assets/sliders/l2.jpg') }}"
+                                                <img src="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                     alt="{{ $topRequest->orderitemable->category->title }}"
                                                     class="hot-product-image">
                                             </div>
@@ -937,6 +959,18 @@
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
                                                     <button class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}"
+                                                        data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
+                                                        data-local="{{ $prices->local }}"
+                                                        data-id="{{ $topRequest->orderitemable->id }}"
+                                                        data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         style="width:30px;height:30px"><i
@@ -1542,18 +1576,31 @@
             event.preventDefault();
 
             var $btn = $(this);
-            var id = $btn.data("id");
-            var model = $btn.data("model");
+
+            const id = $btn.data('id');
+            const model = $btn.data('model');
+            const price = $btn.data('price');
+            const off = $btn.data('off');
+            const offType = $btn.data('offType');
+            const pay = $btn.data('pay');
+            const local = $btn.data('local');
+            const title = $btn.data('title');
+            const image = $btn.data('image') || '/images/no-image.png';
+            const url = `${document.location.origin}/cart/add/${id}/${model}`;
+            const design = $btn.data('design');
+            const color = $btn.data('color');
+
+
 
             if ($btn.hasClass('active')) {
-                var url = document.location.origin + "/user/remove-favorite/";
+                var urlFavorites = document.location.origin + "/user/remove-favorite/";
             }else{
-                var url = document.location.origin + "/user/add-favorite";
+                var urlFavorites = document.location.origin + "/user/add-favorite";
             }
 
             $.ajax({
                 type: "GET",
-                url: url,
+                url: urlFavorites,
                 data: {
                     id: id,
                     model: model
@@ -1643,7 +1690,7 @@
                     }
 
                     // پیام اصلی
-                    var title = (data.res === "error") ?
+                    var text = (data.res === "error") ?
                         "خطا در اجرای عملیات" :
                         "عملیات با موفقیت انجام شد.";
 
@@ -1657,6 +1704,18 @@
                         // 🔥 تمام دکمه‌های علاقه‌مندی با این ID را بگیر
                         const allSameFavorites = $(`.favorites-btn[data-id='${productId}']`);
 
+                        updateNavbarFavorites({
+                            id,
+                            title,
+                            price,
+                            image,
+                            quantity: 1,
+                            model: model,
+                            off: off,
+                            offType: offType,
+                            design: design,
+                            color: color
+                        });
                         // روی همه اعمال کن
                         allSameFavorites.each(function(){
                             if ($(this).hasClass('active')) {
@@ -1792,6 +1851,80 @@
                 }
             });
         });
+
+        // 🧡 تابع آپدیت منوی علاقه مندی ها
+        function updateNavbarFavorites(item) {
+            const $badge = $(".favorites-badge"); // شمارشگر علاقه‌مندی
+            const $favList = $("#navbarFavoritesList"); // لیست داخل منو
+            // چک کن آیا محصول وجود دارد
+            const exists = $favList.find(`.favorites-item[data-id="${item.id}"][data-model="${item.model}"]`);
+            if (exists.length > 0) {
+                exists.remove(); // حذف از لیست
+                // بروزرسانی تعداد
+                let count = parseInt($badge.text()) || 0;
+                $badge.text( count > 0 ? count - 1 : 0 );
+
+                return "removed";
+            }
+            if (exists.length === 0) {
+                // افزایش عدد
+                let count = parseInt($badge.text()) || 0;
+                $badge.text(count + 1);
+
+                const newItem = `
+                <div class="favorites-item"
+                    data-id="${item.id}"
+                    data-model="${item.model}" >
+                    <img src="${item.image}"
+                        alt="product" class="cart-item-image">
+                    <div class="cart-item-content">
+                        <div class="cart-item-title">
+                            ${item.title} طرح ${item.design} رنگ ${item.color}
+                        </div>
+                        <div class="cart-item-price">
+                            ${Number(item.price).toLocaleString()} تومان
+                        </div>
+                        <div
+                            class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                            <button class="buy-button add-to-cart favorites-btn active"
+                                data-image="${item.image}"
+                                data-moddel="${item.model}"
+                                data-design="${item.design}"
+                                data-color="${item.color}"
+                                data-title="${item.title}"
+                                data-price="${item.price}"
+                                data-pay="${item.pay}"
+                                data-off="${item.off}"
+                                data-offType="${item.offType}"
+                                data-local="${item.local}"
+                                data-id="${item.id}"
+                                data-model="${item.model}"
+                                style="width: 30px;height:30px"><i
+                                    class="fa-solid fa-heart text-danger fa-lg"></i></button>
+                            <button class="buy-button add-to-cart addToCart"
+                                data-image="${item.image}"
+                                data-moddel="${item.model}"
+                                data-design="${item.design}"
+                                data-color="${item.color}"
+                                data-title="${item.title}"
+                                data-price="${item.price}"
+                                data-pay="${item.pay}"
+                                data-off="${item.off}"
+                                data-offType="${item.offType}"
+                                data-local="${item.local}"
+                                data-id="${item.id}"
+                                data-model="${item.model}"
+                                style="width: 30px;height:30px"><i
+                                    class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                $favList.prepend(newItem);
+            }
+        }
+
 
         $(document).on("input", ".only-number", function() {
             this.value = this.value.replace(/[^0-9]/g, "");
