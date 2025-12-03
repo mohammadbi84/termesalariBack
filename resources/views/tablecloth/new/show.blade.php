@@ -47,6 +47,7 @@
                         <li> کد محصول: {{ $tablecloth->code }}</li>
                         <li> تعداد رنگ بافت ترمه: {{ $tablecloth->color_design->design->countOfColor }} رنگ</li>
                         <li> مشتمل بر: {{ $tablecloth->contains }}</li>
+                        <li> رنگ: {{ $tablecloth->color_design->color->color }}</li>
                     </ul>
 
                     <div class="price-section">
@@ -92,22 +93,23 @@
                             <input type="text" class="quantity-input" value="1" readonly>
                             <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
                         </div>
-                        <button class="btn btn-primary">افزودن به سبد خرید</button>
-                    </div>
-                    <div class="action-buttons">
-                        <a href="#" class="d-block mb-1 compare-btn">
-                            <i class="fa-solid fa-shuffle ms-1"></i>
-                            برای مقایسه اضافه کنید
-                        </a>
-                        <a href="#" class="d-block wishlist-btn">
-                            <i class="fas fa-heart ms-1"></i>
-                            افزودن به علاقه‌مندی‌ها
-                        </a>
+                        <button class="btn btn-primary @if ($tablecloth->quantity != 0) addToCart @endif"
+                            data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                            data-id="{{ $tablecloth->id }}"
+                            data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                            data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
+                            data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
+                            data-title="{{ $tablecloth->title }}"
+                            data-price="{{ $prices->price }}"
+                            data-pay="{{ $price }}"
+                            data-off="{{ $off }}"
+                            data-offType="{{ $prices->offType }}"
+                            data-local="{{ $prices->local }}">افزودن به سبد خرید</button>
                     </div>
                 </div>
 
                 <!-- Middle Column - Product Gallery -->
-                <div class="col-lg-5 order-lg-2 mb-5" style="width:46% !important;">
+                <div class="col-lg-5 order-lg-2 mb-5 rounded-3 shadow p-2" style="width:46% !important;">
                     <div class="product-gallery">
                         <!-- اسلایدر اصلی -->
 
@@ -121,16 +123,21 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                         </div>
 
                         <!-- لنز زوم -->
                         <div class="zoom-lens" id="zoomLens"></div>
 
+                    </div>
+                    <div class="d-flex justify-content-between">
                         <!-- دکمه مشاهده گالری -->
                         <div class="view-gallery" data-bs-toggle="modal" data-bs-target="#galleryModal">
                             <i class="fa-solid fa-expand" style="top: 0"></i>
+                        </div>
+                        <div class="w-100 d-flex justify-content-end align-items-center"
+                            style="margin-top: 10px;position: relative;gap: 13px;">
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
                 </div>
@@ -139,7 +146,7 @@
                 <div class="col order-lg-3 mb-5">
                     <div class="discount-alert">
                         <div class="d-flex align-items-center">
-                            <div>
+                            <div class="w-100 d-flex justify-content-between align-items-center">
                                 <strong>تخفیف ویژه!</strong>
                                 <div class="countdown-timer timer-short justify-content-between gap-4" id="countdown-1"
                                     data-end-date="2025-12-30">
@@ -182,9 +189,27 @@
                     </div>
 
                     <div class="categories-tags">
-                        <h6 class="color-title">رنگ</h6>
-                        <div class="mb-3">
-                            <span class="tag">{{ $tablecloth->color_design->color->color }}</span>
+                        <div class="action-buttons">
+                            <a href="#" class="d-block mb-1 compare-btn">
+                                <i class="fa-solid fa-shuffle ms-1"></i>
+                                برای مقایسه اضافه کنید
+                            </a>
+                            <a href="#" class="d-block wishlist-btn favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
+                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
+                                data-title="{{ $tablecloth->title }}"
+                                data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}"
+                                data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}"
+                                data-local="{{ $prices->local }}"
+                                data-id="{{ $tablecloth->id }}"
+                                data-model="{{ substr($tablecloth->category->model, 4) }}">
+                                <i class="fas fa-heart ms-1"></i>
+                                افزودن به علاقه‌مندی‌ها
+                            </a>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between align-items-center">
@@ -432,19 +457,6 @@
             setInterval(updateCountdown, 1000);
             updateCountdown();
 
-            // Wishlist and Compare buttons
-            $('.wishlist-btn').click(function() {
-                $(this).toggleClass('active');
-                if ($(this).hasClass('active')) {
-                    $(this).html('<i class="fas fa-heart text-danger"></i> حذف از علاقه‌مندی');
-                } else {
-                    $(this).html('<i class="fas fa-heart"></i> علاقه‌مندی');
-                }
-            });
-
-            $('.compare-btn').click(function() {
-                alert('این محصول به لیست مقایسه اضافه شد');
-            });
 
             // مقدار زوم را اینجا تنظیم کن (1 = بدون زوم, 1.5 = یک ونیم برابر, 2 = دو برابر)
             let zoomLevel = 1.3;
@@ -619,5 +631,546 @@
             });
 
         });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // 🛒 افزودن محصول به سبد خرید
+            $(document).on('click', '.addToCart', function() {
+                const $btn = $(this);
+
+                const card = $btn.closest('.product-card');
+                if (card) {
+                    card.removeClass('hovered'); // حذف کلاس
+                }
+
+                // برداشتن فوکوس از روی دکمه (مهم!)
+                if (document.activeElement && document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                }
+
+                // گرفتن اطلاعات از data attributes
+                const id = $btn.data('id');
+                const model = $btn.data('moddel');
+                const price = $btn.data('price');
+                const off = $btn.data('off');
+                const offType = $btn.data('offType');
+                const pay = $btn.data('pay');
+                const local = $btn.data('local');
+                const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
+                const image = $btn.data('image') || '/images/no-image.png';
+                const url = `${document.location.origin}/cart/add/${id}/${model}`;
+
+                // درخواست AJAX
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    data: {
+                        product: id,
+                        controller: model
+                    },
+                    success: function(response) {
+                        if (response == "1") {
+                            // ✅ موفقیت
+                            updateNavbarCart({
+                                id,
+                                title,
+                                price,
+                                image,
+                                quantity: 1,
+                                model: model,
+                                off: off,
+                                offType: offType,
+                            });
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "محصول به سبد خرید اضافه شد!",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "خطا در افزودن محصول!",
+                                text: "لطفاً دوباره تلاش کنید."
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: "error",
+                            title: "خطا در ارتباط با سرور!",
+                            text: "اتصال اینترنت یا سرور بررسی شود."
+                        });
+                    }
+                });
+            });
+
+            // 🧩 تابع برای آپدیت کردن dropdown در navbar
+            function updateNavbarCart(item) {
+                const $badge = $(".shopping-cart-badge");
+                const $cartList = $("#navbarCartList");
+
+                // افزایش badge
+                let count = parseInt($badge.text()) || 0;
+                $badge.text(count + 1);
+
+                // چک وجود آیتم
+                const existingItem = $cartList.find(`[data-id="${item.id}"][data-model="${item.model}"]`);
+
+                if (existingItem.length > 0) {
+                    // اگر بود، فقط تعداد را افزایش بده
+                    const $quantitySpan = existingItem.find('.item-quantity');
+                    const currentQuantity = parseInt($quantitySpan.text()) || 0;
+                    $quantitySpan.text(currentQuantity + 1);
+                } else {
+                    // اگر نبود، آیتم جدید بساز (با data attributes کامل)
+                    const newItem = `
+            <div class="cart-item"
+                data-id="${item.id}"
+                data-model="${item.model}"
+                data-base-price="${item.price}"
+                data-base-off-price="${item.off}"
+                data-off-type="${item.offType}">
+
+                <img src="${item.image}" alt="${item.title}" class="cart-item-image">
+
+                <div class="cart-item-content">
+                    <div class="cart-item-title">${item.title}</div>
+
+                    <div class="cart-item-price">
+                        ${Number(item.price).toLocaleString()} تومان
+                    </div>
+
+                    <div class="quantity-controls">
+                        <button class="decrease" data-model="${item.model}" data-id="${item.id}">-</button>
+                        <span class="count item-quantity">${item.quantity}</span>
+                        <button class="increase" data-model="${item.model}" data-id="${item.id}">+</button>
+                        <a href="#" class="delete-item me-3"
+                            data-id="${item.id}"
+                            data-model="${item.model}">
+                            <i class="far fa-trash-alt text-danger"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                    $cartList.prepend(newItem);
+                }
+
+                // جمع کل و badge را آپدیت کن
+                updateCartBadge();
+                updateCartTotal();
+            }
+
+        });
+
+
+
+        // favorites actions
+        $(document).on("click", ".favorites-btn", function(event) {
+            event.preventDefault();
+
+            var $btn = $(this);
+
+            const id = $btn.data('id');
+            const model = $btn.data('model');
+            const price = $btn.data('price');
+            const off = $btn.data('off');
+            const offType = $btn.data('offType');
+            const pay = $btn.data('pay');
+            const local = $btn.data('local');
+            const title = $btn.data('title');
+            const image = $btn.data('image') || '/images/no-image.png';
+            const url = `${document.location.origin}/cart/add/${id}/${model}`;
+            const design = $btn.data('design');
+            const color = $btn.data('color');
+
+
+
+            if ($btn.hasClass('active')) {
+                var urlFavorites = document.location.origin + "/user/remove-favorite/";
+            } else {
+                var urlFavorites = document.location.origin + "/user/add-favorite";
+            }
+
+            $.ajax({
+                type: "GET",
+                url: urlFavorites,
+                data: {
+                    id: id,
+                    model: model
+                },
+                success: function(data) {
+
+                    // اگر سرور گفت نیاز به لاگین داری
+                    if (data.res === "auth") {
+                        Swal.fire({
+                            title: `
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                </div>`,
+                            html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <div class="text-center">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">حساب کاربری ندارید؟ <a href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                </div>
+                            </div>
+                        </form>
+                        `,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                            focusConfirm: false,
+                            allowOutsideClick: true
+                        });
+
+                        // ارسال فرم لاگین با ایجکس
+                        $(document).on("submit", "#loginAjaxForm", function(e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: "/login", // مسیر Laravel login
+                                type: "POST",
+                                data: {
+                                    login: $("#searchInputlogin").val(),
+                                    password: $("#searchInputpassword").val(),
+                                    _token: '<?php echo csrf_token(); ?>',
+                                },
+                                success: function(res) {
+                                    Swal.close();
+
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "ورود موفقیت‌آمیز",
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+
+                                    setTimeout(() => location.reload(), 1200);
+                                },
+                                error: function() {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "ورود ناموفق",
+                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                    });
+                                }
+                            });
+                        });
+
+                        return; // ادامه اجرا متوقف شود
+                    }
+
+                    // پیام اصلی
+                    var text = (data.res === "error") ?
+                        "خطا در اجرای عملیات" :
+                        "عملیات با موفقیت انجام شد.";
+
+                    // -----------------------------
+                    // 🔥 تغییر حالت آیکون قلب
+                    // -----------------------------
+                    if (data.res === "success") {
+                        // شناسه محصول کلیک شده
+                        const productId = $btn.data("id");
+
+                        // 🔥 تمام دکمه‌های علاقه‌مندی با این ID را بگیر
+                        const allSameFavorites = $(`.favorites-btn[data-id='${productId}']`);
+
+                        updateNavbarFavorites({
+                            id,
+                            title,
+                            price,
+                            image,
+                            quantity: 1,
+                            model: model,
+                            off: off,
+                            offType: offType,
+                            design: design,
+                            color: color
+                        });
+                        // روی همه اعمال کن
+                        allSameFavorites.each(function() {
+                            if ($(this).hasClass('active')) {
+                                const $item = $(this);
+                                if ($item.hasClass('discount-squer')) {
+                                    $item.find(".fa-heart")
+                                        .removeClass("text-danger")
+                                        .addClass("text-white");
+                                } else {
+                                    $item.find(".fa-heart")
+                                        .removeClass("fa-solid")
+                                        .addClass("fa-regular");
+                                }
+                                $item.removeClass("active");
+                            } else {
+                                const $item = $(this);
+                                $item.addClass("active");
+                                if ($item.hasClass('discount-squer')) {
+                                    $item.find(".fa-heart")
+                                        .removeClass("text-white")
+                                        .addClass("text-danger");
+                                } else {
+                                    $item.find(".fa-heart")
+                                        .removeClass("fa-regular")
+                                        .addClass("fa-solid");
+                                }
+                                $item.find(".fa-heart")
+                                    .removeClass("fa-regular text-white")
+                                    .addClass("fa-solid text-danger");
+                            }
+
+                        });
+                    }
+
+                    // Swal.fire({
+                    //     icon: title === "خطا در اجرای عملیات" ? "error" : "success",
+                    //     title: title,
+                    //     text: data.message
+                    // });
+                },
+
+                // 🟥 گرفتن خطاهای HTTP مثل 401, 500, 404
+                error: function(xhr) {
+
+                    // اگر لاگین نیستی → سرور 401 می‌دهد
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            title: `
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                </div>`,
+                            html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <div class="text-center" style="font-size: 14px;">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                </div>
+                            </div>
+                        </form>
+                            `,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                            focusConfirm: false,
+                            allowOutsideClick: true
+                        });
+
+                        // ارسال فرم لاگین با ایجکس
+                        $(document).on("submit", "#loginAjaxForm", function(e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: "/login", // مسیر Laravel login
+                                type: "POST",
+                                data: {
+                                    login: $("#searchInputlogin").val(),
+                                    password: $("#searchInputpassword").val(),
+                                    _token: '<?php echo csrf_token(); ?>',
+                                },
+                                success: function(res) {
+                                    Swal.close();
+
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "ورود موفقیت‌آمیز",
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+
+                                    setTimeout(() => location.reload(), 1200);
+                                },
+                                error: function() {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "ورود ناموفق",
+                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                    });
+                                }
+                            });
+                        });
+
+                        return; // ادامه اجرا متوقف شود
+                    }
+
+                    // سایر خطاها
+                    Swal.fire({
+                        icon: "error",
+                        title: "خطا",
+                        text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
+                    });
+                }
+            });
+        });
+
+        // 🧡 تابع آپدیت منوی علاقه مندی ها
+        function updateNavbarFavorites(item) {
+            const $badge = $(".favorites-badge"); // شمارشگر علاقه‌مندی
+            const $badge2 = $("#favorites-items-count"); // شمارشگر علاقه‌مندی
+            const $favList = $("#navbarFavoritesList"); // لیست داخل منو
+            // چک کن آیا محصول وجود دارد
+            const exists = $favList.find(`.favorites-item[data-id="${item.id}"][data-model="${item.model}"]`);
+            if (exists.length > 0) {
+                exists.remove(); // حذف از لیست
+                // بروزرسانی تعداد
+                let count = parseInt($badge.text()) || 0;
+                $badge.text(count > 0 ? count - 1 : 0);
+                $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
+
+                return "removed";
+            }
+            if (exists.length === 0) {
+                // افزایش عدد
+                let count = parseInt($badge.text()) || 0;
+                $badge.text(count + 1);
+                $badge2.html(count + 1 + ' کالا ');
+
+                const newItem = `
+                <div class="favorites-item"
+                    data-id="${item.id}"
+                    data-model="${item.model}" >
+                    <img src="${item.image}"
+                        alt="product" class="cart-item-image">
+                    <div class="cart-item-content">
+                        <div class="cart-item-title">
+                            ${item.title} طرح ${item.design} رنگ ${item.color}
+                        </div>
+                        <div class="cart-item-price">
+                            ${Number(item.price).toLocaleString()} تومان
+                        </div>
+                        <div
+                            class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                            <button class="buy-button add-to-cart favorites-btn active"
+                                data-image="${item.image}"
+                                data-moddel="${item.model}"
+                                data-design="${item.design}"
+                                data-color="${item.color}"
+                                data-title="${item.title}"
+                                data-price="${item.price}"
+                                data-pay="${item.pay}"
+                                data-off="${item.off}"
+                                data-offType="${item.offType}"
+                                data-local="${item.local}"
+                                data-id="${item.id}"
+                                data-model="${item.model}"
+                                style="width: 30px;height:30px"><i
+                                    class="fa-solid fa-heart text-danger fa-lg"></i></button>
+                            <button class="buy-button add-to-cart addToCart"
+                                data-image="${item.image}"
+                                data-moddel="${item.model}"
+                                data-design="${item.design}"
+                                data-color="${item.color}"
+                                data-title="${item.title}"
+                                data-price="${item.price}"
+                                data-pay="${item.pay}"
+                                data-off="${item.off}"
+                                data-offType="${item.offType}"
+                                data-local="${item.local}"
+                                data-id="${item.id}"
+                                data-model="${item.model}"
+                                style="width: 30px;height:30px"><i
+                                    class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                $favList.prepend(newItem);
+            }
+        }
+
+
+        $(document).on("input", ".only-number", function() {
+            this.value = this.value.replace(/[^0-9]/g, "");
+            let name = $(this).attr("name");
+            const box = document.getElementById("autocompleteBox" + name);
+            const clearBtn = document.getElementById("clearBtn_" + name);
+            let value2 = $(this).val();
+            if (value2.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
+            }
+        });
+
+        function nameinput(id) {
+            const input = document.getElementById("searchInput" + id);
+            const box = document.getElementById("autocompleteBox" + id);
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            if (input.value.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
+            }
+        }
+
+        function clearInput(id) {
+            const box = document.getElementById("autocompleteBox" + id);
+            box.classList.remove("filled");
+            const input = document.getElementById("searchInput" + id);
+            input.value = "";
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            clearBtn.style.display = "none";
+
+            if (id == "state") {
+                const box2 = document.getElementById("autocompleteBoxcity");
+                const input2 = document.getElementById("searchInputcity");
+                input2.value = "";
+                document.getElementById("selectedIdcity").value = "";
+                box2.classList.remove("filled");
+                const clearBtn2 = document.getElementById("clearBtn_city");
+                clearBtn2.style.display = "none";
+            }
+        }
     </script>
 @endsection

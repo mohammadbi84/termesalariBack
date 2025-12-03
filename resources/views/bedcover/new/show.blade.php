@@ -2,8 +2,8 @@
 @section('title', $title . ' طرح ' . $bedcover->color_design->design->title . ' رنگ ' .
     $bedcover->color_design->color->color)
 @section('head')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
 @section('content')
     <main>
@@ -27,7 +27,7 @@
             <div class="row rounded-4 shadow bg-white p-4 mb-5">
 
                 <!-- right Column - Product Info -->
-                <div class="col order-lg-1 mb-5">
+                <div class="col order-lg-1">
                     <h1 class="product-title">
                         {{ $bedcover->category->title }} طرح
                         {{ $bedcover->color_design->design->title }} رنگ
@@ -47,6 +47,7 @@
                         <li> کد محصول: {{ $bedcover->code }}</li>
                         <li> تعداد رنگ بافت ترمه: {{ $bedcover->color_design->design->countOfColor }} رنگ</li>
                         <li> مشتمل بر: {{ $bedcover->contains }}</li>
+                        <li> رنگ: {{ $bedcover->color_design->color->color }}</li>
                     </ul>
 
                     <div class="price-section">
@@ -92,22 +93,24 @@
                             <input type="text" class="quantity-input" value="1" readonly>
                             <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
                         </div>
-                        <button class="btn btn-primary">افزودن به سبد خرید</button>
+                        <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
+                            data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
+                            data-id="{{ $bedcover->id }}"
+                            data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                            data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                            data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                            data-title="{{ $bedcover->title }}"
+                            data-price="{{ $prices->price }}"
+                            data-pay="{{ $price }}"
+                            data-off="{{ $off }}"
+                            data-offType="{{ $prices->offType }}"
+                            data-local="{{ $prices->local }}">افزودن به سبد خرید</button>
                     </div>
-                    <div class="action-buttons">
-                        <a href="#" class="d-block mb-1 compare-btn">
-                            <i class="fa-solid fa-shuffle ms-1"></i>
-                            برای مقایسه اضافه کنید
-                        </a>
-                        <a href="#" class="d-block wishlist-btn">
-                            <i class="fas fa-heart ms-1"></i>
-                            افزودن به علاقه‌مندی‌ها
-                        </a>
-                    </div>
+
                 </div>
 
                 <!-- Middle Column - Product Gallery -->
-                <div class="col-lg-5 order-lg-2 mb-5" style="width:46% !important;">
+                <div class="col-lg-5 order-lg-2" style="width:46% !important;">
                     <div class="product-gallery">
                         <!-- اسلایدر اصلی -->
 
@@ -121,25 +124,31 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                         </div>
+
 
                         <!-- لنز زوم -->
                         <div class="zoom-lens" id="zoomLens"></div>
 
+                    </div>
+                    <div class="d-flex justify-content-between">
                         <!-- دکمه مشاهده گالری -->
                         <div class="view-gallery" data-bs-toggle="modal" data-bs-target="#galleryModal">
-                            <i class="fa-solid fa-expand" style="top: 0"></i>
+                            <i class="fa-solid fa-expand"></i>
+                        </div>
+                        <div class="w-100 d-flex justify-content-end align-items-center"
+                            style="margin-top: 10px;position: relative;gap: 13px;">
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- left Column - Additional Info -->
-                <div class="col order-lg-3 mb-5">
+                <div class="col order-lg-3">
                     <div class="discount-alert">
                         <div class="d-flex align-items-center">
-                            <div>
+                            <div class="w-100 d-flex justify-content-between align-items-center">
                                 <strong>تخفیف ویژه!</strong>
                                 <div class="countdown-timer timer-short justify-content-between gap-4" id="countdown-1"
                                     data-end-date="2025-12-30">
@@ -182,9 +191,27 @@
                     </div>
 
                     <div class="categories-tags">
-                        <h6 class="color-title">رنگ</h6>
-                        <div class="mb-3">
-                            <span class="tag">{{ $bedcover->color_design->color->color }}</span>
+                        <div class="action-buttons">
+                            <a href="#" class="d-block mb-1 compare-btn">
+                                <i class="fa-solid fa-shuffle ms-1"></i>
+                                برای مقایسه اضافه کنید
+                            </a>
+                            <a href="#" class="d-block wishlist-btn favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
+                                data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                                data-title="{{ $bedcover->title }}"
+                                data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}"
+                                data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}"
+                                data-local="{{ $prices->local }}"
+                                data-id="{{ $bedcover->id }}"
+                                data-model="{{ substr($bedcover->category->model, 4) }}">
+                                <i class="fas fa-heart ms-1"></i>
+                                افزودن به علاقه‌مندی‌ها
+                            </a>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between align-items-center">
@@ -432,19 +459,6 @@
             setInterval(updateCountdown, 1000);
             updateCountdown();
 
-            // Wishlist and Compare buttons
-            $('.wishlist-btn').click(function() {
-                $(this).toggleClass('active');
-                if ($(this).hasClass('active')) {
-                    $(this).html('<i class="fas fa-heart text-danger"></i> حذف از علاقه‌مندی');
-                } else {
-                    $(this).html('<i class="fas fa-heart"></i> علاقه‌مندی');
-                }
-            });
-
-            $('.compare-btn').click(function() {
-                alert('این محصول به لیست مقایسه اضافه شد');
-            });
 
             // مقدار زوم را اینجا تنظیم کن (1 = بدون زوم, 1.5 = یک ونیم برابر, 2 = دو برابر)
             let zoomLevel = 1.3;
