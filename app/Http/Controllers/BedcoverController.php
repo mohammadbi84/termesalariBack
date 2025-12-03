@@ -82,7 +82,7 @@ class BedcoverController extends Controller
             $bedcover->save();
             // dd($request->all());
             if(isset($request->price)){
-            	
+
                 foreach($request->price as $key=>$p)
                 {
                     if(isset($p))
@@ -124,7 +124,7 @@ class BedcoverController extends Controller
                         ->save('storage/images/thumbnails/'.basename($path));
                 }
             }
-            
+
             return redirect()->route('bedcover.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         }//if
@@ -149,7 +149,7 @@ class BedcoverController extends Controller
             $comments = $bedcover->comments()
                 ->where("status",1)
                 ->get();
-            
+
             $grade = Grade::where("gradeable_id",$bedcover->id)
                 ->where("gradeable_type","App\\Bedcover")
                 ->avg('grade');
@@ -162,7 +162,7 @@ class BedcoverController extends Controller
                 // dd($bedcover,$likeBedcovers);
             $title = $bedcover->category->title;
 
-            return view('bedcover.show')
+            return view('bedcover.new.show')
                 ->with('bedcover',$bedcover)
                 ->with('likeBedcovers',$likeBedcovers)
                 ->with('comments',$comments)
@@ -218,7 +218,7 @@ class BedcoverController extends Controller
 
 
         // $design = Design::find($request->design);
-        
+
         $bedcover->fill($request->all());
         // $bedcover->design_id = $request->design_id;
         $bedcover->color_design_id  = $color_design->id;
@@ -226,7 +226,7 @@ class BedcoverController extends Controller
         $bedcover->category_id = $request->category_id;
 
         if(isset($request->price)){
-                
+
             foreach($request->price as $key=>$p)
             {
                 if(isset($p))
@@ -278,9 +278,9 @@ class BedcoverController extends Controller
         }
 
         $bedcover->save();
-        
-        
-       
+
+
+
         return redirect()->route('bedcover.index')
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
@@ -330,7 +330,7 @@ class BedcoverController extends Controller
         }
         else if($delFlag == 0)
         {
-        
+
             $product->images()->delete();
 
             $product->grades()->delete();
@@ -358,7 +358,7 @@ class BedcoverController extends Controller
             $bedcover->visibility = 0;
         }
         $bedcover->save();
-        
+
         $result["res"] = "success";
         $result["message"] = "مورد انتخابی تغییر وضعیت یافت.";
         return $result;
@@ -544,14 +544,14 @@ class BedcoverController extends Controller
                             });
                     // dd(6);
                 break;
-            
+
             default:
                     $bedcovers = $bedcovers->sortByDesc('created_at');
                 break;
         }
 
         // dd($bedcovers);
-        
+
         if($request->expectsJson())
             return view('bedcover.store-filter')
                 ->with('bedcovers',$bedcovers);

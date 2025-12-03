@@ -83,7 +83,7 @@ class TableclothController extends Controller
             $tablecloth->save();
             // dd($request->all());
             if(isset($request->price)){
-            	
+
                 foreach($request->price as $key=>$p)
                 {
                     if(isset($p))
@@ -137,7 +137,7 @@ class TableclothController extends Controller
             //         $tablecloth->tags->attach($tag);
             //     }
             // }
-            
+
             return redirect()->route('tablecloth.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         }//if
@@ -162,7 +162,7 @@ class TableclothController extends Controller
             $comments = $tablecloth->comments()
                 ->where("status",1)
                 ->get();
-            
+
             $grade = Grade::where("gradeable_id",$tablecloth->id)
                 ->where("gradeable_type","App\\Tablecloth")
                 ->avg('grade');
@@ -175,7 +175,7 @@ class TableclothController extends Controller
                 // dd($tablecloth,$likeTablecloths);
             $title = $tablecloth->category->title;
 
-            return view('tablecloth.show')
+            return view('tablecloth.new.show')
                 ->with('tablecloth',$tablecloth)
                 ->with('likeTablecloths',$likeTablecloths)
                 ->with('comments',$comments)
@@ -233,7 +233,7 @@ class TableclothController extends Controller
         $tablecloth->category_id = $request->category_id;
 
         if(isset($request->price)){
-                
+
             foreach($request->price as $key=>$p)
             {
                 if(isset($p))
@@ -259,7 +259,7 @@ class TableclothController extends Controller
 
         // if(isset($request->tags)){
         //     $tags = Tag::find($request->tags);
-            
+
         //     foreach($request->tags as $t){
         //         $find = $tags->search(function($i, $v) use ($t){
         //             return $i->id == $t;
@@ -282,7 +282,7 @@ class TableclothController extends Controller
         // $tablecloth->images()->detach();
         // $images = Image::where('imageable_id',$request->id)
         //                 ->where('imageable_type','App\Tablecloth')
-        //                 ->get();         
+        //                 ->get();
         // $tablecloth->images()->delete($images);
         if(isset($request->images)){
             $lastOrdering = Image::where('imageable_id',$tablecloth->id)
@@ -295,7 +295,7 @@ class TableclothController extends Controller
             else
                 $lastOrdering = $lastOrdering->ordering;
             foreach($request->images as $image){
-                // $ordering = $lastOrdering++; 
+                // $ordering = $lastOrdering++;
                 $lastOrdering++;
                 $path = $image->store('public/images/');
                 $img = new Image();
@@ -314,9 +314,9 @@ class TableclothController extends Controller
         }
 
         $tablecloth->save();
-        
-        
-       
+
+
+
         return redirect()->route('tablecloth.index')
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
@@ -375,9 +375,9 @@ class TableclothController extends Controller
             // Detach Images
             // $images = Image::where('imageable_id',$request->id)
             //                 ->where('imageable_type',$class)
-            //                 ->get();         
+            //                 ->get();
             $product->images()->delete();
-        
+
             // Detach Grades
             // $grades = Grade::where('gradeable_id',$request->id)
             //             ->where('gradeable_type',$class)
@@ -398,20 +398,20 @@ class TableclothController extends Controller
         }
 
 
-        
+
         // // Detach Favorites
         // $favorites = Favorite::where('favoriteable_id',$request->id)
         //             ->where('favoriteable_type',$class)
         //             ->get();
         // $product->favorites()->delete($favorites);
-        
+
         // // Detach Comments
         // $comments = Comment::where('commentable_id',$request->id)
         //             ->where('commentable_type',$class)
         //             ->get();
         // $product->comments()->delete($comments);
 
-        
+
 
         // $product->delete();
 
@@ -432,7 +432,7 @@ class TableclothController extends Controller
             $tablecloth->visibility = 0;
         }
         $tablecloth->save();
-        
+
         $result["res"] = "success";
         $result["message"] = "مورد انتخابی تغییر وضعیت یافت.";
         return $result;
@@ -549,7 +549,7 @@ class TableclothController extends Controller
 
         $designs = collect();
         $colors = collect();
-        
+
         $list_color_designs = ColorDesign::with('color','design')
             ->whereIn('design_id',$designs_id)
             ->get();
@@ -581,7 +581,7 @@ class TableclothController extends Controller
         //     }
         // });
         $designs = $designs->unique('id');
-        $colors = $colors->unique('id');  
+        $colors = $colors->unique('id');
 
 
         // dd( Tablecloth::filter($request)->toSql());
@@ -662,14 +662,14 @@ class TableclothController extends Controller
                             });
                     // dd(6);
                 break;
-            
+
             default:
                     $tablecloths = $tablecloths->sortByDesc('created_at');
                 break;
         }
 
         // dd($tablecloths);
-        
+
         if($request->expectsJson())
             return view('tablecloth.store-filter')
                 ->with('tablecloths',$tablecloths);

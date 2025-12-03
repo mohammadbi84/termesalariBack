@@ -46,10 +46,12 @@ function initMainMenu() {
             ) {
                 mainMenu.classList.add("small");
                 categoryMenu.classList.add("small");
-                favorites_dropdown.style.top = "51px";
-                favorites_dropdown.style.left = "-190px";
+                if (favorites_dropdown) {
+                    favorites_dropdown.style.top = "51px";
+                    favorites_dropdown.style.left = "-172px";
+                }
                 cart_dropdown.style.top = "51px";
-                cart_dropdown.style.left = "-138px";
+                cart_dropdown.style.left = "-133px";
                 categoriesMenu.style.top = "65px";
                 categoriesMenu.style.left = "1rem";
                 categoriesMenu.style.right = "1rem";
@@ -61,10 +63,12 @@ function initMainMenu() {
             } else {
                 mainMenu.classList.remove("small");
                 categoryMenu.classList.remove("small");
-                favorites_dropdown.style.top = "61px";
-                favorites_dropdown.style.left = "-230px";
+                if (favorites_dropdown) {
+                    favorites_dropdown.style.top = "61px";
+                    favorites_dropdown.style.left = "-212px";
+                }
                 cart_dropdown.style.top = "61px";
-                cart_dropdown.style.left = "-178px";
+                cart_dropdown.style.left = "-172px";
                 categoriesMenu.style.top = "75px";
                 categoriesMenu.style.left = "-10px";
                 categoriesMenu.style.right = "-10px";

@@ -1855,6 +1855,7 @@
         // 🧡 تابع آپدیت منوی علاقه مندی ها
         function updateNavbarFavorites(item) {
             const $badge = $(".favorites-badge"); // شمارشگر علاقه‌مندی
+            const $badge2 = $("#favorites-items-count"); // شمارشگر علاقه‌مندی
             const $favList = $("#navbarFavoritesList"); // لیست داخل منو
             // چک کن آیا محصول وجود دارد
             const exists = $favList.find(`.favorites-item[data-id="${item.id}"][data-model="${item.model}"]`);
@@ -1863,6 +1864,7 @@
                 // بروزرسانی تعداد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text( count > 0 ? count - 1 : 0 );
+                $badge2.html( count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ' );
 
                 return "removed";
             }
@@ -1870,6 +1872,7 @@
                 // افزایش عدد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
+                $badge2.html(count + 1 + ' کالا ');
 
                 const newItem = `
                 <div class="favorites-item"

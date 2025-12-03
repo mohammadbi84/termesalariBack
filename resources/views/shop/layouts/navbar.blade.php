@@ -70,6 +70,7 @@
                             $favorites = collect();
                         }
                         @endphp
+                        @if (Auth::check())
                         <div class="favorites-container">
                             <a href="#" class="cart-btn">
                                 <span class="cart-badge favorites-badge">{{ $favorites->count() }}</span>
@@ -80,7 +81,7 @@
                             <div class="favorites-dropdown">
                                 <div class="favorites-header">
                                     <span class="mb-0">لیست علاقه‌مندی ها</span>
-                                    <span class="text-muted favorites-items-count">{{ $favorites->count() }} کالا</span>
+                                    <span class="text-muted favorites-items-count" id="favorites-items-count">{{ $favorites->count() }} کالا</span>
                                 </div>
 
                                 <div class="favorites-items" id="navbarFavoritesList">
@@ -161,12 +162,13 @@
                                 </div>
 
                                 <div class="cart-footer">
-                                    <div class="cart-actions justify-content-between align-items-center">
-                                        <a href="{{route('user.favorites')}}" class="btn-checkout">مشاهده لیست علاقه‌مندی‌ها</a>
+                                    <div class="cart-actions justify-content-end align-items-center">
+                                        <a href="{{route('user.favorites')}}" class="btn-checkout">مشاهده لیست</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @php
                             if (session()->has('cart')) {
                                 $cart = session('cart');
