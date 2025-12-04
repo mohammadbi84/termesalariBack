@@ -378,7 +378,8 @@
                                 <img src="{{ asset('storetemplate/dist/img/' . $comment->user->image) }}"
                                     class="rounded-circle" alt="user" width="60">
                                 <div class="">
-                                    <strong>{{ $comment->user->name }} {{ $comment->user->family }}</strong> - <span class="point-span">{{ $comment->created_at->format('d F Y') }}</span>
+                                    <strong>{{ $comment->user->name }} {{ $comment->user->family }}</strong> - <span
+                                        class="point-span">{{ $comment->created_at->format('d F Y') }}</span>
                                     <p class="m-0 text-justify">
                                         {{ $comment->text }}
                                     </p>
@@ -449,41 +450,41 @@
         categoriesMenu.style.right = "1rem";
     </script>
     <script>
-            $(document).ready(function() {
-                $("#compare").click(function (event) {
-                    event.preventDefault();
-                    var id = $(this).data("id");
-                    var model = $(this).data("model");
-                    $.ajax({
-                        type: "GET",
-                        url: document.location.origin + "/compare/add",
-                        data: {
-                            id: id,
-                            model: model,
-                        },
-                        success: function (data) {
-                            document.querySelector(".compare-badge").textContent = data;
-                            Swal.fire({
-                                icon: "success",
-                                title: "عملیا با موفقیت انجام شد.",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                        },
-                    });
+        $(document).ready(function() {
+            $("#compare").click(function(event) {
+                event.preventDefault();
+                var id = $(this).data("id");
+                var model = $(this).data("model");
+                $.ajax({
+                    type: "GET",
+                    url: document.location.origin + "/compare/add",
+                    data: {
+                        id: id,
+                        model: model,
+                    },
+                    success: function(data) {
+                        document.querySelector(".compare-badge").textContent = data;
+                        Swal.fire({
+                            icon: "success",
+                            title: "عملیا با موفقیت انجام شد.",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    },
                 });
-                $('#share-btn').click(function(e) {
-                    e.preventDefault();
-                    if (navigator.share) {
-                        navigator.share({
-                            title: "{{ $tablecloth->title }}",
-                            text: "مشترک عزیز، این محصول را ببینید: {{ $tablecloth->title }}",
-                            url: "{{ url()->current() }}"
-                        }).catch((error) => console.log('Error sharing:', error));
-                    } else {
-                        alert("مرورگر شما قابلیت اشتراک‌گذاری مستقیم را پشتیبانی نمی‌کند.");
-                    }
-                });
+            });
+            $('#share-btn').click(function(e) {
+                e.preventDefault();
+                if (navigator.share) {
+                    navigator.share({
+                        title: "{{ $tablecloth->title }}",
+                        text: "مشترک عزیز، این محصول را ببینید: {{ $tablecloth->title }}",
+                        url: "{{ url()->current() }}"
+                    }).catch((error) => console.log('Error sharing:', error));
+                } else {
+                    alert("مرورگر شما قابلیت اشتراک‌گذاری مستقیم را پشتیبانی نمی‌کند.");
+                }
+            });
 
             // Initialize Swipers
             var mainSwiper = new Swiper("#mainSlider", {
@@ -542,7 +543,7 @@
 
 
             // مقدار زوم را اینجا تنظیم کن (1 = بدون زوم, 1.5 = یک ونیم برابر, 2 = دو برابر)
-            let zoomLevel = 1.3;
+            let zoomLevel = 1.5;
 
             (function() {
                 const lens = document.getElementById('zoomLens');
@@ -764,7 +765,7 @@
                                 offType: offType,
                             });
 
-                            if (!$btn.hasClass("favorites") ) {
+                            if (!$btn.hasClass("favorites")) {
                                 Swal.fire({
                                     icon: "success",
                                     title: "محصول به سبد خرید اضافه شد!",

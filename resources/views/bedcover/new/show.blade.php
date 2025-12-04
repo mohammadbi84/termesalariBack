@@ -547,7 +547,7 @@
 
 
             // مقدار زوم را اینجا تنظیم کن (1 = بدون زوم, 1.5 = یک ونیم برابر, 2 = دو برابر)
-            let zoomLevel = 1.3;
+            let zoomLevel = 1.5;
 
             (function() {
                 const lens = document.getElementById('zoomLens');
