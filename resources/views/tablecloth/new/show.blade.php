@@ -90,26 +90,23 @@
                     <div class="quantity-control">
                         <div class="d-flex border rounded-2 p-1">
                             <button class="quantity-btn minus-btn"><i class="fas fa-minus"></i></button>
-                            <input type="text" class="quantity-input" value="1" readonly>
+                            <input type="text" class="quantity-input" id="quantity-input" value="1" readonly>
                             <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
                         </div>
                         <button class="btn btn-primary @if ($tablecloth->quantity != 0) addToCart @endif"
                             data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
-                            data-id="{{ $tablecloth->id }}"
-                            data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                            data-id="{{ $tablecloth->id }}" data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                             data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
                             data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                            data-title="{{ $tablecloth->title }}"
-                            data-price="{{ $prices->price }}"
-                            data-pay="{{ $price }}"
-                            data-off="{{ $off }}"
-                            data-offType="{{ $prices->offType }}"
-                            data-local="{{ $prices->local }}">افزودن به سبد خرید</button>
+                            data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                            data-pay="{{ $price }}" data-off="{{ $off }}"
+                            data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">افزودن به سبد
+                            خرید</button>
                     </div>
                 </div>
 
                 <!-- Middle Column - Product Gallery -->
-                <div class="col-lg-5 order-lg-2 mb-5 rounded-3 shadow p-2" style="width:46% !important;">
+                <div class="col-lg-5 order-lg-2 mb-5 rounded-3 shadow p-2">
                     <div class="product-gallery">
                         <!-- اسلایدر اصلی -->
 
@@ -194,17 +191,15 @@
                                 <i class="fa-solid fa-shuffle ms-1"></i>
                                 برای مقایسه اضافه کنید
                             </a>
-                            <a href="#" class="d-block wishlist-btn favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                            <a href="#"
+                                class="d-block wishlist-btn favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                                 data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
                                 data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}"
-                                data-price="{{ $prices->price }}"
-                                data-pay="{{ $price }}"
-                                data-off="{{ $off }}"
-                                data-offType="{{ $prices->offType }}"
-                                data-local="{{ $prices->local }}"
+                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                 data-id="{{ $tablecloth->id }}"
                                 data-model="{{ substr($tablecloth->category->model, 4) }}">
                                 <i class="fas fa-heart ms-1"></i>
@@ -224,11 +219,15 @@
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <h6>اشتراک‌گذاری</h6>
                             <div class="share-buttons">
-                                <a href="#" class="share-btn telegram"><i class="fab fa-telegram-plane"></i></a>
+                                <a href="#" id="share-btn" class="share-btn telegram">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </a>
+                                {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
                                 <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
                                 <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -272,7 +271,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row gap-5">
+            <div class="row gap-5 mb-5">
                 <div class="col p-0">
                     <div class="bg-white rounded-4 p-4 shadow mb-4">
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
@@ -288,13 +287,16 @@
                             <i class="fa-regular fa-comments info-badge-icon"></i>
                             <h5 class="m-0">دیدگاه خود را بنویسید</h5>
                         </div>
-                        <div class="">
+                        <form action="/comment" method="POST" class="">
+                            @csrf
+                            <input type="hidden" name="product" value="{{ $tablecloth->id }}">
+                            <input type="hidden" name="model" value="Tablecloth">
                             <div class="mb-4">
-                                <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxlogin">
-                                    <input type="text" id="searchInputlogin" value="{{ old('text') }}"
+                                <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
+                                    <input type="text" id="searchInputtext" value="{{ old('text') }}"
                                         class="" name="text" oninput="nameinput('text')">
-                                    <label for="searchInputlogin">نظر خود را بنویسید</label>
-                                    <span class="clear-btn" id="clearBtn_login" onclick="clearInput('text')"
+                                    <label for="searchInputtext">نظر خود را بنویسید</label>
+                                    <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
                                         @if (old('text')) style="display:block !important" @endif>×</span>
                                 </div>
                                 @error('text')
@@ -302,7 +304,7 @@
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary w-25 mb-3">ارسال دیدگاه</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col bg-white rounded-4 p-4 shadow">
@@ -362,6 +364,37 @@
                     </ul>
                 </div>
             </div>
+            <div class="row bg-white rounded-4 shadow p-3">
+                <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
+                    <i class="fa-solid fa-info info-badge-icon top-0"></i>
+                    <h5 class="m-0">دیدگاه کاربران</h5>
+                </div>
+                @foreach ($comments as $comment)
+                    <div class="col-12 mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="flex-grow-1 d-flex justify-content-start align-items-center gap-3">
+                                <img src="{{ asset('storetemplate/dist/img/' . $comment->user->image) }}"
+                                    class="rounded-circle" alt="user" width="60">
+                                <div class="">
+                                    <strong>{{ $comment->user->name }} {{ $comment->user->family }}</strong> - <span class="point-span">{{ $comment->created_at->format('d F Y') }}</span>
+                                    <p class="m-0 text-justify">
+                                        {{ $comment->text }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="rating">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
         <!-- Gallery Modal -->
         <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel"
@@ -399,9 +432,35 @@
         const bookmarkFirst = $("#bookmark");
         bookmarkFirst.removeClass('expanded');
         bookmarkFirst.addClass('collapsed');
+        let cart_dropdown = document.querySelector(".cart-dropdown");
+        let favorites_dropdown = document.querySelector(".favorites-dropdown");
+        if (favorites_dropdown) {
+            favorites_dropdown.style.top = "51px";
+            favorites_dropdown.style.left = "-153px";
+            cart_dropdown.style.left = "-113px";
+        } else {
+            cart_dropdown.style.left = "-133px";
+        }
+        cart_dropdown.style.top = "51px";
+        categoriesMenu.style.top = "65px";
+        categoriesMenu.style.left = "1rem";
+        categoriesMenu.style.right = "1rem";
     </script>
     <script>
-        $(document).ready(function() {
+            $(document).ready(function() {
+                $('#share-btn').click(function(e) {
+                    e.preventDefault();
+                    if (navigator.share) {
+                        navigator.share({
+                            title: "{{ $tablecloth->title }}",
+                            text: "مشترک عزیز، این محصول را ببینید: {{ $tablecloth->title }}",
+                            url: "{{ url()->current() }}"
+                        }).catch((error) => console.log('Error sharing:', error));
+                    } else {
+                        alert("مرورگر شما قابلیت اشتراک‌گذاری مستقیم را پشتیبانی نمی‌کند.");
+                    }
+                });
+
             // Initialize Swipers
             var mainSwiper = new Swiper("#mainSlider", {
                 navigation: {
@@ -659,7 +718,6 @@
                 const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
                 const url = `${document.location.origin}/cart/add/${id}/${model}`;
-
                 // درخواست AJAX
                 $.ajax({
                     url: url,
@@ -682,12 +740,14 @@
                                 offType: offType,
                             });
 
-                            Swal.fire({
-                                icon: "success",
-                                title: "محصول به سبد خرید اضافه شد!",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
+                            if (!$btn.hasClass("favorites") ) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "محصول به سبد خرید اضافه شد!",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                            }
                         } else {
                             Swal.fire({
                                 icon: "error",

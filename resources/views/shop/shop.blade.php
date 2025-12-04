@@ -1484,13 +1484,14 @@
                                 off: off,
                                 offType: offType,
                             });
-
-                            Swal.fire({
-                                icon: "success",
-                                title: "محصول به سبد خرید اضافه شد!",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
+                            if (!$btn.hasClass("favorites") ) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "محصول به سبد خرید اضافه شد!",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                            }
                         } else {
                             Swal.fire({
                                 icon: "error",

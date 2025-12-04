@@ -62,9 +62,13 @@ class CommentController extends Controller
         else{   //Auth
             $result["res"] = "error";
             $result["message"] = "لطفا برای ثبت نظرات خود  ابتدا با نام کاربری وارد سایت شوید.";
-             
+
         }
-        return $result;
+        if ($request->ajax()) {
+            return $result;
+        }else{
+            return redirect()->back()->with('success', 'نظر شما با موفقیت ثبت شد و پس از تایید نمایش داده خواهد شد.');
+        }
 
     }
 
@@ -140,7 +144,7 @@ class CommentController extends Controller
             $comment->status = "0";
         }
         $comment->save();
-        
+
         $result["res"] = "success";
         $result["message"] = "مورد انتخابی تغییر وضعیت یافت.";
         return $result;

@@ -72,6 +72,19 @@
                         @endphp
                         @if (Auth::check())
                         <div class="favorites-container">
+                            <a href="{{ route('compare.index') }}" class="cart-btn">
+                                <span class="cart-badge compare-badge">
+                                    @if (session()->has('compares') and count(session('compares')['product']) > 0)
+                                        {{ count(session('compares')['product']) }}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
+                                <img src="{{ asset('shop/assets/svgs/shuffle-solid-full.svg') }}" alt="compare"
+                                    width="24">
+                            </a>
+                        </div>
+                        <div class="favorites-container">
                             <a href="#" class="cart-btn">
                                 <span class="cart-badge favorites-badge">{{ $favorites->count() }}</span>
                                 <img src="{{ asset('shop/assets/svgs/heart-solid-full.svg') }}" alt="favorites"
@@ -140,7 +153,7 @@
                                                         data-model="{{ substr($favorite->favoriteable_type, 4) }}"
                                                         style="width: 30px;height:30px"><i
                                                             class="fa-solid fa-heart text-danger fa-lg"></i></button>
-                                                    <button class="buy-button add-to-cart addToCart"
+                                                    <button class="buy-button add-to-cart addToCart favorites"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
                                                         data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
                                                         data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
