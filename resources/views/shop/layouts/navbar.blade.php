@@ -72,23 +72,15 @@
                         @endphp
                         @if (Auth::check())
                         <div class="favorites-container">
-                            <a href="{{ route('compare.index') }}" class="cart-btn">
-                                <span class="cart-badge compare-badge">
-                                    @if (session()->has('compares') and count(session('compares')['product']) > 0)
-                                        {{ count(session('compares')['product']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <img src="{{ asset('shop/assets/svgs/shuffle-solid-full.svg') }}" alt="compare"
-                                    width="24">
-                            </a>
-                        </div>
-                        <div class="favorites-container">
                             <a href="#" class="cart-btn">
                                 <span class="cart-badge favorites-badge">{{ $favorites->count() }}</span>
+                                @if ($favorites->count() > 0)
+                                <img src="{{ asset('shop/assets/svgs/heart-solid-full (1).svg') }}" alt="favorites"
+                                    width="24">
+                                @else
                                 <img src="{{ asset('shop/assets/svgs/heart-solid-full.svg') }}" alt="favorites"
                                     width="24">
+                                @endif
                             </a>
 
                             <div class="favorites-dropdown">
@@ -182,6 +174,19 @@
                             </div>
                         </div>
                         @endif
+                        <div class="favorites-container">
+                            <a href="{{ route('compare.index') }}" class="cart-btn">
+                                <span class="cart-badge compare-badge">
+                                    @if (session()->has('compares') and count(session('compares')['product']) > 0)
+                                        {{ count(session('compares')['product']) }}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
+                                <img src="{{ asset('shop/assets/svgs/shuffle-solid-full.svg') }}" alt="compare"
+                                    width="24">
+                            </a>
+                        </div>
                         @php
                             if (session()->has('cart')) {
                                 $cart = session('cart');

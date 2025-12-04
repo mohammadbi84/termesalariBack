@@ -43,14 +43,14 @@
     overflow: hidden;
     border-radius: 10px;
     /* box-shadow: 0 0 15px rgba(0, 0, 0, .1); */
-    height: 500px;
+    /* height: 500px; */
 }
 
 /* عکس اصلی */
 .product-image-show {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    /* height: 100%; */
+    /* object-fit: cover; */
     cursor: crosshair;
     display: block;
 }
@@ -58,16 +58,16 @@
 /* لنز */
 .zoom-lens {
     position: absolute;
-    width: 180px;
+    width: 140px;
     /* اندازه دلخواه لنز */
-    height: 180px;
+    height: 140px;
     /* اندازه دلخواه لنز */
     border-radius: 50%;
     overflow: hidden;
     pointer-events: none;
     opacity: 0;
     transition: opacity .12s ease;
-    border: 3px solid #fff;
+    border: 2px solid #ffffff;
     box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
     z-index: 30;
     background: #fff;
@@ -440,28 +440,33 @@
 .swiper-button-next,
 .swiper-button-prev {
     position: unset !important;
-    /* top: var(--swiper-navigation-top-offset, 50%); */
-    width: 29px !important;
-    height: 29px !important;
-    margin-top: 0 !important;
-    z-index: 10 !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 10px !important;
+    border: 2px solid var(--primary-color) !important;
+    background: white !important;
+    color: var(--primary-color) !important;
     cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: #198754 !important;
-    /* padding: 0px; */
-    background: #19875436 !important;
-    border-radius: 5px !important;
-    border: 1px solid #198754 !important;
+    transition: all 0.3s ease !important;
+    margin: 0 !important;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: #327942 !important;
+    border: 2px solid #327942 !important;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after {
-    font-size: 25px !important;
+    font-size: 18px !important;
+    color: var(--primary-color);
+}
+.swiper-button-next:hover:after,
+.swiper-button-prev:hover:after {
+    color: white;
 }
 
-.modal-header .btn-close{
+.modal-header .btn-close {
     margin: 0;
     position: absolute;
     left: 0;

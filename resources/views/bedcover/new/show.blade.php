@@ -2,14 +2,14 @@
 @section('title', $title . ' طرح ' . $bedcover->color_design->design->title . ' رنگ ' .
     $bedcover->color_design->color->color)
 @section('head')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
 @section('content')
     <main>
         <div class="container py-4 mb-5" style="padding: 0 2rem !important;margin-top:100px">
             <!-- Breadcrumb -->
-            <div class="row rounded-4 shadow bg-white px-4 mb-4">
+            <div class="row rounded-4 shadow-sm bg-white px-4 mb-4">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/store" class="text-decoration-none text-muted"><i
@@ -24,10 +24,29 @@
                 </nav>
             </div>
 
-            <div class="row rounded-4 shadow bg-white p-4 mb-5">
+            <div class="row rounded-4 shadow-sm bg-white p-4 mb-5">
+                @php
+                            $images = $bedcover->images()->get()->sortby('ordering');
+                            $prices = $bedcover->prices->where('local', 'تومان')->first();
+                        @endphp
+                        @php
+                            $price = 0;
+                            $off = 0;
+                            if ($prices->offPrice > 0) {
+                                if ($prices->offType == 'مبلغ') {
+                                    $price = $prices->price - $prices->offPrice;
+                                    $off = $prices->offPrice;
+                                } elseif ($prices->offType == 'درصد') {
+                                    $off = $prices->price * ($prices->offPrice / 100);
+                                    $price = $prices->price - $off;
+                                }
+                            } else {
+                                $price = $prices->price;
+                            }
+                        @endphp
 
                 <!-- right Column - Product Info -->
-                <div class="col order-lg-1">
+                <div class="col order-lg-1 mb-2">
                     <h1 class="product-title">
                         {{ $bedcover->category->title }} طرح
                         {{ $bedcover->color_design->design->title }} رنگ
@@ -50,67 +69,33 @@
                         <li> رنگ: {{ $bedcover->color_design->color->color }}</li>
                     </ul>
 
-                    <div class="price-section">
-                        @php
-                            $images = $bedcover->images()->get()->sortby('ordering');
-                            $prices = $bedcover->prices->where('local', 'تومان')->first();
-                        @endphp
-                        @php
-                            $price = 0;
-                            $off = 0;
-                            if ($prices->offPrice > 0) {
-                                if ($prices->offType == 'مبلغ') {
-                                    $price = $prices->price - $prices->offPrice;
-                                    $off = $prices->offPrice;
-                                } elseif ($prices->offType == 'درصد') {
-                                    $off = $prices->price * ($prices->offPrice / 100);
-                                    $price = $prices->price - $off;
-                                }
-                            } else {
-                                $price = $prices->price;
-                            }
-                        @endphp
-                        @if ($off > 0)
-                            <span class="original-price">{{ number_format($prices->price) }} تومان</span>
-                        @endif
-                        <span class="discounted-price">{{ number_format($price) }} تومان</span>
-                    </div>
-
-                    <div class="stock-info">
-                        <i class="fas fa-box-open ms-1"></i>
-                        @if ($bedcover->quantity == 0)
-                            <span class="text-bold"> اتمام موجودی در انبار </span>
-                        @elseif($bedcover->quantity <= 5)
-                            <span class="text-bold">کمتر از 5 عدد موجود می باشد .</span>
-                        @elseif($bedcover->quantity > 5)
-                            <span class="text-success text-bold"> موجود در انبار</span>
-                        @endif
-                    </div>
-
-                    <div class="quantity-control">
-                        <div class="d-flex border rounded-2 p-1">
-                            <button class="quantity-btn minus-btn"><i class="fas fa-minus"></i></button>
-                            <input type="text" class="quantity-input" value="1" readonly>
-                            <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
+                    <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="color-title">دسته‌بندی :</h6>
+                            <a href="{{ route('bedcover.storeIndex') }}"
+                                class="tag">{{ $bedcover->category->title }}</a>
                         </div>
-                        <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
-                            data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
-                            data-id="{{ $bedcover->id }}"
-                            data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                            data-design="{{ $bedcover->color_design->design->title ?? '' }}"
-                            data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                            data-title="{{ $bedcover->title }}"
-                            data-price="{{ $prices->price }}"
-                            data-pay="{{ $price }}"
-                            data-off="{{ $off }}"
-                            data-offType="{{ $prices->offType }}"
-                            data-local="{{ $prices->local }}">افزودن به سبد خرید</button>
-                    </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="color-title">برچسب ها :</h6>
+                            <span class="tag">{{ $bedcover->color_design->design->title }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <h6>اشتراک‌گذاری</h6>
+                            <div class="share-buttons">
+                                <a href="#" id="share-btn" class="share-btn telegram">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </a>
+                                {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
+                            </div>
 
+                        </div>
                 </div>
 
                 <!-- Middle Column - Product Gallery -->
-                <div class="col-lg-5 order-lg-2">
+                <div class="col-lg-5 order-lg-2 mb-2 rounded-3 shadow-sm p-2">
                     <div class="product-gallery">
                         <!-- اسلایدر اصلی -->
 
@@ -126,7 +111,6 @@
                             </div>
                         </div>
 
-
                         <!-- لنز زوم -->
                         <div class="zoom-lens" id="zoomLens"></div>
 
@@ -134,7 +118,7 @@
                     <div class="d-flex justify-content-between">
                         <!-- دکمه مشاهده گالری -->
                         <div class="view-gallery" data-bs-toggle="modal" data-bs-target="#galleryModal">
-                            <i class="fa-solid fa-expand"></i>
+                            <i class="fa-solid fa-expand" style="top: 0"></i>
                         </div>
                         <div class="w-100 d-flex justify-content-end align-items-center"
                             style="margin-top: 10px;position: relative;gap: 13px;">
@@ -145,7 +129,7 @@
                 </div>
 
                 <!-- left Column - Additional Info -->
-                <div class="col order-lg-3">
+                <div class="col order-lg-3 mb-2">
                     <div class="discount-alert">
                         <div class="d-flex align-items-center">
                             <div class="w-100 d-flex justify-content-between align-items-center">
@@ -190,6 +174,7 @@
                         </div>
                     </div>
 
+
                     <div class="categories-tags">
                         <div class="action-buttons">
                             <a href="#" id="compare" class="d-block mb-1 compare-btn"
@@ -198,50 +183,62 @@
                                 <i class="fa-solid fa-shuffle ms-1"></i>
                                 برای مقایسه اضافه کنید
                             </a>
-                            <a href="#" class="d-block wishlist-btn favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                            <a href="#"
+                                class="d-block wishlist-btn favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ $bedcover->color_design->design->title ?? '' }}"
                                 data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                                data-title="{{ $bedcover->title }}"
-                                data-price="{{ $prices->price }}"
-                                data-pay="{{ $price }}"
-                                data-off="{{ $off }}"
-                                data-offType="{{ $prices->offType }}"
-                                data-local="{{ $prices->local }}"
+                                data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                 data-id="{{ $bedcover->id }}"
                                 data-model="{{ substr($bedcover->category->model, 4) }}">
                                 <i class="fas fa-heart ms-1"></i>
                                 افزودن به علاقه‌مندی‌ها
                             </a>
                         </div>
+
                         <hr>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="color-title">دسته‌بندی :</h6>
-                            <a href="{{ route('bedcover.storeIndex') }}"
-                                class="tag">{{ $bedcover->category->title }}</a>
+                        <div class="price-section">
+                        @if ($off > 0)
+                            <span class="original-price">{{ number_format($prices->price) }} تومان</span>
+                        @endif
+                        <span class="discounted-price">{{ number_format($price) }} تومان</span>
+                    </div>
+
+                    <div class="stock-info">
+                        <i class="fas fa-box-open ms-1"></i>
+                        @if ($bedcover->quantity == 0)
+                            <span class="text-bold"> اتمام موجودی در انبار </span>
+                        @elseif($bedcover->quantity <= 5)
+                            <span class="text-bold">کمتر از 5 عدد موجود می باشد .</span>
+                        @elseif($bedcover->quantity > 5)
+                            <span class="text-success text-bold"> موجود در انبار</span>
+                        @endif
+                    </div>
+
+                    <div class="quantity-control">
+                        <div class="d-flex border rounded-2 p-1">
+                            <button class="quantity-btn minus-btn"><i class="fas fa-minus"></i></button>
+                            <input type="text" class="quantity-input" id="quantity-input" value="1" readonly>
+                            <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="color-title">برچسب ها :</h6>
-                            <span class="tag">{{ $bedcover->color_design->design->title }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mt-2">
-                            <h6>اشتراک‌گذاری</h6>
-                            <div class="share-buttons">
-                                <a href="#" id="share-btn" class="share-btn telegram">
-                                    <i class="fa-solid fa-share-nodes"></i>
-                                </a>
-                                {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
-                                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
-                            </div>
-                        </div>
+                        <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
+                            data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
+                            data-id="{{ $bedcover->id }}" data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                            data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                            data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                            data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
+                            data-pay="{{ $price }}" data-off="{{ $off }}"
+                            data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">افزودن به سبد
+                            خرید</button>
+                    </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row bg-white rounded-4 shadow mb-5">
+            <div class="row bg-white rounded-4 shadow-sm mb-5">
                 <div class="col-6 col-md-3 text-center p-3">
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/24hours.svg') }}" alt="24 hours" width="50">
@@ -281,7 +278,7 @@
             </div>
             <div class="row gap-5 mb-5">
                 <div class="col p-0">
-                    <div class="bg-white rounded-4 p-4 shadow mb-4">
+                    <div class="bg-white rounded-4 p-4 shadow-sm mb-4">
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
                             <i class="fa-solid fa-info info-badge-icon"></i>
                             <h5 class="m-0">توضیحات</h5>
@@ -290,7 +287,7 @@
                             {{ $bedcover->description }}
                         </p>
                     </div>
-                    <div class="bg-white rounded-4 p-4 shadow">
+                    <div class="bg-white rounded-4 p-4 shadow-sm">
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
                             <i class="fa-regular fa-comments info-badge-icon"></i>
                             <h5 class="m-0">دیدگاه خود را بنویسید</h5>
@@ -298,7 +295,7 @@
                         <form action="/comment" method="POST" class="">
                             @csrf
                             <input type="hidden" name="product" value="{{ $bedcover->id }}">
-                            <input type="hidden" name="model" value="Bedcover">
+                            <input type="hidden" name="model" value="bedcover">
                             <div class="mb-4">
                                 <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
                                     <input type="text" id="searchInputtext" value="{{ old('text') }}"
@@ -315,7 +312,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col bg-white rounded-4 p-4 shadow">
+                <div class="col bg-white rounded-4 p-4 shadow-sm">
                     <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
                         <i class="fa-solid fa-info info-badge-icon"></i>
                         <h5 class="m-0">جزئیات محصول</h5>
@@ -372,19 +369,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="row bg-white rounded-4 shadow p-3">
+            <div class="row bg-white rounded-4 shadow-sm p-3">
                 <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
                     <i class="fa-solid fa-info info-badge-icon top-0"></i>
                     <h5 class="m-0">دیدگاه کاربران</h5>
                 </div>
                 @foreach ($comments as $comment)
-                    <div class="col-12">
+                    <div class="col-12 mb-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="flex-grow-1 d-flex justify-content-start align-items-center gap-3">
                                 <img src="{{ asset('storetemplate/dist/img/' . $comment->user->image) }}"
                                     class="rounded-circle" alt="user" width="60">
                                 <div class="">
-                                    <strong>{{ $comment->user->name }} {{ $comment->user->family }}</strong> - <span class="point-span">{{ $comment->created_at->format('d F Y') }}</span>
+                                    <strong>{{ $comment->user->name }} {{ $comment->user->family }}</strong> - <span
+                                        class="point-span">{{ $comment->created_at->format('d F Y') }}</span>
                                     <p class="m-0 text-justify">
                                         {{ $comment->text }}
                                     </p>
@@ -444,7 +442,7 @@
         let favorites_dropdown = document.querySelector(".favorites-dropdown");
         if (favorites_dropdown) {
             favorites_dropdown.style.top = "51px";
-            favorites_dropdown.style.left = "-153px";
+            favorites_dropdown.style.left = "-193px";
             cart_dropdown.style.left = "-113px";
         } else {
             cart_dropdown.style.left = "-133px";
@@ -456,40 +454,41 @@
     </script>
     <script>
         $(document).ready(function() {
-            $("#compare").click(function (event) {
-                    event.preventDefault();
-                    var id = $(this).data("id");
-                    var model = $(this).data("model");
-                    $.ajax({
-                        type: "GET",
-                        url: document.location.origin + "/compare/add",
-                        data: {
-                            id: id,
-                            model: model,
-                        },
-                        success: function (data) {
-                            document.querySelector(".compare-badge").textContent = data;
-                            Swal.fire({
-                                icon: "success",
-                                title: "عملیا با موفقیت انجام شد.",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                        },
-                    });
+            $("#compare").click(function(event) {
+                event.preventDefault();
+                var id = $(this).data("id");
+                var model = $(this).data("model");
+                $.ajax({
+                    type: "GET",
+                    url: document.location.origin + "/compare/add",
+                    data: {
+                        id: id,
+                        model: model,
+                    },
+                    success: function(data) {
+                        document.querySelector(".compare-badge").textContent = data;
+                        Swal.fire({
+                            icon: "success",
+                            title: "عملیا با موفقیت انجام شد.",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    },
                 });
+            });
             $('#share-btn').click(function(e) {
-                    e.preventDefault();
-                    if (navigator.share) {
-                        navigator.share({
-                            title: "{{ $bedcover->title }}",
-                            text: "مشترک عزیز، این محصول را ببینید: {{ $bedcover->title }}",
-                            url: "{{ url()->current() }}"
-                        }).catch((error) => console.log('Error sharing:', error));
-                    } else {
-                        alert("مرورگر شما قابلیت اشتراک‌گذاری مستقیم را پشتیبانی نمی‌کند.");
-                    }
-                });
+                e.preventDefault();
+                if (navigator.share) {
+                    navigator.share({
+                        title: "{{ $bedcover->title }}",
+                        text: "مشترک عزیز، این محصول را ببینید: {{ $bedcover->title }}",
+                        url: "{{ url()->current() }}"
+                    }).catch((error) => console.log('Error sharing:', error));
+                } else {
+                    alert("مرورگر شما قابلیت اشتراک‌گذاری مستقیم را پشتیبانی نمی‌کند.");
+                }
+            });
+
             // Initialize Swipers
             var mainSwiper = new Swiper("#mainSlider", {
                 navigation: {
@@ -769,7 +768,7 @@
                                 offType: offType,
                             });
 
-                            if (!$btn.hasClass("favorites") ) {
+                            if (!$btn.hasClass("favorites")) {
                                 Swal.fire({
                                     icon: "success",
                                     title: "محصول به سبد خرید اضافه شد!",

@@ -48,7 +48,7 @@ function initMainMenu() {
                 categoryMenu.classList.add("small");
                 if (favorites_dropdown) {
                     favorites_dropdown.style.top = "51px";
-                    favorites_dropdown.style.left = "-153px";
+                    favorites_dropdown.style.left = "-192px";
                     cart_dropdown.style.left = "-113px";
                 }else{
                     cart_dropdown.style.left = "-133px";
@@ -67,7 +67,7 @@ function initMainMenu() {
                 categoryMenu.classList.remove("small");
                 if (favorites_dropdown) {
                     favorites_dropdown.style.top = "61px";
-                    favorites_dropdown.style.left = "-191px";
+                    favorites_dropdown.style.left = "-232px";
                     cart_dropdown.style.left = "-150px";
                 }else{
                     cart_dropdown.style.left = "-172px";
