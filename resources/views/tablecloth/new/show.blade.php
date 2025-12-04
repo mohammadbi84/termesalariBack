@@ -187,7 +187,9 @@
 
                     <div class="categories-tags">
                         <div class="action-buttons">
-                            <a href="#" class="d-block mb-1 compare-btn">
+                            <a href="#" id="compare" class="d-block mb-1 compare-btn"
+                                data-id="{{ $tablecloth->id }}"
+                                data-model="{{ substr($tablecloth->category->model, 4) }}">
                                 <i class="fa-solid fa-shuffle ms-1"></i>
                                 برای مقایسه اضافه کنید
                             </a>
@@ -448,6 +450,28 @@
     </script>
     <script>
             $(document).ready(function() {
+                $("#compare").click(function (event) {
+                    event.preventDefault();
+                    var id = $(this).data("id");
+                    var model = $(this).data("model");
+                    $.ajax({
+                        type: "GET",
+                        url: document.location.origin + "/compare/add",
+                        data: {
+                            id: id,
+                            model: model,
+                        },
+                        success: function (data) {
+                            document.querySelector(".compare-badge").textContent = data;
+                            Swal.fire({
+                                icon: "success",
+                                title: "عملیا با موفقیت انجام شد.",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        },
+                    });
+                });
                 $('#share-btn').click(function(e) {
                     e.preventDefault();
                     if (navigator.share) {
