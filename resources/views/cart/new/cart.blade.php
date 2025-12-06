@@ -42,9 +42,10 @@
             margin-bottom: 8px;
             transition: all 0.3s ease;
         }
+
         /* خط پیشرفت */
         .progress-line {
-            width: 13%;
+            width: 0%;
             position: absolute;
             top: 20px;
             right: 0;
@@ -85,9 +86,11 @@
         .step.completed .step-text {
             color: var(--primary-color);
         }
-        .step-icon i{
+
+        .step-icon i {
             top: auto !important;
         }
+
         .cart-container-new {
             background: white;
             border-radius: 10px;
@@ -158,7 +161,8 @@
             padding: 5px;
             border: none;
         }
-        .form-control:focus{
+
+        .form-control:focus {
             box-shadow: none !important;
             border: 1px solid var(--primary-color) !important;
         }
@@ -350,7 +354,7 @@
                                                 class="product-image img-fluid rounded">
                                         @endif
                                     </div>
-                                    <div class="col-8 col-md-6">
+                                    <div class="col-8 col-md-5">
                                         <h5 class="mb-1">
                                             {{ $product->title ?? $product->category->title . ' طرح ' . optional($product->color_design->design)->title }}
                                             <small class="me-1 text-success" style="font-size: 15px;">(
@@ -375,10 +379,11 @@
                                                 data-model="{{ $list['models'][$key] }}">+</button>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-3 mt-2 mt-md-0 text-start text-md-end">
+                                    <div class="col-12 col-md-4 mt-2 mt-md-0 text-start text-md-end">
                                         <div class="price-highlight d-flex justify-content-around align-items-center">
                                             <small class="text-muted" style="font-size:14px;">جمع جزء : </small>
-                                            <span class="item-price">{{ number_format($cartItemPrice * $list['quantities'][$key]) }}</span>
+                                            <span
+                                                class="item-price">{{ number_format($cartItemPrice * $list['quantities'][$key]) }}</span>
                                             <small> تومان</small>
                                         </div>
                                         @if ($cartItemOff > 0)
@@ -429,7 +434,8 @@
                                                         style="border-top-left-radius: 0;border-bottom-left-radius: 0;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
                                                         placeholder="کد تخفیف..." class="form-control"
                                                         style="font-size: 0.95rem;">
-                                                    <button type="button border" id="saveDiscountCard" class="btn btn-primary btn-md"
+                                                    <button type="button border" id="saveDiscountCard"
+                                                        class="btn btn-primary btn-md"
                                                         style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">اعمال</button>
                                                 </div>
                                             </div>
@@ -442,7 +448,8 @@
                 </div>
 
                 <!-- بخش جزئیات سفارش -->
-                <div class="order-summary mb-4 p-3 shadow-sm" style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
+                <div class="order-summary mb-4 p-3 shadow-sm"
+                    style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
                     <h3 class="section-title mb-3">جزئیات سفارش</h3>
 
                     <div class="d-flex justify-content-between mb-2">
@@ -480,13 +487,15 @@
                 </div>
 
                 <!-- بخش مبلغ قابل پرداخت -->
-                <div class="payment-section p-3 shadow-sm" style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
+                <div class="payment-section p-3 shadow-sm"
+                    style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="fw-bold">مبلغ قابل پرداخت:</span>
                         <span class="price-highlight"><span
                                 id="total">{{ number_format($price - $discountCardPrice) }}</span> تومان</span>
                     </div>
-                    <a href="{{ route('cart.cartlevel2') }}" class="btn btn-primary w-100 py-2 mb-2">ادامه فرایند خرید</a>
+                    <a href="{{ route('cart.cartlevel2') }}" class="btn btn-primary w-100 py-2 mb-2">ادامه فرایند
+                        خرید</a>
                     <a href="/store" class="btn btn-secondary w-100 py-2">افزودن دیگر محصولات</a>
                 </div>
             </div>
@@ -494,6 +503,30 @@
     </div>
 @endsection
 @section('script')
+    <script>
+        const menu = $(".main-menu");
+        menu.addClass('small');
+        const bookmarkFirst = $("#bookmark");
+        bookmarkFirst.removeClass('expanded');
+        bookmarkFirst.addClass('collapsed');
+        let cart_dropdown = document.querySelector(".cart-dropdown");
+        let favorites_dropdown = document.querySelector(".favorites-dropdown");
+        let compare_dropdown = document.querySelector(".compare-dropdown");
+        if (favorites_dropdown) {
+            favorites_dropdown.style.top = "51px";
+            favorites_dropdown.style.left = "-192px";
+            cart_dropdown.style.left = "-113px";
+            compare_dropdown.style.left = "-150px";
+        } else {
+            compare_dropdown.style.left = "-173px";
+            cart_dropdown.style.left = "-133px";
+        }
+        compare_dropdown.style.top = "51px";
+        cart_dropdown.style.top = "51px";
+        categoriesMenu.style.top = "65px";
+        categoriesMenu.style.left = "1rem";
+        categoriesMenu.style.right = "1rem";
+    </script>
     <script>
         const menu = $(".main-menu");
         menu.addClass('small');
@@ -537,131 +570,132 @@
             // Increase / Decrease
             $(document).off('click', '.increase, .decrease');
             $(document).on('click', '.increase, .decrease', function(e) {
-    e.preventDefault();
-    $('.loader').show ? $('.loader').show() : null;
-    var $btn = $(this);
-    var action = $btn.hasClass('increase') ? 'increase' : 'decrease';
-    var id = $btn.data('id');
-    var model = $btn.data('model');
+                e.preventDefault();
+                $('.loader').show ? $('.loader').show() : null;
+                var $btn = $(this);
+                var action = $btn.hasClass('increase') ? 'increase' : 'decrease';
+                var id = $btn.data('id');
+                var model = $btn.data('model');
 
-    var $productRow = $btn.closest('.cart-product');
-    var $countInput = $productRow.find('.quantity-input');
-    var $itemPrice = $productRow.find('.item-price'); // عنصر قیمت محصول
-    var $itemOff = $productRow.find('.item-off'); // عنصر تخفیف محصول
+                var $productRow = $btn.closest('.cart-product');
+                var $countInput = $productRow.find('.quantity-input');
+                var $itemPrice = $productRow.find('.item-price'); // عنصر قیمت محصول
+                var $itemOff = $productRow.find('.item-off'); // عنصر تخفیف محصول
 
-    // دریافت قیمت پایه هر محصول از data attribute
-    var basePrice = $productRow.data('base-price');
-    if (!basePrice) {
-        // اگر data attribute وجود نداشت، از متن فعلی خوانده شود
-        basePrice = parseInt($itemPrice.text().replace(/,/g, '')) || 0;
-        // ذخیره قیمت پایه برای استفاده بعدی
-        $productRow.data('base-price', basePrice);
-    }
-
-    // دریافت تخفیف پایه هر محصول
-    var baseOff = $productRow.data('base-off');
-    if (!baseOff) {
-        baseOff = parseInt($itemOff.text().replace(/,/g, '')) || 0;
-        $productRow.data('base-off', baseOff);
-    }
-
-    $.post("{{ url('/cart/change/') }}", {
-        _token: '{{ csrf_token() }}',
-        action: action,
-        product: id,
-        model: model
-    }, function(data) {
-        if (data == "error") {
-            Swal.fire("خطا در اجرای عملیات", "اتمام موجودی در انبار", "error");
-        } else {
-            if (data == "finish") {
-                $productRow.fadeOut(function() {
-                    $(this).remove();
-                    calculateTotals(); // محاسبه مجدد کل‌ها بعد از حذف محصول
-                });
-            } else {
-                var newQuantity;
-
-                // آپدیت تعداد
-                if (data.quantity !== undefined) {
-                    newQuantity = data.quantity;
-                    $countInput.val(newQuantity);
-                    if ($countInput.text) {
-                        $countInput.text(newQuantity);
-                    }
-                } else {
-                    // fallback toggling +/- by 1
-                    var cur = parseInt($countInput.val()) || 0;
-                    newQuantity = action === 'increase' ? cur + 1 : Math.max(0, cur - 1);
-                    $countInput.val(newQuantity);
+                // دریافت قیمت پایه هر محصول از data attribute
+                var basePrice = $productRow.data('base-price');
+                if (!basePrice) {
+                    // اگر data attribute وجود نداشت، از متن فعلی خوانده شود
+                    basePrice = parseInt($itemPrice.text().replace(/,/g, '')) || 0;
+                    // ذخیره قیمت پایه برای استفاده بعدی
+                    $productRow.data('base-price', basePrice);
                 }
 
-                // محاسبه و آپدیت قیمت برای این محصول خاص
-                updateProductPrice($productRow, newQuantity);
+                // دریافت تخفیف پایه هر محصول
+                var baseOff = $productRow.data('base-off');
+                if (!baseOff) {
+                    baseOff = parseInt($itemOff.text().replace(/,/g, '')) || 0;
+                    $productRow.data('base-off', baseOff);
+                }
+
+                $.post("{{ url('/cart/change/') }}", {
+                    _token: '{{ csrf_token() }}',
+                    action: action,
+                    product: id,
+                    model: model
+                }, function(data) {
+                    if (data == "error") {
+                        Swal.fire("خطا در اجرای عملیات", "اتمام موجودی در انبار", "error");
+                    } else {
+                        if (data == "finish") {
+                            $productRow.fadeOut(function() {
+                                $(this).remove();
+                                calculateTotals(); // محاسبه مجدد کل‌ها بعد از حذف محصول
+                            });
+                        } else {
+                            var newQuantity;
+
+                            // آپدیت تعداد
+                            if (data.quantity !== undefined) {
+                                newQuantity = data.quantity;
+                                $countInput.val(newQuantity);
+                                if ($countInput.text) {
+                                    $countInput.text(newQuantity);
+                                }
+                            } else {
+                                // fallback toggling +/- by 1
+                                var cur = parseInt($countInput.val()) || 0;
+                                newQuantity = action === 'increase' ? cur + 1 : Math.max(0, cur -
+                                1);
+                                $countInput.val(newQuantity);
+                            }
+
+                            // محاسبه و آپدیت قیمت برای این محصول خاص
+                            updateProductPrice($productRow, newQuantity);
+                        }
+
+                        // محاسبه کل مبالغ
+                        calculateTotals();
+                    }
+                }).fail(function() {
+                    Swal.fire("خطا", "ارتباط با سرور برقرار نشد.", "error");
+                }).always(function() {
+                    $('.loader').hide ? $('.loader').hide() : null;
+                });
+            });
+
+            // تابع برای آپدیت قیمت یک محصول خاص
+            function updateProductPrice($productRow, quantity) {
+                var basePrice = $productRow.data('base-price');
+                var baseOff = $productRow.data('base-off');
+
+                if (basePrice && quantity > 0) {
+                    var totalItemPrice = basePrice * quantity;
+                    var totalItemOff = baseOff * quantity;
+
+                    // آپدیت نمایش قیمت برای این محصول
+                    $productRow.find('.item-price').text($.number(totalItemPrice));
+                    $productRow.find('.item-off').text($.number(totalItemOff));
+                } else if (quantity === 0) {
+                    // اگر تعداد صفر شد
+                    $productRow.find('.item-price').text($.number(0));
+                    $productRow.find('.item-off').text($.number(0));
+                }
             }
 
-            // محاسبه کل مبالغ
-            calculateTotals();
-        }
-    }).fail(function() {
-        Swal.fire("خطا", "ارتباط با سرور برقرار نشد.", "error");
-    }).always(function() {
-        $('.loader').hide ? $('.loader').hide() : null;
-    });
-});
+            // تابع برای محاسبه کل مبالغ
+            function calculateTotals() {
+                var totalPrice = 0,
+                    totalOff = 0,
+                    totalQty = 0;
 
-// تابع برای آپدیت قیمت یک محصول خاص
-function updateProductPrice($productRow, quantity) {
-    var basePrice = $productRow.data('base-price');
-    var baseOff = $productRow.data('base-off');
+                $('#cart-products .cart-product').each(function() {
+                    var $product = $(this);
+                    var qty = parseInt($product.find('.quantity-input').val()) ||
+                        parseInt($product.find('.count').val()) ||
+                        parseInt($product.find('.count').text()) || 0;
 
-    if (basePrice && quantity > 0) {
-        var totalItemPrice = basePrice * quantity;
-        var totalItemOff = baseOff * quantity;
+                    // خواندن قیمت و تخفیف فعلی از نمایش
+                    var price = parseInt($product.find('.item-price').text().replace(/,/g, '')) || 0;
+                    var off = parseInt($product.find('.item-off').text().replace(/,/g, '')) || 0;
 
-        // آپدیت نمایش قیمت برای این محصول
-        $productRow.find('.item-price').text($.number(totalItemPrice));
-        $productRow.find('.item-off').text($.number(totalItemOff));
-    } else if (quantity === 0) {
-        // اگر تعداد صفر شد
-        $productRow.find('.item-price').text($.number(0));
-        $productRow.find('.item-off').text($.number(0));
-    }
-}
+                    totalPrice += price;
+                    totalOff += off;
+                    totalQty += qty;
+                });
 
-// تابع برای محاسبه کل مبالغ
-function calculateTotals() {
-    var totalPrice = 0,
-        totalOff = 0,
-        totalQty = 0;
+                var total = totalPrice - totalOff;
+                updateTotalDisplays(totalPrice, totalOff, total, totalQty);
+            }
 
-    $('#cart-products .cart-product').each(function() {
-        var $product = $(this);
-        var qty = parseInt($product.find('.quantity-input').val()) ||
-                  parseInt($product.find('.count').val()) ||
-                  parseInt($product.find('.count').text()) || 0;
-
-        // خواندن قیمت و تخفیف فعلی از نمایش
-        var price = parseInt($product.find('.item-price').text().replace(/,/g, '')) || 0;
-        var off = parseInt($product.find('.item-off').text().replace(/,/g, '')) || 0;
-
-        totalPrice += price;
-        totalOff += off;
-        totalQty += qty;
-    });
-
-    var total = totalPrice - totalOff;
-    updateTotalDisplays(totalPrice, totalOff, total, totalQty);
-}
-
-// تابع برای آپدیت نمایش مقادیر کل
-function updateTotalDisplays(totalPrice, totalOff, total, totalQty) {
-    $('#cart-info-price').attr('data-value', totalPrice).text($.number(totalPrice));
-    $('#cart-info-off').text($.number(totalOff));
-    $('#cart-info-total').attr('data-value', total).text($.number(total));
-    $('#total').text($.number(total));
-    $('.header-total-quantity, #cart_info-quantity').text(totalQty);
-}
+            // تابع برای آپدیت نمایش مقادیر کل
+            function updateTotalDisplays(totalPrice, totalOff, total, totalQty) {
+                $('#cart-info-price').attr('data-value', totalPrice).text($.number(totalPrice));
+                $('#cart-info-off').text($.number(totalOff));
+                $('#cart-info-total').attr('data-value', total).text($.number(total));
+                $('#total').text($.number(total));
+                $('.header-total-quantity, #cart_info-quantity').text(totalQty);
+            }
 
             // Delete item
             $(document).on('click', '.delete', function(e) {
@@ -710,10 +744,20 @@ function updateTotalDisplays(totalPrice, totalOff, total, totalQty) {
                                         .text().replace(/,/g, '')) || 0;
                                     var off = parseInt($productRow.find('.item-off')
                                         .text().replace(/,/g, '')) || 0;
-                                    var newPrice = currentPrice - (price + off) *
-                                        quantity;
-                                    var newOff = currentOff - off * quantity;
+                                    var quantity = parseInt($productRow.find('.count')
+                                        .val()) || parseInt($productRow.find(
+                                        '.count').text()) || 1;
+                                    var newPrice = currentPrice - (price + off);
+                                    var newOff = currentOff - off;
                                     var newTotal = newPrice - newOff;
+                                    // alert(currentPrice);
+                                    // alert(currentOff);
+                                    // alert(price);
+                                    // alert(off);
+                                    // alert(quantity);
+                                    // alert(newPrice);
+                                    // alert(newOff);
+                                    // alert(newTotal);
                                     $('#cart-info-price').attr('data-value', newPrice)
                                         .text($.number(newPrice));
                                     $('#cart-info-off').text($.number(newOff));

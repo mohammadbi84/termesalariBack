@@ -62,10 +62,18 @@
     <button class="back-to-top" id="backToTop">
         <i class="fa-solid fa-chevron-up fa-lg" style="top: 1px;"></i>
     </button>
-
+    <script>
+        window.addEventListener("pageshow", function(event) {
+            if (event.persisted) {
+                // صفحه از bfcache لود شده
+                location.reload();
+            }
+        });
+    </script>
     <!-- Leaflet JS -->
     <script src="{{ asset('shop/js/leaflet.js') }}"></script>
     @yield('script')
+
 
     @if (session('fail'))
         <script>
@@ -91,6 +99,7 @@
             });
         </script>
     @endif
+
 </body>
 
 </html>

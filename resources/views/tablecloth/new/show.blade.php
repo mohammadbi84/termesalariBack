@@ -178,6 +178,13 @@
                     <div class="categories-tags">
                         <div class="action-buttons">
                             <a href="#" id="compare" class="d-block mb-1 compare-btn"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
+                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
+                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                 data-id="{{ $tablecloth->id }}"
                                 data-model="{{ substr($tablecloth->category->model, 4) }}">
                                 <i class="fa-solid fa-shuffle ms-1"></i>
@@ -209,13 +216,13 @@
 
                         <div class="stock-info">
                             <i class="fas fa-box-open ms-1"></i>
-                            @if ($tablecloth->quantity == 0)
+                            {{-- @if ($tablecloth->quantity == 0)
                                 <span class="text-bold"> اتمام موجودی در انبار </span>
                             @elseif($tablecloth->quantity <= 5)
-                                <span class="text-bold">کمتر از 5 عدد موجود می باشد .</span>
                             @elseif($tablecloth->quantity > 5)
-                                <span class="text-success text-bold"> موجود در انبار</span>
-                            @endif
+                            <span class="text-success text-bold"> موجود در انبار</span>
+                            @endif --}}
+                            <span class="text-bold">{{ $tablecloth->quantity }} عدد موجود می باشد .</span>
                         </div>
 
                         <div class="quantity-control">
@@ -459,13 +466,17 @@
         bookmarkFirst.addClass('collapsed');
         let cart_dropdown = document.querySelector(".cart-dropdown");
         let favorites_dropdown = document.querySelector(".favorites-dropdown");
+        let compare_dropdown = document.querySelector(".compare-dropdown");
         if (favorites_dropdown) {
             favorites_dropdown.style.top = "51px";
-            favorites_dropdown.style.left = "-193px";
+            favorites_dropdown.style.left = "-192px";
             cart_dropdown.style.left = "-113px";
+            compare_dropdown.style.left = "-150px";
         } else {
+            compare_dropdown.style.left = "-173px";
             cart_dropdown.style.left = "-133px";
         }
+        compare_dropdown.style.top = "51px";
         cart_dropdown.style.top = "51px";
         categoriesMenu.style.top = "65px";
         categoriesMenu.style.left = "1rem";
@@ -477,6 +488,12 @@
                 event.preventDefault();
                 var id = $(this).data("id");
                 var model = $(this).data("model");
+                var $btn = $(this);
+                const image = $btn.data('image');
+                const title = $btn.data('title');
+                const design = $btn.data('design');
+                const color = $btn.data('color');
+                const price = $btn.data('price');
                 $.ajax({
                     type: "GET",
                     url: document.location.origin + "/compare/add",
@@ -486,6 +503,32 @@
                     },
                     success: function(data) {
                         document.querySelector(".compare-badge").textContent = data;
+                        document.querySelector(".compare-items-count").textContent = data +
+                            " کالا";
+                        const $compList = $("#navbarCompareList"); // لیست داخل منو
+                        const exists = $compList.find(
+                            `.compare-item[data-id="${id}"][data-model="${model}"]`);
+                        if (exists.length === 0) {
+                            const newItem = `
+                    <div class="compare-item"
+                        data-id="${id}"
+                        data-model="${model}" >
+                        <img src="${image}"
+                            alt="product" class="cart-item-image">
+                        <div class="cart-item-content">
+                            <div class="cart-item-title">
+                                ${title} طرح ${design} رنگ ${color}
+                            </div>
+                            <div class="cart-item-price">
+                                ${Number(price).toLocaleString()} تومان
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                            $compList.prepend(newItem);
+                        }
+
                         Swal.fire({
                             icon: "success",
                             title: "عملیا با موفقیت انجام شد.",
@@ -529,7 +572,7 @@
             maxQuantity = {{ $tablecloth->quantity }};
             $('.plus-btn').click(function() {
                 var currentVal = parseInt($('#item-quantity-product').text());
-                if (currentVal <= maxQuantity) {
+                if (currentVal < maxQuantity) {
                     $('#item-quantity-product').text(currentVal + 1);
                 }
             });

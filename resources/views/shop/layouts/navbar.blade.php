@@ -174,7 +174,7 @@
                             </div>
                         </div>
                         @endif
-                        <div class="favorites-container">
+                        <div class="compare-container">
                             <a href="{{ route('compare.index') }}" class="cart-btn">
                                 <span class="cart-badge compare-badge">
                                     @if (session()->has('compares') and count(session('compares')['product']) > 0)
@@ -186,6 +186,70 @@
                                 <img src="{{ asset('shop/assets/svgs/shuffle-solid-full.svg') }}" alt="compare"
                                     width="24">
                             </a>
+                            <div class="compare-dropdown">
+                                <div class="favorites-header">
+                                    <span class="mb-0">لیست مقایسه</span>
+                                    <span class="text-muted compare-items-count" id="compare-items-count">
+                                        @if (session()->has('compares'))
+                                            {{ count(session('compares')['product']) }} کالا
+                                        @else
+                                            0 کالا
+                                        @endif
+                                    </span>
+                                </div>
+
+                                <div class="compare-items" id="navbarCompareList">
+                                    @if (session("compares") != null)
+                                        @foreach (session("compares")["product"] as $compare)
+                                            <div class="compare-item"
+                                                data-id="{{ $compare->id }}"
+                                                data-model="{{ substr($compare->category->model, 4) }}">
+                                                @php $image = $compare->images->first(); @endphp
+                                                <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                                    alt="product" class="favorites-item-image">
+                                                <div class="favorites-item-content">
+                                                    <div class="favorites-item-title">
+                                                        {{ $compare->category->title }} طرح
+                                                        {{ $compare->color_design->design->title }} رنگ
+                                                        {{ $compare->color_design->color->color }}
+                                                    </div>
+                                                    <div class="favorites-item-price">
+                                                        @if ($compare->quantity > 0)
+                                                            @php
+                                                                $price = $compare->prices
+                                                                    ->where('local', 'تومان')
+                                                                    ->first();
+                                                            @endphp
+                                                            @if ($price->offPrice > 0)
+                                                                @if ($price->offType == 'مبلغ')
+                                                                    <span
+                                                                        class="favorites-item-old-price">{{ number_format($price->price - $price->offPrice) }}</span>
+                                                                @elseif($price->offType == 'درصد')
+                                                                    <span
+                                                                        class="favorites-item-old-price">{{ number_format($price->price - $price->price * ($price->offPrice / 100)) }}</span>
+                                                                @endif
+                                                                {{ number_format($price->price) }}
+                                                                تومان
+                                                            @else
+                                                                {{ number_format($price->price) }}
+                                                                تومان
+                                                            @endif
+                                                        @else
+                                                            ناموجود
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="cart-footer">
+                                    <div class="cart-actions justify-content-end align-items-center">
+                                        <a href="{{route('compare.index')}}" class="btn-checkout">مشاهده لیست</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         @php
                             if (session()->has('cart')) {
