@@ -432,9 +432,10 @@
 
 .info-badge-icon {
     font-size: 2rem;
-    color: #327942;
+    color: #b8b8b8;
     position: relative;
     bottom: 2px;
+    top: unset;
 }
 
 .swiper-button-next,

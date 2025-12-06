@@ -83,7 +83,7 @@ Route::get('/export/newsletter/emails','NewsletterController@exportEmails')->nam
 Route::get('/export/newsletter/mobiles','NewsletterController@exportMobiles')->name('newsletter.mobiles.export');
 Route::post('/sendMail/newsletter/','NewsletterController@sendMail')->name('newsletter.sendMail');
 
-Route::get('/cart/add/{product}/{controller}', 'CartController@add')->name('cart.add');
+Route::get('/cart/add/{product}/{controller}/{quantity?}', 'CartController@add')->name('cart.add');
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart/change/', 'CartController@change')->name('cart.change');
 // Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy');

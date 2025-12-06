@@ -130,7 +130,7 @@
 
                             <div class="card-header" style="border-bottom: 0px;">
                                 <h3 class="card-title"><span><a style="color: black" href="#details">>> مشاهده مشخصات فنی
-                                            محصول <<< /a></span></h3>
+                                            محصول <<</a></span></h3>
                             </div>
 
                             <div class="card-body">

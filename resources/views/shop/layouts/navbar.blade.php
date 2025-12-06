@@ -501,6 +501,7 @@
                 'model': model
             },
             success: function(response) {
+
                 if (response == "finish") {
 
                     $cartItem.fadeOut(300, function() {
@@ -509,6 +510,9 @@
                         updateCartTotal();
                     });
 
+                    return;
+                }
+                if (response == "error") {
                     return;
                 }
 

@@ -57,7 +57,7 @@ class CartController extends Controller
     //         return "<div style='color:red; text-align:center;direction:rtl;font-family:system-ui'>متاسفانه دسترسی به این صفحه برای شما وجود ندارد.</div>";
     // }
 
-     public function add(string $product, string $controller)
+     public function add(string $product, string $controller, int $quantity=1)
     {
         // session()->flush();
         $class="App\\".$controller;
@@ -67,20 +67,20 @@ class CartController extends Controller
         if(session()->has('cart'))
             $cart = session('cart');
 
-        if($q > 0 )
+        if($q > 0 and $quantity <= $q)
         {
             if(isset($cart[$product->id][$controller]))
             {
-                if($product->quantity > $cart[$product->id][$controller]['quantity'])
+                if($product->quantity >= $cart[$product->id][$controller]['quantity'] + $quantity)
                 {
                 // dd($cart[$product->id][$controller]);
-                    $cart[$product->id][$controller]['quantity']++;
+                    $cart[$product->id][$controller]['quantity'] += $quantity;
                 }
                 else
                     return 0;
             }
             else {
-                $cart[$product->id][$controller]['quantity'] = 1;
+                $cart[$product->id][$controller]['quantity'] = $quantity;
                 $cart[$product->id][$controller]['model'] = $controller;
             }
             // dd($cart);

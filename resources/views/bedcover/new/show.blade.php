@@ -26,24 +26,24 @@
 
             <div class="row rounded-4 shadow-sm bg-white p-4 mb-5">
                 @php
-                            $images = $bedcover->images()->get()->sortby('ordering');
-                            $prices = $bedcover->prices->where('local', 'تومان')->first();
-                        @endphp
-                        @php
-                            $price = 0;
-                            $off = 0;
-                            if ($prices->offPrice > 0) {
-                                if ($prices->offType == 'مبلغ') {
-                                    $price = $prices->price - $prices->offPrice;
-                                    $off = $prices->offPrice;
-                                } elseif ($prices->offType == 'درصد') {
-                                    $off = $prices->price * ($prices->offPrice / 100);
-                                    $price = $prices->price - $off;
-                                }
-                            } else {
-                                $price = $prices->price;
-                            }
-                        @endphp
+                    $images = $bedcover->images()->get()->sortby('ordering');
+                    $prices = $bedcover->prices->where('local', 'تومان')->first();
+                @endphp
+                @php
+                    $price = 0;
+                    $off = 0;
+                    if ($prices->offPrice > 0) {
+                        if ($prices->offType == 'مبلغ') {
+                            $price = $prices->price - $prices->offPrice;
+                            $off = $prices->offPrice;
+                        } elseif ($prices->offType == 'درصد') {
+                            $off = $prices->price * ($prices->offPrice / 100);
+                            $price = $prices->price - $off;
+                        }
+                    } else {
+                        $price = $prices->price;
+                    }
+                @endphp
 
                 <!-- right Column - Product Info -->
                 <div class="col order-lg-1 mb-2">
@@ -70,28 +70,28 @@
                     </ul>
 
                     <hr>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="color-title">دسته‌بندی :</h6>
-                            <a href="{{ route('bedcover.storeIndex') }}"
-                                class="tag">{{ $bedcover->category->title }}</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="color-title">برچسب ها :</h6>
-                            <span class="tag">{{ $bedcover->color_design->design->title }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mt-2">
-                            <h6>اشتراک‌گذاری</h6>
-                            <div class="share-buttons">
-                                <a href="#" id="share-btn" class="share-btn telegram">
-                                    <i class="fa-solid fa-share-nodes"></i>
-                                </a>
-                                {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="color-title">دسته‌بندی :</h6>
+                        <a href="{{ route('bedcover.storeIndex') }}"
+                            class="tag">{{ $bedcover->category->title }}</a>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="color-title">برچسب ها :</h6>
+                        <span class="tag">{{ $bedcover->color_design->design->title }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <h6>اشتراک‌گذاری</h6>
+                        <div class="share-buttons">
+                            <a href="#" id="share-btn" class="share-btn telegram">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </a>
+                            {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
                                 <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
                                 <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
                                 <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
-                            </div>
-
                         </div>
+
+                    </div>
                 </div>
 
                 <!-- Middle Column - Product Gallery -->
@@ -200,40 +200,48 @@
                         </div>
 
                         <hr>
-                        <div class="price-section">
-                        @if ($off > 0)
-                            <span class="original-price">{{ number_format($prices->price) }} تومان</span>
-                        @endif
-                        <span class="discounted-price">{{ number_format($price) }} تومان</span>
-                    </div>
+                        <div class="price-section text-start">
+                            @if ($off > 0)
+                                <span class="original-price">{{ number_format($prices->price) }} تومان</span>
+                            @endif
+                            <span class="discounted-price">{{ number_format($price) }} تومان</span>
+                        </div>
 
-                    <div class="stock-info">
-                        <i class="fas fa-box-open ms-1"></i>
-                        @if ($bedcover->quantity == 0)
-                            <span class="text-bold"> اتمام موجودی در انبار </span>
-                        @elseif($bedcover->quantity <= 5)
-                            <span class="text-bold">کمتر از 5 عدد موجود می باشد .</span>
-                        @elseif($bedcover->quantity > 5)
-                            <span class="text-success text-bold"> موجود در انبار</span>
-                        @endif
-                    </div>
+                        <div class="stock-info">
+                            <i class="fas fa-box-open ms-1"></i>
+                            @if ($bedcover->quantity == 0)
+                                <span class="text-bold"> اتمام موجودی در انبار </span>
+                            @elseif($bedcover->quantity <= 5)
+                                <span class="text-bold">کمتر از 5 عدد موجود می باشد .</span>
+                            @elseif($bedcover->quantity > 5)
+                                <span class="text-success text-bold"> موجود در انبار</span>
+                            @endif
+                        </div>
 
-                    <div class="quantity-control">
-                        <div class="d-flex border rounded-2 p-1">
+                        <div class="quantity-control">
+                            {{-- <div class="d-flex border rounded-2 p-1">
                             <button class="quantity-btn minus-btn"><i class="fas fa-minus"></i></button>
                             <input type="text" class="quantity-input" id="quantity-input" value="1" readonly>
                             <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
+                            </div> --}}
+                            <div class="quantity-controls gap-2">
+                                <button class="minus-btn" data-model="{{ substr($bedcover->category->model, 4) }}"
+                                    data-id="{{ $bedcover->id }}">-</button>
+                                <span class="count item-quantity-product" id="item-quantity-product">1</span>
+                                <button class="plus-btn" data-model="{{ substr($bedcover->category->model, 4) }}"
+                                    data-id="{{ $bedcover->id }}">+</button>
+                            </div>
+                            <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
+                                data-id="{{ $bedcover->id }}"
+                                data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                                data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">افزودن به سبد
+                                خرید</button>
                         </div>
-                        <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
-                            data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
-                            data-id="{{ $bedcover->id }}" data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                            data-design="{{ $bedcover->color_design->design->title ?? '' }}"
-                            data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                            data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
-                            data-pay="{{ $price }}" data-off="{{ $off }}"
-                            data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">افزودن به سبد
-                            خرید</button>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -280,7 +288,8 @@
                 <div class="col p-0">
                     <div class="bg-white rounded-4 p-4 shadow-sm mb-4">
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
-                            <i class="fa-solid fa-info info-badge-icon"></i>
+                            {{-- <i class="fa-solid fa-info info-badge-icon"></i> --}}
+                            <i class="fa-solid fa-circle-info info-badge-icon"></i>
                             <h5 class="m-0">توضیحات</h5>
                         </div>
                         <p class="text-justify text-muted">
@@ -290,7 +299,7 @@
                     <div class="bg-white rounded-4 p-4 shadow-sm">
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
                             <i class="fa-regular fa-comments info-badge-icon"></i>
-                            <h5 class="m-0">دیدگاه خود را بنویسید</h5>
+                            <h5 class="m-0">نظر شما برای ما مهم است</h5>
                         </div>
                         <form action="/comment" method="POST" class="">
                             @csrf
@@ -300,7 +309,7 @@
                                 <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
                                     <input type="text" id="searchInputtext" value="{{ old('text') }}"
                                         class="" name="text" oninput="nameinput('text')">
-                                    <label for="searchInputtext">نظر خود را بنویسید</label>
+                                    <label for="searchInputtext">دیدگاه خود را در مورد این محصول بنویسید ...</label>
                                     <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
                                         @if (old('text')) style="display:block !important" @endif>×</span>
                                 </div>
@@ -308,13 +317,19 @@
                                     <small class="text-danger mt-2">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary w-25 mb-3">ارسال دیدگاه</button>
+                            @if (Auth::check())
+                                <button type="submit" class="btn btn-primary w-25 mb-3">ثبت دیدگاه</button>
+                            @else
+                                <button type="button" id="comment_btn" class="btn btn-primary w-25 mb-3">ثبت
+                                    دیدگاه</button>
+                            @endif
                         </form>
                     </div>
                 </div>
                 <div class="col bg-white rounded-4 p-4 shadow-sm">
                     <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
-                        <i class="fa-solid fa-info info-badge-icon"></i>
+                        {{-- <i class="fa-solid fa-info info-badge-icon"></i> --}}
+                        <i class="fa-solid fa-circle-info info-badge-icon"></i>
                         <h5 class="m-0">جزئیات محصول</h5>
                     </div>
                     <ul class="list-group list-group-flush p-0">
@@ -371,8 +386,12 @@
             </div>
             <div class="row bg-white rounded-4 shadow-sm p-3">
                 <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
-                    <i class="fa-solid fa-info info-badge-icon top-0"></i>
-                    <h5 class="m-0">دیدگاه کاربران</h5>
+                    {{-- <i class="fa-solid fa-info info-badge-icon top-0"></i> --}}
+                    <i class="fa-regular fa-comments info-badge-icon"></i>
+                    <div>
+                        <h5 class="m-0">دیدگاه کاربران</h5>
+                        <span class="point-span">{{ $comments->count() }} دیدگاه برای این محصول ثبت شده است</span>
+                    </div>
                 </div>
                 @foreach ($comments as $comment)
                     <div class="col-12 mb-3">
@@ -507,21 +526,24 @@
             });
 
             // Quantity Control
+            maxQuantity = {{ $bedcover->quantity }};
             $('.plus-btn').click(function() {
-                var currentVal = parseInt($('.quantity-input').val());
-                $('.quantity-input').val(currentVal + 1);
+                var currentVal = parseInt($('#item-quantity-product').text());
+                if (currentVal < maxQuantity) {
+                    $('#item-quantity-product').text(currentVal + 1);
+                }
             });
 
             $('.minus-btn').click(function() {
-                var currentVal = parseInt($('.quantity-input').val());
+                var currentVal = parseInt($('#item-quantity-product').text());
                 if (currentVal > 1) {
-                    $('.quantity-input').val(currentVal - 1);
+                    $('#item-quantity-product').text(currentVal - 1);
                 }
             });
 
             // Add to Cart
             $('.add-to-cart-show').click(function() {
-                var quantity = $('.quantity-input').val();
+                var quantity = $('#item-quantity-product').text();
                 alert(quantity + ' عدد از این محصول به سبد خرید اضافه شد');
             });
 
@@ -745,7 +767,9 @@
                 const local = $btn.data('local');
                 const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
-                const url = `${document.location.origin}/cart/add/${id}/${model}`;
+                const quantity = parseInt($('#item-quantity-product').text()) || 1;
+                const url = `${document.location.origin}/cart/add/${id}/${model}/${quantity}`;
+
                 // درخواست AJAX
                 $.ajax({
                     url: url,
@@ -762,7 +786,7 @@
                                 title,
                                 price,
                                 image,
-                                quantity: 1,
+                                quantity: quantity,
                                 model: model,
                                 off: off,
                                 offType: offType,
@@ -780,7 +804,7 @@
                             Swal.fire({
                                 icon: "error",
                                 title: "خطا در افزودن محصول!",
-                                text: "لطفاً دوباره تلاش کنید."
+                                text: "تعداد کالای درخواستی بیشتر از موجودی انبار است."
                             });
                         }
                     },
@@ -810,7 +834,7 @@
                     // اگر بود، فقط تعداد را افزایش بده
                     const $quantitySpan = existingItem.find('.item-quantity');
                     const currentQuantity = parseInt($quantitySpan.text()) || 0;
-                    $quantitySpan.text(currentQuantity + 1);
+                    $quantitySpan.text(currentQuantity + item.quantity);
                 } else {
                     // اگر نبود، آیتم جدید بساز (با data attributes کامل)
                     const newItem = `
@@ -827,7 +851,7 @@
                     <div class="cart-item-title">${item.title}</div>
 
                     <div class="cart-item-price">
-                        ${Number(item.price).toLocaleString()} تومان
+                        ${Number(item.price * item.quantity).toLocaleString()} تومان
                     </div>
 
                     <div class="quantity-controls">
@@ -1260,5 +1284,85 @@
                 clearBtn2.style.display = "none";
             }
         }
+
+        document.getElementById("comment_btn")?.addEventListener("click", function() {
+            Swal.fire({
+                title: `
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                </div>`,
+                html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <div class="text-center" style="font-size: 14px;">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                </div>
+                            </div>
+                        </form>
+                            `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusConfirm: false,
+                allowOutsideClick: true
+            });
+
+            // ارسال فرم لاگین با ایجکس
+            $(document).on("submit", "#loginAjaxForm", function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/login", // مسیر Laravel login
+                    type: "POST",
+                    data: {
+                        login: $("#searchInputlogin").val(),
+                        password: $("#searchInputpassword").val(),
+                        _token: '<?php echo csrf_token(); ?>',
+                    },
+                    success: function(res) {
+                        Swal.close();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "ورود موفقیت‌آمیز",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+
+                        setTimeout(() => location.reload(), 1200);
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: "error",
+                            title: "ورود ناموفق",
+                            text: "ایمیل یا رمز عبور اشتباه است"
+                        });
+                    }
+                });
+            });
+
+        });
     </script>
 @endsection
