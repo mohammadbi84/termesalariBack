@@ -64,115 +64,116 @@
                         </div>
                         {{-- favorites menu --}}
                         @php
-                        if (Auth::check()) {
-                            $favorites = App\Favorite::where('user_id', Auth::id())->get();
-                        } else {
-                            $favorites = collect();
-                        }
+                            if (Auth::check()) {
+                                $favorites = App\Favorite::where('user_id', Auth::id())->get();
+                            } else {
+                                $favorites = collect();
+                            }
                         @endphp
                         @if (Auth::check())
-                        <div class="favorites-container">
-                            <a href="#" class="cart-btn">
-                                <span class="cart-badge favorites-badge">{{ $favorites->count() }}</span>
-                                @if ($favorites->count() > 0)
-                                <img src="{{ asset('shop/assets/svgs/heart-solid-full (1).svg') }}" alt="favorites"
-                                    width="24">
-                                @else
-                                <img src="{{ asset('shop/assets/svgs/heart-solid-full.svg') }}" alt="favorites"
-                                    width="24">
-                                @endif
-                            </a>
+                            <div class="favorites-container">
+                                <a href="#" class="cart-btn">
+                                    <span class="cart-badge favorites-badge">{{ $favorites->count() }}</span>
+                                    @if ($favorites->count() > 0)
+                                        <img src="{{ asset('shop/assets/svgs/heart-solid-full (1).svg') }}"
+                                            alt="favorites" width="24">
+                                    @else
+                                        <img src="{{ asset('shop/assets/svgs/heart-solid-full.svg') }}" alt="favorites"
+                                            width="24">
+                                    @endif
+                                </a>
 
-                            <div class="favorites-dropdown">
-                                <div class="favorites-header">
-                                    <span class="mb-0">لیست علاقه‌مندی ها</span>
-                                    <span class="text-muted favorites-items-count" id="favorites-items-count">{{ $favorites->count() }} کالا</span>
-                                </div>
+                                <div class="favorites-dropdown">
+                                    <div class="favorites-header">
+                                        <span class="mb-0">لیست علاقه‌مندی ها</span>
+                                        <span class="text-muted favorites-items-count"
+                                            id="favorites-items-count">{{ $favorites->count() }} کالا</span>
+                                    </div>
 
-                                <div class="favorites-items" id="navbarFavoritesList">
-                                    @foreach ($favorites as $favorite)
-                                        <div class="favorites-item"
-                                            data-id="{{ $favorite->favoriteable->id }}"
-                                            data-model="{{ substr($favorite->favoriteable_type, 4) }}">
-                                            @php $image = $favorite->favoriteable->images->first(); @endphp
-                                            <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
-                                                alt="product" class="favorites-item-image">
-                                            <div class="favorites-item-content">
-                                                <div class="favorites-item-title">
-                                                    {{ $favorite->favoriteable->category->title }} طرح
-                                                    {{ $favorite->favoriteable->color_design->design->title }} رنگ
-                                                    {{ $favorite->favoriteable->color_design->color->color }}
-                                                </div>
-                                                <div class="favorites-item-price">
-                                                    @if ($favorite->favoriteable->quantity > 0)
-                                                        @php
-                                                            $price = $favorite->favoriteable->prices
-                                                                ->where('local', 'تومان')
-                                                                ->first();
-                                                        @endphp
-                                                        @if ($price->offPrice > 0)
-                                                            @if ($price->offType == 'مبلغ')
-                                                                <span
-                                                                    class="favorites-item-old-price">{{ number_format($price->price - $price->offPrice) }}</span>
-                                                            @elseif($price->offType == 'درصد')
-                                                                <span
-                                                                    class="favorites-item-old-price">{{ number_format($price->price - $price->price * ($price->offPrice / 100)) }}</span>
+                                    <div class="favorites-items" id="navbarFavoritesList">
+                                        @foreach ($favorites as $favorite)
+                                            <div class="favorites-item" data-id="{{ $favorite->favoriteable->id }}"
+                                                data-model="{{ substr($favorite->favoriteable_type, 4) }}">
+                                                @php $image = $favorite->favoriteable->images->first(); @endphp
+                                                <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                                    alt="product" class="favorites-item-image">
+                                                <div class="favorites-item-content">
+                                                    <div class="favorites-item-title">
+                                                        {{ $favorite->favoriteable->category->title }} طرح
+                                                        {{ $favorite->favoriteable->color_design->design->title }} رنگ
+                                                        {{ $favorite->favoriteable->color_design->color->color }}
+                                                    </div>
+                                                    <div class="favorites-item-price">
+                                                        @if ($favorite->favoriteable->quantity > 0)
+                                                            @php
+                                                                $price = $favorite->favoriteable->prices
+                                                                    ->where('local', 'تومان')
+                                                                    ->first();
+                                                            @endphp
+                                                            @if ($price->offPrice > 0)
+                                                                @if ($price->offType == 'مبلغ')
+                                                                    <span
+                                                                        class="favorites-item-old-price">{{ number_format($price->price - $price->offPrice) }}</span>
+                                                                @elseif($price->offType == 'درصد')
+                                                                    <span
+                                                                        class="favorites-item-old-price">{{ number_format($price->price - $price->price * ($price->offPrice / 100)) }}</span>
+                                                                @endif
+                                                                {{ number_format($price->price) }}
+                                                                تومان
+                                                            @else
+                                                                {{ number_format($price->price) }}
+                                                                تومان
                                                             @endif
-                                                            {{ number_format($price->price) }}
-                                                            تومان
                                                         @else
-                                                            {{ number_format($price->price) }}
-                                                            تومان
+                                                            ناموجود
                                                         @endif
-                                                    @else
-                                                        ناموجود
-                                                    @endif
-                                                </div>
-                                                <div
-                                                    class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
-                                                    <button class="buy-button add-to-cart favorites-btn active"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
-                                                        data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
-                                                        data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $favorite->favoriteable->title }}"
-                                                        data-price="{{ $prices->price }}"
-                                                        data-pay="{{ $price }}"
-                                                        data-off="{{ $off }}"
-                                                        data-offType="{{ $prices->offType }}"
-                                                        data-local="{{ $prices->local }}"
-                                                        data-id="{{ $favorite->favoriteable->id }}"
-                                                        data-model="{{ substr($favorite->favoriteable_type, 4) }}"
-                                                        style="width: 30px;height:30px"><i
-                                                            class="fa-solid fa-heart text-danger fa-lg"></i></button>
-                                                    <button class="buy-button add-to-cart addToCart favorites"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
-                                                        data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
-                                                        data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $favorite->favoriteable->title }}"
-                                                        data-price="{{ $prices->price }}"
-                                                        data-pay="{{ $price }}"
-                                                        data-off="{{ $off }}"
-                                                        data-offType="{{ $prices->offType }}"
-                                                        data-local="{{ $prices->local }}"
-                                                        data-id="{{ $favorite->favoriteable->id }}"
-                                                        data-model="{{ substr($favorite->favoriteable_type, 4) }}"
-                                                        style="width: 30px;height:30px"><i
-                                                            class="fa-solid fa-cart-plus"></i></button>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                                                        <button class="buy-button add-to-cart favorites-btn active"
+                                                            data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
+                                                            data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                            data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
+                                                            data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
+                                                            data-title="{{ $favorite->favoriteable->title }}"
+                                                            data-price="{{ $prices->price }}"
+                                                            data-pay="{{ $price }}"
+                                                            data-off="{{ $off }}"
+                                                            data-offType="{{ $prices->offType }}"
+                                                            data-local="{{ $prices->local }}"
+                                                            data-id="{{ $favorite->favoriteable->id }}"
+                                                            data-model="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                            style="width: 30px;height:30px"><i
+                                                                class="fa-solid fa-heart text-danger fa-lg"></i></button>
+                                                        <button class="buy-button add-to-cart addToCart favorites"
+                                                            data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
+                                                            data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                            data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
+                                                            data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
+                                                            data-title="{{ $favorite->favoriteable->title }}"
+                                                            data-price="{{ $prices->price }}"
+                                                            data-pay="{{ $price }}"
+                                                            data-off="{{ $off }}"
+                                                            data-offType="{{ $prices->offType }}"
+                                                            data-local="{{ $prices->local }}"
+                                                            data-id="{{ $favorite->favoriteable->id }}"
+                                                            data-model="{{ substr($favorite->favoriteable_type, 4) }}"
+                                                            style="width: 30px;height:30px"><i
+                                                                class="fa-solid fa-cart-plus"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+                                        @endforeach
+                                    </div>
 
-                                <div class="cart-footer">
-                                    <div class="cart-actions justify-content-end align-items-center">
-                                        <a href="{{route('user.favorites')}}" class="btn-checkout">مشاهده لیست</a>
+                                    <div class="cart-footer">
+                                        <div class="cart-actions justify-content-end align-items-center">
+                                            <a href="{{ route('user.favorites') }}" class="btn-checkout">مشاهده
+                                                لیست</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                         <div class="compare-container">
                             <a href="{{ route('compare.index') }}" class="cart-btn">
@@ -199,10 +200,9 @@
                                 </div>
 
                                 <div class="compare-items" id="navbarCompareList">
-                                    @if (session("compares") != null)
-                                        @foreach (session("compares")["product"] as $compare)
-                                            <div class="compare-item"
-                                                data-id="{{ $compare->id }}"
+                                    @if (session('compares') != null)
+                                        @foreach (session('compares')['product'] as $compare)
+                                            <div class="compare-item" data-id="{{ $compare->id }}"
                                                 data-model="{{ substr($compare->category->model, 4) }}">
                                                 @php $image = $compare->images->first(); @endphp
                                                 <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
@@ -246,7 +246,7 @@
 
                                 <div class="cart-footer">
                                     <div class="cart-actions justify-content-end align-items-center">
-                                        <a href="{{route('compare.index')}}" class="btn-checkout">مشاهده لیست</a>
+                                        <a href="{{ route('compare.index') }}" class="btn-checkout">مشاهده لیست</a>
                                     </div>
                                 </div>
                             </div>
@@ -415,8 +415,8 @@
                         </div>
                         <!-- ورود و ثبت نام -->
                         <div class="flex justify-center items-center">
-                            <div class="button-container border border-secondary rounded p-2">
-                                @if (!Auth::check())
+                            @if (!Auth::check())
+                                <div class="button-container border border-secondary rounded p-2">
                                     <a href="{{ route('login') }}"
                                         class="text-muted text-decoration-none px-1 login-link">
                                         ورود
@@ -427,14 +427,34 @@
                                         ثبت نام
                                     </a>
                                     <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
-                                @else
-                                    <a href="{{ route('user.profile') }}"
-                                        class="text-muted text-decoration-none px-1">
-                                        <i class="fa-solid fa-user me-1"></i>
+                                </div>
+                            @else
+                                <div class="dropdown">
+                                    <button type="button"
+                                        class="button-container border border-secondary text-muted bg-white rounded p-2"
+                                        data-bs-toggle="dropdown">
+                                        <i class="fa-solid fa-user mx-1"></i>
                                         {{ Auth::user()->name }} {{ Auth::user()->family }}
-                                    </a>
-                                @endif
-                            </div>
+                                    </button>
+                                    <ul class="dropdown-menu text-end">
+                                        <li>
+                                            <a class="dropdown-item" href="{{route('user.profile')}}">
+                                                <i class="fa-solid fa-user ms-1 top-0"></i>
+                                                <span>مشاهده پروفایل</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                                <i class="fa-solid fa-arrow-right-from-bracket ms-1 top-0"></i>
+                                                <span>خروج</span>
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                              @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -700,7 +720,8 @@
         });
 
         // تزریق در HTML
-        $('.cart-total-price').html('<span class="text-muted fs-10">مبلغ قابل پرداخت</span><br>'+totalPayable.toLocaleString() + ' تومان');
+        $('.cart-total-price').html('<span class="text-muted fs-10">مبلغ قابل پرداخت</span><br>' + totalPayable
+            .toLocaleString() + ' تومان');
     }
 
     // مدیریت هاور روی سبد خرید

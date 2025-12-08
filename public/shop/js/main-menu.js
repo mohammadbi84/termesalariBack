@@ -53,8 +53,8 @@ function initMainMenu() {
                     cart_dropdown.style.left = "-113px";
                     compare_dropdown.style.left = "-150px";
                 }else{
-                    compare_dropdown.style.left = "-173px";
-                    cart_dropdown.style.left = "-133px";
+                    compare_dropdown.style.left = "-177px";
+                    cart_dropdown.style.left = "-137px";
                 }
                 compare_dropdown.style.top = "51px";
                 cart_dropdown.style.top = "51px";
@@ -71,12 +71,12 @@ function initMainMenu() {
                 categoryMenu.classList.remove("small");
                 if (favorites_dropdown) {
                     favorites_dropdown.style.top = "61px";
-                    favorites_dropdown.style.left = "-232px";
-                    cart_dropdown.style.left = "-150px";
-                    compare_dropdown.style.left = "-190px";
+                    favorites_dropdown.style.left = "-228px";
+                    cart_dropdown.style.left = "-147px";
+                    compare_dropdown.style.left = "-188px";
                 }else{
-                    compare_dropdown.style.left = "-212px";
-                    cart_dropdown.style.left = "-172px";
+                    compare_dropdown.style.left = "-217px";
+                    cart_dropdown.style.left = "-177px";
                 }
                 cart_dropdown.style.top = "61px";
                 compare_dropdown.style.top = "61px";
