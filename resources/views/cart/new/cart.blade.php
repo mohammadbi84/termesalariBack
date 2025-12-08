@@ -713,10 +713,11 @@
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "حذف",
+                    confirmButtonColor: "#d33",
                     cancelButtonText: "انصراف",
                     dangerMode: true,
-                }).then((willDelete) => {
-                    if (!willDelete) return;
+                }).then((result) => {
+                    if (!result.isConfirmed) return;
                     $('.loader').show ? $('.loader').show() : null;
 
                     $.ajax({
@@ -779,7 +780,13 @@
                                     location.reload();
                                 }
 
-                                Swal.fire("عملیات با موفقیت انجام شد.", "", "success");
+                                Swal.fire({
+                                    title: "عملیات با موفقیت انجام شد.",
+                                    text: "محصول از سبد خرید شما حذف شد.",
+                                    icon: "success",
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                });
                             }
                         },
                         error: function() {

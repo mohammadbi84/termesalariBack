@@ -46,7 +46,7 @@
                 @endphp
 
                 <!-- Middle Column - Product Gallery -->
-                <div class="col-lg-7 order-lg-1 mb-2 rounded-3 shadow-sm p-2">
+                <div class="col-lg-7 order-lg-1 mb-2 rounded-3 p-2">
                     <div class="product-gallery">
                         <!-- اسلایدر اصلی -->
 
@@ -54,7 +54,7 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/images/' . $image['name']) }}"
+                                        <img src="{{ asset('storage/images/' . $image['name']) }}" style="border-radius: 10px;"
                                             alt="{{ $image['name'] }}" class="product-image-show"
                                             data-zoom-src="{{ asset('storage/images/' . $image['name']) }}">
                                     </div>
@@ -67,12 +67,40 @@
 
                     </div>
                     <div class="d-flex justify-content-between">
-                        <!-- دکمه مشاهده گالری -->
-                        <div class="view-gallery" data-bs-toggle="modal" data-bs-target="#galleryModal">
-                            <i class="fa-solid fa-expand" style="top: 0"></i>
+                        <div class="d-flex justify-content-start align-items-center gap-2" style="margin-top: 10px;">
+                            <a href="#" id="share-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="اشتراک گذاری" class="share-btn telegram">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </a>
+                            <a href="#" id="compare" data-bs-toggle="tooltip" data-bs-placement="top" title="برای مقایسه کلیک کنید" class="share-btn telegram" data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
+                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
+                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                                data-id="{{ $tablecloth->id }}"
+                                data-model="{{ substr($tablecloth->category->model, 4) }}">
+                                <i class="fa-solid fa-shuffle"></i>
+                            </a>
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به لیست علاقه‌مندی ها" class="share-btn telegram  favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
+                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
+                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                                data-id="{{ $tablecloth->id }}"
+                                data-model="{{ substr($tablecloth->category->model, 4) }}">
+                                <i class="fas fa-heart"></i>
+                            </a>
                         </div>
                         <div class="w-100 d-flex justify-content-end align-items-center"
-                            style="margin-top: 10px;position: relative;gap: 13px;">
+                        style="margin-top: 10px;position: relative;gap: 13px;">
+                            <!-- دکمه مشاهده گالری -->
+                            <div class="view-gallery mt-0" data-bs-toggle="modal" data-bs-target="#galleryModal">
+                                <i class="fa-solid fa-expand" style="top: 0"></i>
+                            </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
@@ -110,21 +138,16 @@
                         <h6 class="color-title">برچسب ها :</h6>
                         <span class="tag">{{ $tablecloth->color_design->design->title }}</span>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
+                    {{-- <div class="d-flex justify-content-between align-items-center mt-2">
                         <h6>اشتراک‌گذاری</h6>
                         <div class="share-buttons">
                             <a href="#" id="share-btn" class="share-btn telegram">
                                 <i class="fa-solid fa-share-nodes"></i>
                             </a>
-                            {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
-                                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
                         </div>
-
-                    </div>
+                    </div> --}}
                     <div class="categories-tags">
-                        <div class="action-buttons">
+                        {{-- <div class="action-buttons">
                             <a href="#" id="compare" class="d-block mb-1 compare-btn"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
@@ -152,7 +175,7 @@
                                 <i class="fas fa-heart ms-1"></i>
                                 افزودن به علاقه‌مندی‌ها
                             </a>
-                        </div>
+                        </div> --}}
 
                         <hr>
                         <div class="price-section text-start">
@@ -206,8 +229,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/24hours.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">پشتیبانی 24 ساعته</h5>
-                            <span class="point-span">و هفت روز هفته</span>
+                            <h5 class="m-0">ضمانت محصولات</h5>
+                            <span class="point-span">و اصالت کالا</span>
                         </div>
                     </div>
                 </div>

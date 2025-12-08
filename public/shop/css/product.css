@@ -348,11 +348,11 @@
 }
 
 .share-btn:hover {
-    transform: translateY(-3px);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .telegram {
-    background-color: #0088cc;
+    background-color: #000000b3;
 }
 
 .whatsapp {
