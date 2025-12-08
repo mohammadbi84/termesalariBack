@@ -1,6 +1,6 @@
 @extends('shop.layouts.master')
-@section('title', $title . ' طرح ' . $tablecloth->color_design->design->title . ' رنگ ' .
-    $tablecloth->color_design->color->color)
+@section('title', $title . ' طرح ' . $bedcover->color_design->design->title . ' رنگ ' .
+    $bedcover->color_design->color->color)
 @section('head')
     <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
@@ -14,11 +14,11 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/store" class="text-decoration-none text-muted"><i
                                     class="fas fa-home"></i> خانه</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('tablecloth.storeIndex') }}"
+                        <li class="breadcrumb-item"><a href="{{ route('bedcover.storeIndex') }}"
                                 class="text-decoration-none text-muted">محصولات رومیزی</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            {{ $tablecloth->category->title }} طرح {{ $tablecloth->color_design->design->title }} رنگ
-                            {{ $tablecloth->color_design->color->color }}
+                            {{ $bedcover->category->title }} طرح {{ $bedcover->color_design->design->title }} رنگ
+                            {{ $bedcover->color_design->color->color }}
                         </li>
                     </ol>
                 </nav>
@@ -26,8 +26,8 @@
 
             <div class="row rounded-4 shadow-sm bg-white p-4 mb-5">
                 @php
-                    $images = $tablecloth->images()->get()->sortby('ordering');
-                    $prices = $tablecloth->prices->where('local', 'تومان')->first();
+                    $images = $bedcover->images()->get()->sortby('ordering');
+                    $prices = $bedcover->prices->where('local', 'تومان')->first();
                 @endphp
                 @php
                     $price = 0;
@@ -45,8 +45,57 @@
                     }
                 @endphp
 
+                <!-- right Column - Product Info -->
+                <div class="col order-lg-1 mb-2">
+                    <h1 class="product-title">
+                        {{ $bedcover->category->title }} طرح
+                        {{ $bedcover->color_design->design->title }} رنگ
+                        {{ $bedcover->color_design->color->color }}
+                    </h1>
+
+                    <div class="rating">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-muted">(۴.۵ از ۵ - ۱۲ نظر)</span>
+                    </div>
+
+                    <ul class="product-specs ">
+                        <li> کد محصول: {{ $bedcover->code }}</li>
+                        <li> تعداد رنگ بافت ترمه: {{ $bedcover->color_design->design->countOfColor }} رنگ</li>
+                        <li> مشتمل بر: {{ $bedcover->contains }}</li>
+                        <li> رنگ: {{ $bedcover->color_design->color->color }}</li>
+                    </ul>
+
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="color-title">دسته‌بندی :</h6>
+                        <a href="{{ route('bedcover.storeIndex') }}"
+                            class="tag">{{ $bedcover->category->title }}</a>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="color-title">برچسب ها :</h6>
+                        <span class="tag">{{ $bedcover->color_design->design->title }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <h6>اشتراک‌گذاری</h6>
+                        <div class="share-buttons">
+                            <a href="#" id="share-btn" class="share-btn telegram">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </a>
+                            {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
+                        </div>
+
+                    </div>
+                </div>
+
                 <!-- Middle Column - Product Gallery -->
-                <div class="col-lg-7 order-lg-1 mb-2 rounded-3 shadow-sm p-2">
+                <div class="col-lg-5 order-lg-2 mb-2 rounded-3 shadow-sm p-2">
                     <div class="product-gallery">
                         <!-- اسلایدر اصلی -->
 
@@ -81,74 +130,77 @@
 
                 <!-- left Column - Additional Info -->
                 <div class="col order-lg-3 mb-2">
-                    <h1 class="product-title">
-                        {{ $tablecloth->category->title }} طرح
-                        {{ $tablecloth->color_design->design->title }} رنگ
-                        {{ $tablecloth->color_design->color->color }}
-                    </h1>
-                    <div class="rating">
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span class="text-muted">(۴.۵ از ۵ - ۱۲ نظر)</span>
-                    </div>
-                    <ul class="product-specs ">
-                        <li> کد محصول: {{ $tablecloth->code }}</li>
-                        <li> تعداد رنگ بافت ترمه: {{ $tablecloth->color_design->design->countOfColor }} رنگ</li>
-                        <li> مشتمل بر: {{ $tablecloth->contains }}</li>
-                        <li> رنگ: {{ $tablecloth->color_design->color->color }}</li>
-                    </ul>
-                    <hr>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">دسته‌بندی :</h6>
-                        <a href="{{ route('tablecloth.storeIndex') }}"
-                            class="tag">{{ $tablecloth->category->title }}</a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">برچسب ها :</h6>
-                        <span class="tag">{{ $tablecloth->color_design->design->title }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <h6>اشتراک‌گذاری</h6>
-                        <div class="share-buttons">
-                            <a href="#" id="share-btn" class="share-btn telegram">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </a>
-                            {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
-                                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
+                    <div class="discount-alert">
+                        <div class="d-flex align-items-center">
+                            <div class="w-100 d-flex justify-content-between align-items-center">
+                                <strong>تخفیف ویژه!</strong>
+                                <div class="countdown-timer timer-short justify-content-between gap-4" id="countdown-1"
+                                    data-end-date="2025-12-30">
+                                    <div class="timer-col">
+                                        <span class="timer-number days">12
+                                        </span>
+                                    </div>
+                                    <div class="timer-col">
+                                        <span class="timer-number hours">20
+                                        </span>
+                                    </div>
+                                    <div class="timer-col">
+                                        <span class="timer-number minutes">20
+                                        </span>
+                                    </div>
+                                    <div class="timer-col">
+                                        <span class="timer-number seconds">20
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
+
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <div class="progress-text">
+                                <span>سفارش داده شده: </span>
+                                <strong>25</strong>
+                            </div>
+                            <div class="progress-text">
+                                <span>باقی مانده: </span>
+                                <strong>12</strong>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+
                     <div class="categories-tags">
                         <div class="action-buttons">
                             <a href="#" id="compare" class="d-block mb-1 compare-btn"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
-                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
+                                data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                                data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
                                 data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                data-id="{{ $tablecloth->id }}"
-                                data-model="{{ substr($tablecloth->category->model, 4) }}">
+                                data-id="{{ $bedcover->id }}"
+                                data-model="{{ substr($bedcover->category->model, 4) }}">
                                 <i class="fa-solid fa-shuffle ms-1"></i>
                                 برای مقایسه اضافه کنید
                             </a>
                             <a href="#"
-                                class="d-block wishlist-btn favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
-                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                class="d-block wishlist-btn favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
+                                data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                                data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
                                 data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                data-id="{{ $tablecloth->id }}"
-                                data-model="{{ substr($tablecloth->category->model, 4) }}">
+                                data-id="{{ $bedcover->id }}"
+                                data-model="{{ substr($bedcover->category->model, 4) }}">
                                 <i class="fas fa-heart ms-1"></i>
                                 افزودن به علاقه‌مندی‌ها
                             </a>
@@ -164,13 +216,13 @@
 
                         <div class="stock-info">
                             <i class="fas fa-box-open ms-1"></i>
-                            {{-- @if ($tablecloth->quantity == 0)
+                            @if ($bedcover->quantity == 0)
                                 <span class="text-bold"> اتمام موجودی در انبار </span>
-                            @elseif($tablecloth->quantity <= 5)
-                            @elseif($tablecloth->quantity > 5)
-                            <span class="text-success text-bold"> موجود در انبار</span>
-                            @endif --}}
-                            <span class="text-bold">{{ $tablecloth->quantity }} عدد موجود می باشد .</span>
+                            @elseif($bedcover->quantity <= 5)
+                                <span class="text-bold">کمتر از 5 عدد موجود می باشد .</span>
+                            @elseif($bedcover->quantity > 5)
+                                <span class="text-success text-bold"> موجود در انبار</span>
+                            @endif
                         </div>
 
                         <div class="quantity-control">
@@ -180,19 +232,19 @@
                             <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
                             </div> --}}
                             <div class="quantity-controls gap-2">
-                                <button class="minus-btn" data-model="{{ substr($tablecloth->category->model, 4) }}"
-                                    data-id="{{ $tablecloth->id }}">-</button>
+                                <button class="minus-btn" data-model="{{ substr($bedcover->category->model, 4) }}"
+                                    data-id="{{ $bedcover->id }}">-</button>
                                 <span class="count item-quantity-product" id="item-quantity-product">1</span>
-                                <button class="plus-btn" data-model="{{ substr($tablecloth->category->model, 4) }}"
-                                    data-id="{{ $tablecloth->id }}">+</button>
+                                <button class="plus-btn" data-model="{{ substr($bedcover->category->model, 4) }}"
+                                    data-id="{{ $bedcover->id }}">+</button>
                             </div>
-                            <button class="btn btn-primary @if ($tablecloth->quantity != 0) addToCart @endif"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
-                                data-id="{{ $tablecloth->id }}"
-                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                            <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
+                                data-id="{{ $bedcover->id }}"
+                                data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                                data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
                                 data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">افزودن به سبد
                                 خرید</button>
@@ -248,7 +300,7 @@
                             <h5 class="m-0">توضیحات</h5>
                         </div>
                         <p class="text-justify text-muted">
-                            {{ $tablecloth->description }}
+                            {{ $bedcover->description }}
                         </p>
                     </div>
                     <div class="bg-white rounded-4 p-4 shadow-sm">
@@ -258,8 +310,8 @@
                         </div>
                         <form action="/comment" method="POST" class="">
                             @csrf
-                            <input type="hidden" name="product" value="{{ $tablecloth->id }}">
-                            <input type="hidden" name="model" value="Tablecloth">
+                            <input type="hidden" name="product" value="{{ $bedcover->id }}">
+                            <input type="hidden" name="model" value="bedcover">
                             <div class="mb-4">
                                 <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
                                     <input type="text" id="searchInputtext" value="{{ old('text') }}"
@@ -291,49 +343,49 @@
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>ابعاد محصول</span>
-                                <span class="point-span">{{ $tablecloth->dimensions }}</span>
+                                <span class="point-span">{{ $bedcover->dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>وزن تقریبی</span>
-                                <span class="point-span">{{ $tablecloth->weight }}</span>
+                                <span class="point-span">{{ $bedcover->weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>جنس محصول</span>
-                                <span class="point-span">{{ $tablecloth->kind }}</span>
+                                <span class="point-span">{{ $bedcover->kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>نوع دوخت</span>
-                                <span class="point-span">{{ $tablecloth->sewingType }}</span>
+                                <span class="point-span">{{ $bedcover->sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>آستر</span>
-                                <span class="point-span">{{ $tablecloth->haveEster }}</span>
+                                <span class="point-span">{{ $bedcover->haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>جنس آستر</span>
-                                <span class="point-span">{{ $tablecloth->kindOfEster }}</span>
+                                <span class="point-span">{{ $bedcover->kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>قابلیت شستشو</span>
-                                <span class="point-span">{{ $tablecloth->washable }}</span>
+                                <span class="point-span">{{ $bedcover->washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>موارد استفاده</span>
-                                <span class="point-span">{{ $tablecloth->uses }}</span>
+                                <span class="point-span">{{ $bedcover->uses }}</span>
                             </div>
                         </li>
                     </ul>
@@ -467,8 +519,8 @@
                 e.preventDefault();
                 if (navigator.share) {
                     navigator.share({
-                        title: "{{ $tablecloth->title }}",
-                        text: "مشترک عزیز، این محصول را ببینید: {{ $tablecloth->title }}",
+                        title: "{{ $bedcover->title }}",
+                        text: "مشترک عزیز، این محصول را ببینید: {{ $bedcover->title }}",
                         url: "{{ url()->current() }}"
                     }).catch((error) => console.log('Error sharing:', error));
                 } else {
@@ -494,10 +546,10 @@
             });
 
             // Quantity Control
-            maxQuantity = {{ $tablecloth->quantity }};
+            maxQuantity = {{ $bedcover->quantity }};
             $('.plus-btn').click(function() {
                 var currentVal = parseInt($('#item-quantity-product').text());
-                if (currentVal < maxQuantity) {
+                if (currentVal <= maxQuantity) {
                     $('#item-quantity-product').text(currentVal + 1);
                 }
             });

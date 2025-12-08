@@ -45,57 +45,8 @@
                     }
                 @endphp
 
-                <!-- right Column - Product Info -->
-                <div class="col order-lg-1 mb-2">
-                    <h1 class="product-title">
-                        {{ $bedcover->category->title }} طرح
-                        {{ $bedcover->color_design->design->title }} رنگ
-                        {{ $bedcover->color_design->color->color }}
-                    </h1>
-
-                    <div class="rating">
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span class="text-muted">(۴.۵ از ۵ - ۱۲ نظر)</span>
-                    </div>
-
-                    <ul class="product-specs ">
-                        <li> کد محصول: {{ $bedcover->code }}</li>
-                        <li> تعداد رنگ بافت ترمه: {{ $bedcover->color_design->design->countOfColor }} رنگ</li>
-                        <li> مشتمل بر: {{ $bedcover->contains }}</li>
-                        <li> رنگ: {{ $bedcover->color_design->color->color }}</li>
-                    </ul>
-
-                    <hr>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">دسته‌بندی :</h6>
-                        <a href="{{ route('bedcover.storeIndex') }}"
-                            class="tag">{{ $bedcover->category->title }}</a>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">برچسب ها :</h6>
-                        <span class="tag">{{ $bedcover->color_design->design->title }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <h6>اشتراک‌گذاری</h6>
-                        <div class="share-buttons">
-                            <a href="#" id="share-btn" class="share-btn telegram">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </a>
-                            {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
-                                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
-                        </div>
-
-                    </div>
-                </div>
-
                 <!-- Middle Column - Product Gallery -->
-                <div class="col-lg-5 order-lg-2 mb-2 rounded-3 shadow-sm p-2">
+                <div class="col-lg-7 order-lg-1 mb-2 rounded-3 shadow-sm p-2">
                     <div class="product-gallery">
                         <!-- اسلایدر اصلی -->
 
@@ -130,51 +81,48 @@
 
                 <!-- left Column - Additional Info -->
                 <div class="col order-lg-3 mb-2">
-                    <div class="discount-alert">
-                        <div class="d-flex align-items-center">
-                            <div class="w-100 d-flex justify-content-between align-items-center">
-                                <strong>تخفیف ویژه!</strong>
-                                <div class="countdown-timer timer-short justify-content-between gap-4" id="countdown-1"
-                                    data-end-date="2025-12-30">
-                                    <div class="timer-col">
-                                        <span class="timer-number days">12
-                                        </span>
-                                    </div>
-                                    <div class="timer-col">
-                                        <span class="timer-number hours">20
-                                        </span>
-                                    </div>
-                                    <div class="timer-col">
-                                        <span class="timer-number minutes">20
-                                        </span>
-                                    </div>
-                                    <div class="timer-col">
-                                        <span class="timer-number seconds">20
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <h1 class="product-title">
+                        {{ $bedcover->category->title }} طرح
+                        {{ $bedcover->color_design->design->title }} رنگ
+                        {{ $bedcover->color_design->color->color }}
+                    </h1>
+                    <div class="rating">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-muted">(۴.۵ از ۵ - ۱۲ نظر)</span>
                     </div>
-
-                    <div class="progress-container">
-                        <div class="progress-label">
-                            <div class="progress-text">
-                                <span>سفارش داده شده: </span>
-                                <strong>25</strong>
-                            </div>
-                            <div class="progress-text">
-                                <span>باقی مانده: </span>
-                                <strong>12</strong>
-                            </div>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                    <ul class="product-specs ">
+                        <li> کد محصول: {{ $bedcover->code }}</li>
+                        <li> تعداد رنگ بافت ترمه: {{ $bedcover->color_design->design->countOfColor }} رنگ</li>
+                        <li> مشتمل بر: {{ $bedcover->contains }}</li>
+                        <li> رنگ: {{ $bedcover->color_design->color->color }}</li>
+                    </ul>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="color-title">دسته‌بندی :</h6>
+                        <a href="{{ route('bedcover.storeIndex') }}"
+                            class="tag">{{ $bedcover->category->title }}</a>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="color-title">برچسب ها :</h6>
+                        <span class="tag">{{ $bedcover->color_design->design->title }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <h6>اشتراک‌گذاری</h6>
+                        <div class="share-buttons">
+                            <a href="#" id="share-btn" class="share-btn telegram">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </a>
+                            {{-- <a href="#" class="share-btn telegram"><i class="fa-solid fa-share-nodes"></i></a>
+                                <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a> --}}
+                        </div>
 
-
+                    </div>
                     <div class="categories-tags">
                         <div class="action-buttons">
                             <a href="#" id="compare" class="d-block mb-1 compare-btn"
@@ -216,13 +164,13 @@
 
                         <div class="stock-info">
                             <i class="fas fa-box-open ms-1"></i>
-                            @if ($bedcover->quantity == 0)
+                            {{-- @if ($bedcover->quantity == 0)
                                 <span class="text-bold"> اتمام موجودی در انبار </span>
                             @elseif($bedcover->quantity <= 5)
-                                <span class="text-bold">کمتر از 5 عدد موجود می باشد .</span>
                             @elseif($bedcover->quantity > 5)
-                                <span class="text-success text-bold"> موجود در انبار</span>
-                            @endif
+                            <span class="text-success text-bold"> موجود در انبار</span>
+                            @endif --}}
+                            <span class="text-bold">{{ $bedcover->quantity }} عدد موجود می باشد .</span>
                         </div>
 
                         <div class="quantity-control">
@@ -549,7 +497,7 @@
             maxQuantity = {{ $bedcover->quantity }};
             $('.plus-btn').click(function() {
                 var currentVal = parseInt($('#item-quantity-product').text());
-                if (currentVal <= maxQuantity) {
+                if (currentVal < maxQuantity) {
                     $('#item-quantity-product').text(currentVal + 1);
                 }
             });
