@@ -217,6 +217,26 @@ i {
     color: #ff0000;
 }
 
+@media (max-width: 576px) {
+    .countdown-timer{
+        gap: 6px;
+    }
+    .timer-col {
+        width: 16px;
+    }
+
+    .timer-label {
+        font-size: 8px;
+    }
+
+    .timer-number {
+        font-size: 12px;
+    }
+    .flip-card-front .details{
+        padding: 8px 18px !important;
+    }
+}
+
 .custom-splide-controls {
     display: flex;
     justify-content: center;
