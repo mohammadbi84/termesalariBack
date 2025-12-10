@@ -52,6 +52,7 @@ class CommentController extends Controller
             $product = $class::find($request->product);
             $comment = new Comment;
             $comment->text = $request->text;
+            $comment->score = $request->rating;
             $comment->user_id = $userID;
             $product->comments()->save($comment);
 

@@ -54,8 +54,9 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/images/' . $image['name']) }}" style="border-radius: 10px;"
-                                            alt="{{ $image['name'] }}" class="product-image-show"
+                                        <img src="{{ asset('storage/images/' . $image['name']) }}"
+                                            style="border-radius: 10px;" alt="{{ $image['name'] }}"
+                                            class="product-image-show"
                                             data-zoom-src="{{ asset('storage/images/' . $image['name']) }}">
                                     </div>
                                 @endforeach
@@ -68,10 +69,13 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center gap-2" style="margin-top: 10px;">
-                            <a href="#" id="share-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="اشتراک گذاری" class="share-btn telegram">
+                            <a href="#" id="share-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="اشتراک گذاری" class="share-btn telegram">
                                 <i class="fa-solid fa-share-nodes"></i>
                             </a>
-                            <a href="#" id="compare" data-bs-toggle="tooltip" data-bs-placement="top" title="برای مقایسه کلیک کنید" class="share-btn telegram" data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                            <a href="#" id="compare" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="برای مقایسه کلیک کنید" class="share-btn telegram"
+                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                                 data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
                                 data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
@@ -82,7 +86,9 @@
                                 data-model="{{ substr($tablecloth->category->model, 4) }}">
                                 <i class="fa-solid fa-shuffle"></i>
                             </a>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به لیست علاقه‌مندی ها" class="share-btn telegram  favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="افزودن به لیست علاقه‌مندی ها"
+                                class="share-btn telegram  favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                                 data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
@@ -96,7 +102,7 @@
                             </a>
                         </div>
                         <div class="w-100 d-flex justify-content-end align-items-center"
-                        style="margin-top: 10px;position: relative;gap: 13px;">
+                            style="margin-top: 10px;position: relative;gap: 13px;">
                             <!-- دکمه مشاهده گالری -->
                             <div class="view-gallery mt-0" data-bs-toggle="modal" data-bs-target="#galleryModal">
                                 <i class="fa-solid fa-expand" style="top: 0"></i>
@@ -115,12 +121,17 @@
                         {{ $tablecloth->color_design->color->color }}
                     </h1>
                     <div class="rating">
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span class="text-muted">(۴.۵ از ۵ - ۱۲ نظر)</span>
+                        @php
+                            $score = $comments->sum('score') / ($comments->count() > 0 ? $comments->count() : 1);
+                        @endphp
+                        @for ($i = 0; $i < 5; $i++)
+                            @if ($i < $score ?? 0)
+                                <i class="fa-solid fa-star"></i>
+                            @else
+                                <i class="fa-regular fa-star"></i>
+                            @endif
+                        @endfor
+                        <span class="text-muted">({{ number_format($score, 1) }} از ۵ - {{ $comments->count() }} نظر)</span>
                     </div>
                     <ul class="product-specs ">
                         <li> کد محصول: {{ $tablecloth->code }}</li>
@@ -138,45 +149,7 @@
                         <h6 class="color-title">برچسب ها :</h6>
                         <span class="tag">{{ $tablecloth->color_design->design->title }}</span>
                     </div>
-                    {{-- <div class="d-flex justify-content-between align-items-center mt-2">
-                        <h6>اشتراک‌گذاری</h6>
-                        <div class="share-buttons">
-                            <a href="#" id="share-btn" class="share-btn telegram">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </a>
-                        </div>
-                    </div> --}}
                     <div class="categories-tags">
-                        {{-- <div class="action-buttons">
-                            <a href="#" id="compare" class="d-block mb-1 compare-btn"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
-                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
-                                data-pay="{{ $price }}" data-off="{{ $off }}"
-                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                data-id="{{ $tablecloth->id }}"
-                                data-model="{{ substr($tablecloth->category->model, 4) }}">
-                                <i class="fa-solid fa-shuffle ms-1"></i>
-                                برای مقایسه اضافه کنید
-                            </a>
-                            <a href="#"
-                                class="d-block wishlist-btn favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
-                                data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
-                                data-pay="{{ $price }}" data-off="{{ $off }}"
-                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                data-id="{{ $tablecloth->id }}"
-                                data-model="{{ substr($tablecloth->category->model, 4) }}">
-                                <i class="fas fa-heart ms-1"></i>
-                                افزودن به علاقه‌مندی‌ها
-                            </a>
-                        </div> --}}
-
                         <hr>
                         <div class="price-section text-start">
                             @if ($off > 0)
@@ -197,11 +170,6 @@
                         </div>
 
                         <div class="quantity-control">
-                            {{-- <div class="d-flex border rounded-2 p-1">
-                            <button class="quantity-btn minus-btn"><i class="fas fa-minus"></i></button>
-                            <input type="text" class="quantity-input" id="quantity-input" value="1" readonly>
-                            <button class="quantity-btn plus-btn"><i class="fas fa-plus"></i></button>
-                            </div> --}}
                             <div class="quantity-controls gap-2">
                                 <button class="minus-btn" data-model="{{ substr($tablecloth->category->model, 4) }}"
                                     data-id="{{ $tablecloth->id }}">-</button>
@@ -295,6 +263,20 @@
                                     <small class="text-danger mt-2">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="mb-4 d-flex justify-content-between align-items-center">
+                                امتیاز شما به این محصول :
+                                <!-- ریتینگ ستاره‌ها -->
+                                <div class="rating-stars">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                </div>
+
+                                <!-- اینپوت مخفی برای ذخیره امتیاز -->
+                                <input type="hidden" name="rating" id="ratingInput" value="{{ old('rating', 0) }}">
+                            </div>
                             @if (Auth::check())
                                 <button type="submit" class="btn btn-primary w-25 mb-3">ثبت دیدگاه</button>
                             @else
@@ -387,11 +369,13 @@
                             </div>
                             <div class="">
                                 <div class="rating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
+                                    @for ($i = 0; $i < 5; $i++)
+                                        @if ($i < $comment->score ?? 0)
+                                            <i class="fa-solid fa-star"></i>
+                                        @else
+                                            <i class="fa-regular fa-star"></i>
+                                        @endif
+                                    @endfor
                                 </div>
                             </div>
                         </div>
@@ -431,6 +415,58 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star');
+            const ratingInput = document.getElementById('ratingInput');
+
+            // ستاره‌های قبلی انتخاب شده
+            stars.forEach(star => {
+                if (star.dataset.value <= ratingInput.value) {
+                    star.classList.add('active');
+                }
+            });
+
+            // هاور روی ستاره‌ها
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    const value = this.dataset.value;
+
+                    stars.forEach(s => {
+                        s.classList.remove('active');
+                        if (s.dataset.value <= value) {
+                            s.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // کلیک روی ستاره
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.dataset.value;
+                    ratingInput.value = value;
+
+                    stars.forEach(s => {
+                        s.classList.remove('active');
+                        if (s.dataset.value <= value) {
+                            s.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // وقتی موس از روی ریتینگ خارج شد
+            document.querySelector('.rating-stars').addEventListener('mouseleave', function() {
+                const currentValue = ratingInput.value;
+
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                    if (s.dataset.value <= currentValue) {
+                        s.classList.add('active');
+                    }
+                });
+            });
+        });
         $(document).ready(function() {
             $("#compare").click(function(event) {
                 event.preventDefault();
