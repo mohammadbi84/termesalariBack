@@ -42,16 +42,16 @@
                                 شگفت انگیزها</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#newest">جدیدترین ها</a>
+                            <a class="nav-link" href="http://www.termehsalari.com/store#newest">جدیدترین ها</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#products">پرفروش ترین‌ها</a>
+                            <a class="nav-link" href="http://www.termehsalari.com/store#products">پرفروش ترین‌ها</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#branchs">نمایندگی های فروش</a>
+                            <a class="nav-link" href="http://www.termehsalari.com/store#branchs">نمایندگی های فروش</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">درباره ما</a>
+                            <a class="nav-link" href="{{route('about')}}">درباره ما</a>
                         </li>
                     </ul>
                     <!-- cart language, favorites and login ================================================================================================================== -->

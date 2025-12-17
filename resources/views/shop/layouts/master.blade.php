@@ -44,6 +44,8 @@
     <script src="{{ asset('shop/js/video.js') }}"></script>
     <!-- footer -->
     <link rel="stylesheet" href="{{ asset('shop/css/footer.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}"> --}}
+
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="{{ asset('shop/css/leaflet.css') }}" />

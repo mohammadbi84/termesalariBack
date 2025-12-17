@@ -1,0 +1,705 @@
+:root {
+    --text-main: #1a3b41;
+    --text-main-20: #1a3b4133;
+    --text-main-30: #1a3b414d;
+    --text-main-50: #1a3b4180;
+    --text-main-70: #1a3b41b3;
+    --primary-100: #ffb22c;
+    --primary-200: #fdc564;
+    --secondary-100: #529553;
+    --secondary-100-30: #5295534d;
+    --secondary-100-20: #52955333;
+    --secondary-200: #4a834b;
+    --tertiary-100: #1a3b41;
+    --tertiary-100-60: #1a3b4199;
+    --tertiary-100-30: #1a3b414d;
+    --tertiary-100-20: #1a3b4133;
+    --tertiary-100-10: #1a3b411a;
+    --tertiary-100-05: #1a3b410d;
+    --tertiary-100-03: #1a3b4108;
+    --text-100: #c9cecf;
+    --text-200: #404041;
+    --text-300: #adadad;
+    --text-400: #6b6b6b;
+    --gray-100: #d9d9d9;
+    --gray-200: #eaecec;
+    --gray-300: #DBDBDB;
+    --input-bg: #d9d9d9;
+    --input-secondary-bg: rgba(26, 59, 65, 0.0509803922);
+    --input-text: #1a3b41;
+    --input-placeholder-color: rgba(26, 59, 65, 0.7019607843);
+    --white: #ffffff;
+    --white-70: #ffffffb3;
+    --white-50: #ffffff80;
+    --white-24: #ffffff40;
+    --white-03: #ffffff08;
+    --red: #b74406;
+    --yellow: #ffb22c;
+    --green: #529553;
+    --main-font: "EstedadFANum";
+    --heading-font: "Peyda"
+}
+a{
+    text-decoration: none;
+}
+
+/* body {
+    background-color: #f8f9fa;
+    font-family: 'Vazir FD', sans-serif !important;
+} */
+
+.builder-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    margin-right: 24px;
+    border-radius: 10px;
+    position: relative;
+    top: 30px;
+}
+
+.builder-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c3c3c;
+}
+
+.builder-text {
+    text-align: justify;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555555;
+    background-color: #e9e9e9;
+    border-radius: 13px;
+    height: 70%;
+}
+
+.mission-title::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    width: 5px;
+    height: 25px;
+    background-color: #10a040;
+    border-radius: 5px;
+    margin-left: 8px;
+}
+
+.mission-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #3c3c3c;
+    border-radius: 8px;
+    padding-left: 6px;
+    /* border-right: 5px solid #10a040; */
+}
+
+.mission-text {
+    font-size: 16px;
+    /* font-weight: 500; */
+    color: #555555;
+    text-align: justify;
+    line-height: 30px;
+}
+
+.mission-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #10a040;
+}
+
+.mission-row .col {
+    position: relative;
+}
+
+.mission-row .col:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 25%;
+    height: 50%;
+    width: 1px;
+    background-color: #e5e7eb;
+}
+
+/* برای نمایش بهتر در موبایل */
+@media (max-width: 768px) {
+    .mission-row .col::after {
+        display: none;
+    }
+
+    .mission-row .col {
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .mission-row .col:last-child {
+        border-bottom: none;
+    }
+}
+
+/* video section ======================================================================================================= */
+.reels-container {
+    width: 100%;
+    max-width: 400px;
+    /* margin: 40px auto; */
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* نسبت تصویر ریلز (9:16) */
+.video-js.vjs-fill {
+    padding-top: 177%;
+    height: 0 !important;
+}
+
+/* 🎨 تغییر رنگ کنترل‌ها */
+.vjs-control-bar {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.video-js .vjs-big-play-button {
+    background-color: #10a040 !important;
+    font-size: 2em;
+    line-height: 2.9em;
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+}
+
+.vjs-play-control .vjs-icon-play:before,
+.vjs-play-control .vjs-icon-pause:before {
+    color: #00d2ff !important;
+    /* رنگ دکمه پخش */
+}
+
+.vjs-progress-holder,
+.vjs-play-progress {
+    background-color: #898989 !important;
+    /* رنگ نوار */
+}
+
+.vjs-volume-level {
+    background-color: #898989 !important;
+    /* رنگ ولوم */
+}
+
+/* About Us Section
+--------------------------------*/
+
+#about {
+    background-size: cover;
+    padding: 60px 0 40px 0;
+    position: relative;
+    direction: rtl;
+    /* font-family: 'Vazir', 'Open Sans', sans-serif; */
+    text-align: center;
+}
+
+#about::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.92);
+    z-index: 9;
+}
+
+#about .container {
+    position: relative;
+    z-index: 10;
+}
+
+#about .section-header p {
+    text-align: center;
+    line-height: 35px;
+}
+
+/* Sections Header
+--------------------------------*/
+
+.section-header h3 {
+    font-size: 32px;
+    color: #111;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+    /* font-family: 'Vazir', 'Open Sans', sans-serif; */
+}
+
+.section-header h3::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #ddd;
+    bottom: 1px;
+    left: calc(50% - 60px);
+}
+
+.section-header h3::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #18d26e;
+    bottom: 0;
+    left: calc(50% - 20px);
+}
+
+.section-header p {
+    text-align: center;
+    padding-bottom: 30px;
+    color: #333;
+}
+
+.testimonial-slider {
+    max-width: 850px;
+    position: relative;
+}
+
+.swiper {
+    padding: 40px 0 60px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 89%;
+    max-width: 750px;
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 20px;
+    position: relative;
+    /* box-shadow: 0 20px 40px #0001; */
+    border: 1px solid #e9e9e9;
+}
+
+/* کارت‌های کج زیر کارت اصلی */
+.mySwiper::before,
+.mySwiper::after {
+    content: "";
+    position: absolute;
+    width: 87%;
+    height: 77%;
+    background: #fff;
+    border-radius: 20px;
+    top: 9%;
+    left: 50%;
+    transform: translateX(-50%);
+    /* box-shadow: 0 15px 30px #0001; */
+    z-index: -1;
+    border: 1px solid #e9e9e9;
+}
+
+.mySwiper::before {
+    transform: translateX(-50%) rotate(-4deg);
+}
+
+.mySwiper::after {
+    transform: translateX(-50%) rotate(-1.5deg);
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #10a040 !important;
+    width: 20px !important;
+    border-radius: 5px;
+}
+
+/* ستاره‌ها */
+.stars {
+    color: gold;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* متن */
+.card p {
+    line-height: 2;
+    margin-bottom: 35px;
+}
+
+/* بخش کاربر */
+.user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.user span {
+    font-size: 16px;
+    color: gray;
+}
+
+.comment-title {
+    color: #333;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: normal;
+}
+
+.etemad {
+    color: #10a040;
+}
+
+.commetn-text {
+    text-align: justify;
+    font-size: 16px;
+    color: #555555;
+    margin-top: 20px;
+}
+
+.TestSwiper .swiper-slide {
+    width: 300px;
+    height: 300px;
+}
+
+.splide img {
+    width: 100%;
+    height: auto;
+}
+
+
+
+/* map ====================================================================================== */
+
+.map-wrapper {
+    position: relative;
+    max-width: 1100px;
+    /* margin: 40px auto; */
+    /* background: #fff; */
+    /* padding: 40px; */
+    border-radius: 20px;
+}
+
+#map {
+    width: 100%;
+    /* height: 520px; */
+}
+
+/* لیبل نمایندگی */
+.map-label {
+    right: 0px;
+    /* background: #fff; */
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    /* box-shadow: 0 5px 20px rgba(0, 0, 0, .08); */
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.label-tehran {
+    top: 120px;
+}
+
+.label-isfahan {
+    top: 260px;
+}
+
+.label-kerman {
+    top: 400px;
+}
+
+.leader-line {
+    z-index: 10;
+}
+
+
+/* customer */
+.luxina_customers_container {
+    --container-bg: #e9ebeb;
+    position: relative;
+    padding: 30px;
+    background: var(--container-bg);
+    border-radius: 16px;
+    z-index: 0
+}
+
+.luxina_customers_container:has(.luxina_customers_title-wrap) {
+    margin-top: 120px
+}
+
+.luxina_customers_title-wrap {
+    position: absolute;
+    left: 50%;
+    /* top: 0; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 55px 60px 32px;
+    z-index: 2;
+    transform: translate(-50%, -60%);
+}
+
+.luxina_customers_title-wrap::before,
+.luxina_customers_title-wrap::after {
+    content: "";
+    position: absolute;
+    bottom: 32px;
+    width: 26%;
+    height: 1px;
+    background: var(--secondary-100)
+}
+
+.luxina_customers_title-wrap::before {
+    width: 16%
+}
+
+.luxina_customers_title-wrap::after {
+    opacity: .3
+}
+
+.luxina_customers_title-icon {
+    color: var(--primary-100);
+    margin-bottom: 8px
+}
+
+.luxina_customers_title-text {
+    font-weight: 900;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.luxina_customers_title-subtitle {
+    font-weight: 600;
+    color: var(--text-main-20)
+}
+
+.luxina_customers_title-bg {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(0.16% 9.17%, 0.01% 8%, 0.02% 6.86%, 0.16% 5.76%, 0.44% 4.71%, 0.83% 3.73%, 1.34% 2.83%, 1.95% 2.02%, 2.64% 1.34%, 3.43% 0.77%, 4.28% 0.35%, 5.19% 0.09%, 6.16% 0%, 93.84% 0%, 94.81% 0.09%, 95.72% 0.35%, 96.57% 0.77%, 97.36% 1.34%, 98.05% 2.02%, 98.66% 2.83%, 99.17% 3.73%, 99.56% 4.71%, 99.84% 5.76%, 99.98% 6.86%, 99.99% 8%, 99.84% 9.17%, 83.51% 94.22%, 83.31% 95.04%, 83.04% 95.82%, 82.7% 96.55%, 82.3% 97.22%, 81.85% 97.83%, 81.34% 98.38%, 80.79% 98.85%, 80.19% 99.25%, 79.56% 99.57%, 78.9% 99.81%, 78.22% 99.95%, 77.51% 100%, 22.49% 100%, 21.78% 99.95%, 21.1% 99.81%, 20.44% 99.57%, 19.81% 99.25%, 19.21% 98.85%, 18.66% 98.38%, 18.15% 97.83%, 17.7% 97.22%, 17.3% 96.55%, 16.96% 95.82%, 16.69% 95.04%, 16.49% 94.22%, 0.16% 9.17%);
+    clip-path: shape(from 0.16% 9.17%, curve to 6.16% 0% with -0.74% 4.48%/2.2% 0%, line to 93.84% 0%, curve to 99.84% 9.17% with 97.8% 0%/100.74% 4.48%, line to 83.51% 94.22%, curve to 77.51% 100% with 82.86% 97.6%/80.37% 100%, line to 22.49% 100%, curve to 16.49% 94.22% with 19.63% 100%/17.14% 97.6%, line to 0.16% 9.17%, close);
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 21.14%, #FFFFFF 100%);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px)
+}
+
+.luxina_customers_items {
+    display: grid;
+    grid-template-columns: repeat(var(--desktop-cols), 1fr);
+    border: 3px solid var(--container-bg)
+}
+
+.luxina_customers_item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1.3
+}
+
+.luxina_customers_item::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    inset-inline: 16px;
+    height: 1px;
+    background: var(--tertiary-100-10);
+    z-index: -1
+}
+
+.luxina_customers_item::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    inset-block: 16px;
+    width: 1px;
+    background: var(--tertiary-100-10);
+    z-index: -1
+}
+
+.luxina_customers_item-img {
+    width: 70%;
+    height: auto;
+    transition: all .2s ease-in-out
+}
+
+.luxina_customers_item-square {
+    position: absolute;
+    inset-inline-start: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px 0 8px 0;
+    border: 1px solid var(--tertiary-100-60);
+    transform: translate(50%, 50%);
+    bottom: 0;
+    z-index: 1
+}
+
+.luxina_customers_item:nth-child(odd) .luxina_customers_item-square {
+    border-radius: 8px 0 8px 0
+}
+
+.luxina_customers_item:nth-child(even) .luxina_customers_item-square {
+    border-radius: 0 8px 0 8px
+}
+
+.luxina_customers_title-text {
+    text-align: center;
+}
+
+.luxina_customers_title-subtitle {
+    text-align: center;
+}
+
+.luxina_customers_item-img {
+    filter: brightness(6%) contrast(15%) saturate(0%) blur(0px) hue-rotate(0deg);
+}
+
+.luxina_customers_item-img:hover {
+    filter: brightness(100%) contrast(100%) saturate(100%) blur(0px) hue-rotate(0deg);
+}
+
+@media screen and (min-width: 768px)and (max-width: 1200px) {
+    .hide-tablet {
+        display: none !important
+    }
+}
+
+@media screen and (min-width: 1201px) {
+    .hide-desktop {
+        display: none !important
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .hide-desktop-1024 {
+        display: none !important
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .hide-mobile {
+        display: none !important
+    }
+}
+
+.swiper-pagination {
+    position: absolute !important;
+    margin-top: 0px !important;
+}
+.leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.map-label.branch-card {
+  width: 100%;
+  max-width: 260px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  line-height: 1.7;
+  transition: 0.3s ease;
+}
+
+.map-label.branch-card:hover {
+  /* transform: translateY(-4px); */
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* عنوان استان */
+.branch-card__title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #1f5f3a;
+  border-bottom: 1px dashed #cfe5d8;
+  padding-bottom: 6px;
+}
+
+/* لیست نمایندگی‌ها */
+.branch-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* هر نمایندگی */
+.branch-card__item {
+  background: #f8fbf9;
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
+/* نام مدیر */
+.branch-card__manager {
+  font-weight: 600;
+  color: #2f2f2f;
+}
+
+/* آدرس */
+
+.branch-card__address {
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+
+  /* کلیدی‌ها */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.6;
+}
+
+/* تلفن */
+.branch-card__phone {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #1f8717;
+  text-decoration: none;
+  direction: ltr;
+}
+
+.branch-card__phone:hover {
+  text-decoration: underline;
+}
+

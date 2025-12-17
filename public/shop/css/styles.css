@@ -4,6 +4,7 @@
     --dark-color: #343a40;
     --light-color: #f8f9fa;
 }
+
 /* یا برای تمام المان‌ها */
 html {
     scroll-padding-top: 100px;
@@ -20,11 +21,13 @@ html {
     background-color: #327942 !important;
     border: 1px solid #327942 !important;
 }
-.btn-secondary{
+
+.btn-secondary {
     background-color: #00A594 !important;
     border: 1px solid #00A594 !important;
 }
-.btn-secondary:hover{
+
+.btn-secondary:hover {
     background-color: #018073 !important;
     border: 1px solid #018073 !important;
 }
@@ -218,9 +221,10 @@ i {
 }
 
 @media (max-width: 576px) {
-    .countdown-timer{
+    .countdown-timer {
         gap: 6px;
     }
+
     .timer-col {
         width: 16px;
     }
@@ -232,7 +236,8 @@ i {
     .timer-number {
         font-size: 12px;
     }
-    .flip-card-front .details{
+
+    .flip-card-front .details {
         padding: 8px 18px !important;
     }
 }
@@ -510,6 +515,7 @@ i {
     background-color: #327942;
     border: 1px solid #327942 !important;
 }
+
 .add-to-cart.favorites-btn:hover {
     background-color: #52AC661F !important;
     color: var(--primary-color) !important;
@@ -643,6 +649,7 @@ i {
 .hot-product-card:hover .hot-image-container {
     height: 58%;
 }
+
 .hot-product-card:hover .hot-image-container .hot-product-image {
     width: 81%;
 }
@@ -1344,7 +1351,8 @@ i {
     /* width: 300px; */
 }
 
-.autocomplete input {
+.autocomplete input,
+.autocomplete textarea {
     outline: 0px solid transparent !important;
     width: 100%;
     padding: 10px 30px 10px 10px;
@@ -1367,7 +1375,8 @@ i {
 }
 
 .autocomplete input:focus+label,
-.autocomplete.filled label {
+.autocomplete.filled label,
+.autocomplete textarea:focus+label {
     outline: none !important;
     border: none !important;
     top: -10px;
