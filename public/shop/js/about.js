@@ -12,14 +12,59 @@ const swiper = new Swiper(".mySwiper", {
     //}
 });
 
+// counter
+const counters = document.querySelectorAll(".mission-number");
+let started = false;
+
+function animateCounters() {
+    counters.forEach((counter) => {
+        let target = +counter.getAttribute("data-target");
+        let current = 0;
+        let increment = Math.ceil(target / 75);
+
+        let interval = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                counter.textContent = target;
+                clearInterval(interval);
+            } else {
+                counter.textContent = current;
+            }
+        }, 50);
+    });
+}
+
+// مشاهده المان
+const observer = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && !started) {
+                animateCounters();
+                started = true;
+                observer.disconnect(); // برای یک‌بار اجرا
+            }
+        });
+    },
+    {
+        threshold: 0.9, // حداقل ۴۰٪ المان دیده شود تا شروع شود
+    }
+);
+
+// المانی که باید دیده شود
+observer.observe(document.querySelector(".mission-row"));
+
 // Hot===========================================================================================
+
 var HotSplide = new Splide("#hot_slider", {
+    type: "loop",
     perPage: 4,
-    padding: "20px",
+    padding:{right:'20px'},
     gap: "1.7rem",
     arrows: false,
     pagination: false,
     direction: "rtl",
+    autoplay: true,
+    focus: "right", // این باعث میشه اسلاید وسط اکتیو باشه
     breakpoints: {
         1024: { perPage: 4 },
         768: { perPage: 2 },
@@ -79,6 +124,16 @@ function updateRangeDisplay(splide, rangeElementId) {
 
     document.getElementById(rangeElementId).textContent = `${start}-${end}`;
 }
+document.querySelectorAll("#hot_slider .splide__slide img").forEach((img) => {
+    img.style.cursor = "pointer";
+
+    img.addEventListener("click", function () {
+        const modalImg = document.getElementById("modalImage");
+        modalImg.src = this.src;
+        var modal = new bootstrap.Modal(document.getElementById("imgModal"));
+        modal.show();
+    });
+});
 
 var swiper2 = new Swiper(".branches-slider", {
     slidesPerView: 3,
@@ -147,192 +202,196 @@ const branches = [
 // window.addEventListener("resize", () => {
 //     lines.forEach((l) => l.position());
 // });
-const branchesData = {
-    IR07: {
-        province: "تهران",
-        offices: [
-            {
-                manager: "آقای صفائی",
-                address: "بازار کفاش‌ها - خانه ترمه ایران",
-                phone: "",
-            },
-            {
-                manager: "آقای میرزایی",
-                address: "مینی سیتی - شهرک شهید محلاتی",
-                phone: "",
-            },
-        ],
-    },
+document.addEventListener("DOMContentLoaded", function () {
+    const branchesData = {
+        IR07: {
+            province: "تهران",
+            offices: [
+                {
+                    manager: "آقای صفائی",
+                    address: "بازار کفاش‌ها - خانه ترمه ایران",
+                    phone: "",
+                },
+                {
+                    manager: "آقای میرزایی",
+                    address: "مینی سیتی - شهرک شهید محلاتی",
+                    phone: "",
+                },
+            ],
+        },
 
-    IR30: {
-        province: "مشهد",
-        offices: [
-            {
-                manager: "آقای شفاجو",
-                address: "چهارراه خسروی - پاساژ جواد - طبقه اول",
-                phone: "05132253572",
-            },
-        ],
-    },
+        IR30: {
+            province: "مشهد",
+            offices: [
+                {
+                    manager: "آقای شفاجو",
+                    address: "چهارراه خسروی - پاساژ جواد - طبقه اول",
+                    phone: "05132253572",
+                },
+            ],
+        },
 
-    IR04: {
-        province: "اصفهان",
-        offices: [
-            {
-                manager: "آقای شجائی",
-                address: "میدان نقش جهان",
-                phone: "",
-            },
-            {
-                manager: "خانم اکبری",
-                address: "نجف آباد - مجتمع تجاری فردوسی - صنایع ترمه",
-                phone: "",
-            },
-        ],
-    },
+        IR04: {
+            province: "اصفهان",
+            offices: [
+                {
+                    manager: "آقای شجائی",
+                    address: "میدان نقش جهان",
+                    phone: "",
+                },
+                {
+                    manager: "خانم اکبری",
+                    address: "نجف آباد - مجتمع تجاری فردوسی - صنایع ترمه",
+                    phone: "",
+                },
+            ],
+        },
 
-    IR15: {
-        province: "کرمان",
-        offices: [
-            {
-                manager: "آقای نیک نفس",
-                address: "سه‌راهی شمالی جنوبی - جنب مسجد شیخ‌ها - ترمه ابریشم",
-                phone: "03432239460",
-            },
-        ],
-    },
+        IR15: {
+            province: "کرمان",
+            offices: [
+                {
+                    manager: "آقای نیک نفس",
+                    address:
+                        "سه‌راهی شمالی جنوبی - جنب مسجد شیخ‌ها - ترمه ابریشم",
+                    phone: "03432239460",
+                },
+            ],
+        },
 
-    IR28: {
-        province: "قزوین",
-        offices: [
-            {
-                manager: "خانم حاتمی",
-                address:
-                    "خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان",
-                phone: "02833359101",
-            },
-        ],
-    },
+        IR28: {
+            province: "قزوین",
+            offices: [
+                {
+                    manager: "خانم حاتمی",
+                    address:
+                        "خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان",
+                    phone: "02833359101",
+                },
+            ],
+        },
 
-    IR18: {
-        province: "یاسوج",
-        offices: [
-            {
-                manager: "خانم کیانوش",
-                address: "خیابان ۳۰ متری معاد",
-                phone: "",
-            },
-        ],
-    },
-};
-const activeStates = Object.keys(branchesData);
-activeStates.forEach((stateId) => {
-    if (simplemaps_countrymap_mapdata.state_specific[stateId]) {
-        simplemaps_countrymap_mapdata.state_specific[stateId].color = "#4FBA6C";
-        simplemaps_countrymap_mapdata.state_specific[stateId].hover_color =
-            "#1f8717";
-        simplemaps_countrymap_mapdata.state_specific[stateId].name =
-            branchesData[stateId].province;
+        IR18: {
+            province: "یاسوج",
+            offices: [
+                {
+                    manager: "خانم کیانوش",
+                    address: "خیابان ۳۰ متری معاد",
+                    phone: "",
+                },
+            ],
+        },
+    };
+    const activeStates = Object.keys(branchesData);
+    activeStates.forEach((stateId) => {
+        if (simplemaps_countrymap_mapdata.state_specific[stateId]) {
+            simplemaps_countrymap_mapdata.state_specific[stateId].color =
+                "#4FBA6C";
+            simplemaps_countrymap_mapdata.state_specific[stateId].hover_color =
+                "#1f8717";
+            simplemaps_countrymap_mapdata.state_specific[stateId].name =
+                branchesData[stateId].province;
+        }
+    });
+
+    const leftCol = document.getElementById("branch-labels-left");
+    const rightCol = document.getElementById("branch-labels-right");
+
+    let branchLabels = [];
+
+    activeStates.forEach((stateId, index) => {
+        const stateData = branchesData[stateId];
+
+        const card = document.createElement("div");
+        card.className = "map-label branch-card";
+        card.id = `label-${stateId}`;
+
+        // عنوان استان
+        const title = document.createElement("div");
+        title.className = "branch-card__title";
+        title.innerText = `نمایندگی ${stateData.province}`;
+
+        // لیست نمایندگی‌ها
+        const list = document.createElement("div");
+        list.className = "branch-card__list";
+
+        stateData.offices.forEach((office, i) => {
+            const item = document.createElement("div");
+            item.className = "branch-card__item";
+
+            item.innerHTML = `
+          <div class="branch-card__manager">
+            ${office.manager}
+          </div>
+          <div class="branch-card__address">
+            ${office.address}
+          </div>
+          ${
+              office.phone
+                  ? `<a class="branch-card__phone" href="tel:${office.phone}">
+                   ${office.phone}
+                 </a>`
+                  : ""
+          }
+        `;
+
+            list.appendChild(item);
+        });
+
+        card.appendChild(title);
+        card.appendChild(list);
+
+        (index % 2 === 0 ? rightCol : leftCol).appendChild(card);
+
+        branchLabels.push({
+            stateId,
+            labelId: card.id,
+        });
+    });
+
+    function getStateElement(stateId) {
+        return document.querySelector(`.sm_location_${stateId}`);
     }
-});
+    let lines = [];
 
-const leftCol = document.getElementById("branch-labels-left");
-const rightCol = document.getElementById("branch-labels-right");
+    function drawLines() {
+        lines.forEach((l) => l.remove());
+        lines = [];
 
-let branchLabels = [];
+        branchLabels.forEach((b) => {
+            const stateEl = getStateElement(b.stateId);
+            const labelEl = document.getElementById(b.labelId);
 
-activeStates.forEach((stateId, index) => {
-    const stateData = branchesData[stateId];
+            if (!stateEl || !labelEl) return;
 
-    const card = document.createElement("div");
-    card.className = "map-label branch-card";
-    card.id = `label-${stateId}`;
+            const line = new LeaderLine(
+                LeaderLine.pointAnchor(stateEl, {
+                    x: "60%",
+                    y: "50%",
+                }),
+                labelEl,
+                {
+                    color: "#0d3b1e",
+                    size: 2,
+                    dash: { len: 6, gap: 4, animation: true },
+                    startPlug: "disc",
+                    endPlug: "arrow1",
+                    endPlugSize: 1.5,
+                }
+            );
 
-    // عنوان استان
-    const title = document.createElement("div");
-    title.className = "branch-card__title";
-    title.innerText = `نمایندگی ${stateData.province}`;
-
-    // لیست نمایندگی‌ها
-    const list = document.createElement("div");
-    list.className = "branch-card__list";
-
-    stateData.offices.forEach((office, i) => {
-        const item = document.createElement("div");
-        item.className = "branch-card__item";
-
-        item.innerHTML = `
-      <div class="branch-card__manager">
-        ${office.manager}
-      </div>
-      <div class="branch-card__address">
-        ${office.address}
-      </div>
-      ${
-          office.phone
-              ? `<a class="branch-card__phone" href="tel:${office.phone}">
-               ${office.phone}
-             </a>`
-              : ""
-      }
-    `;
-
-        list.appendChild(item);
-    });
-
-    card.appendChild(title);
-    card.appendChild(list);
-
-    (index % 2 === 0 ? rightCol : leftCol).appendChild(card);
-
-    branchLabels.push({
-        stateId,
-        labelId: card.id,
-    });
-});
-
-function getStateElement(stateId) {
-    return document.querySelector(`.sm_state_${stateId}`);
-}
-let lines = [];
-
-function drawLines() {
-    lines.forEach((l) => l.remove());
-    lines = [];
-
-    branchLabels.forEach((b) => {
-        const stateEl = getStateElement(b.stateId);
-        const labelEl = document.getElementById(b.labelId);
-
-        if (!stateEl || !labelEl) return;
-
-        const line = new LeaderLine(
-            LeaderLine.pointAnchor(stateEl, {
-                x: "60%",
-                y: "50%",
-            }),
-            labelEl,
-            {
-                color: "#0d3b1e",
-                size: 2,
-                dash: { len: 6, gap: 4 },
-                startPlug: "disc",
-                endPlug: "disc",
-                endPlugSize: 2,
-            }
-        );
-
-        lines.push(line);
-    });
-}
-simplemaps_countrymap.hooks.complete = function () {
-    drawLines();
-
-    // حذف لینک‌های trial
-    document.querySelectorAll("#map a").forEach((a) => a.remove());
+            lines.push(line);
+        });
+    }
+    simplemaps_countrymap.hooks.complete = function () {
+    setTimeout(() => {
+        drawLines();
+    }, 500); // زمان مکث - قابل تغییر
 };
-window.addEventListener("resize", () => {
-    lines.forEach((line) => line.position());
+
+    // window.addEventListener("resize", () => {
+    //     lines.forEach((line) => line.position());
+    // });
 });
 
 // Office Map ============================================================================================
@@ -345,10 +404,10 @@ const officeLocation = {
 
 // ساخت نقشه
 const map = L.map("officeMap", {
-    scrollWheelZoom: false,
+    scrollWheelZoom: true,
     dragging: true,
     zoomControl: true,
-}).setView([officeLocation.lat, officeLocation.lng], 14);
+}).setView([officeLocation.lat, officeLocation.lng], 16);
 
 // لایه نقشه (OpenStreetMap)
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {

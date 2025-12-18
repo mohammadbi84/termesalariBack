@@ -39,7 +39,8 @@
     --main-font: "EstedadFANum";
     --heading-font: "Peyda"
 }
-a{
+
+a {
     text-decoration: none;
 }
 
@@ -56,6 +57,16 @@ a{
     border-radius: 10px;
     position: relative;
     top: 30px;
+    transition: filter 0.4s ease;
+    filter: grayscale(100%);
+}
+
+.builder-col:hover .builder-image {
+    filter: grayscale(0%);
+}
+
+.builder-image:hover {
+    filter: grayscale(0%);
 }
 
 .builder-title {
@@ -66,12 +77,23 @@ a{
 
 .builder-text {
     text-align: justify;
-    font-size: 13px;
-    font-weight: 500;
     color: #555555;
     background-color: #e9e9e9;
     border-radius: 13px;
-    height: 70%;
+    height: 78%;
+    font-size: 16px;
+    /* font-weight: 500; */
+    color: #555555;
+    text-align: justify;
+    line-height: 32px;
+    position: relative;
+    z-index: -1;
+}
+
+.builder-span {
+    position: absolute;
+    top: 4px;
+    right: 132px;
 }
 
 .mission-title::before {
@@ -100,7 +122,7 @@ a{
     /* font-weight: 500; */
     color: #555555;
     text-align: justify;
-    line-height: 30px;
+    line-height: 32px;
 }
 
 .mission-number {
@@ -108,6 +130,12 @@ a{
     font-weight: 700;
     color: #10a040;
 }
+
+/* .mission-number::before {
+    content: "+";
+    position: absolute;
+    right: -15px;
+} */
 
 .mission-row .col {
     position: relative;
@@ -274,7 +302,7 @@ a{
 }
 
 .card {
-    width: 89%;
+    width: 94%;
     max-width: 750px;
     background: #fff;
     padding: 20px 40px;
@@ -289,7 +317,7 @@ a{
 .mySwiper::after {
     content: "";
     position: absolute;
-    width: 87%;
+    width: 92%;
     height: 77%;
     background: #fff;
     border-radius: 20px;
@@ -314,6 +342,20 @@ a{
     width: 20px !important;
     border-radius: 5px;
 }
+
+#hot_slider .splide__slide {
+    border-radius: 10px;
+    border: 10px solid #fff;
+}
+
+#hot_slider .splide__slide.is-active {
+    /* border-color: #10a040 !important; */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.171);
+    transform: scale(1.05);
+    transition: 0.3s ease;
+    border-radius: 10px;
+}
+
 
 /* ستاره‌ها */
 .stars {
@@ -424,7 +466,7 @@ a{
 }
 
 .leader-line {
-    z-index: 10;
+    z-index: 1;
 }
 
 
@@ -568,12 +610,15 @@ a{
 }
 
 .luxina_customers_item-img {
-    filter: brightness(6%) contrast(15%) saturate(0%) blur(0px) hue-rotate(0deg);
+    filter: grayscale(100%) opacity(60%);
+    transition: 0.3s;
 }
 
 .luxina_customers_item-img:hover {
-    filter: brightness(100%) contrast(100%) saturate(100%) blur(0px) hue-rotate(0deg);
+    filter: grayscale(0%) opacity(100%);
 }
+
+
 
 @media screen and (min-width: 768px)and (max-width: 1200px) {
     .hide-tablet {
@@ -603,19 +648,99 @@ a{
     position: absolute !important;
     margin-top: 0px !important;
 }
-.leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
     display: none;
 }
 
+/* brachs card */
+.horizontal-card {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    max-width: 450px;
+    padding: 10px;
+    transition: transform .3s ease;
+    direction: rtl;
+}
 
+.card-image img {
+    width: 130px;
+    height: 130px;
+    border-radius: 10px;
+    object-fit: cover;
+}
 
+.card-info {
+    flex: 1;
+    margin-right: 15px;
+}
 
+.card-title {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: bold;
+}
 
+.card-detail {
+    font-size: .8rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
 
+.card-detail i {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #4FBA6C;
+}
 
+#branchs-slider .splide__arrows {
+    display: none;
+    transition: all 0.3s ease;
+}
 
+#branchs-slider .splide__arrow {
+    border-radius: 8PX;
+    background: #fff;
+    border: 2px solid var(--primary-color);
+}
 
+#branchs-slider:hover .splide__arrows {
+    display: block;
+}
 
+.splide__arrow svg {
+    fill: var(--primary-color);
+}
+
+.contact-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    text-align: center;
+}
+
+.info-icons {
+    font-size: 30px !important;
+}
+
+.splide__arrows--rtl .splide__arrow--next {
+    left: 1em !important;
+    right: auto;
+}
+
+.splide__arrows--rtl .splide__arrow--prev {
+    left: auto;
+    right: 1em !important;
+}
 
 
 
@@ -629,77 +754,77 @@ a{
 
 
 .map-label.branch-card {
-  width: 100%;
-  max-width: 260px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 14px 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  font-size: 13px;
-  line-height: 1.7;
-  transition: 0.3s ease;
+    width: 100%;
+    /* max-width: 260px; */
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    font-size: 13px;
+    line-height: 1.7;
+    transition: 0.3s ease;
+    z-index: 1;
 }
 
 .map-label.branch-card:hover {
-  /* transform: translateY(-4px); */
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+    /* transform: translateY(-4px); */
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* عنوان استان */
 .branch-card__title {
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: #1f5f3a;
-  border-bottom: 1px dashed #cfe5d8;
-  padding-bottom: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #1f5f3a;
+    border-bottom: 1px dashed #cfe5d8;
+    padding-bottom: 6px;
 }
 
 /* لیست نمایندگی‌ها */
 .branch-card__list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 /* هر نمایندگی */
 .branch-card__item {
-  background: #f8fbf9;
-  border-radius: 12px;
-  padding: 8px 10px;
+    background: #f8fbf9;
+    border-radius: 12px;
+    padding: 8px 10px;
 }
 
 /* نام مدیر */
 .branch-card__manager {
-  font-weight: 600;
-  color: #2f2f2f;
+    font-weight: 600;
+    color: #2f2f2f;
 }
 
 /* آدرس */
 
 .branch-card__address {
-  font-size: 12px;
-  color: #666;
-  margin-top: 2px;
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
 
-  /* کلیدی‌ها */
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  line-height: 1.6;
+    /* کلیدی‌ها */
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.6;
 }
 
 /* تلفن */
 .branch-card__phone {
-  display: inline-block;
-  margin-top: 4px;
-  font-size: 12px;
-  color: #1f8717;
-  text-decoration: none;
-  direction: ltr;
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #1f8717;
+    text-decoration: none;
+    direction: ltr;
 }
 
 .branch-card__phone:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
-

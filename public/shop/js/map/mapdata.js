@@ -17,17 +17,16 @@ var simplemaps_countrymap_mapdata = {
         all_states_zoomable: "no",
 
         //Location defaults
-        location_description: "Location description",
+        location_description: "",
         location_url: "",
-        location_color: "#FF0067",
-        location_opacity: 0.8,
-        location_hover_opacity: 1,
-        location_size: 25,
-        location_type: "square",
-        location_image_source: "frog.png",
+        location_color: "#a9a9a979",
+        location_opacity: 0,
+        location_hover_opacity: 0,
+        location_size: 18,
+        location_type: "circle",
         location_border_color: "#FFFFFF",
-        location_border: 2,
-        location_hover_border: 2.5,
+        location_border: 0,
+        location_hover_border: 0,
         all_locations_inactive: "no",
         all_locations_hidden: "no",
 
@@ -283,12 +282,43 @@ var simplemaps_countrymap_mapdata = {
         },
     },
     locations: {
-        // "0": {
-        //   name: "Tehran",
-        //   lat: "35.705",
-        //   lng: "51.4216"
-        // }
+        IR18: {
+            lat: 30.6682,
+            lng: 51.587,
+            name: "یاسوج", // یاسوج
+        },
+        IR25: {
+            lat: 31.8974,
+            lng: 54.3569,
+            name: "یزد",
+        },
+        IR04: {
+            lat: 32.6539,
+            lng: 51.666,
+            name: "اصفهان",
+        },
+        IR15: {
+            lat: 30.2839,
+            lng: 57.0834,
+            name: "کرمان",
+        },
+        IR30: {
+            lat: 36.2981,
+            lng: 59.605,
+            name: "مشهد", // مشهد
+        },
+        IR28: {
+            lat: 36.2687,
+            lng: 50.0041,
+            name: "قزوین",
+        },
+        IR07: {
+            lat: 35.6892,
+            lng: 51.389,
+            name: "تهران",
+        },
     },
+
     labels: {
         IR01: {
             name: "East Azarbaijan",

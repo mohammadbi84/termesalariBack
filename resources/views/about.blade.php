@@ -29,7 +29,7 @@
         }
 
         #officeMap {
-            height: 420px;
+            height: 100%;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
         }
@@ -38,56 +38,73 @@
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 @endsection
 @section('content')
-    <div class="container py-4" style="margin-top: 100px">
+    <div class="container py-4" style="margin-top: 70px">
         {{-- family start --}}
         <div class="row p-3 mb-4">
-            <div class="col-md-4 ">
-                <div class=" d-flex justify-content-between align-items-end">
-                    <img src="{{ asset('/hometemplate/img/about-mission.jpg') }}" alt="test" class="builder-image">
-                    <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                        <span class="builder-title">آسید علی سالاری</span>
-                        <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+            <div class="col-md-4 px-0 builder-col">
+                <div class="ps-3 h-100">
+                    <div class=" d-flex justify-content-between align-items-end">
+                        <img src="{{ asset('shop/assets/1.jpeg') }}" alt="test" class="builder-image">
+                        <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
+                            <span class="builder-title">آسید علی سالاری <br>
+                                <small>بنیان گذار</small>
+                            </span>
+                            <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+                        </div>
                     </div>
-                </div>
-                <div class="pb-4 px-4 pt-5 builder-text">
-                    ترمه بافی در خاندان سالاری حدود 90 سال پیش بدست مرحوم آسیدعلی سالاری ملقب به آسیدعلی سید حیدر آغاز شد.
-                    ترمه ای که در آن زمان بافته می شد نوعی بقچه و سوزنی حاشیه دار بود که نام خود بافنده در آن بافت شده است
+                    <div class="pb-4 px-4 pt-5 builder-text">
+                        ترمه‌بافی در خاندان سالاری حدود یک قرن پیش به دست مرحوم آ سیدعلی سالاری، ملقب به آ سیدعلی سید حیدر،
+                        آغاز شد. ترمه‌ای که در آن زمان بافته می‌شد نوعی بقچه و سوزنی حاشیه‌دار بود که نام خود بافنده در آن
+                        بافت شده است. این هنر با گذشت زمان میان نسل‌های بعدی خانواده نیز ادامه پیدا کرد و به‌تدریج طرح‌ها و
+                        نقش‌های متنوع‌تری به آن افزوده شد.
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4 ">
-                <div class=" d-flex justify-content-between align-items-end">
-                    <img src="{{ asset('/hometemplate/img/about-plan.jpg') }}" alt="test" class="builder-image">
-                    <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                        <span class="builder-title">آسید علی اکبر سالاری</span>
-                        <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+            <div class="col-md-4 px-0 builder-col">
+                <div class="px-3 h-100">
+                    <div class=" d-flex justify-content-between align-items-end">
+                        <img src="{{ asset('shop/assets/2.jpeg') }}" alt="test" class="builder-image">
+                        <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
+                            <span class="builder-title">آسید علی اکبر سالاری <br>
+                            <small>رهرو</small>
+                            </span>
+                            <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+                        </div>
                     </div>
-                </div>
-                <div class="pb-4 px-4 pt-5 builder-text">
-                    نسل دومی این خاندان آسیدعلی اکبر بود که در محله چهارمنار مشغول بکار شد و سپس تولید خود را با افزودن
-                    دستگاهها تا 6 دستگاه دستباف و با 12 کارگر زن در محله سجادیه ادامه داد. این روند تا سال 1348 بصورت ترمه
-                    دستی باروش بافت سنتی ادامه داشت و پس از آن با زحمات بسیار زیاد بافت ترمه به صورت ماشینی درآمد ولی با
-                    همان کیفیت ترمه دستی تولید و بافت انجام می گرفت.
+                    <div class="pb-4 px-4 pt-5 builder-text">
+                        نسل دومی این خاندان آسیدعلی اکبر بود که در محله چهارمنار مشغول بکار شد و سپس تولید خود را با افزودن
+                        دستگاهها تا 6 دستگاه دستباف و با 12 کارگر زن در محله سجادیه ادامه داد. این روند تا سال 1348 بصورت
+                        ترمه
+                        دستی باروش بافت سنتی ادامه داشت و پس از آن با زحمات بسیار زیاد بافت ترمه به صورت ماشینی درآمد ولی با
+                        همان کیفیت ترمه دستی تولید و بافت انجام می گرفت.
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4 ">
-                <div class=" d-flex justify-content-between align-items-end">
-                    <img src="{{ asset('/hometemplate/img/about-vision.jpg') }}" alt="test" class="builder-image">
-                    <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                        <span class="builder-title">آسید حیدر سالاری</span>
-                        <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+            <div class="col-md-4 px-0 builder-col">
+                <div class="pe-3 h-100">
+                    <div class=" d-flex justify-content-between align-items-end">
+                        <img src="{{ asset('shop/assets/3.jpeg') }}" alt="test" class="builder-image">
+                        <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
+                            <span class="builder-title">آسید حیدر سالاری <br>
+                            <small>رهرو</small>
+                            </span>
+                            <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+                        </div>
                     </div>
-                </div>
-                <div class="pb-4 px-4 pt-5 builder-text">
-                    نسل سوم از سال 1361 فعالیت گذشتگان را ادامه داد ولی با این تفاوت که روز به روز تولیداتی با طرحها و رنگ
-                    های متنوع و جدید به بازار عرضه نمود و با بهره گیری از تکنولوژی جدید و دستگا های مدرن روز پیوسته به تعداد
-                    طرحها رنگها و جذابیت ترمه های تولیدی خود افزوده است آنچنان که توانسته است علاوه بر مشتریان داخلی نظر
-                    گردشگران دیگر کشورها را نیز به خود جلب و آنان را در زمره خریداران خود قرار دهد
+                    <div class="pb-4 px-4 pt-5 builder-text">
+                        نسل سوم از سال 1361 فعالیت گذشتگان را ادامه داد ولی با این تفاوت که روز به روز تولیداتی با طرحها و
+                        رنگ
+                        های متنوع و جدید به بازار عرضه نمود و با بهره گیری از تکنولوژی جدید و دستگا های مدرن روز پیوسته به
+                        تعداد
+                        طرحها رنگها و جذابیت ترمه های تولیدی خود افزوده است آنچنان که توانسته است علاوه بر مشتریان داخلی نظر
+                        گردشگران دیگر کشورها را نیز به خود جلب و آنان را در زمره خریداران خود قرار دهد.
+                    </div>
                 </div>
             </div>
         </div>
         {{-- family end --}}
         {{-- mission start --}}
-        <div class="row p-3 mb-4 bg-white rounded-3 g-0 gap-4">
+        <div class="row p-3 py-5 mb-4 bg-white rounded-3 g-0 mx-1 gap-4">
             <div class="col-md-3">
                 <div class="reels-container">
                     <video id="my-video" class="video-js vjs-fill" controls preload="auto"
@@ -97,9 +114,12 @@
                 </div>
             </div>
             <div class="col">
-                <div class="d-flex justify-content-start align-items-center mb-4">
+                {{-- <div class="d-flex justify-content-start align-items-center mb-4">
                     <h5 class="mission-title m-0">رسالت ترمه سالاری</h5>
-                </div>
+                </div> --}}
+                <header class="section-header">
+                    <h3>رسالت ترمه سالاری</h3>
+                </header>
                 <p class="mission-text mb-4">
                     ترمه نوعی از منسوجات سنتی ایران است که از گذشته های بسیار دور در ایران تولید می شده است. ترمه همانند
                     فرش دست بافت دارای تار و پود است که پود در پشت پارچه ترمه به صورت آزاد قرار می گیرد. ترمه اصیل ایران
@@ -116,34 +136,38 @@
                     بی نظیر و رنگ آمیزی خاص ترمه های تولیدی ما تنها با مقایسه و لمس دیگر ترمه ها مشهود خواهد شد که به
                     کیفیت و لطافت و رنگ آمیزی کم نظیر می باشد.
                 </p>
-                <div class="row mission-row p-0 bg-white rounded-4 shadow mx-3">
+                <div class="row mission-row p-0 bg-white rounded-4 shadow-sm mx-3">
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number">+250</span>
+                            <span class="mission-number" data-target="250">0</span>
                             <span>ماه سابقه</span>
                         </div>
                     </div>
+
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number">+600</span>
+                            <span class="mission-number" data-target="600">0</span>
                             <span>محصول</span>
                         </div>
                     </div>
+
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number">+450</span>
+                            <span class="mission-number" data-target="450">0</span>
                             <span>عضو فعال</span>
                         </div>
                     </div>
+
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number">+10</span>
+                            <span class="mission-number" data-target="10">0</span>
                             <span>نمایندگی</span>
                         </div>
                     </div>
+
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number">+100</span>
+                            <span class="mission-number" data-target="100">0</span>
                             <span>پروژه</span>
                         </div>
                     </div>
@@ -152,8 +176,8 @@
         </div>
         {{-- mission end --}}
         {{-- about us start --}}
-        <section id="about" class="mb-5"
-            style="background: url({{ asset('shop/assets/products/product2.webp') }}) center top no-repeat fixed;">
+        <section id="about" class="mb-5 mx-1"
+            style="background: url({{ asset('shop/assets/products/product2.webp') }}) center top no-repeat fixed;z-index: 1;">
             <div class="container">
                 <header class="section-header">
                     <h3>نشان اصالت محصول</h3>
@@ -174,34 +198,30 @@
                         شماســــــــت...
                     </h1>
                     <p class="commetn-text">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                        چاپگرها
-                        و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز
-                        و
-                        کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                        آنچه کسب کرده‌ایم تنها یک نام نیست؛ اعتباری‌ست که از اعتماد شما ساخته شده است.
                     </p>
-                    <div class="row mission-row p-0 g-0 bg-white rounded-4 shadow">
+                    <div class="row mission-row p-0 g-0 bg-white rounded-4 shadow-sm" style="margin-top: 28px;">
                         <div class="col">
                             <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                                <span class="mission-number">+250</span>
+                                <span class="mission-number" data-target="250">0</span>
                                 <span>ماه سابقه</span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                                <span class="mission-number">+600</span>
+                                <span class="mission-number" data-target="600">0</span>
                                 <span>محصول</span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                                <span class="mission-number">+450</span>
+                                <span class="mission-number" data-target="450">0</span>
                                 <span>عضو فعال</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 ps-0">
                     <div class="testimonial-slider">
                         <div class="swiper mySwiper">
                             <div class="swiper-wrapper">
@@ -257,7 +277,7 @@
 
                             <!-- دکمه‌ها -->
                             <!-- <div class="swiper-button-next"></div>
-                                                                        <div class="swiper-button-prev"></div> -->
+                                                                                                    <div class="swiper-button-prev"></div> -->
 
                             <!-- دات‌های زیر -->
                             <div class="swiper-pagination"></div>
@@ -271,12 +291,11 @@
         <section class="mb-5">
             <div class="container">
                 <div class="container mb-5 px-0">
+                    <header class="section-header">
+                        <h3 class="">حقوق مالکیت معنوی</h3>
+                    </header>
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                         <div class="">
-                            {{-- <h2 class="title m-0">حقوق مالکیت معنوی</h2> --}}
-                            <header class="section-header text-end d-flex">
-                                <h3 class="text-end">حقوق مالکیت معنوی</h3>
-                            </header>
                             <span>
                                 تمام طرح های تولیدی ترمه سالاری دارای گواهی نامه ثبت مالکیت معنوی بوده و هرگونه کپی
                                 برداری از آن
@@ -285,7 +304,7 @@
                         </div>
                         <div class="">
                             <!-- دکمه‌های کنترل جداگانه -->
-                            <div class="custom-splide-controls">
+                            <div class="custom-splide-controls px-0">
                                 <button class="splide-prev-btn splide-hot-prev-btn">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
@@ -297,8 +316,8 @@
                         </div>
                     </div>
                     <div class="splide" id="hot_slider" role="group" aria-label="Splide Basic HTML Example">
-                        <div class="splide__track py-3">
-                            <ul class="splide__list">
+                        <div class="splide__track py-4">
+                            <ul class="splide__list py-4">
                                 <li class="splide__slide">
                                     <img src="{{ asset('/hometemplate/img/certificate/1.jpg') }}"
                                         alt="حقوق مالکیت معنوی">
@@ -348,12 +367,20 @@
                     </div>
                 </div>
             </div>
+            <div id="imgModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-transparent border-0">
+                        <img id="modalImage" src="" class="w-100 rounded shadow">
+                    </div>
+                </div>
+            </div>
+
         </section>
         {{-- lisence end --}}
         {{-- partners start --}}
         <div class="elementor-element elementor-element-4f43ad3 e-flex e-con-boxed e-con e-parent mb-5" data-id="4f43ad3"
             data-element_type="container">
-            <div class="e-con-inner">
+            <div class="e-con-inner px-2">
                 <div class="elementor-element elementor-element-d65e440 elementor-widget elementor-widget-luxina_customers"
                     data-id="d65e440" data-element_type="widget" data-widget_type="luxina_customers.default">
                     <div class="elementor-widget-container">
@@ -361,10 +388,8 @@
                             <div class="luxina_customers_title-wrap title-in-items">
                                 <span class="luxina_customers_title-bg" aria-hidden="true"></span>
                                 <i class="luxina-icon-user-star-fill luxina_customers_title-icon" aria-hidden="true"></i>
-                                <span class="luxina_customers_title-text">افتخارات
-                                    همکاری</span>
-                                <span class="luxina_customers_title-subtitle">Partnership
-                                    honors</span>
+                                <span class="luxina_customers_title-text">مشتریان ما</span>
+                                <span class="luxina_customers_title-subtitle">Our customers</span>
                             </div>
                             <div class="luxina_customers_items" style="--desktop-cols:5;--tablet-cols:4;--mobile-cols:2">
                                 <div class="luxina_customers_item">
@@ -411,26 +436,13 @@
         </div>
         {{-- partners end --}}
         {{-- branch map start --}}
-        <section class="branch-map mb-5">
-            <div class="row">
+        <section class="branch-map mb-5 mt-4 px-1">
+            <div class="row mb-3">
                 <header class="section-header">
                     <h3>نمایندگی های ما</h3>
                 </header>
                 <div class="col-md-3 col-3 d-flex flex-column justify-content-around align-items-center gap-3 labels-col"
                     id="branch-labels-left">
-                    <!-- لیبل‌ها -->
-                    {{-- <div id="label-mashhad" class="map-label label-mashhad">
-                        نمایندگی مشهد
-                    </div>
-                    <div id="label-tehran" class="map-label label-tehran">
-                        نمایندگی تهران
-                    </div>
-                    <div id="label-isfahan" class="map-label label-isfahan">
-                        نمایندگی اصفهان
-                    </div>
-                    <div id="label-kerman" class="map-label label-kerman">
-                        نمایندگی کرمان
-                    </div> --}}
                 </div>
                 <div class="col-md-6 col-6">
                     <div class="map-wrapper">
@@ -440,21 +452,114 @@
                 </div>
                 <div class="col-md-3 col-3 d-flex flex-column justify-content-around align-items-center gap-3 labels-col"
                     id="branch-labels-right">
-                    {{-- <div id="label-ghazvin" class="map-label label-ghazvin">
-                        نمایندگی قزوین
-                    </div>
-                    <div id="label-yasoj" class="map-label label-yasoj">
-                        نمایندگی یاسوج
-                    </div> --}}
                 </div>
+            </div>
+            <div class="row">
+                <div id="branchs-slider" class="splide">
+                    <div class="splide__track py-3">
+                        <ul class="splide__list py-3">
+                            <li class="splide__slide">
+                                <div class="horizontal-card">
+                                    <div class="card-image">
+                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
+                                    </div>
+                                    <div class="card-info">
+                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
+                                        <div class="card-detail">
+                                            <i class="fa fa-map-marker"></i>
+                                            خیابان مثال، کوچه نمونه
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-phone"></i>
+                                            021-12345678
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-envelope"></i>
+                                            example@gmail.com
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="horizontal-card">
+                                    <div class="card-image">
+                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
+                                    </div>
+                                    <div class="card-info">
+                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
+                                        <div class="card-detail">
+                                            <i class="fa fa-map-marker"></i>
+                                            خیابان مثال، کوچه نمونه
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-phone"></i>
+                                            021-12345678
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-envelope"></i>
+                                            example@gmail.com
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="horizontal-card">
+                                    <div class="card-image">
+                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
+                                    </div>
+                                    <div class="card-info">
+                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
+                                        <div class="card-detail">
+                                            <i class="fa fa-map-marker"></i>
+                                            خیابان مثال، کوچه نمونه
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-phone"></i>
+                                            021-12345678
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-envelope"></i>
+                                            example@gmail.com
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="horizontal-card">
+                                    <div class="card-image">
+                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
+                                    </div>
+                                    <div class="card-info">
+                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
+                                        <div class="card-detail">
+                                            <i class="fa fa-map-marker"></i>
+                                            خیابان مثال، کوچه نمونه
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-phone"></i>
+                                            021-12345678
+                                        </div>
+                                        <div class="card-detail">
+                                            <i class="fa fa-envelope"></i>
+                                            example@gmail.com
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </section>
         {{-- branch map end --}}
         {{-- contact start --}}
         <section>
-            <div class="row bg-white rounded-4 shadow">
+            <div class="row bg-white rounded-4 mb-4 g-0  shadow-sm">
                 <div class="col-md-5 p-4">
-                    <h5 class="border-end border-4 border-success pe-2">با ما در ارتباط باشید</h5>
+                    <header class="section-header">
+                        <h3 class="">ارتباط با ما</h3>
+                    </header>
                     <form action="{{ route('message.store') }}" method="post">
                         @csrf
                         <div class="mb-3 mt-4">
@@ -500,7 +605,101 @@
                     </form>
                 </div>
                 <div class="col-md-7 p-0">
-                    <div id="officeMap" class="rounded-start-4"></div>
+                    <div id="officeMap" class="rounded-start-4" style="z-index: 1;"></div>
+                </div>
+            </div>
+            <!-- بخش کارت‌ها -->
+            <div class="row mb-4 g-0">
+                <div class="col-md-4 px-0">
+                    <div class="ps-3">
+                        <div class="contact-card h-100 d-flex flex-wrap align-content-between w-100">
+                            <div class="card-box d-flex align-items-center justify-content-end rounded-4">
+                                <div class="icon-box bg-white bg-opacity-25 border rounded-3 p-2">
+                                    <i class="bi bi-share fs-4 text-secondary info-icons"></i>
+                                </div>
+                                <div class="text-end me-3 mt-2">
+                                    <h6 class="fw-bold text-dark">شبکه های اجتماعی</h6>
+                                    <p class="text-dark text-justify">از آخرین اخبار و کمپین‌ها از طریق شبکه های اجتماعی
+                                        مطلع شوید.</p>
+                                </div>
+                            </div>
+                            <div class="card-box d-flex align-items-center justify-content-between rounded-3 p-2 px-3 mt-3 w-100"
+                                style="background-color: #F8F9FA;">
+                                <a href="#" class="fw-bold text-decoration-none text-success">اینستاگرام</a>
+                                <div class="d-flex align-items-center justify-content-end me-2">
+                                    <div class="text-dark" dir="ltr"><a
+                                            href="https://www.instagram.com/termehsalari"
+                                            class="text-reset">termehsalari</a></div>
+                                    {{-- <i class="bi bi-send text-primary"></i> --}}
+                                    <span class="border border-3 rounded-circle me-2"
+                                        style="width: 30px;height:30px;background: linear-gradient(336deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);">
+                                        <i class="bi bi-instagram text-white"
+                                            style="font-size: 16px;position: relative;left: 0;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 px-0">
+                    <div class="px-3">
+                        <div class="contact-card h-100 d-flex flex-wrap align-content-between w-100">
+                            <div class="card-box d-flex align-items-center justify-content-end rounded-4">
+                                <div class="icon-box bg-white bg-opacity-25 border rounded-3 p-2">
+                                    <i class="bi bi-telephone fs-4 text-secondary info-icons"></i>
+                                </div>
+                                <div class="text-end me-3 mt-2">
+                                    <h6 class="fw-bold text-dark">تلفن تماس</h6>
+                                    <p class="text-dark text-justify">همه‌روزه از ساعت 9:00 الی 17:00 پاسخگوی تماس شما
+                                        هستیم.</p>
+                                </div>
+                            </div>
+                            <div class="card-box d-flex align-items-center justify-content-between rounded-3 p-2 px-3 mt-3 w-100"
+                                style="background-color: #F8F9FA;">
+                                <a href="#" class="fw-bold text-decoration-none text-success">تماس</a>
+                                <div class="d-flex align-items-center justify-content-end me-2">
+                                    <div class="text-dark" dir="ltr"><a href="tel:09134577500"
+                                            class="text-reset">0913 457 7500</a></div>
+                                    <span class="border border-3 rounded-circle me-2"
+                                        style="width: 30px;height:30px;background: #4FBA6C;border-color: #4FBA6C !important;">
+                                        <i class="bi bi-telephone text-white"
+                                            style="font-size: 16px;position: relative;top: 2px;left: 0;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 px-0">
+                    <div class="pe-3">
+                        <div class="contact-card h-100 d-flex flex-wrap align-content-between w-100">
+                            <div class="card-box d-flex align-items-center justify-content-end rounded-4">
+                                <div class="icon-box bg-white bg-opacity-25 border rounded-3 p-2">
+                                    <i class="bi bi-chat-dots fs-4 text-secondary info-icons"></i>
+                                </div>
+                                <div class="text-end me-3 mt-2">
+                                    <h6 class="fw-bold text-dark">پیام رسان ها</h6>
+                                    <p class="text-dark text-justify">در پیام رسان‌های زیر پاسخگوی سوالات شما هستیم.</p>
+                                </div>
+                            </div>
+                            <div class="card-box d-flex align-items-center justify-content-between rounded-3 p-2 px-3 mt-3 w-100"
+                                style="background-color: #F8F9FA;">
+                                <a href="#" class="fw-bold text-decoration-none text-success">ارسال پیام</a>
+                                <div class="d-flex align-items-center justify-content-end me-2">
+                                    <div class="text-dark" dir="ltr"><a href="https://telegram.me/termeh_salari"
+                                            class="text-reset">termeh_salari</a></div>
+                                    {{-- <i class="bi bi-whatsapp fs-4 text-success me-2"></i> --}}
+                                    <span class="border border-3 rounded-circle me-2"
+                                        style="width: 30px;height:30px;background: #37ABE1;border-color: #37ABE1 !important;">
+                                        <i class="bi bi-telegram text-white"
+                                            style="font-size: 16px;position: relative;top: 2px;left: 0;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -513,6 +712,25 @@
     <script src="{{ asset('shop/js/about.js') }}"></script>
 
     <script>
+        new Splide('#branchs-slider', {
+            type: 'loop',
+            perPage: 3,
+            gap: '1.2rem',
+            arrows: true,
+            pagination: false,
+            drag: true,
+            direction: 'rtl',
+            autoplay: true,
+            breakpoints: {
+                768: {
+                    perPage: 2,
+                },
+                480: {
+                    perPage: 2,
+                }
+            }
+        }).mount();
+
         $(document).on("input", ".only-number", function() {
             this.value = this.value.replace(/[^0-9]/g, "");
             let name = $(this).attr("name");
