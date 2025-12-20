@@ -345,7 +345,7 @@ a {
 
 #hot_slider .splide__slide {
     border-radius: 10px;
-    border: 10px solid #fff;
+    border: 12px solid #fff;
 }
 
 #hot_slider .splide__slide.is-active {
@@ -642,6 +642,11 @@ a {
     .hide-mobile {
         display: none !important
     }
+
+    .map-label.branch-card {
+        width: auto !important;
+        padding: 5px 2px !important;
+    }
 }
 
 .swiper-pagination {
@@ -712,12 +717,21 @@ a {
     border: 2px solid var(--primary-color);
 }
 
+#branchs-slider .splide__arrow:hover {
+    background: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
 #branchs-slider:hover .splide__arrows {
     display: block;
 }
 
 .splide__arrow svg {
     fill: var(--primary-color);
+}
+
+#branchs-slider .splide__arrow:hover svg {
+    fill: #fff;
 }
 
 .contact-card {
@@ -827,4 +841,24 @@ a {
 
 .branch-card__phone:hover {
     text-decoration: underline;
+}
+
+
+
+
+
+/* video */
+.video-full-container {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    width: 100%;
+    height: auto !important;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.play-pause-btn{
+    display: flex;
 }

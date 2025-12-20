@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("fullscreen-video");
+    
     const playPauseBtn = document.querySelector(".play-pause-btn");
     const playIcon = playPauseBtn.querySelector("i");
     const videoContainer = document.querySelector(".video-full-container");
     const videoOverlay = document.querySelector(".video-overlay");
 
+    
     // تابع پخش/توقف ویدیو
     function togglePlayPause() {
         if (video.paused) {

@@ -14,64 +14,134 @@ const swiper = new Swiper(".mySwiper", {
 
 // counter
 const counters = document.querySelectorAll(".mission-number");
-let started = false;
 
-function animateCounters() {
-    counters.forEach((counter) => {
-        let target = +counter.getAttribute("data-target");
-        let current = 0;
-        let increment = Math.ceil(target / 75);
+function animateCounter(counter) {
+    let target = +counter.getAttribute("data-target");
+    let current = 0;
+    // let increment = Math.ceil(target / 100);
+    let increment = 1;
 
-        let interval = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                counter.textContent = target;
-                clearInterval(interval);
-            } else {
-                counter.textContent = current;
-            }
-        }, 50);
-    });
+    let interval = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            counter.textContent = target;
+            clearInterval(interval);
+        } else {
+            counter.textContent = current;
+        }
+    }, 20);
 }
 
-// مشاهده المان
 const observer = new IntersectionObserver(
-    (entries, observer) => {
+    (entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting && !started) {
-                animateCounters();
-                started = true;
-                observer.disconnect(); // برای یک‌بار اجرا
+            if (entry.isIntersecting && !entry.target.started) {
+                animateCounter(entry.target);
+                entry.target.started = true; // مخصوص همان شمارنده
             }
         });
     },
     {
-        threshold: 0.9, // حداقل ۴۰٪ المان دیده شود تا شروع شود
+        threshold: 0.9,
     }
 );
 
-// المانی که باید دیده شود
-observer.observe(document.querySelector(".mission-row"));
+counters.forEach((counter) => observer.observe(counter));
 
 // Hot===========================================================================================
 
 var HotSplide = new Splide("#hot_slider", {
     type: "loop",
     perPage: 4,
-    padding:{right:'20px'},
+    perMove: 1,
+    padding: '20px',
     gap: "1.7rem",
     arrows: false,
     pagination: false,
     direction: "rtl",
-    autoplay: true,
-    focus: "right", // این باعث میشه اسلاید وسط اکتیو باشه
+    autoplay: false, // autoplay معمولی را غیرفعال می‌کنیم
+    drag: false,
+    focus: 0, // اولین اسلاید را فعال می‌کند
+    trimSpace: false,
     breakpoints: {
         1024: { perPage: 4 },
         768: { perPage: 2 },
         480: { perPage: 1 },
     },
 });
+
 HotSplide.mount();
+
+// شمارنده برای پیگیری اسلاید فعال کنونی
+let currentActiveIndex = 0;
+let perPage = 4; // تعداد اسلایدهای قابل مشاهده
+
+// تابع برای تغییر اسلاید فعال
+function changeActiveSlide() {
+    const slides = document.querySelectorAll("#hot_slider .splide__slide.is-visible");
+
+    // حذف کلاس active از همه اسلایدها
+    slides.forEach((slide) => {
+        slide.classList.remove("is-active");
+    });
+
+    // console.log(slides[currentActiveIndex]);
+    // اضافه کردن کلاس active به اسلاید کنونی
+    if (slides[currentActiveIndex]) {
+        slides[currentActiveIndex].classList.add("is-active");
+    }
+
+    // افزایش شمارنده برای اسلاید بعدی
+    currentActiveIndex++;
+
+    // اگر به آخرین اسلاید در صفحه رسیدیم
+    if (currentActiveIndex > perPage) {
+        // حرکت اسلایدر به بعدی
+        HotSplide.go("+4");
+        // بازنشانی شمارنده
+        currentActiveIndex = 0;
+
+        // بعد از حرکت اسلایدر، اسلاید اول را فعال کن
+        setTimeout(() => {
+            const newSlides = document.querySelectorAll(
+                "#hot_slider .splide__slide"
+            );
+            if (newSlides[0]) {
+                newSlides[0].classList.add("is-active");
+            }
+        }, 500); // تاخیر برای حرکت اسلایدر
+    }
+}
+
+// شروع تایمر برای تغییر اسلاید فعال
+let slideInterval = setInterval(changeActiveSlide, 2000); // هر 2 ثانیه
+
+// توقف هنگام هاور
+document.querySelector("#hot_slider").addEventListener("mouseenter", () => {
+    clearInterval(slideInterval);
+});
+
+// ادامه هنگام خروج
+document.querySelector("#hot_slider").addEventListener("mouseleave", () => {
+    slideInterval = setInterval(changeActiveSlide, 2000);
+});
+
+// به‌روزرسانی perPage هنگام تغییر سایز پنجره
+window.addEventListener("resize", () => {
+    const options = HotSplide.options;
+    const breakpoints = options.breakpoints;
+    const width = window.innerWidth;
+
+    if (width < 480) {
+        perPage = options.perPage || 1;
+    } else if (width < 768) {
+        perPage = breakpoints[480]?.perPage || 2;
+    } else if (width < 1024) {
+        perPage = breakpoints[768]?.perPage || 2;
+    } else {
+        perPage = breakpoints[1024]?.perPage || 4;
+    }
+});
 
 const prevBtnHot = document.querySelector(".splide-hot-prev-btn");
 const nextBtnHot = document.querySelector(".splide-hot-next-btn");
@@ -384,10 +454,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     simplemaps_countrymap.hooks.complete = function () {
-    setTimeout(() => {
-        drawLines();
-    }, 500); // زمان مکث - قابل تغییر
-};
+        setTimeout(() => {
+            drawLines();
+        }, 500); // زمان مکث - قابل تغییر
+    };
 
     // window.addEventListener("resize", () => {
     //     lines.forEach((line) => line.position());

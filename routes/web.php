@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return redirect('/store');
     return view('home');
 })->name('home');
 
@@ -54,7 +55,7 @@ Route::get('/shop/privacy-and-policy',function(){
 Route::get('/shop/terms',function(){
 	return view('terms');
 })->name('terms');
-Route::get('/shop/about',function(){
+Route::get('/store/about',function(){
 	return view('about');
 })->name('about');
 
