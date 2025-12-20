@@ -809,10 +809,10 @@
             autoplay: true,
             breakpoints: {
                 768: {
-                    perPage: 2,
+                    perPage: 1,
                 },
                 480: {
-                    perPage: 2,
+                    perPage: 1,
                 }
             }
         }).mount();

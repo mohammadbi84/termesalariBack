@@ -51,7 +51,7 @@
                             <a class="nav-link" href="http://www.termehsalari.com/store#branchs">نمایندگی های فروش</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('about')}}">درباره ما</a>
+                            <a class="nav-link" href="{{ route('about') }}">درباره ما</a>
                         </li>
                     </ul>
                     <!-- cart language, favorites and login ================================================================================================================== -->
@@ -438,18 +438,20 @@
                                     </button>
                                     <ul class="dropdown-menu text-end">
                                         <li>
-                                            <a class="dropdown-item" href="{{route('user.profile')}}">
+                                            <a class="dropdown-item" href="{{ route('user.profile') }}">
                                                 <i class="fa-solid fa-user ms-1 top-0"></i>
                                                 <span>مشاهده پروفایل</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                            <a class="dropdown-item text-danger" href="#"
+                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                                 <i class="fa-solid fa-arrow-right-from-bracket ms-1 top-0"></i>
                                                 <span>خروج</span>
                                             </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                              @csrf
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
                                             </form>
                                         </li>
                                     </ul>
@@ -525,16 +527,18 @@
                     شگفت انگیزها</a>
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold" href="#newest">جدیدترین ها</a>
+                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#newest">جدیدترین ها</a>
 
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold" href="#products">پرفروش ترین‌ها</a>
+                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#products">پرفروش ترین‌ها</a>
 
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold" href="#branchs">نمایندگی های فروش</a>
-
+                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#branchs">نمایندگی های فروش</a>
+            </div>
+            <div class="mobile-main-category py-3">
+                <a class="nav-link fw-bold" href="{{ route('about') }}">درباره ما</a>
             </div>
             @foreach ($categories as $category)
                 <div class="mobile-main-category">
@@ -544,7 +548,8 @@
                     @if ($category->childs()->count() > 0)
                         <ul class="mobile-sub-categories collapse" id="{{ $category->id }}">
                             @foreach ($category->childs as $cat)
-                                <li><a href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a></li>
+                                <li><a href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a>
+                                </li>
                             @endforeach
                         </ul>
                     @endif
