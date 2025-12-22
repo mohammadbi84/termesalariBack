@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\TableclothController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -72,6 +73,8 @@ route::post('/tablecloth/changeVisibility','TableclothController@changeVisibilit
 route::post('/tablecloth/changeVisibilityGroup','TableclothController@changeVisibilityGroup')->name('tablecloth.changeVisibilityGroup');
 Route::get('/store/tablecloths/','TableclothController@storeIndex')->name('tablecloth.storeIndex');
 Route::get('/store/tablecloths/filter', 'TableclothController@storeFilter')->name('tablecloth.storeFilter');
+Route::get('/ajax/tablecloths', [TableclothController::class, 'ajaxStore'])->name('products.filter');
+
 
 Route::get('/tablecloth/duplicate/{tablecloth}','TableclothController@duplicate')->name('tablecloth.duplicate');
 
