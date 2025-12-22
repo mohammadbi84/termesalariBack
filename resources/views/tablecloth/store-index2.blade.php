@@ -34,6 +34,7 @@
             height: 100%;
             position: relative;
             overflow: hidden;
+            margin-bottom: 0 !important;
         }
 
         .product-card:hover {
@@ -270,6 +271,7 @@
         }
 
         .filter-list {
+            padding-left: 10px;
             max-height: 300px;
             overflow-y: scroll;
         }
@@ -281,6 +283,55 @@
         .filter-list::-webkit-scrollbar-thumb {
             background-color: #ccc;
             border-radius: 5px;
+        }
+
+        .page-item:last-child .page-link {
+            border-top-left-radius: var(--bs-pagination-border-radius) !important;
+            border-bottom-left-radius: var(--bs-pagination-border-radius) !important;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        .page-item:first-child .page-link {
+            border-top-right-radius: var(--bs-pagination-border-radius);
+            border-bottom-right-radius: var(--bs-pagination-border-radius);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+            margin-left: calc(var(--bs-border-width) * -1);
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            border-top-left-radius: 8px !important;
+            border-bottom-left-radius: 8px !important;
+        }
+
+        .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
+        .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control,
+        .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select,
+        .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+            border-top-right-radius: 8px !important;
+            border-bottom-right-radius: 8px !important;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+
+        .pagination {
+            padding: 0 !important;
+        }
+
+        @media (max-width: 576px) {
+
+            .pagination li a,
+            .pagination li span {
+                padding: .35rem .55rem;
+                font-size: .8rem;
+            }
+
+            .pagination li:not(.active):not(:first-child):not(:last-child) {
+                display: none;
+            }
         }
     </style>
 @endsection
@@ -308,10 +359,10 @@
                     <div class="filter-card">
                         <div class="filter-header">دسته‌بندی‌ها</div>
 
-                        <div class="cat-search-wrapper">
+                        {{-- <div class="cat-search-wrapper">
                             <input type="text" class="cat-search-input" id="catSearchInput" placeholder="جستجوی دسته...">
                             <i class="fas fa-times cat-search-clear" id="catSearchClear"></i>
-                        </div>
+                        </div> --}}
 
                         <div id="categoryList" class="filter-list">
                             @foreach ($categories as $cat)
@@ -371,11 +422,11 @@
                     <div class="filter-card">
                         <div class="filter-header">محدوده قیمت</div>
                         <div class="d-flex align-items-center gap-2 mb-2">
-                            <input type="number" id="minPrice" class="form-control form-control-sm" placeholder="از"
-                                value="{{ $minPrices }}">
+                            <input type="number" id="minPrice" name="minPrice" class="form-control form-control-sm"
+                                placeholder="از" value="{{ $minPrices }}">
                             <span>تا</span>
-                            <input type="number" id="maxPrice" class="form-control form-control-sm" placeholder="تا"
-                                value="{{ $maxPrices }}">
+                            <input type="number" id="maxPrice" name="maxPrice" class="form-control form-control-sm"
+                                placeholder="تا" value="{{ $maxPrices }}">
                         </div>
                         <button type="button" id="priceFilterBtn" class="btn btn-custom w-100 btn-sm mt-2">اعمال</button>
                     </div>
@@ -561,27 +612,162 @@
             });
 
             // قیمت
-            $('.btn-apply-price').click(fetchProducts);
+            $('#priceFilterBtn').click(fetchProducts);
 
 
             /** ==========================
              *  6) جستجو در دسته‌بندی (UI)
              * ========================= */
 
-            $('#catSearchInput').on('keyup', function() {
-                let value = $(this).val().toLowerCase();
+            // $('#catSearchInput').on('keyup', function() {
+            // let value = $(this).val().toLowerCase();
+            //
+            // if (value.length > 0) $('#catSearchClear').show();
+            // else $('#catSearchClear').hide();
+            //
+            // $('.cat-item').filter(function() {
+            // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            // });
+            // });
+            //
+            // $('#catSearchClear').click(function() {
+            // $('#catSearchInput').val('').trigger('keyup');
+            // });
 
-                if (value.length > 0) $('#catSearchClear').show();
-                else $('#catSearchClear').hide();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // 🛒 افزودن محصول به سبد خرید
+            $(document).on('click', '.addToCart', function() {
+                const $btn = $(this);
 
-                $('.cat-item').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                const card = $btn.closest('.product-card');
+                if (card) {
+                    card.removeClass('hovered'); // حذف کلاس
+                }
+
+                // برداشتن فوکوس از روی دکمه (مهم!)
+                if (document.activeElement && document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                }
+
+                // گرفتن اطلاعات از data attributes
+                const id = $btn.data('id');
+                const model = $btn.data('moddel');
+                const price = $btn.data('price');
+                const off = $btn.data('off');
+                const offType = $btn.data('offType');
+                const pay = $btn.data('pay');
+                const local = $btn.data('local');
+                const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
+                const image = $btn.data('image') || '/images/no-image.png';
+                const url = `${document.location.origin}/cart/add/${id}/${model}`;
+
+                // درخواست AJAX
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    data: {
+                        product: id,
+                        controller: model
+                    },
+                    success: function(response) {
+                        if (response == "1") {
+                            // ✅ موفقیت
+                            updateNavbarCart({
+                                id,
+                                title,
+                                price,
+                                image,
+                                quantity: 1,
+                                model: model,
+                                off: off,
+                                offType: offType,
+                            });
+                            if (!$btn.hasClass("favorites")) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "محصول به سبد خرید اضافه شد!",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                            }
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "خطا در افزودن محصول!",
+                                text: "لطفاً دوباره تلاش کنید."
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: "error",
+                            title: "خطا در ارتباط با سرور!",
+                            text: "اتصال اینترنت یا سرور بررسی شود."
+                        });
+                    }
                 });
             });
 
-            $('#catSearchClear').click(function() {
-                $('#catSearchInput').val('').trigger('keyup');
-            });
+            // 🧩 تابع برای آپدیت کردن dropdown در navbar
+            function updateNavbarCart(item) {
+                const $badge = $(".shopping-cart-badge");
+                const $cartList = $("#navbarCartList");
+
+                // افزایش badge
+                let count = parseInt($badge.text()) || 0;
+                $badge.text(count + 1);
+
+                // چک وجود آیتم
+                const existingItem = $cartList.find(`[data-id="${item.id}"][data-model="${item.model}"]`);
+
+                if (existingItem.length > 0) {
+                    // اگر بود، فقط تعداد را افزایش بده
+                    const $quantitySpan = existingItem.find('.item-quantity');
+                    const currentQuantity = parseInt($quantitySpan.text()) || 0;
+                    $quantitySpan.text(currentQuantity + 1);
+                } else {
+                    // اگر نبود، آیتم جدید بساز (با data attributes کامل)
+                    const newItem = `
+            <div class="cart-item"
+                data-id="${item.id}"
+                data-model="${item.model}"
+                data-base-price="${item.price}"
+                data-base-off-price="${item.off}"
+                data-off-type="${item.offType}">
+
+                <img src="${item.image}" alt="${item.title}" class="cart-item-image">
+
+                <div class="cart-item-content">
+                    <div class="cart-item-title">${item.title}</div>
+
+                    <div class="cart-item-price">
+                        ${Number(item.price).toLocaleString()} تومان
+                    </div>
+
+                    <div class="quantity-controls">
+                        <button class="decrease" data-model="${item.model}" data-id="${item.id}">-</button>
+                        <span class="count item-quantity">${item.quantity}</span>
+                        <button class="increase" data-model="${item.model}" data-id="${item.id}">+</button>
+                        <a href="#" class="delete-item me-3"
+                            data-id="${item.id}"
+                            data-model="${item.model}">
+                            <i class="far fa-trash-alt text-danger"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                    $cartList.prepend(newItem);
+                }
+
+                // جمع کل و badge را آپدیت کن
+                updateCartBadge();
+                updateCartTotal();
+            }
 
         });
     </script>

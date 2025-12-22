@@ -449,11 +449,8 @@ class TableclothController extends Controller
 
     public function storeIndex(Request $request)
     {
-        $designs_id = Design::where('active', 1)
-            ->pluck('id');
-
-        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)
-            ->pluck('id');
+        $designs_id = Design::where('active', 1)->pluck('id');
+        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)->pluck('id');
 
         $tablecloths = Tablecloth::whereIn('color_design_id', $color_designs_id)
             ->where('visibility', 1)
@@ -491,23 +488,96 @@ class TableclothController extends Controller
 
         // *** مرتب‌سازی ***
         switch ($request->sort) {
+            case 'topSales':
+                $tablecloths = $tablecloths->get(); // ابتدا collection بگیر
+                $tablecloths = $tablecloths->sortByDesc(function ($tablecloth) {
+                    return $tablecloth->orderitems->sum('count'); // جمع فروش
+                });
+                break;
+
+            case 'lastDate':
+                $tablecloths = $tablecloths->orderByDesc('created_at')->get();
+                break;
+
             case 'cheapest':
-                $tablecloths->orderBy('price', 'asc');
+                $tablecloths = $tablecloths->get()->sortBy(function ($tablecloth) {
+                    $price = $tablecloth->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
                 break;
+
             case 'expensive':
-                $tablecloths->orderBy('price', 'desc');
+                $tablecloths = $tablecloths->get()->sortByDesc(function ($tablecloth) {
+                    $price = $tablecloth->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
                 break;
+
+            case 'topOffer':
+                $tablecloths = $tablecloths->get()->sortByDesc(function ($tablecloth) {
+                    $price = $tablecloth->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    $off = 0;
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ') $off = $price->offPrice;
+                        elseif ($price->offType == 'درصد') $off = $price->price * ($price->offPrice / 100);
+                    }
+                    return $off;
+                });
+                break;
+
             case 'popular':
-                $tablecloths->orderBy('views', 'desc');
+                $tablecloths = $tablecloths->get()->sortByDesc(function ($tablecloth) {
+                    return $tablecloth->grades->sum('grade');
+                });
                 break;
+
             default:
-                $tablecloths->orderBy('created_at', 'desc');
+                $tablecloths = $tablecloths->orderByDesc('created_at')->get();
+                break;
         }
-        $tablecloths = $tablecloths->paginate(12);
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
 
-        $tablecloths->appends(request()->all());
+            $tablecloths = $tablecloths->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
+        // بعد paginate collection (Laravel 7)
+        $page = request()->get('page', 1);
+        $perPage = 12;
 
-        $tablecloths->withPath(route('tablecloth.storeIndex'));
+        $items = $tablecloths->forPage($page, $perPage);
+
+        $tablecloths = new LengthAwarePaginator(
+            $items,
+            $tablecloths->count(),
+            $perPage,
+            $page,
+            [
+                'path' => route('tablecloth.storeIndex'),
+                'query' => request()->query() // این جایگزین withQueryString میشه
+            ]
+        );
 
         $designs = collect();
         $colors = collect();
@@ -523,8 +593,8 @@ class TableclothController extends Controller
         $designs = $designs->unique('id');
         $colors = $colors->unique('id');
 
-        $minPrices = Price::where("local", "تومان")->min('price');
-        $maxPrices = Price::where("local", "تومان")->max('price');
+        $minPrices = $request->minPrice ?? Price::where("local", "تومان")->min('price');
+        $maxPrices = $request->maxPrice ?? Price::where("local", "تومان")->max('price');
         $categories = Category::where('parent_id', 1)
             ->where('model', 'App\Tablecloth')
             ->where('active', 1)
@@ -649,6 +719,15 @@ class TableclothController extends Controller
                 $tablecloths = $tablecloths->orderByDesc('created_at')->get();
                 break;
         }
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
+
+            $tablecloths = $tablecloths->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
         // بعد paginate collection (Laravel 7)
         $page = request()->get('page', 1);
         $perPage = 12;
@@ -678,6 +757,23 @@ class TableclothController extends Controller
             'pagination' => (string) $tablecloths->links()
         ]);
     }
+    private function finalPrice($tablecloth)
+    {
+        $price = $tablecloth->prices->where("local", "تومان")->first();
+
+        if (!$price) return 0;
+
+        if ($price->offPrice > 0) {
+            if ($price->offType == 'مبلغ')
+                return $price->price - $price->offPrice;
+
+            elseif ($price->offType == 'درصد')
+                return $price->price - ($price->price * ($price->offPrice / 100));
+        }
+
+        return $price->price;
+    }
+
 
 
     public function storeFilter(Request $request)
