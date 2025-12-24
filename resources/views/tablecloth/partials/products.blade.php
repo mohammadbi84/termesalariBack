@@ -77,16 +77,20 @@
                                 @endif
                             </span>
                         @endif
-                        @if ($prices->offPrice > 0)
-                            @if ($prices->offType == 'مبلغ')
-                                {{ number_format($prices->price - $prices->offPrice) }}
-                            @elseif($prices->offType == 'درصد')
-                                {{ number_format($prices->price - $prices->price * ($prices->offPrice / 100)) }}
+                        @if ($tablecloth->quantity > 0)
+                            @if ($prices->offPrice > 0)
+                                @if ($prices->offType == 'مبلغ')
+                                    {{ number_format($prices->price - $prices->offPrice) }}
+                                @elseif($prices->offType == 'درصد')
+                                    {{ number_format($prices->price - $prices->price * ($prices->offPrice / 100)) }}
+                                @endif
+                            @else
+                                {{ number_format($prices->price) }}
                             @endif
+                            تومان
                         @else
-                            {{ number_format($prices->price) }}
+                            ناموجود
                         @endif
-                        تومان
                     </span>
 
                     {{-- <button class="btn btn-custom btn-sm product-action"
@@ -108,8 +112,9 @@
                                 class="fa-solid fa-cart-plus"></i></button>
                     </div>
                     <div class="col-3 d-flex justify-content-center align-items-center">
-                        <button class="buy-button add-to-cart favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="افزودن به لیست علاقه‌مندی ها"
+                        <button
+                            class="buy-button add-to-cart favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به لیست علاقه‌مندی ها"
                             data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                             data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                             data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
@@ -136,7 +141,8 @@
                                 class="fa-solid fa-shuffle"></i></button>
                     </div>
                     <div class="col-3 d-flex justify-content-center align-items-center">
-                        <a href="{{ route('tablecloth.show', [$tablecloth->id]) }}" class="buy-button add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
+                        <a href="{{ route('tablecloth.show', [$tablecloth->id]) }}"
+                            class="buy-button add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
                             <i class="fa-solid fa-eye" style="top: -1px"></i>
                         </a>
                     </div>

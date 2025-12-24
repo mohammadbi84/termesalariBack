@@ -368,3 +368,41 @@
         display: none;
     }
 }
+
+
+.custom-check-rtl {
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0;
+    /* خنثی کردن بوت‌استرپ */
+    padding-right: 0;
+}
+
+.custom-check-rtl .form-check-input {
+    margin-left: 0;
+    margin-right: 0;
+    order: 2;
+    /* چک‌باکس سمت راست */
+}
+
+.custom-check-rtl .form-check-label {
+    order: 1;
+    /* لیبل سمت چپ */
+    margin-right: 8px;
+    cursor: pointer;
+    text-align: right;
+    flex: 1;
+}
+
+.input_label_toman {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.autocomplete .clear-btn {
+    left: 55px !important;
+}

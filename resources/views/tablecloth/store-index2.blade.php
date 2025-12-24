@@ -5,7 +5,7 @@
 @endsection
 @section('content')
     <div class="container" style="margin-top:100px;">
-        <div class="row g-0 rounded-3 border bg-white px-4 mb-4">
+        <div class="row g-0 rounded-3 px-2 mb-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="/store" class="text-decoration-none text-muted"><i
@@ -26,7 +26,7 @@
                         <div class="filter-header">جستجو در کالاها</div>
 
                         <div class="autocomplete" id="autocompleteBoxsearch">
-                            <input type="search" id="searchInputsearch" class="" name="search"
+                            <input type="text" id="searchInputsearch" class="" name="search"
                                 oninput="nameinput('search')">
                             <label for="searchInputsearch">جستجو کنید...</label>
                             <span class="clear-btn" id="clearBtn_search" onclick="clearInput('search')">×</span>
@@ -35,17 +35,19 @@
 
                     {{-- قیمت --}}
                     <div class="filter-card">
-                        <div class="filter-header">محدوده قیمت <small>(تومان)</small></div>
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <div class="autocomplete" id="autocompleteBoxmin">
-                                <input type="text" id="searchInputmin" class="only-number" name="minPrice"
-                                    oninput="nameinput('min')">
+                        <div class="filter-header">محدوده قیمت</div>
+                        <div class="d-flex flex-column align-items-center gap-3 mb-2">
+                            <div class="autocomplete w-100" id="autocompleteBoxmin">
+                                <span class="text-muted input_label_toman">تومان</span>
+                                <input type="text" id="searchInputmin" class="only-number pe-2" name="minPrice" style="padding-left: 66px;"
+                                    data-fakename="min" oninput="nameinput('min')">
                                 <label for="searchInputmin">از</label>
                                 <span class="clear-btn" id="clearBtn_min" onclick="clearInput('min')">×</span>
                             </div>
-                            <div class="autocomplete" id="autocompleteBoxmax">
-                                <input type="text" id="searchInputmax" class="only-number" name="maxPrice"
-                                    oninput="nameinput('max')">
+                            <div class="autocomplete w-100" id="autocompleteBoxmax">
+                                <span class="text-muted input_label_toman">تومان</span>
+                                <input type="text" id="searchInputmax" class="only-number pe-2" name="maxPrice" style="padding-left: 66px;"
+                                    data-fakename="max" oninput="nameinput('max')">
                                 <label for="searchInputmax">تا</label>
                                 <span class="clear-btn" id="clearBtn_max" onclick="clearInput('max')">×</span>
                             </div>
@@ -79,12 +81,11 @@
 
                         <div id="categoryList" class="filter-list">
                             @foreach ($categories as $cat)
-                                <div class="form-check mb-2 cat-item">
+                                <div class="form-check mb-2 cat-item custom-check-rtl">
                                     <input class="form-check-input filter-check category-filter" type="checkbox"
                                         value="{{ $cat->id }}" id="cat{{ $cat->id }}"
                                         {{ in_array($cat->id, request()->categories ?? []) ? 'checked' : '' }}>
-                                    <label class="form-check-label"
-                                        for="cat{{ $cat->id }}">{{ $cat->title }}</label>
+                                    <label class="form-check-label" for="cat{{ $cat->id }}">{{ $cat->title }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -104,7 +105,7 @@
                         </div>
                         <div class="filter-list" id="designList">
                             @foreach ($designs as $design)
-                                <div class="form-check design-item">
+                                <div class="form-check design-item custom-check-rtl">
                                     <input type="checkbox" class="form-check-input filter-check design-filter"
                                         value="{{ $design->id }}" id="design{{ $design->id }}"
                                         {{ in_array($design->id, request()->designs ?? []) ? 'checked' : '' }}>
@@ -128,7 +129,7 @@
                         </div>
                         <div class="filter-list" id="colorList">
                             @foreach ($colors as $color)
-                                <div class="form-check color-item">
+                                <div class="form-check color-item custom-check-rtl">
                                     <input type="checkbox" class="form-check-input filter-check color-filter"
                                         value="{{ $color->id }}" id="color{{ $color->id }}"
                                         {{ in_array($color->id, request()->colors ?? []) ? 'checked' : '' }}>
@@ -244,15 +245,18 @@
                 $('.color-filter[type="checkbox"]:checked').each(function() {
                     colors.push($(this).val());
                 });
+                let minPrice = $('#searchInputmin').val().replace(/,/g, '');
+                let maxPrice = $('#searchInputmax').val().replace(/,/g, '');
 
                 return {
                     designs: designs,
                     colors: colors,
                     categories: cats,
                     stock: $('#stockSwitch').is(':checked') ? 1 : 0,
+                    onlyOffer: $('#onlyOffer').is(':checked') ? 1 : 0,
                     sort: $('.sort-item.active').data('val'),
-                    minPrice: $('input[name="minPrice"]').val(),
-                    maxPrice: $('input[name="maxPrice"]').val(),
+                    minPrice: minPrice,
+                    maxPrice: maxPrice,
                     search: $('input[name="search"]').val(),
                     view: $('#btnListView').hasClass('active') ? 'list' : 'grid'
                 };
@@ -930,17 +934,20 @@
 
         $(document).on("input", ".only-number", function() {
             this.value = this.value.replace(/[^0-9]/g, "");
-            let name = $(this).attr("name");
+            let name = $(this).data('fakename');
             const box = document.getElementById("autocompleteBox" + name);
             const clearBtn = document.getElementById("clearBtn_" + name);
             let value2 = $(this).val();
             if (value2.length > 0) {
                 box.classList.add("filled");
                 clearBtn.style.display = "block";
+                // تبدیل به عدد و فرمت سه‌تا سه‌تا
+                this.value = Number(value2).toLocaleString('en-US');
             } else {
                 box.classList.remove("filled");
                 clearBtn.style.display = "none";
             }
+
         });
 
         function nameinput(id) {

@@ -633,7 +633,6 @@ class TableclothController extends Controller
             });
         }
 
-
         // *** فیلتر رنگ ***
         if ($request->colors) {
             $tablecloths->whereHas('color_design.color', function ($q) use ($request) {
@@ -641,6 +640,24 @@ class TableclothController extends Controller
             });
         }
 
+        // *** فیلتر باکس جستجو ***
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $tablecloths->where(function ($q) use ($search) {
+                // دسته‌بندی
+                $q->whereHas('category', function ($q2) use ($search) {
+                    $q2->where('title', 'LIKE', "%{$search}%");
+                })
+                    // طرح
+                    ->orWhereHas('color_design.design', function ($q2) use ($search) {
+                        $q2->where('title', 'LIKE', "%{$search}%");
+                    })
+                    // رنگ
+                    ->orWhereHas('color_design.color', function ($q2) use ($search) {
+                        $q2->where('color', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
 
         // *** فیلتر دسته ***
         if ($request->categories) {
@@ -648,8 +665,16 @@ class TableclothController extends Controller
         }
 
         // *** فیلتر موجود بودن ***
-        if ($request->quantity == 1) {
+        if ($request->stock == 1) {
             $tablecloths->where('quantity', '>', 0);
+        }
+
+        // *** فیلتر فقط تخفیف دار ها ***
+        if ($request->onlyOffer == 1) {
+            $tablecloths->whereHas('prices', function ($q) {
+                $q->where('local', 'تومان')
+                    ->where('offPrice', '>', 0);
+            });
         }
 
         // *** مرتب‌سازی ***
@@ -744,19 +769,14 @@ class TableclothController extends Controller
                 'query' => request()->query() // این جایگزین withQueryString میشه
             ]
         );
-        // $tablecloths = $tablecloths->paginate(12);
-
-        // $tablecloths->appends(request()->all());
-
-        // $tablecloths->withPath(route('tablecloth.storeIndex'));
-
-
 
         return response()->json([
             'html' => view('tablecloth.partials.products', compact('tablecloths'))->render(),
             'pagination' => (string) $tablecloths->links()
         ]);
     }
+
+
     private function finalPrice($tablecloth)
     {
         $price = $tablecloth->prices->where("local", "تومان")->first();
@@ -773,8 +793,6 @@ class TableclothController extends Controller
 
         return $price->price;
     }
-
-
 
     public function storeFilter(Request $request)
     {
@@ -950,4 +968,4 @@ class TableclothController extends Controller
             ->with('categories', $categories)
             ->with('colors', $colors);
     }
-}//END
+}

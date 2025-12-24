@@ -526,7 +526,7 @@ i {
 }
 
 .container {
-    max-width: 1200px;
+    /* max-width: 1200px; */
 }
 
 .discount-badge {
@@ -753,9 +753,9 @@ i {
     gap: 1.5rem;
     align-items: flex-start;
     justify-content: center;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
-    padding: 30px 15px;
+    padding: 30px 18px;
     position: relative;
 }
 
