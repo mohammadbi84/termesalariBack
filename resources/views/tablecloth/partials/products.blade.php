@@ -25,6 +25,10 @@
                 </h5>
 
                 <div class="stars text-start">
+                    <small class="text-muted ms-2">
+                        {{ count($tablecloth->grades) }} نفر
+                    </small>
+
                     @php
                         $score =
                             $tablecloth->comments()->sum('score') /
@@ -37,6 +41,7 @@
                             <i class="fa-regular fa-star"></i>
                         @endif
                     @endfor
+
                     {{-- <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -44,7 +49,6 @@
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center w-100 mt-auto mb-2">
-
                     <span class="product-price">
                         @php
                             $prices = $tablecloth->prices->where('local', 'تومان')->first();
@@ -90,10 +94,9 @@
                         <i class="fas fa-cart-plus"></i>
                         {{ $tablecloth->quantity <= 0 ? 'ناموجود' : 'خرید' }}
                     </button> --}}
-
                 </div>
                 <div class="row g-0 w-100">
-                    <div class="col-3 ps-2">
+                    <div class="col-3 d-flex justify-content-center align-items-center">
                         <button class="buy-button add-to-cart @if ($tablecloth->quantity != 0) addToCart @endif"
                             data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                             data-id="{{ $tablecloth->id }}" data-moddel="Tablecloth"
@@ -104,16 +107,38 @@
                             data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"><i
                                 class="fa-solid fa-cart-plus"></i></button>
                     </div>
-                    <div class="col-9 pe-2">
-                        <a href="{{ route('tablecloth.show', [$tablecloth->id]) }}"
-                            class="buy-button text-decoration-none">مشاهده</a>
-                        <span class="fs-10 p-0">
-                            @if ($tablecloth->quantity == 0)
-                                اتمام موجودی در انبار
-                            @elseif($tablecloth->quantity <= 5)
-                                کمتر از 5 عدد موجود می باشد .
-                            @endif
-                        </span>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <button class="buy-button add-to-cart favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="افزودن به لیست علاقه‌مندی ها"
+                            data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                            data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                            data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
+                            data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
+                            data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                            data-pay="{{ $price }}" data-off="{{ $off }}"
+                            data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                            data-id="{{ $tablecloth->id }}"
+                            data-model="{{ substr($tablecloth->category->model, 4) }}"><i
+                                class="fa-regular fa-heart text-danger"></i></button>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <button class="buy-button add-to-cart compare" id="" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="برای مقایسه کلیک کنید"
+                            data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                            data-moddel="{{ substr($tablecloth->category->model, 4) }}"
+                            data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
+                            data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
+                            data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                            data-pay="{{ $price }}" data-off="{{ $off }}"
+                            data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                            data-id="{{ $tablecloth->id }}"
+                            data-model="{{ substr($tablecloth->category->model, 4) }}"><i
+                                class="fa-solid fa-shuffle"></i></button>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <a href="{{ route('tablecloth.show', [$tablecloth->id]) }}" class="buy-button add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
+                            <i class="fa-solid fa-eye" style="top: -1px"></i>
+                        </a>
                     </div>
                 </div>
 

@@ -110,6 +110,18 @@
                                                                     ->where('local', 'تومان')
                                                                     ->first();
                                                             @endphp
+                                                            @php
+                                                                $off = 0;
+                                                                if ($price->offPrice > 0) {
+                                                                    if ($price->offType == 'مبلغ') {
+                                                                        $off = $price->offPrice;
+                                                                    } elseif ($price->offType == 'درصد') {
+                                                                        $off = $price->price * ($price->offPrice / 100);
+                                                                    }
+                                                                }
+                                                            @endphp
+
+
                                                             @if ($price->offPrice > 0)
                                                                 @if ($price->offType == 'مبلغ')
                                                                     <span
@@ -136,11 +148,11 @@
                                                             data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
                                                             data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
                                                             data-title="{{ $favorite->favoriteable->title }}"
-                                                            data-price="{{ $prices->price }}"
+                                                            data-price="{{ $price->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
-                                                            data-offType="{{ $prices->offType }}"
-                                                            data-local="{{ $prices->local }}"
+                                                            data-offType="{{ $price->offType }}"
+                                                            data-local="{{ $price->local }}"
                                                             data-id="{{ $favorite->favoriteable->id }}"
                                                             data-model="{{ substr($favorite->favoriteable_type, 4) }}"
                                                             style="width: 30px;height:30px"><i
@@ -151,11 +163,11 @@
                                                             data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
                                                             data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
                                                             data-title="{{ $favorite->favoriteable->title }}"
-                                                            data-price="{{ $prices->price }}"
+                                                            data-price="{{ $price->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
-                                                            data-offType="{{ $prices->offType }}"
-                                                            data-local="{{ $prices->local }}"
+                                                            data-offType="{{ $price->offType }}"
+                                                            data-local="{{ $price->local }}"
                                                             data-id="{{ $favorite->favoriteable->id }}"
                                                             data-model="{{ substr($favorite->favoriteable_type, 4) }}"
                                                             style="width: 30px;height:30px"><i
@@ -474,7 +486,7 @@
                                             <ul class="sub-categories">
                                                 @foreach ($category->childs as $cat)
                                                     <li><a
-                                                            href="{{ route($category->link) ?? '#' }}">{{ $cat->title ?? '--' }}</a>
+                                                            href="{{ route($category->link) ?? '#' }}?categories[]={{ $cat->id }}">{{ $cat->title ?? '--' }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>

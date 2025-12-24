@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\TableclothController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -236,6 +237,8 @@ route::post('/bedcover/changeVisibilityGroup','BedcoverController@changeVisibili
 Route::get('/bedcover/duplicate/{bedcover}','BedcoverController@duplicate')->name('bedcover.duplicate');
 Route::get('/store/bedcovers/','BedcoverController@storeIndex')->name('bedcover.storeIndex');
 Route::get('/store/bedcovers/filter', 'BedcoverController@storeFilter')->name('bedcover.storeFilter');
+Route::get('/ajax/bedcovers', [BedcoverController::class, 'ajaxStore'])->name('bedcovers.filter');
+
 
 
 Route::resource('prayermat','PrayermatController');

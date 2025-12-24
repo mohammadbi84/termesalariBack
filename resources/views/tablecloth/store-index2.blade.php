@@ -1,342 +1,19 @@
 @extends('shop.layouts.master')
 @section('title', 'محصولات رومیزی')
 @section('head')
-    <style>
-        :root {
-            --primary-color: #4FBA6C;
-            --dark-green: #327942;
-            --bg-light: #f8f9fa;
-        }
-
-        /* --- استایل‌های عمومی --- */
-        .filter-card {
-            background: white;
-            border: 1px solid #e1e1e1;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .filter-header {
-            font-weight: bold;
-            color: var(--dark-green);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        /* --- استایل کارت محصول (Grid View) --- */
-        .product-card {
-            border: 1px solid #eee;
-            transition: all 0.3s ease;
-            border-radius: 10px;
-            background: white;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 0 !important;
-        }
-
-        .product-card:hover {
-            box-shadow: 0 5px 15px rgba(79, 186, 108, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        /* بخش تصویر */
-        .product-img-wrapper {
-            height: 220px;
-            background-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .product-img-wrapper img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        /* لیبل ناموجود */
-        .out-of-stock-badge {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(220, 53, 69, 0.9);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            z-index: 2;
-        }
-
-        /* تار کردن تصویر محصول ناموجود */
-        .product-card.out-of-stock .product-img-wrapper img {
-            opacity: 0.5;
-            filter: grayscale(100%);
-        }
-
-        /* بدنه کارت */
-        .card-body {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-title {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .stars {
-            color: #ffc107;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-        }
-
-        .product-price {
-            color: var(--dark-green);
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-top: auto;
-        }
-
-        /* --- استایل لیست افقی (List View) --- */
-        /* وقتی کلاس list-view به نگهدارنده اضافه شود */
-        .products-container.list-view .col-item {
-            width: 100%;
-            /* تمام عرض */
-            flex: 0 0 100%;
-        }
-
-        .products-container.list-view .product-card {
-            display: flex;
-            flex-direction: row;
-            /* چیدمان افقی */
-            height: auto;
-            align-items: center;
-        }
-
-        .products-container.list-view .product-img-wrapper {
-            width: 200px;
-            height: 180px;
-            flex-shrink: 0;
-        }
-
-        .products-container.list-view .card-body {
-            align-items: flex-start;
-            text-align: right;
-            width: 100%;
-        }
-
-        .products-container.list-view .product-action {
-            margin-top: 0;
-            margin-right: auto;
-            /* دکمه برود سمت چپ */
-        }
-
-        /* --- جستجوی دسته‌بندی --- */
-        .cat-search-wrapper {
-            position: relative;
-            margin-bottom: 10px;
-        }
-
-        .cat-search-input {
-            width: 100%;
-            padding: 5px 30px 5px 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 0.9rem;
-        }
-
-        .cat-search-clear {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #999;
-            display: none;
-            /* پیش‌فرض مخفی */
-        }
-
-        .cat-search-clear:hover {
-            color: #dc3545;
-        }
-
-        /* --- مرتب‌سازی جدید --- */
-        .sort-options {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .sort-item {
-            cursor: pointer;
-            color: #666;
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 20px;
-            transition: 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .sort-item:hover {
-            color: var(--primary-color);
-            background: #e9f7ec;
-        }
-
-        .sort-item.active {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: bold;
-        }
-
-        /* دکمه‌های ویو */
-        .view-btn {
-            border: 1px solid #ddd;
-            background: white;
-            color: #666;
-            width: 35px;
-            height: 35px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .view-btn.active {
-            background-color: var(--dark-green);
-            color: white;
-            border-color: var(--dark-green);
-        }
-
-        .btn-custom {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-        }
-
-        .btn-custom:hover {
-            background-color: var(--dark-green);
-            color: white;
-        }
-
-        .btn-custom:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        @media (max-width: 576px) {
-            .products-container.list-view .product-card {
-                flex-direction: column;
-            }
-
-            .products-container.list-view .product-img-wrapper {
-                width: 100%;
-                height: 200px;
-            }
-
-            .sort-options {
-                gap: 5px;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* چک‌باکس و رنج */
-        .form-check-input:checked {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .active>.page-link,
-        .page-link.active {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .page-link {
-            color: var(--primary-color);
-        }
-
-        .page-link:hover {
-            color: var(--primary-color);
-        }
-
-        .filter-list {
-            padding-left: 10px;
-            max-height: 300px;
-            overflow-y: scroll;
-        }
-
-        .filter-list::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .filter-list::-webkit-scrollbar-thumb {
-            background-color: #ccc;
-            border-radius: 5px;
-        }
-
-        .page-item:last-child .page-link {
-            border-top-left-radius: var(--bs-pagination-border-radius) !important;
-            border-bottom-left-radius: var(--bs-pagination-border-radius) !important;
-            border-top-right-radius: 0 !important;
-            border-bottom-right-radius: 0 !important;
-        }
-
-        .page-item:first-child .page-link {
-            border-top-right-radius: var(--bs-pagination-border-radius);
-            border-bottom-right-radius: var(--bs-pagination-border-radius);
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
-            margin-left: calc(var(--bs-border-width) * -1);
-            border-top-right-radius: 0 !important;
-            border-bottom-right-radius: 0 !important;
-            border-top-left-radius: 8px !important;
-            border-bottom-left-radius: 8px !important;
-        }
-
-        .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
-        .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control,
-        .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select,
-        .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
-            border-top-right-radius: 8px !important;
-            border-bottom-right-radius: 8px !important;
-            border-top-left-radius: 0 !important;
-            border-bottom-left-radius: 0 !important;
-        }
-
-        .pagination {
-            padding: 0 !important;
-        }
-
-        @media (max-width: 576px) {
-
-            .pagination li a,
-            .pagination li span {
-                padding: .35rem .55rem;
-                font-size: .8rem;
-            }
-
-            .pagination li:not(.active):not(:first-child):not(:last-child) {
-                display: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('shop/css/products.css') }}">
 @endsection
 @section('content')
     <div class="container" style="margin-top:100px;">
+        <div class="row g-0 rounded-3 border bg-white px-4 mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="/store" class="text-decoration-none text-muted"><i
+                                class="fas fa-home"></i> خانه</a></li>
+                    <li class="breadcrumb-item">محصولات رومیزی</li>
+                </ol>
+            </nav>
+        </div>
         <div class="row">
 
             {{-- SIDEBAR FILTERS --}}
@@ -348,10 +25,42 @@
                     <div class="filter-card">
                         <div class="filter-header">جستجو در کالاها</div>
 
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="searchInput" placeholder="نام محصول...">
-                            <button class="btn btn-custom" id="btnSearch" type="button"><i
-                                    class="fas fa-search"></i></button>
+                        <div class="autocomplete" id="autocompleteBoxsearch">
+                            <input type="search" id="searchInputsearch" class="" name="search"
+                                oninput="nameinput('search')">
+                            <label for="searchInputsearch">جستجو کنید...</label>
+                            <span class="clear-btn" id="clearBtn_search" onclick="clearInput('search')">×</span>
+                        </div>
+                    </div>
+
+                    {{-- قیمت --}}
+                    <div class="filter-card">
+                        <div class="filter-header">محدوده قیمت <small>(تومان)</small></div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <div class="autocomplete" id="autocompleteBoxmin">
+                                <input type="text" id="searchInputmin" class="only-number" name="minPrice"
+                                    oninput="nameinput('min')">
+                                <label for="searchInputmin">از</label>
+                                <span class="clear-btn" id="clearBtn_min" onclick="clearInput('min')">×</span>
+                            </div>
+                            <div class="autocomplete" id="autocompleteBoxmax">
+                                <input type="text" id="searchInputmax" class="only-number" name="maxPrice"
+                                    oninput="nameinput('max')">
+                                <label for="searchInputmax">تا</label>
+                                <span class="clear-btn" id="clearBtn_max" onclick="clearInput('max')">×</span>
+                            </div>
+                        </div>
+                        <button type="button" id="priceFilterBtn" class="btn btn-custom w-100 btn-sm mt-2">اعمال</button>
+                    </div>
+                    {{-- موجود بودن --}}
+                    <div class="filter-card">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input filter-check" type="checkbox" id="stockSwitch">
+                            <label class="form-check-label fw-bold" for="stockSwitch">فقط کالاهای موجود</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input filter-check" type="checkbox" id="onlyOffer">
+                            <label class="form-check-label fw-bold" for="onlyOffer">فقط تخفیف و حراجی</label>
                         </div>
                     </div>
 
@@ -359,10 +68,14 @@
                     <div class="filter-card">
                         <div class="filter-header">دسته‌بندی‌ها</div>
 
-                        {{-- <div class="cat-search-wrapper">
-                            <input type="text" class="cat-search-input" id="catSearchInput" placeholder="جستجوی دسته...">
-                            <i class="fas fa-times cat-search-clear" id="catSearchClear"></i>
-                        </div> --}}
+                        <div class="cat-search-wrapper">
+                            <div class="autocomplete" id="autocompleteBoxcat">
+                                <input type="cat" id="searchInputcat" class="" name="cat"
+                                    oninput="nameinput('cat')">
+                                <label for="searchInputcat">جستجوی دسته بندی...</label>
+                                <span class="clear-btn" id="clearBtn_cat" onclick="clearInput('cat')">×</span>
+                            </div>
+                        </div>
 
                         <div id="categoryList" class="filter-list">
                             @foreach ($categories as $cat)
@@ -370,7 +83,8 @@
                                     <input class="form-check-input filter-check category-filter" type="checkbox"
                                         value="{{ $cat->id }}" id="cat{{ $cat->id }}"
                                         {{ in_array($cat->id, request()->categories ?? []) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="cat{{ $cat->id }}">{{ $cat->title }}</label>
+                                    <label class="form-check-label"
+                                        for="cat{{ $cat->id }}">{{ $cat->title }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -380,9 +94,17 @@
                     {{-- طرح --}}
                     <div class="filter-card">
                         <div class="filter-header">طرح</div>
-                        <div class="filter-list">
+                        <div class="cat-search-wrapper">
+                            <div class="autocomplete" id="autocompleteBoxdesign">
+                                <input type="text" id="searchInputdesign" class="" name="design"
+                                    oninput="nameinput('design')">
+                                <label for="searchInputdesign">جستجوی طرح...</label>
+                                <span class="clear-btn" id="clearBtn_design" onclick="clearInput('design')">×</span>
+                            </div>
+                        </div>
+                        <div class="filter-list" id="designList">
                             @foreach ($designs as $design)
-                                <div class="form-check">
+                                <div class="form-check design-item">
                                     <input type="checkbox" class="form-check-input filter-check design-filter"
                                         value="{{ $design->id }}" id="design{{ $design->id }}"
                                         {{ in_array($design->id, request()->designs ?? []) ? 'checked' : '' }}>
@@ -396,9 +118,17 @@
                     {{-- رنگ --}}
                     <div class="filter-card">
                         <div class="filter-header">رنگ</div>
-                        <div class="filter-list">
+                        <div class="cat-search-wrapper">
+                            <div class="autocomplete" id="autocompleteBoxcolor">
+                                <input type="text" id="searchInputcolor" class="" name="color"
+                                    oninput="nameinput('color')">
+                                <label for="searchInputcolor">جستجوی رنگ...</label>
+                                <span class="clear-btn" id="clearBtn_color" onclick="clearInput('color')">×</span>
+                            </div>
+                        </div>
+                        <div class="filter-list" id="colorList">
                             @foreach ($colors as $color)
-                                <div class="form-check">
+                                <div class="form-check color-item">
                                     <input type="checkbox" class="form-check-input filter-check color-filter"
                                         value="{{ $color->id }}" id="color{{ $color->id }}"
                                         {{ in_array($color->id, request()->colors ?? []) ? 'checked' : '' }}>
@@ -408,29 +138,6 @@
                             @endforeach
                         </div>
                     </div>
-
-                    {{-- موجود بودن --}}
-                    <div class="filter-card">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input filter-check" type="checkbox" id="stockSwitch"
-                                {{ request('stock') == 0 ? 'checked' : '' }}>
-                            <label class="form-check-label fw-bold" for="stockSwitch">فقط کالاهای موجود</label>
-                        </div>
-                    </div>
-
-                    {{-- قیمت --}}
-                    <div class="filter-card">
-                        <div class="filter-header">محدوده قیمت</div>
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <input type="number" id="minPrice" name="minPrice" class="form-control form-control-sm"
-                                placeholder="از" value="{{ $minPrices }}">
-                            <span>تا</span>
-                            <input type="number" id="maxPrice" name="maxPrice" class="form-control form-control-sm"
-                                placeholder="تا" value="{{ $maxPrices }}">
-                        </div>
-                        <button type="button" id="priceFilterBtn" class="btn btn-custom w-100 btn-sm mt-2">اعمال</button>
-                    </div>
-
                 </form>
 
             </aside>
@@ -473,7 +180,6 @@
 
     <script>
         $(document).ready(function() {
-
             /** ==========================
              *  1) مقداردهی اولیه از Route
              * ========================= */
@@ -573,10 +279,35 @@
                 });
             }
 
+            reorderAllFilterLists();
 
             /** ==========================
              *  5) Event Listeners
              * ========================= */
+
+            function reorderAllFilterLists() {
+
+                $('.filter-list').each(function() {
+
+                    let container = $(this);
+
+                    // گرفتن همه آیتم ها
+                    let checkedItems = container.find('.filter-check:checked')
+                        .closest('.form-check')
+                        .sort((a, b) => {
+                            return $(a).find('label').text().localeCompare($(b).find('label').text());
+                        });
+
+                    let uncheckedItems = container.find('.filter-check:not(:checked)')
+                        .closest('.form-check')
+                        .sort((a, b) => {
+                            return $(a).find('label').text().localeCompare($(b).find('label').text());
+                        });
+
+                    container.append(checkedItems);
+                    container.append(uncheckedItems);
+                });
+            }
 
             // مرتب‌سازی
             $('.sort-item').click(function() {
@@ -601,7 +332,12 @@
             });
 
             // دسته‌بندی‌ها
-            $('.filter-check').change(fetchProducts);
+            // $('.filter-check').change(fetchProducts, reorderAllFilterLists);
+            $(document).on('change', '.filter-check', function() {
+                reorderAllFilterLists();
+                fetchProducts();
+            });
+
 
             // موجود
             $('#stockSwitch').change(fetchProducts);
@@ -619,20 +355,29 @@
              *  6) جستجو در دسته‌بندی (UI)
              * ========================= */
 
-            // $('#catSearchInput').on('keyup', function() {
-            // let value = $(this).val().toLowerCase();
-            //
-            // if (value.length > 0) $('#catSearchClear').show();
-            // else $('#catSearchClear').hide();
-            //
-            // $('.cat-item').filter(function() {
-            // $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            // });
-            // });
-            //
-            // $('#catSearchClear').click(function() {
-            // $('#catSearchInput').val('').trigger('keyup');
-            // });
+            $('#searchInputcat').on('keyup', function() {
+                let value = $(this).val().toLowerCase();
+
+                $('.cat-item').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+
+            $('#searchInputdesign').on('keyup', function() {
+                let value = $(this).val().toLowerCase();
+
+                $('.design-item').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            $('#searchInputcolor').on('keyup', function() {
+                let value = $(this).val().toLowerCase();
+
+                $('.color-item').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
 
         });
     </script>
@@ -770,5 +515,464 @@
             }
 
         });
+
+
+        // favorites actions
+        $(document).on("click", ".favorites-btn", function(event) {
+            event.preventDefault();
+
+            var $btn = $(this);
+
+            const id = $btn.data('id');
+            const model = $btn.data('model');
+            const price = $btn.data('price');
+            const off = $btn.data('off');
+            const offType = $btn.data('offType');
+            const pay = $btn.data('pay');
+            const local = $btn.data('local');
+            const title = $btn.data('title');
+            const image = $btn.data('image') || '/images/no-image.png';
+            const url = `${document.location.origin}/cart/add/${id}/${model}`;
+            const design = $btn.data('design');
+            const color = $btn.data('color');
+
+
+
+            if ($btn.hasClass('active')) {
+                var urlFavorites = document.location.origin + "/user/remove-favorite/";
+            } else {
+                var urlFavorites = document.location.origin + "/user/add-favorite";
+            }
+
+            $.ajax({
+                type: "GET",
+                url: urlFavorites,
+                data: {
+                    id: id,
+                    model: model
+                },
+                success: function(data) {
+
+                    // اگر سرور گفت نیاز به لاگین داری
+                    if (data.res === "auth") {
+                        Swal.fire({
+                            title: `
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                </div>`,
+                            html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <div class="text-center">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">حساب کاربری ندارید؟ <a href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                </div>
+                            </div>
+                        </form>
+                        `,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                            focusConfirm: false,
+                            allowOutsideClick: true
+                        });
+
+                        // ارسال فرم لاگین با ایجکس
+                        $(document).on("submit", "#loginAjaxForm", function(e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: "/login", // مسیر Laravel login
+                                type: "POST",
+                                data: {
+                                    login: $("#searchInputlogin").val(),
+                                    password: $("#searchInputpassword").val(),
+                                    _token: '<?php echo csrf_token(); ?>',
+                                },
+                                success: function(res) {
+                                    Swal.close();
+
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "ورود موفقیت‌آمیز",
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+
+                                    setTimeout(() => location.reload(), 1200);
+                                },
+                                error: function() {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "ورود ناموفق",
+                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                    });
+                                }
+                            });
+                        });
+
+                        return; // ادامه اجرا متوقف شود
+                    }
+
+                    // پیام اصلی
+                    var text = (data.res === "error") ?
+                        "خطا در اجرای عملیات" :
+                        "عملیات با موفقیت انجام شد.";
+
+                    // -----------------------------
+                    // 🔥 تغییر حالت آیکون قلب
+                    // -----------------------------
+                    if (data.res === "success") {
+                        // شناسه محصول کلیک شده
+                        const productId = $btn.data("id");
+
+                        // 🔥 تمام دکمه‌های علاقه‌مندی با این ID را بگیر
+                        const allSameFavorites = $(`.favorites-btn[data-id='${productId}']`);
+
+                        updateNavbarFavorites({
+                            id,
+                            title,
+                            price,
+                            image,
+                            quantity: 1,
+                            model: model,
+                            off: off,
+                            offType: offType,
+                            design: design,
+                            color: color
+                        });
+                        // روی همه اعمال کن
+                        allSameFavorites.each(function() {
+                            if ($(this).hasClass('active')) {
+                                const $item = $(this);
+                                if ($item.hasClass('discount-squer')) {
+                                    $item.find(".fa-heart")
+                                        .removeClass("text-danger")
+                                        .addClass("text-white");
+                                } else {
+                                    $item.find(".fa-heart")
+                                        .removeClass("fa-solid")
+                                        .addClass("fa-regular");
+                                }
+                                $item.removeClass("active");
+                            } else {
+                                const $item = $(this);
+                                $item.addClass("active");
+                                if ($item.hasClass('discount-squer')) {
+                                    $item.find(".fa-heart")
+                                        .removeClass("text-white")
+                                        .addClass("text-danger");
+                                } else {
+                                    $item.find(".fa-heart")
+                                        .removeClass("fa-regular")
+                                        .addClass("fa-solid");
+                                }
+                                $item.find(".fa-heart")
+                                    .removeClass("fa-regular text-white")
+                                    .addClass("fa-solid text-danger");
+                            }
+
+                        });
+                    }
+
+                    // Swal.fire({
+                    //     icon: title === "خطا در اجرای عملیات" ? "error" : "success",
+                    //     title: title,
+                    //     text: data.message
+                    // });
+                },
+
+                // 🟥 گرفتن خطاهای HTTP مثل 401, 500, 404
+                error: function(xhr) {
+
+                    // اگر لاگین نیستی → سرور 401 می‌دهد
+                    if (xhr.status === 401) {
+                        Swal.fire({
+                            title: `
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                </div>`,
+                            html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <div class="text-center" style="font-size: 14px;">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                </div>
+                            </div>
+                        </form>
+                            `,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                            focusConfirm: false,
+                            allowOutsideClick: true
+                        });
+
+                        // ارسال فرم لاگین با ایجکس
+                        $(document).on("submit", "#loginAjaxForm", function(e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: "/login", // مسیر Laravel login
+                                type: "POST",
+                                data: {
+                                    login: $("#searchInputlogin").val(),
+                                    password: $("#searchInputpassword").val(),
+                                    _token: '<?php echo csrf_token(); ?>',
+                                },
+                                success: function(res) {
+                                    Swal.close();
+
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "ورود موفقیت‌آمیز",
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+
+                                    setTimeout(() => location.reload(), 1200);
+                                },
+                                error: function() {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "ورود ناموفق",
+                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                    });
+                                }
+                            });
+                        });
+
+                        return; // ادامه اجرا متوقف شود
+                    }
+
+                    // سایر خطاها
+                    Swal.fire({
+                        icon: "error",
+                        title: "خطا",
+                        text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
+                    });
+                }
+            });
+        });
+        // 🧡 تابع آپدیت منوی علاقه مندی ها
+        function updateNavbarFavorites(item) {
+            const $badge = $(".favorites-badge"); // شمارشگر علاقه‌مندی
+            const $badge2 = $("#favorites-items-count"); // شمارشگر علاقه‌مندی
+            const $favList = $("#navbarFavoritesList"); // لیست داخل منو
+            // چک کن آیا محصول وجود دارد
+            const exists = $favList.find(`.favorites-item[data-id="${item.id}"][data-model="${item.model}"]`);
+            if (exists.length > 0) {
+                exists.remove(); // حذف از لیست
+                // بروزرسانی تعداد
+                let count = parseInt($badge.text()) || 0;
+                $badge.text(count > 0 ? count - 1 : 0);
+                $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
+
+                return "removed";
+            }
+            if (exists.length === 0) {
+                // افزایش عدد
+                let count = parseInt($badge.text()) || 0;
+                $badge.text(count + 1);
+                $badge2.html(count + 1 + ' کالا ');
+
+                const newItem = `
+                <div class="favorites-item"
+                    data-id="${item.id}"
+                    data-model="${item.model}" >
+                    <img src="${item.image}"
+                        alt="product" class="cart-item-image">
+                    <div class="cart-item-content">
+                        <div class="cart-item-title">
+                            ${item.title} طرح ${item.design} رنگ ${item.color}
+                        </div>
+                        <div class="cart-item-price">
+                            ${Number(item.price).toLocaleString()} تومان
+                        </div>
+                        <div
+                            class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                            <button class="buy-button add-to-cart favorites-btn active"
+                                data-image="${item.image}"
+                                data-moddel="${item.model}"
+                                data-design="${item.design}"
+                                data-color="${item.color}"
+                                data-title="${item.title}"
+                                data-price="${item.price}"
+                                data-pay="${item.pay}"
+                                data-off="${item.off}"
+                                data-offType="${item.offType}"
+                                data-local="${item.local}"
+                                data-id="${item.id}"
+                                data-model="${item.model}"
+                                style="width: 30px;height:30px"><i
+                                    class="fa-solid fa-heart text-danger fa-lg"></i></button>
+                            <button class="buy-button add-to-cart addToCart"
+                                data-image="${item.image}"
+                                data-moddel="${item.model}"
+                                data-design="${item.design}"
+                                data-color="${item.color}"
+                                data-title="${item.title}"
+                                data-price="${item.price}"
+                                data-pay="${item.pay}"
+                                data-off="${item.off}"
+                                data-offType="${item.offType}"
+                                data-local="${item.local}"
+                                data-id="${item.id}"
+                                data-model="${item.model}"
+                                style="width: 30px;height:30px"><i
+                                    class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                $favList.prepend(newItem);
+            }
+        }
+
+        $(document).on("click", ".compare", function(event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+            var model = $(this).data("model");
+            var $btn = $(this);
+            const image = $btn.data('image');
+            const title = $btn.data('title');
+            const design = $btn.data('design');
+            const color = $btn.data('color');
+            const price = $btn.data('price');
+            $.ajax({
+                type: "GET",
+                url: document.location.origin + "/compare/add",
+                data: {
+                    id: id,
+                    model: model,
+                },
+                success: function(data) {
+                    document.querySelector(".compare-badge").textContent = data;
+                    document.querySelector(".compare-items-count").textContent = data +
+                        " کالا";
+                    const $compList = $("#navbarCompareList"); // لیست داخل منو
+                    const exists = $compList.find(
+                        `.compare-item[data-id="${id}"][data-model="${model}"]`);
+                    if (exists.length === 0) {
+                        const newItem = `
+                    <div class="compare-item"
+                        data-id="${id}"
+                        data-model="${model}" >
+                        <img src="${image}"
+                            alt="product" class="cart-item-image">
+                        <div class="cart-item-content">
+                            <div class="cart-item-title">
+                                ${title} طرح ${design} رنگ ${color}
+                            </div>
+                            <div class="cart-item-price">
+                                ${Number(price).toLocaleString()} تومان
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                        $compList.prepend(newItem);
+                    }
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "عملیا با موفقیت انجام شد.",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                },
+            });
+        });
+
+        $(document).on("input", ".only-number", function() {
+            this.value = this.value.replace(/[^0-9]/g, "");
+            let name = $(this).attr("name");
+            const box = document.getElementById("autocompleteBox" + name);
+            const clearBtn = document.getElementById("clearBtn_" + name);
+            let value2 = $(this).val();
+            if (value2.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
+            }
+        });
+
+        function nameinput(id) {
+            const input = document.getElementById("searchInput" + id);
+            const box = document.getElementById("autocompleteBox" + id);
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            if (input.value.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
+            }
+        }
+
+        function clearInput(id) {
+            const box = document.getElementById("autocompleteBox" + id);
+            box.classList.remove("filled");
+            const input = document.getElementById("searchInput" + id);
+            input.value = "";
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            clearBtn.style.display = "none";
+
+            if (id == "state") {
+                const box2 = document.getElementById("autocompleteBoxcity");
+                const input2 = document.getElementById("searchInputcity");
+                input2.value = "";
+                document.getElementById("selectedIdcity").value = "";
+                box2.classList.remove("filled");
+                const clearBtn2 = document.getElementById("clearBtn_city");
+                clearBtn2.style.display = "none";
+            }
+        }
     </script>
 @endsection
