@@ -21,6 +21,17 @@ html {
     background-color: #327942 !important;
     border: 1px solid #327942 !important;
 }
+.btn-tell {
+    z-index: 3;
+    background-color: #ccc !important;
+    color: #282828 !important;
+    border: 1px solid #ccc;
+}
+
+.btn-tell:hover {
+    background-color: #ababab !important;
+    border: 1px solid #ababab !important;
+}
 
 .btn-secondary {
     background-color: #00A594 !important;

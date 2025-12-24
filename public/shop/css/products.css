@@ -23,13 +23,14 @@
 
 /* --- استایل کارت محصول (Grid View) --- */
 .product-card {
+    padding-top: 5px;
     border: 1px solid #eee;
     transition: all 0.3s ease;
     border-radius: 10px;
     background: white;
     height: 100%;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     margin-bottom: 0 !important;
 }
 
@@ -77,6 +78,7 @@
 /* بدنه کارت */
 .card-body {
     padding: 15px;
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
 }
@@ -306,7 +308,7 @@
 }
 
 .filter-list {
-    padding-left: 10px;
+    padding-right: 5px;
     max-height: 300px;
     overflow-y: scroll;
 }
@@ -405,4 +407,36 @@
 
 .autocomplete .clear-btn {
     left: 55px !important;
+}
+
+.add-to-cart {
+    background-color: #52AC661F;
+    color: var(--primary-color) !important;
+    padding: 0;
+    border: 1px solid transparent;
+    width: 35px;
+    height: 35px;
+    box-shadow: none !important;
+}
+
+.footer_row {
+    transform: translateY(145px);
+    transition: all 0.3s ease;
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+}
+
+.product-card:hover .footer_row {
+    transform: translateY(83px);
+    opacity: 1;
+}
+.product-card:hover .cell-div {
+    background-color: #fff;
+}
+
+.cell-div{
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 5px;
 }
