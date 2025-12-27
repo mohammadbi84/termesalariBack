@@ -88,7 +88,7 @@ i {
     height: 100%;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
-    min-height: 390px;
+    min-height: 450px;
 }
 
 .flip-card:hover .flip-card-inner {
@@ -117,10 +117,10 @@ i {
 }
 
 .card-img-top {
-    border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     width: 100%;
-    height: 260px;
+    height: 310px;
     object-fit: cover;
 }
 
@@ -139,7 +139,7 @@ i {
     align-items: center;
     flex-direction: column;
     padding: 18px;
-    text-align: right;
+    text-align: left;
 }
 
 .flip-card-front .image-badge {
@@ -258,7 +258,7 @@ i {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .splide-prev-btn,
@@ -353,11 +353,11 @@ i {
 }
 
 .splide__arrows--rtl .splide__arrow--next {
-    left: -2px;
+    right: -2px;
 }
 
 .splide__arrows--rtl .splide__arrow--prev {
-    right: 3px;
+    left: 3px;
 }
 
 .splide__arrow svg {
@@ -383,7 +383,7 @@ i {
 }
 
 .product-image {
-    height: 280px;
+    height: 310px;
     overflow: hidden;
     position: relative;
     padding-bottom: 3px;
@@ -543,7 +543,7 @@ i {
 .discount-badge {
     position: absolute;
     top: 15px;
-    left: 15px;
+    right: 15px;
     background: #ff4757;
     color: white;
     padding: 0.25rem 0.75rem;
@@ -557,7 +557,7 @@ i {
     color: #a3a3a3;
     font-size: 13px;
     font-weight: 200;
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .old-price+.badge {
@@ -596,12 +596,12 @@ i {
     background-color: #fff;
     border-radius: 16px;
     border-top: 3px solid transparent;
-    border-right: 3px solid transparent;
+    border-left: 3px solid transparent;
 }
 
 .product-div:hover {
     border-top: 3px solid var(--primary-color);
-    border-right: 3px solid var(--primary-color);
+    border-left: 3px solid var(--primary-color);
 }
 
 .hot-product-card {
@@ -639,7 +639,7 @@ i {
 .hot-image-container {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
     /* height: 100%; */
     height: 70%;
@@ -668,7 +668,7 @@ i {
 .overlay {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     /* background: linear-gradient(0deg, rgba(79, 79, 79, 1) 0%, rgba(224, 94, 94, 0) 50%); */
@@ -693,7 +693,7 @@ i {
 .discount-badge {
     position: absolute;
     top: 16px;
-    left: 16px;
+    right: 16px;
     background: #e74c3c;
     color: white;
     padding: 6px 12px;
@@ -795,7 +795,7 @@ i {
 .left-slider .info {
     padding: 1.2rem;
     /* padding-bottom: 0px !important; */
-    text-align: right;
+    text-align: left;
 }
 
 .left-slider h3 {
@@ -847,7 +847,7 @@ i {
     position: relative;
     padding: 0px 13px;
     overflow: hidden;
-    padding-right: 0;
+    padding-left: 0;
     /* اضافه شده */
 }
 
@@ -1000,8 +1000,8 @@ i {
 .inner-slider-controls {
     position: absolute;
     bottom: 15px;
-    left: 0;
     right: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1016,7 +1016,7 @@ i {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 10px;
+    right: 10px;
     gap: 5px;
     justify-content: center;
     top: 0;
@@ -1066,7 +1066,7 @@ i {
     content: "";
     position: absolute;
     top: -4px;
-    left: -4px;
+    right: -4px;
     width: 14px;
     height: 14px;
     border: 2px solid var(--primary-color);
@@ -1093,7 +1093,7 @@ i {
 
     .right-slider .swiper-slide {
         flex-direction: row;
-        text-align: right;
+        text-align: left;
         padding: 10px;
     }
 
@@ -1158,7 +1158,7 @@ i {
 .back-to-top {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    left: 30px;
     width: 50px;
     height: 50px;
     background: var(--primary-color);
@@ -1191,7 +1191,7 @@ i {
 @media (max-width: 768px) {
     .back-to-top {
         bottom: 20px;
-        left: 20px;
+        right: 20px;
         width: 45px;
         height: 45px;
     }
@@ -1230,7 +1230,7 @@ i {
 #mapModal .btn-close {
     margin: 0;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
     border-radius: 0 0 12px 0 !important;
     padding: 0 !important;
@@ -1301,8 +1301,8 @@ i {
     position: absolute !important;
     bottom: -7px;
     /* left: auto !important;
-    right: auto; */
-    left: 50%;
+    left: auto; */
+    right: 50%;
     transform: translateX(-50%);
     /* transform: translateX(-50%); */
     z-index: 1;
@@ -1317,12 +1317,12 @@ i {
 #modal-slider .splide__pagination::before {
     content: "";
     position: absolute;
-    left: -22px;
+    right: -22px;
     bottom: 0;
     width: 0;
     height: 0;
     border-top: 22px solid transparent;
-    border-right: 34px solid white;
+    border-left: 34px solid white;
     border-bottom: 0 solid transparent;
 }
 
@@ -1330,12 +1330,12 @@ i {
 #modal-slider .splide__pagination::after {
     content: "";
     position: absolute;
-    right: -22px;
+    left: -22px;
     bottom: 0;
     width: 0;
     height: 0;
     border-top: 22px solid transparent;
-    border-left: 34px solid white;
+    border-right: 34px solid white;
     border-bottom: 0 solid transparent;
 }
 
@@ -1367,14 +1367,14 @@ i {
     outline: 0px solid transparent !important;
     width: 100%;
     padding: 10px 30px 10px 10px;
-    padding-left: 30px;
+    padding-right: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .autocomplete label {
     position: absolute;
-    right: 15px;
+    left: 15px;
     top: 21%;
     transition: 0.2s;
     pointer-events: none;
@@ -1391,7 +1391,7 @@ i {
     outline: none !important;
     border: none !important;
     top: -10px;
-    right: 10px;
+    left: 10px;
     background: white;
     padding: 0 5px;
     font-size: 0.75rem;
@@ -1401,7 +1401,7 @@ i {
 .autocomplete .clear-btn {
     display: none;
     position: absolute;
-    left: 18px;
+    right: 18px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;

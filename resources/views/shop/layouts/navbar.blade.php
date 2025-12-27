@@ -57,8 +57,8 @@
                     <!-- cart language, favorites and login ================================================================================================================== -->
                     <div class="d-flex gap-1 align-items-center justify-content-center position-relative">
                         <div class="language-selector" id="languageSelector">
-                            <button class="language-btn border-0 text-muted" id="languageBtn">
-                                <span class="current-language">En</span>
+                            <button class="language-btn border-0 text-muted" id="languageBtn"  data-lang="{{ app()->getLocale() == 'fa' ? 'en' : 'fa' }}">
+                                <span class="current-language">{{ app()->getLocale() == 'fa' ? 'En' : 'Fa' }}</span>
                                 <i class="bi bi-globe"></i>
                             </button>
                         </div>

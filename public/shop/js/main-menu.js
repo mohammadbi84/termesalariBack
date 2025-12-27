@@ -52,7 +52,7 @@ function initMainMenu() {
                     favorites_dropdown.style.left = "-192px";
                     cart_dropdown.style.left = "-113px";
                     compare_dropdown.style.left = "-150px";
-                }else{
+                } else {
                     compare_dropdown.style.left = "-177px";
                     cart_dropdown.style.left = "-137px";
                 }
@@ -74,7 +74,7 @@ function initMainMenu() {
                     favorites_dropdown.style.left = "-228px";
                     cart_dropdown.style.left = "-147px";
                     compare_dropdown.style.left = "-188px";
-                }else{
+                } else {
                     compare_dropdown.style.left = "-217px";
                     cart_dropdown.style.left = "-177px";
                 }
@@ -190,6 +190,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // کلیک روی دکمه
         btn.addEventListener("click", function (e) {
             e.stopPropagation();
+            lang = btn.dataset.lang;
+            window.location = "/change-lang/" + lang;
             selector.classList.toggle("active");
             btn.classList.toggle("active");
             langSpan.textContent = langSpan.textContent === "Fa" ? "En" : "Fa";

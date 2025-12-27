@@ -58,7 +58,7 @@
 .out-of-stock-badge {
     position: absolute;
     top: 50%;
-    left: 50%;
+    right: 50%;
     transform: translate(-50%, -50%);
     background: rgba(220, 53, 69, 0.9);
     color: white;
@@ -99,9 +99,9 @@
 .breadcrumb-item+.breadcrumb-item::before {
     content: "/";
     /* یا "»" */
-    float: right;
-    padding-left: 0.5rem;
+    float: left;
     padding-right: 0.5rem;
+    padding-left: 0.5rem;
     color: #6c757d;
 }
 
@@ -111,7 +111,7 @@
 }
 
 .breadcrumb-item {
-    float: right;
+    float: left;
 }
 
 .breadcrumb-item.active {
@@ -162,13 +162,13 @@
 
 .products-container.list-view .card-body {
     align-items: flex-start;
-    text-align: right;
+    text-align: left;
     width: 100%;
 }
 
 .products-container.list-view .product-action {
     margin-top: 0;
-    margin-right: auto;
+    margin-left: auto;
     /* دکمه برود سمت چپ */
 }
 
@@ -188,7 +188,7 @@
 
 .cat-search-clear {
     position: absolute;
-    left: 10px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -308,7 +308,7 @@
 }
 
 .filter-list {
-    padding-right: 5px;
+    padding-left: 5px;
     max-height: 300px;
     overflow-y: scroll;
 }
@@ -323,35 +323,35 @@
 }
 
 .page-item:last-child .page-link {
-    border-top-left-radius: var(--bs-pagination-border-radius) !important;
-    border-bottom-left-radius: var(--bs-pagination-border-radius) !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: var(--bs-pagination-border-radius) !important;
+    border-bottom-right-radius: var(--bs-pagination-border-radius) !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
 .page-item:first-child .page-link {
-    border-top-right-radius: var(--bs-pagination-border-radius);
-    border-bottom-right-radius: var(--bs-pagination-border-radius);
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-top-left-radius: var(--bs-pagination-border-radius);
+    border-bottom-left-radius: var(--bs-pagination-border-radius);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
-    margin-left: calc(var(--bs-border-width) * -1);
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border-top-left-radius: 8px !important;
-    border-bottom-left-radius: 8px !important;
+    margin-right: calc(var(--bs-border-width) * -1);
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
 }
 
 .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
 .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control,
 .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select,
 .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
-    border-top-right-radius: 8px !important;
-    border-bottom-right-radius: 8px !important;
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .pagination {
@@ -377,14 +377,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-left: 0;
-    /* خنثی کردن بوت‌استرپ */
     padding-right: 0;
+    /* خنثی کردن بوت‌استرپ */
+    padding-left: 0;
 }
 
 .custom-check-rtl .form-check-input {
-    margin-left: 0;
     margin-right: 0;
+    margin-left: 0;
     order: 2;
     /* چک‌باکس سمت راست */
 }
@@ -392,21 +392,21 @@
 .custom-check-rtl .form-check-label {
     order: 1;
     /* لیبل سمت چپ */
-    margin-right: 8px;
+    margin-left: 8px;
     cursor: pointer;
-    text-align: right;
+    text-align: left;
     flex: 1;
 }
 
 .input_label_toman {
     position: absolute;
-    left: 10px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
 
 .autocomplete .clear-btn {
-    left: 55px !important;
+    right: 55px !important;
 }
 
 .add-to-cart {

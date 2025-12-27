@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'fa' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="UTF-8">
@@ -33,18 +33,30 @@
 
 
     <!-- menu styles -->
-    <link rel="stylesheet" href="{{ asset('shop/css/main-menu.css') }}">
+
     <script src="{{ asset('shop/js/main-menu.js') }}"></script>
     <!-- استایل‌های سفارشی -->
-    <link rel="stylesheet" href="{{ asset('shop/css/styles.css') }}">
+
     <script src="{{ asset('shop/js/scripts.js') }}"></script>
 
     <!-- video -->
-    <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
+
     <script src="{{ asset('shop/js/video.js') }}"></script>
     <!-- footer -->
-    <link rel="stylesheet" href="{{ asset('shop/css/footer.css') }}">
+
     {{-- <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}"> --}}
+    @if (app()->getLocale() == 'fa')
+        <link rel="stylesheet" href="{{ asset('shop/css/main-menu.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/footer.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/main-menu.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/footer.css') }}">
+    @endif
+
 
 
     <!-- Leaflet CSS -->

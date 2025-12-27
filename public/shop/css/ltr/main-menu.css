@@ -16,8 +16,8 @@
     height: fit-content;
     z-index: 1000;
     top: var(--main-menu-margin-top);
-    left: var(--main-menu-margin);
     right: var(--main-menu-margin);
+    left: var(--main-menu-margin);
     padding: var(--main-menu-padding-default) var(--main-menu-padding-default);
     transition: 500ms;
     box-sizing: content-box !important;
@@ -25,8 +25,8 @@
 
 .main-menu.small {
     border-radius: 0 !important;
-    left: 0;
     right: 0;
+    left: 0;
     top: 5px;
     padding: var(--main-menu-padding-small) 100px;
     /*background-color: var(--main-menu-back-small);  اگر می خواهید پس زمینه نیمه شفاف باشد */
@@ -44,12 +44,12 @@
 }
 
 .main-menu.small .navbar .container-fluid {
-    padding-left: 0;
     padding-right: 0;
+    padding-left: 0;
 }
 
 .main-menu .navbar .navbar-brand {
-    margin-right: 0;
+    margin-left: 0;
 }
 
 .main-menu .navbar .navbar-brand img {
@@ -59,8 +59,8 @@
 }
 
 .main-menu.small .navbar .navbar-brand img {
-    margin-right: 0;
     margin-left: 0;
+    margin-right: 0;
     transform: scale(0.8);
     -ms-transform: scale(0.8);
 }
@@ -100,7 +100,7 @@
     content: '';
     position: absolute;
     bottom: 0;
-    right: 12%;
+    left: 12%;
     width: 0;
     height: 1.5px;
     background-color: var(--primary-color);
@@ -116,7 +116,7 @@
     padding-top: 1px;
     position: absolute !important;
     top: 0px !important;
-    right: 0px;
+    left: 0px;
     width: 14px;
     height: 13px;
     background-color: #4fba6b;
@@ -145,7 +145,7 @@
     transform: translateY(5px);
     transition: all 0.3s ease;
     display: block;
-    left: 0 !important;
+    right: 0 !important;
     /* برای نمایش درست توسط بوت‌استرپ */
 }
 
@@ -195,7 +195,7 @@
 
 .category-item:hover {
     color: var(--primary-color);
-    padding-right: 2rem;
+    padding-left: 2rem;
 }
 
 .category-item i {
@@ -207,7 +207,7 @@
 .submenu {
     position: absolute;
     top: 0;
-    right: 101%;
+    left: 101%;
     width: 200px;
     background: #f7f7f7;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -232,14 +232,14 @@
 .submenu-item:hover {
     background-color: #f8f9fa;
     color: var(--primary-color);
-    padding-right: 2rem;
+    padding-left: 2rem;
 }
 
 @media (max-width: 992px) {
     .main-menu {
         top: 10px;
-        left: 10px;
         right: 10px;
+        left: 10px;
         margin: 0;
         padding: 0px;
     }
@@ -262,8 +262,8 @@
 .bookmark {
     position: fixed;
     top: 0;
-    right: 0;
     left: 0;
+    right: 0;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
     color: white;
     /* border-radius: 10px 10px 0 0; */
@@ -300,7 +300,7 @@
 .bookmark-tab {
     position: absolute;
     bottom: -40px;
-    left: 30px;
+    right: 30px;
     width: 120px;
     height: 40px;
     background: #28a745;
@@ -329,7 +329,7 @@
 #bookmarkToggle {
     padding: 10px;
     position: absolute;
-    left: 20px;
+    right: 20px;
 }
 
 .login-link:hover {
@@ -344,8 +344,8 @@
 .category-menu {
     position: absolute;
     top: 75px;
-    left: -10px;
     right: -10px;
+    left: -10px;
     background: white;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
     border-top: 2px solid var(--primary-color);
@@ -408,7 +408,7 @@
     height: 24px;
     background: var(--primary-color);
     border-radius: 2px;
-    margin-left: 10px;
+    margin-right: 10px;
     transition: all 0.3s ease;
 }
 
@@ -416,7 +416,7 @@
     color: var(--primary-color);
     background: rgba(25, 135, 84, 0.05);
     text-decoration: none;
-    padding-right: 12px;
+    padding-left: 12px;
 }
 
 .main-categories:hover::before {
@@ -426,10 +426,10 @@
 /* زیر‌دسته‌ها */
 .sub-categories {
     list-style: none;
-    padding-right: 25px;
+    padding-left: 25px;
     margin-top: 6px;
     margin-bottom: 12px;
-    border-right: 1px dashed #eee;
+    border-left: 1px dashed #eee;
 }
 
 .sub-categories li {
@@ -455,7 +455,7 @@
     height: 8px;
     border: 2px solid #ccc;
     border-radius: 2px;
-    margin-left: 10px;
+    margin-right: 10px;
     transition: all 0.2s ease;
 }
 
@@ -482,18 +482,18 @@
 .mobile-category-menu {
     position: fixed;
     top: 0;
-    right: -420px;
+    left: -420px;
     width: 320px;
     height: 100vh;
     background: white;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     z-index: 1100;
-    transition: right 0.3s ease;
+    transition: left 0.3s ease;
     overflow-y: auto;
 }
 
 .mobile-category-menu.active {
-    right: 0;
+    left: 0;
 }
 
 .mobile-category-header {
@@ -517,7 +517,7 @@
 
 .mobile-main-category button {
     width: 100%;
-    text-align: right;
+    text-align: left;
     padding: 15px 0;
     background: none;
     border: none;
@@ -545,7 +545,7 @@
 
 .mobile-sub-categories {
     list-style: none;
-    padding-right: 15px;
+    padding-left: 15px;
     margin-bottom: 0;
     max-height: 0;
     overflow: hidden;
@@ -575,8 +575,8 @@
 #overlay {
     position: fixed;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 1050;
@@ -694,7 +694,7 @@
     padding-top: 0px;
     position: absolute !important;
     top: -3px !important;
-    right: -1px;
+    left: -1px;
     width: 15px;
     height: 15px;
     background-color: var(--primary-color);
@@ -711,7 +711,7 @@
 .compare-dropdown {
     position: absolute;
     top: 61px;
-    left: -172px;
+    right: -172px;
     width: 340px;
     background: white;
     border: 1px solid #dee2e6;
@@ -726,10 +726,10 @@
 }
 
 .favorites-dropdown {
-    left: -232px;
+    right: -232px;
 }
 .compare-dropdown {
-    left: -212px;
+    right: -212px;
 }
 
 .cart-container:hover .cart-dropdown {
@@ -817,7 +817,7 @@
     font-size: 12px;
     color: #6c757d;
     text-decoration: line-through;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .favorites-header {
@@ -901,7 +901,7 @@
     font-size: 12px;
     color: #6c757d;
     text-decoration: line-through;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 .compare-item {
     padding: 15px 10px;
@@ -942,7 +942,7 @@
     font-size: 12px;
     color: #6c757d;
     text-decoration: line-through;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .quantity-controls {
@@ -1066,7 +1066,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 14px;
-    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .language-btn:hover .current-language {
@@ -1088,8 +1088,8 @@
 .language-dropdown {
     position: absolute;
     top: 100%;
-    left: 0;
     right: 0;
+    left: 0;
     background: white;
     border: 1px solid #dee2e6;
     border-radius: 8px;

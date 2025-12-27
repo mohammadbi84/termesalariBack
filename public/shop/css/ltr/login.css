@@ -19,7 +19,7 @@ p {
 
 .form-control {
     border-radius: 5px;
-    /* padding-right: 40px; */
+    /* padding-left: 40px; */
 }
 
 .input-group-text {
@@ -57,14 +57,14 @@ p {
     outline: 0px solid transparent !important;
     width: 100%;
     padding: 10px 30px 10px 10px;
-    padding-left: 30px;
+    padding-right: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .autocomplete label {
     position: absolute;
-    right: 15px;
+    left: 15px;
     top: 21%;
     transition: 0.2s;
     pointer-events: none;
@@ -80,7 +80,7 @@ p {
     outline: none !important;
     border: none !important;
     top: -10px;
-    right: 10px;
+    left: 10px;
     background: white;
     padding: 0 5px;
     font-size: 0.75rem;
@@ -90,7 +90,7 @@ p {
 .autocomplete .clear-btn {
     display: none;
     position: absolute;
-    left: 18px;
+    right: 18px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -101,8 +101,8 @@ p {
 .slide-caption {
     position: absolute;
     bottom: 0;
-    left: 0;
     right: 0;
+    left: 0;
     background: #252641c7;
     color: #ffffff;
     text-align: center;
@@ -136,7 +136,7 @@ p {
 .back-btn{
     position: absolute;
     top: 50px;
-    left: 50px;
+    right: 50px;
     border: 1px solid #ccc;
 }
 .back-btn:hover{
