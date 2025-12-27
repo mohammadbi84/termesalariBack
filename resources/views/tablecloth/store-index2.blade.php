@@ -22,16 +22,6 @@
                 <form id="filterForm">
 
                     {{-- سرچ --}}
-                    {{-- <div class="filter-card">
-                        <div class="filter-header">جستجو در کالاها</div>
-
-                        <div class="autocomplete" id="autocompleteBoxsearch">
-                            <input type="text" id="searchInputsearch" class="" name="search"
-                                oninput="nameinput('search')">
-                            <label for="searchInputsearch">جستجو کنید...</label>
-                            <span class="clear-btn" id="clearBtn_search" onclick="clearInput('search')">×</span>
-                        </div>
-                    </div> --}}
                     <div id="accordion1" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">
@@ -46,7 +36,7 @@
                                     <div class="autocomplete" id="autocompleteBoxsearch">
                                         <input type="text" id="searchInputsearch" class="" name="search"
                                             oninput="nameinput('search')">
-                                        <label for="searchInputsearch">جستجو کنید...</label>
+                                        <label for="searchInputsearch">محصول مورد نظر خود را جستجو کنید</label>
                                         <span class="clear-btn" id="clearBtn_search" onclick="clearInput('search')">×</span>
                                     </div>
                                 </div>
@@ -55,26 +45,6 @@
                     </div>
 
                     {{-- قیمت --}}
-                    {{-- <div class="filter-card">
-                        <div class="filter-header">محدوده قیمت</div>
-                        <div class="d-flex flex-column align-items-center gap-3 mb-2">
-                            <div class="autocomplete w-100" id="autocompleteBoxmin">
-                                <span class="text-muted input_label_toman">تومان</span>
-                                <input type="text" id="searchInputmin" class="only-number pe-2" name="minPrice"
-                                    style="padding-left: 66px;" data-fakename="min" oninput="nameinput('min')">
-                                <label for="searchInputmin">از</label>
-                                <span class="clear-btn" id="clearBtn_min" onclick="clearInput('min')">×</span>
-                            </div>
-                            <div class="autocomplete w-100" id="autocompleteBoxmax">
-                                <span class="text-muted input_label_toman">تومان</span>
-                                <input type="text" id="searchInputmax" class="only-number pe-2" name="maxPrice"
-                                    style="padding-left: 66px;" data-fakename="max" oninput="nameinput('max')">
-                                <label for="searchInputmax">تا</label>
-                                <span class="clear-btn" id="clearBtn_max" onclick="clearInput('max')">×</span>
-                            </div>
-                        </div>
-                        <button type="button" id="priceFilterBtn" class="btn btn-custom w-100 mt-2">اعمال</button>
-                    </div> --}}
                     <div id="accordion2" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">
@@ -111,16 +81,6 @@
                         </div>
                     </div>
                     {{-- موجود بودن --}}
-                    {{-- <div class="filter-card">
-                        <div class="form-check form-switch mb-3">
-                            <input class="form-check-input filter-check" type="checkbox" id="stockSwitch">
-                            <label class="form-check-label fw-bold" for="stockSwitch">فقط کالاهای موجود</label>
-                        </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input filter-check" type="checkbox" id="onlyOffer">
-                            <label class="form-check-label fw-bold" for="onlyOffer">فقط تخفیف و حراجی</label>
-                        </div>
-                    </div> --}}
                     <div id="accordion3" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">
@@ -147,31 +107,6 @@
                     </div>
 
                     {{-- دسته‌بندی --}}
-                    {{-- <div class="filter-card">
-                        <div class="filter-header">دسته‌بندی‌ها</div>
-
-                        <div class="cat-search-wrapper">
-                            <div class="autocomplete" id="autocompleteBoxcat">
-                                <input type="cat" id="searchInputcat" class="" name="cat"
-                                    oninput="nameinput('cat')">
-                                <label for="searchInputcat">جستجوی دسته بندی...</label>
-                                <span class="clear-btn" id="clearBtn_cat" onclick="clearInput('cat')">×</span>
-                            </div>
-                        </div>
-
-                        <div id="categoryList" class="filter-list">
-                            @foreach ($categories as $cat)
-                                <div class="form-check mb-2 cat-item custom-check-rtl">
-                                    <input class="form-check-input filter-check category-filter" type="checkbox"
-                                        value="{{ $cat->id }}" id="cat{{ $cat->id }}"
-                                        {{ in_array($cat->id, request()->categories ?? []) ? 'checked' : '' }}>
-                                    <label class="form-check-label"
-                                        for="cat{{ $cat->id }}">{{ $cat->title }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-
-                    </div> --}}
                     <div id="accordion4" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">
@@ -211,28 +146,6 @@
                     </div>
 
                     {{-- طرح --}}
-                    {{-- <div class="filter-card">
-                        <div class="filter-header">طرح</div>
-                        <div class="cat-search-wrapper">
-                            <div class="autocomplete" id="autocompleteBoxdesign">
-                                <input type="text" id="searchInputdesign" class="" name="design"
-                                    oninput="nameinput('design')">
-                                <label for="searchInputdesign">جستجوی طرح...</label>
-                                <span class="clear-btn" id="clearBtn_design" onclick="clearInput('design')">×</span>
-                            </div>
-                        </div>
-                        <div class="filter-list" id="designList">
-                            @foreach ($designs as $design)
-                                <div class="form-check design-item custom-check-rtl">
-                                    <input type="checkbox" class="form-check-input filter-check design-filter"
-                                        value="{{ $design->id }}" id="design{{ $design->id }}"
-                                        {{ in_array($design->id, request()->designs ?? []) ? 'checked' : '' }}>
-                                    <label class="form-check-label"
-                                        for="design{{ $design->id }}">{{ $design->title }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div> --}}
                     <div id="accordion5" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">
@@ -270,28 +183,6 @@
                     </div>
 
                     {{-- رنگ --}}
-                    {{-- <div class="filter-card">
-                        <div class="filter-header">رنگ</div>
-                        <div class="cat-search-wrapper">
-                            <div class="autocomplete" id="autocompleteBoxcolor">
-                                <input type="text" id="searchInputcolor" class="" name="color"
-                                    oninput="nameinput('color')">
-                                <label for="searchInputcolor">جستجوی رنگ...</label>
-                                <span class="clear-btn" id="clearBtn_color" onclick="clearInput('color')">×</span>
-                            </div>
-                        </div>
-                        <div class="filter-list" id="colorList">
-                            @foreach ($colors as $color)
-                                <div class="form-check color-item custom-check-rtl">
-                                    <input type="checkbox" class="form-check-input filter-check color-filter"
-                                        value="{{ $color->id }}" id="color{{ $color->id }}"
-                                        {{ in_array($color->id, request()->colors ?? []) ? 'checked' : '' }}>
-                                    <label class="form-check-label"
-                                        for="color{{ $color->id }}">{{ $color->color }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div> --}}
                     <div id="accordion6" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">

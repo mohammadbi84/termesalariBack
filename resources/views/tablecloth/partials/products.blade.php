@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column border-end border-2 pe-2">
-                        @if ($tablecloth->quantity == 0)
+                        @if ($tablecloth->quantity != 0)
                             @if ($prices->offPrice > 0)
                                 @if ($prices->offType == 'مبلغ')
                                     {{ number_format($prices->price - $prices->offPrice) }}
@@ -200,8 +200,8 @@
                 </div> --}}
                 <div class="row g-0 footer_row">
                     <div class="col-7 p-0 py-2 pb-3 bg-white">
-                        <div class="row g-0 w-100">
-                            <div class="col-3 d-flex justify-content-center align-items-center">
+                        <div class="row g-0 border-start border-2">
+                            <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button
                                     class="buy-button add-to-cart favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                     data-bs-toggle="tooltip" data-bs-placement="top"
@@ -217,7 +217,7 @@
                                     data-model="{{ substr($tablecloth->category->model, 4) }}"><i
                                         class="fa-regular fa-heart text-danger"></i></button>
                             </div>
-                            <div class="col-3 d-flex justify-content-center align-items-center">
+                            <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button class="buy-button add-to-cart compare" id="" data-bs-toggle="tooltip"
                                     data-bs-placement="top" title="برای مقایسه کلیک کنید"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
@@ -231,14 +231,14 @@
                                     data-model="{{ substr($tablecloth->category->model, 4) }}"><i
                                         class="fa-solid fa-shuffle"></i></button>
                             </div>
-                            <div class="col-3 d-flex justify-content-center align-items-center">
+                            <div class="col-3 d-flex justify-content-start align-items-center">
                                 <a href="{{ route('tablecloth.show', [$tablecloth->id]) }}" data-bs-toggle="tooltip"
                                     data-bs-placement="top" title="مشاهده محصول"
                                     class="buy-button add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
                                     <i class="fa-solid fa-eye" style="top: -1px"></i>
                                 </a>
                             </div>
-                            <div class="col-3 d-flex justify-content-center align-items-center">
+                            <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به سبد خرید"
                                     class="buy-button add-to-cart @if ($tablecloth->quantity != 0) addToCart @endif"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
