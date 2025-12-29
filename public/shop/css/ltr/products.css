@@ -107,7 +107,7 @@
 
 /* برای راست‌چین کردن کامل */
 .breadcrumb {
-    direction: rtl;
+    direction: ltr;
 }
 
 .breadcrumb-item {
@@ -373,7 +373,7 @@
 
 
 .custom-check-rtl {
-    direction: ltr;
+    direction: rtl;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -439,4 +439,22 @@
     background-color: #f5f5f5;
     border-radius: 8px;
     padding: 5px;
+}
+
+.category-menu {
+    position: absolute;
+    top: 65px;
+    right: 16px;
+    left: 16px;
+    background: white;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    border-top: 2px solid var(--primary-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 8px 10px;
 }

@@ -3,8 +3,12 @@
 @section('head')
     <link rel="stylesheet" href="{{ asset('shop/css/leaflet.css') }}" />
     <script src="{{ asset('shop/js/leaflet.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}">
-    <link rel="stylesheet" href="{{ asset('shop/css/about.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}"> --}}
+    @if (app()->getLocale() == 'fa')
+        <link rel="stylesheet" href="{{ asset('shop/css/about.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/about.css') }}">
+    @endif
     <script src="{{ asset('shop/js/map/mapdata.js') }}"></script>
     <script src="{{ asset('shop/js/map/countrymap.js') }}"></script>
     <link href="https://v1.fontapi.ir/css/VazirFD" rel="stylesheet">
@@ -41,83 +45,74 @@
     <div class="container py-4" style="margin-top: 70px">
         {{-- family start --}}
         <div class="row p-3 mb-4">
+
+            <!-- نفر اول -->
             <div class="col-md-4 px-0 builder-col">
                 <div class="ps-3 h-100">
-                    <div class=" d-flex justify-content-between align-items-end">
-                        <img src="{{ asset('shop/assets/1.jpeg') }}" alt="test" class="builder-image">
+                    <div class="d-flex justify-content-between align-items-end">
+                        <img src="{{ asset('shop/assets/1.jpeg') }}" alt="founder" class="builder-image">
                         <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                            <span class="builder-title">آسید علی سالاری <br>
-                                <small>بنیان گذار</small>
+                            <span class="builder-title">
+                                {{ __('about.founder_1_name') }} <br>
+                                <small>{{ __('about.founder_1_role') }}</small>
                             </span>
                             <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
                         </div>
                     </div>
                     <div class="pb-4 px-4 pt-5 builder-text">
-                        ترمه‌بافی در خاندان سالاری حدود یک قرن پیش به دست مرحوم آ سیدعلی سالاری، ملقب به آ سیدعلی سید حیدر،
-                        آغاز شد. ترمه‌ای که در آن زمان بافته می‌شد نوعی بقچه و سوزنی حاشیه‌دار بود که نام خود بافنده در آن
-                        بافت شده است. این هنر با گذشت زمان میان نسل‌های بعدی خانواده نیز ادامه پیدا کرد و به‌تدریج طرح‌ها و
-                        نقش‌های متنوع‌تری به آن افزوده شد.
+                        {{ __('about.founder_1_text') }}
                     </div>
                 </div>
             </div>
+
+            <!-- نفر دوم -->
             <div class="col-md-4 px-0 builder-col">
                 <div class="px-3 h-100">
-                    <div class=" d-flex justify-content-between align-items-end">
-                        <img src="{{ asset('shop/assets/2.jpeg') }}" alt="test" class="builder-image">
+                    <div class="d-flex justify-content-between align-items-end">
+                        <img src="{{ asset('shop/assets/2.jpeg') }}" alt="founder" class="builder-image">
                         <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                            <span class="builder-title">آسید علی اکبر سالاری <br>
-                                <small>رهرو</small>
+                            <span class="builder-title">
+                                {{ __('about.founder_2_name') }} <br>
+                                <small>{{ __('about.founder_2_role') }}</small>
                             </span>
                             <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
                         </div>
                     </div>
                     <div class="pb-4 px-4 pt-5 builder-text">
-                        نسل دومی این خاندان آسیدعلی اکبر بود که در محله چهارمنار مشغول بکار شد و سپس تولید خود را با افزودن
-                        دستگاهها تا 6 دستگاه دستباف و با 12 کارگر زن در محله سجادیه ادامه داد. این روند تا سال 1348 بصورت
-                        ترمه
-                        دستی باروش بافت سنتی ادامه داشت و پس از آن با زحمات بسیار زیاد بافت ترمه به صورت ماشینی درآمد ولی با
-                        همان کیفیت ترمه دستی تولید و بافت انجام می گرفت.
+                        {{ __('about.founder_2_text') }}
                     </div>
                 </div>
             </div>
+
+            <!-- نفر سوم -->
             <div class="col-md-4 px-0 builder-col">
                 <div class="pe-3 h-100">
-                    <div class=" d-flex justify-content-between align-items-end">
-                        <img src="{{ asset('shop/assets/3.jpeg') }}" alt="test" class="builder-image">
+                    <div class="d-flex justify-content-between align-items-end">
+                        <img src="{{ asset('shop/assets/3.jpeg') }}" alt="founder" class="builder-image">
                         <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                            <span class="builder-title">آسید حیدر سالاری <br>
-                                <small>رهرو</small>
+                            <span class="builder-title">
+                                {{ __('about.founder_3_name') }} <br>
+                                <small>{{ __('about.founder_3_role') }}</small>
                             </span>
                             <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
                         </div>
                     </div>
                     <div class="pb-4 px-4 pt-5 builder-text">
-                        نسل سوم از سال 1361 فعالیت گذشتگان را ادامه داد با این تفاوت که روز به روز تولیداتی با طرحها و
-                        رنگ
-                        های متنوع و جدید به بازار عرضه نمود و با بهره گیری از تکنولوژی جدید و دستگاه های مدرن روز پیوسته به
-                        تعداد
-                        طرحها رنگها و جذابیت ترمه های تولیدی خود افزوده است، آنچنان که توانسته است علاوه بر مشتریان داخلی
-                        نظر
-                        گردشگران دیگر کشورها را به خود جلب و آنان را در زمره خریداران خود قرار دهد.
+                        {{ __('about.founder_3_text') }}
                     </div>
                 </div>
             </div>
+
         </div>
         {{-- family end --}}
         {{-- mission start --}}
         <div class="row p-3 py-5 mb-4 bg-white rounded-3 g-0 mx-1 gap-4">
+
             <div class="col-md-3">
-                {{-- <div class="reels-container">
-                    <video id="my-video" class="video-js vjs-fill" controls preload="auto"
-                        poster="{{ asset('shop/assets/cover2.png') }}" data-setup='{}'>
-                        <source src="{{ asset('shop/assets/yalda.mp4') }}" type="video/mp4" />
-                    </video>
-                </div> --}}
                 <div class="video-full-container mb-5 px-0 shadow">
                     <video id="fullscreen-video" class="w-100 h-100" poster="{{ asset('shop/assets/cover2.png') }}">
-                        <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
                         <source src="{{ asset('shop/assets/yalda.mp4') }}" type="video/mp4">
-                        مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
+                        {{ __('general.video_not_supported') ?? 'Your browser does not support the video tag.' }}
                     </video>
 
                     <div class="video-overlay"></div>
@@ -127,77 +122,67 @@
                     </div>
                 </div>
             </div>
+
             <div class="col">
-                {{-- <div class="d-flex justify-content-start align-items-center mb-4">
-                    <h5 class="mission-title m-0">رسالت ترمه سالاری</h5>
-                </div> --}}
+
                 <header class="section-header">
-                    <h3>رسالت ترمه سالاری</h3>
+                    <h3>{{ __('about.mission_title') }}</h3>
                 </header>
+
                 <p class="mission-text mb-4">
-                    ترمه نوعی از منسوجات سنتی ایران است که از گذشته های بسیار دور در ایران تولید می شده است. ترمه همانند
-                    فرش دست بافت دارای تار و پود است که پود در پشت پارچه ترمه به صورت آزاد قرار می گیرد. ترمه اصیل ایران
-                    لاکی یا عنابی رنگ است و طرح بته جقه یا سرو خمیده جزء لاینفک آن است. امروزه پارچه ترمه در طرح ها و
-                    رنگ های متنوع بافته می شود. رومیزی ترمه (مربع، رانر و سری رانر)، کوسن، سجاده و جانماز ترمه، تابلو
-                    ترمه، روتختی ترمه، پشتی ترمه، لحاف ترمه، پرده ترمه، رومبلی ترمه، کتاب های نفیس ترمه، صندوقچه ترمه،
-                    جعبه جواهرات ترمه، کیسه شاباش ترمه، لباس، کیف و کفش ترمه، کراوات ترمه و رومیزی های ترمه سرمه دوزی
-                    شده از جمله مهم ترین محصولات تولید شده با پارچه ترمه می باشند. در سال های اخیر با توجه به ظرافت بافت
-                    ترمه، پارچه ترمه و رومیزی های ترمه تنها در استان یزد بافته و تولید می شوند. ترمه سالاری یزد با بیش
-                    از یک قرن تجربه و سیصد طرح متنوع، ارائه دهنده ی معروف ترین و مرغوب ترین ترمه ها در ایران می باشد.
-                    رسالت اصلی ترمه سالاری پاسداری از میراث نسل های گذشته خویش و ادامه راه ایشان جهت تکمیل و هر چه بهتر
-                    شدن کیفیت این پارچه سنتی بوده تا بتواند افتخاری برای آیندگان خود باشد. شعار ما "ترمه سالاری برای هر
-                    ایرانی با کیفیتی عالی و قیمتی مناسب" می باشد تا همه اقشار ملت بتوانند از آن بهره مند شوند. طرح های
-                    بی نظیر و رنگ آمیزی خاص ترمه های تولیدی ما تنها با مقایسه و لمس دیگر ترمه ها مشهود خواهد شد که به
-                    کیفیت و لطافت و رنگ آمیزی کم نظیر می باشد.
+                    {{ __('about.mission_text') }}
                 </p>
+
                 <div class="row mission-row p-0 bg-white rounded-4 shadow-sm mx-3">
+
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                             <span class="mission-number" data-target="220">0</span>
-                            <span>محصول</span>
+                            <span>{{ __('about.counter_product') }}</span>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                             <span class="mission-number" data-target="160">0</span>
-                            <span>طرح و نقش</span>
+                            <span>{{ __('about.counter_design') }}</span>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                             <span class="mission-number" data-target="186">0</span>
-                            <span>مشتری</span>
+                            <span>{{ __('about.counter_customer') }}</span>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                             <span class="mission-number" data-target="10">0</span>
-                            <span>نمایندگی</span>
+                            <span>{{ __('about.counter_agency') }}</span>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                             <span class="mission-number" data-target="100">0</span>
-                            <span>پروژه</span>
+                            <span>{{ __('about.counter_project') }}</span>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
+
         {{-- mission end --}}
         {{-- about us start --}}
         <section id="about" class="mb-5 mx-1"
             style="background: url({{ asset('/hometemplate/img/facts-bg.jpg') }}) center top no-repeat fixed;z-index: 1;">
             <div class="container">
                 <header class="section-header">
-                    <h3>نشان اصالت محصول</h3>
-                    <p>جهت اطمینان از اصل بودن کالای خریداری شده و اصالت ترمه و ضمانت محصولات ضمن خرید از فروشگاه های
-                        معتبر به نشان ترمه سالاری بر روی محصولات توجه فرمایید.</p>
-                    <img src="{{ asset('/hometemplate/img/original.png') }}" alt="">
+                    <h3>{{ __('about.authenticity_title') }}</h3>
+                    <p>{{ __('about.authenticity_text') }}</p>
+                    <img src="{{ asset('/hometemplate/img/original.png') }}" alt="originality seal">
                 </header>
             </div>
         </section>
@@ -205,109 +190,105 @@
         {{-- comments start --}}
         <section class="mb-5">
             <div class="row">
+
                 <div class="col-md-6 px-4">
                     <h1 class="comment-title">
-                        اعتبـــــــــــاری کـــــه داریـــــــم از
-                        <span class="etemad">اعتـمـــــــاد</span>
-                        شماســــــــت...
+                        {{ __('about.trust_title_line_1') }}
+                        <span class="etemad">{{ __('about.trust_title_highlight') }}</span>
+                        {{ __('about.trust_title_line_2') }}
                     </h1>
+
                     <p class="commetn-text">
-                        آنچه کسب کرده‌ایم تنها یک نام نیست؛ اعتباری‌ست که از اعتماد شما ساخته شده است.
+                        {{ __('about.trust_text') }}
                     </p>
+
                     <div class="row mission-row p-0 g-0 bg-white rounded-4 shadow-sm" style="margin-top: 28px;">
                         <div class="col">
                             <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                                 <span class="mission-number" data-target="100">0</span>
-                                <span>سال سابقه</span>
+                                <span>{{ __('about.trust_years') }}</span>
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                                 <span class="mission-number" data-target="186">0</span>
-                                <span>کاربر فعال</span>
+                                <span>{{ __('about.trust_users') }}</span>
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                                 <span class="mission-number" data-target="13">0</span>
-                                <span>نمایندگی</span>
+                                <span>{{ __('about.trust_agencies') }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-6 ps-0">
                     <div class="testimonial-slider">
                         <div class="swiper mySwiper">
                             <div class="swiper-wrapper">
+
+                                <!-- Testimonial 1 -->
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div class="user">
-                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="">
+                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="user">
                                                 <div>
-                                                    <h4>علی رسولی</h4>
-                                                    <span>کاربر</span>
+                                                    <h4>{{ __('about.testimonial_1_name') }}</h4>
+                                                    <span>{{ __('about.testimonial_role') }}</span>
                                                 </div>
                                             </div>
                                             <div class="stars">★★★★★</div>
                                         </div>
-                                        <p>
-                                            رنگ‌های ترمه خیلی جذاب و ثابت هستن و بعد از استفاده و نگهداری هم تغییر نمی‌کنن.
-                                            جنس پارچه لطیفه و دوخت‌ها محکم و تمیز انجام شده. نسبت به قیمتش ارزش خرید بالایی
-                                            داره..
-                                        </p>
-
+                                        <p>{{ __('about.testimonial_1_text') }}</p>
                                     </div>
                                 </div>
+
+                                <!-- Testimonial 2 -->
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div class="user">
-                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="">
+                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="user">
                                                 <div>
-                                                    <h4>محمد بابایی</h4>
-                                                    <span>کاربر</span>
+                                                    <h4>{{ __('about.testimonial_2_name') }}</h4>
+                                                    <span>{{ __('about.testimonial_role') }}</span>
                                                 </div>
                                             </div>
                                             <div class="stars">★★★★★</div>
                                         </div>
-                                        <p>
-                                            کیفیت بافت ترمه عالیه و کاملاً مشخصه که با دقت و مهارت بالا تولید شده. طرح‌ها
-                                            اصیل و چشم‌نواز هستن و برای دکور یا هدیه انتخاب خیلی خوبیه. بسته‌بندی هم مرتب و
-                                            شکیل بود..
-                                        </p>
-
+                                        <p>{{ __('about.testimonial_2_text') }}</p>
                                     </div>
                                 </div>
+
+                                <!-- Testimonial 3 -->
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div class="user">
-                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="">
+                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="user">
                                                 <div>
-                                                    <h4>علی رضایی</h4>
-                                                    <span>کاربر</span>
+                                                    <h4>{{ __('about.testimonial_3_name') }}</h4>
+                                                    <span>{{ __('about.testimonial_role') }}</span>
                                                 </div>
                                             </div>
                                             <div class="stars">★★★★★</div>
                                         </div>
-                                        <p>
-                                            این ترمه واقعاً محصولی سنتی و با اصالته و برای استفاده در مهمونی‌ها یا روی میز
-                                            جلوه خاصی می‌ده. ظرافت نقش‌ها نشون‌دهنده هنر دست بافنده است. تحویل هم سریع و
-                                            بدون مشکل انجام شد.
-                                        </p>
-
+                                        <p>{{ __('about.testimonial_3_text') }}</p>
                                     </div>
                                 </div>
+
                             </div>
 
-                            <!-- دکمه‌ها -->
-
-                            <!-- دات‌های زیر -->
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
         {{-- comments end --}}
@@ -316,23 +297,22 @@
             <div class="container">
                 <div class="container mb-5 px-0">
                     <header class="section-header">
-                        <h3 class="">حقوق مالکیت معنوی</h3>
+                        <h3>{{ __('about.ip_title') }}</h3>
                     </header>
-                    <div class=" d-flex align-items-center justify-content-between w-100  p-2">
-                        <div class="">
-                            <span>
-                                تمام طرح های تولیدی ترمه سالاری دارای گواهی نامه ثبت مالکیت معنوی بوده و هرگونه کپی
-                                برداری از آن
-                                پیگرد قانونی دارد
-                            </span>
+
+                    <div class="d-flex align-items-center justify-content-between w-100 p-2">
+                        <div>
+                            <span>{{ __('about.ip_text') }}</span>
                         </div>
-                        <div class="">
-                            <!-- دکمه‌های کنترل جداگانه -->
+
+                        <div>
                             <div class="custom-splide-controls px-0">
                                 <button class="splide-prev-btn splide-hot-prev-btn">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                                 <span id="hot-range" class="slide-range">1-4</span>
+
                                 <button class="splide-next-btn splide-hot-next-btn">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
@@ -412,8 +392,12 @@
                             <div class="luxina_customers_title-wrap title-in-items">
                                 <span class="luxina_customers_title-bg" aria-hidden="true"></span>
                                 <i class="luxina-icon-user-star-fill luxina_customers_title-icon" aria-hidden="true"></i>
-                                <span class="luxina_customers_title-text">مشتریان ما</span>
-                                <span class="luxina_customers_title-subtitle">Our customers</span>
+                                <span class="luxina_customers_title-text">
+                                    {{ __('about.customers_fa') }}
+                                </span>
+                                <span class="luxina_customers_title-subtitle">
+                                    {{ __('about.customers_en') }}
+                                </span>
                             </div>
                             <div class="luxina_customers_items" style="--desktop-cols:5;--tablet-cols:4;--mobile-cols:2">
                                 <div class="luxina_customers_item">
@@ -479,7 +463,7 @@
         <section class="branch-map mb-5 mt-4 px-1">
             <div class="row mb-3">
                 <header class="section-header">
-                    <h3>نمایندگی های ما</h3>
+                    <h3>{{ __('main.branchs') }}</h3>
                 </header>
                 <div class="col-md-3 col-3 d-flex flex-column justify-content-around align-items-center gap-3 labels-col"
                     id="branch-labels-left">
@@ -598,7 +582,7 @@
             <div class="row bg-white rounded-4 mb-4 g-0  shadow-sm">
                 <div class="col-md-5 p-4">
                     <header class="section-header">
-                        <h3 class="">ارتباط با ما</h3>
+                        <h3>{{ __('about.contact_title') }}</h3>
                     </header>
                     <form action="{{ route('message.store') }}" method="post">
                         @csrf
@@ -606,7 +590,7 @@
                             <div class="autocomplete @error('name') filled @enderror" id="autocompleteBoxname">
                                 <input type="text" id="searchInputname" value="{{ old('name') }}" class=""
                                     name="name" oninput="nameinput('name')">
-                                <label for="searchInputname">نام و نام خانوادگی</label>
+                                <label for="searchInputname">{{ __('about.form_name') }}</label>
                                 <span class="clear-btn" id="clearBtn_name" onclick="clearInput('name')"
                                     @if (old('name')) style="display:block !important" @endif>×</span>
                             </div>
@@ -619,7 +603,7 @@
                                 <input type="text" class="only-number" id="searchInputmobile"
                                     value="{{ old('mobile') }}" class="" name="mobile"
                                     oninput="nameinput('mobile')">
-                                <label for="searchInputmobile">شماره موبایل</label>
+                                <label for="searchInputmobile">{{ __('about.form_mobile') }}</label>
                                 <span class="clear-btn" id="clearBtn_mobile" onclick="clearInput('mobile')"
                                     @if (old('mobile')) style="display:block !important" @endif>×</span>
                             </div>
@@ -630,7 +614,7 @@
                         <div class="mb-3 mt-4">
                             <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
                                 <textarea name="message" id="searchInputtext" rows="3" oninput="nameinput('text')">{{ old('text') }}</textarea>
-                                <label for="searchInputtext">متن پیام</label>
+                                <label for="searchInputtext">{{ __('about.form_message') }}</label>
                                 <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
                                     @if (old('text')) style="display:block !important" @endif>×</span>
                             </div>
@@ -639,7 +623,9 @@
                             @enderror
                         </div>
                         <div class="text-start">
-                            <button type="submit" class="btn btn-primary px-4 mb-3">ارسال پیام</button>
+                            <button type="submit" class="btn btn-primary px-4 mb-3">
+                                {{ __('about.form_submit') }}
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -657,14 +643,15 @@
                                     <i class="bi bi-share fs-4 text-secondary info-icons"></i>
                                 </div>
                                 <div class="text-end me-3 mt-2">
-                                    <h6 class="fw-bold text-dark">شبکه های اجتماعی</h6>
-                                    <p class="text-dark text-justify">از آخرین اخبار و کمپین‌ها از طریق شبکه های اجتماعی
-                                        مطلع شوید.</p>
+                                    <h6 class="fw-bold text-dark">{{ __('about.social_title') }}</h6>
+                                    <p class="text-dark text-justify">{{ __('about.social_text') }}</p>
                                 </div>
                             </div>
                             <div class="card-box d-flex align-items-center justify-content-between rounded-3 p-2 px-3 mt-3 w-100"
                                 style="background-color: #F8F9FA;">
-                                <a href="#" class="fw-bold text-decoration-none text-success">اینستاگرام</a>
+                                <a href="#" class="fw-bold text-decoration-none text-success">
+                                    {{ __('about.social_action') }}
+                                </a>
                                 <div class="d-flex align-items-center justify-content-end me-2">
                                     <div class="text-dark" dir="ltr"><a
                                             href="https://www.instagram.com/termehsalari"
@@ -689,14 +676,15 @@
                                     <i class="bi bi-telephone fs-4 text-secondary info-icons"></i>
                                 </div>
                                 <div class="text-end me-3 mt-2">
-                                    <h6 class="fw-bold text-dark">تلفن تماس</h6>
-                                    <p class="text-dark text-justify">همه‌روزه از ساعت 9:00 الی 17:00 پاسخگوی تماس شما
-                                        هستیم.</p>
+                                    <h6 class="fw-bold text-dark">{{ __('about.phone_title') }}</h6>
+                                    <p class="text-dark text-justify">{{ __('about.phone_text') }}</p>
                                 </div>
                             </div>
                             <div class="card-box d-flex align-items-center justify-content-between rounded-3 p-2 px-3 mt-3 w-100"
                                 style="background-color: #F8F9FA;">
-                                <a href="#" class="fw-bold text-decoration-none text-success">تماس</a>
+                                <a href="#" class="fw-bold text-decoration-none text-success">
+                                    {{ __('about.phone_action') }}
+                                </a>
                                 <div class="d-flex align-items-center justify-content-end me-2">
                                     <div class="text-dark" dir="ltr"><a href="tel:09134577500"
                                             class="text-reset">0913 457 7500</a></div>
@@ -719,13 +707,15 @@
                                     <i class="bi bi-chat-dots fs-4 text-secondary info-icons"></i>
                                 </div>
                                 <div class="text-end me-3 mt-2">
-                                    <h6 class="fw-bold text-dark">پیام رسان ها</h6>
-                                    <p class="text-dark text-justify">در پیام رسان‌های زیر پاسخگوی سوالات شما هستیم.</p>
+                                    <h6 class="fw-bold text-dark">{{ __('about.messenger_title') }}</h6>
+                                    <p class="text-dark text-justify">{{ __('about.messenger_text') }}</p>
                                 </div>
                             </div>
                             <div class="card-box d-flex align-items-center justify-content-between rounded-3 p-2 px-3 mt-3 w-100"
                                 style="background-color: #F8F9FA;">
-                                <a href="#" class="fw-bold text-decoration-none text-success">ارسال پیام</a>
+                                <a href="#" class="fw-bold text-decoration-none text-success">
+                                    {{ __('about.messenger_action') }}
+                                </a>
                                 <div class="d-flex align-items-center justify-content-end me-2">
                                     <div class="text-dark" dir="ltr"><a href="https://telegram.me/termeh_salari"
                                             class="text-reset">termeh_salari</a></div>
@@ -746,7 +736,11 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'fa')
+        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @else
+        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    @endif
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <script src="https://unpkg.com/leader-line@1.0.7/leader-line.min.js"></script>
     <script src="{{ asset('shop/js/about.js') }}"></script>

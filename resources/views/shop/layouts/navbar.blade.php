@@ -27,7 +27,7 @@
                         <div class="categories-dropdown d-flex" id="categoryTrigger">
                             <button class="categories-btn">
                                 <i class="fas fa-bars"></i>
-                                دسته‌بندی‌ها
+                                {{ __('menu.categories') }}
                             </button>
                             @php
                                 $categories = App\Category::where('parent_id', 0)->get();
@@ -39,19 +39,19 @@
                             <a class="nav-link" href="#specials">
                                 <img src="{{ asset('shop/assets/svgs/badge-percent.svg') }}" alt="hots"
                                     width="18">
-                                شگفت انگیزها</a>
+                                {{ __('menu.amazing') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://www.termehsalari.com/store#newest">جدیدترین ها</a>
+                            <a class="nav-link" href="http://www.termehsalari.com/store#newest">{{ __('menu.newest') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://www.termehsalari.com/store#products">پرفروش ترین‌ها</a>
+                            <a class="nav-link" href="http://www.termehsalari.com/store#products">{{ __('menu.bestSeller') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://www.termehsalari.com/store#branchs">نمایندگی های فروش</a>
+                            <a class="nav-link" href="http://www.termehsalari.com/store#branchs">{{ __('menu.branchs') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('about') }}">درباره ما</a>
+                            <a class="nav-link" href="{{ route('about') }}">{{ __('menu.aboutUs') }}</a>
                         </li>
                     </ul>
                     <!-- cart language, favorites and login ================================================================================================================== -->
@@ -85,7 +85,7 @@
 
                                 <div class="favorites-dropdown">
                                     <div class="favorites-header">
-                                        <span class="mb-0">لیست علاقه‌مندی ها</span>
+                                        <span class="mb-0">{{ __('menu.favorites') }}</span>
                                         <span class="text-muted favorites-items-count"
                                             id="favorites-items-count">{{ $favorites->count() }} کالا</span>
                                     </div>
@@ -201,7 +201,7 @@
                             </a>
                             <div class="compare-dropdown">
                                 <div class="favorites-header">
-                                    <span class="mb-0">لیست مقایسه</span>
+                                    <span class="mb-0">{{ __('menu.compare') }}</span>
                                     <span class="text-muted compare-items-count" id="compare-items-count">
                                         @if (session()->has('compares'))
                                             {{ count(session('compares')['product']) }} کالا
@@ -292,7 +292,7 @@
 
                             <div class="cart-dropdown">
                                 <div class="cart-header">
-                                    <span class="mb-0">سبد خرید</span>
+                                    <span class="mb-0">{{ __('menu.cart') }}</span>
                                     <span class="text-muted cart-items-count">{{ $sum ?? 0 }} کالا</span>
                                 </div>
 
@@ -431,12 +431,12 @@
                                 <div class="button-container border border-secondary rounded p-2">
                                     <a href="{{ route('login') }}"
                                         class="text-muted text-decoration-none px-1 login-link">
-                                        ورود
+                                        {{ __('menu.login') }}
                                     </a>
                                     |
                                     <a href="{{ route('register') }}"
                                         class="text-muted text-decoration-none px-1 login-link">
-                                        ثبت نام
+                                        {{ __('menu.register') }}
                                     </a>
                                     <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
                                 </div>
@@ -452,14 +452,14 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('user.profile') }}">
                                                 <i class="fa-solid fa-user ms-1 top-0"></i>
-                                                <span>مشاهده پروفایل</span>
+                                                <span>{{ __('menu.profile') }}</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item text-danger" href="#"
                                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                                 <i class="fa-solid fa-arrow-right-from-bracket ms-1 top-0"></i>
-                                                <span>خروج</span>
+                                                <span>{{ __('menu.logout') }}</span>
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                 style="display: none;">
@@ -503,7 +503,7 @@
     <!-- آکاردئون موبایل -->
     <div class="mobile-category-menu" id="mobileCategoryMenu">
         <div class="mobile-category-header">
-            <span>فروشگاه ترمه سالاری</span>
+            <span>{{ __('main.title') }}</span>
             <button type="button" id="closeMobileMenu" class="btn-close"></button>
         </div>
         <div class="mobile-category-content">
@@ -512,11 +512,11 @@
                 <div class="button-container border border-secondary rounded text-center p-2">
                     @if (!Auth::check())
                         <a href="{{ route('login') }}" class="text-muted text-decoration-none px-1">
-                            ورود
+                            {{ __('menu.login') }}
                         </a>
                         |
                         <a href="{{ route('register') }}" class="text-muted text-decoration-none px-1">
-                            ثبت نام
+                            {{ __('menu.register') }}
                         </a>
                         <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
                     @else
@@ -530,27 +530,27 @@
             <div class="mobile-main-category py-3">
                 <a href="{{ route('cart.index') }}" class="text-reset text-decoration-none fw-bold">
                     <img src="{{ asset('shop/assets/svgs/cart.svg') }}" alt="cart" width="24">
-                    سبد خرید
+                    {{ __('menu.cart') }}
                 </a>
             </div>
             <div class="mobile-main-category py-3">
                 <a class="nav-link fw-bold" href="#specials">
                     <img src="{{ asset('shop/assets/svgs/badge-percent.svg') }}" alt="hots" width="18">
-                    شگفت انگیزها</a>
+                    {{ __('menu.amazing') }}</a>
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#newest">جدیدترین ها</a>
+                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#newest">{{ __('menu.newest') }}</a>
 
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#products">پرفروش ترین‌ها</a>
+                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#products">{{ __('menu.bestSeller') }}</a>
 
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#branchs">نمایندگی های فروش</a>
+                <a class="nav-link fw-bold" href="http://www.termehsalari.com/store#branchs">{{ __('menu.branchs') }}</a>
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold" href="{{ route('about') }}">درباره ما</a>
+                <a class="nav-link fw-bold" href="{{ route('about') }}">{{ __('menu.aboutUs') }}</a>
             </div>
             @foreach ($categories as $category)
                 <div class="mobile-main-category">

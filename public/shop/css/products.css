@@ -355,9 +355,18 @@
 }
 
 .pagination {
+    margin-top: 25px;
     padding: 0 !important;
+    gap: 10px;
 }
-
+.pagination li a{
+    border-radius: 8px;
+    border-color: var(--primary-color);
+}
+.pagination li span{
+    border-radius: 8px;
+    border-color: var(--primary-color);
+}
 @media (max-width: 576px) {
 
     .pagination li a,

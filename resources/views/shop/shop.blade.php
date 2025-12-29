@@ -129,9 +129,9 @@
                 <div class="container mb-5 px-0">
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2 offer-header">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ asset('shop/assets/svgs/badge-percent-title.svg') }}" alt="پیشنهاد ویژه"
+                            <img src="{{ asset('shop/assets/svgs/badge-percent-title.svg') }}" alt="{{ __('menu.amazing') }}"
                                 width="30">
-                            <h2 class="title m-0">پیشنهاد ویژه</h2>
+                            <h2 class="title m-0">{{ __('menu.amazing') }}</h2>
                         </div>
                         <div class="">
                             <!-- دکمه‌های کنترل جداگانه -->
@@ -523,9 +523,9 @@
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center justify-content-between w-100 p-2">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="{{ asset('shop/assets/svgs/layer-group-solid-full.svg') }}" alt="دسته‌بندی محصولات"
+                        <img src="{{ asset('shop/assets/svgs/layer-group-solid-full.svg') }}" alt="{{ __('main.categories') }}"
                             width="30">
-                        <h2 class="title m-0">دسته‌بندی محصولات</h2>
+                        <h2 class="title m-0">{{ __('main.categories') }}</h2>
                     </div>
                     <div class="">
                         <!-- دکمه‌های کنترل جداگانه -->
@@ -566,8 +566,8 @@
             <div class="container mb-5 px-0">
                 <div class=" d-flex justify-content-between align-items-center p-2 w-100">
                     <div class=" d-flex align-items-center gap-2">
-                        <img src="{{ asset('shop/assets/svgs/cup.svg') }}" alt="دسته‌بندی محصولات" width="30">
-                        <h2 class="title m-0">جدیدترین محصولات</h2>
+                        <img src="{{ asset('shop/assets/svgs/cup.svg') }}" alt="{{ __('main.newest') }}" width="30">
+                        <h2 class="title m-0">{{ __('main.newest') }}</h2>
                     </div>
                     <div class="">
                         <a href="#" class="btn btn-primary">
@@ -796,13 +796,11 @@
                         </div>
 
                         <div class="col-8">
-                            <p class="text-white text-center mb-0 text-bold-3">دیدن جدیدترین محصولات و تخفیف ها در صفحه
-                                اینستاگرام ترمه سالاری.</p>
+                            <p class="text-white text-center mb-0 text-bold-3">{{ __('main.socialText') }}</p>
                         </div>
 
                         <div class="col-2">
-                            <a class="btn btn-light w-100 text-blue" href="https://www.instagram.com/termehsalari/">اینجا
-                                کلیک کنید</a>
+                            <a class="btn btn-light w-100 text-blue" href="https://www.instagram.com/termehsalari/">{{ __('main.socialClick') }}</a>
                         </div>
                     </div>
 
@@ -835,8 +833,8 @@
                 <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                     <div class="d-flex align-items-center gap-2">
                         <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}"
-                            alt="پرفروش ترین محصولات" width="30">
-                        <h2 class="title m-0">پرفروش ترین محصولات</h2>
+                            alt="{{ __('main.bestSeller') }}" width="30">
+                        <h2 class="title m-0">{{ __('main.bestSeller') }}</h2>
                     </div>
                     <div class="">
                         <!-- دکمه‌های کنترل جداگانه -->
@@ -1005,9 +1003,9 @@
         <section id="branchs">
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center gap-2 p-2 pb-0">
-                    <img src="{{ asset('shop/assets/svgs/shop-solid-full.svg') }}" alt="نمایندگی های ترمه سالاری"
+                    <img src="{{ asset('shop/assets/svgs/shop-solid-full.svg') }}" alt="{{ __('main.branchs') }}"
                         width="32">
-                    <h2 class="title m-0">نمایندگی های ما</h2>
+                    <h2 class="title m-0">{{ __('main.branchs') }}</h2>
                 </div>
 
                 <div class="slider-container">

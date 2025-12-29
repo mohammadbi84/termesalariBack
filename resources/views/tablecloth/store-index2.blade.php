@@ -1,16 +1,26 @@
 @extends('shop.layouts.master')
 @section('title', 'محصولات رومیزی')
 @section('head')
-    <link rel="stylesheet" href="{{ asset('shop/css/products.css') }}">
+    @if (app()->getLocale() == 'fa')
+        <link rel="stylesheet" href="{{ asset('shop/css/products.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/products.css') }}">
+    @endif
 @endsection
 @section('content')
     <div class="container" style="margin-top:100px;">
         <div class="row g-0 rounded-3 px-2 mb-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="/store" class="text-decoration-none text-muted"><i
-                                class="fas fa-home"></i> خانه</a></li>
-                    <li class="breadcrumb-item">محصولات رومیزی</li>
+                    <li class="breadcrumb-item">
+                        <a href="/store" class="text-decoration-none text-muted">
+                            <i class="fas fa-home"></i> {{ __('products.home') }}
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        {{ __('products.tablecloth_products') }}
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -27,7 +37,7 @@
                             <div class="card-header bg-white">
                                 <a class="btn w-100 d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#collapseOne">
-                                    <span>جستجو در کالاها</span>
+                                    <span>{{ __('products.search_in_products') }}</span>
                                     <span><i class="fa-solid fa-angle-down"></i></span>
                                 </a>
                             </div>
@@ -36,7 +46,9 @@
                                     <div class="autocomplete" id="autocompleteBoxsearch">
                                         <input type="text" id="searchInputsearch" class="" name="search"
                                             oninput="nameinput('search')">
-                                        <label for="searchInputsearch">محصول مورد نظر خود را جستجو کنید</label>
+                                        <label for="searchInputsearch">
+                                            {{ __('products.search_placeholder') }}
+                                        </label>
                                         <span class="clear-btn" id="clearBtn_search" onclick="clearInput('search')">×</span>
                                     </div>
                                 </div>
@@ -50,7 +62,7 @@
                             <div class="card-header bg-white">
                                 <a class="btn w-100 d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#collapsePrice">
-                                    <span>محدوده قیمت</span>
+                                    <span>{{ __('products.price_range') }}</span>
                                     <span><i class="fa-solid fa-angle-down"></i></span>
                                 </a>
                             </div>
@@ -58,24 +70,29 @@
                                 <div class="card-body p-3">
                                     <div class="d-flex flex-column align-items-center gap-3 mb-2">
                                         <div class="autocomplete w-100" id="autocompleteBoxmin">
-                                            <span class="text-muted input_label_toman">تومان</span>
+                                            <span class="text-muted input_label_toman">
+                                                {{ __('products.toman') }}
+                                            </span>
                                             <input type="text" id="searchInputmin" class="only-number pe-2"
-                                                name="minPrice" style="padding-left: 66px;" data-fakename="min"
+                                                name="minPrice" style="padding-right: 66px !important;" data-fakename="min"
                                                 oninput="nameinput('min')">
-                                            <label for="searchInputmin">از</label>
+                                            <label for="searchInputmin">{{ __('products.from') }}</label>
                                             <span class="clear-btn" id="clearBtn_min" onclick="clearInput('min')">×</span>
                                         </div>
                                         <div class="autocomplete w-100" id="autocompleteBoxmax">
-                                            <span class="text-muted input_label_toman">تومان</span>
+                                            <span class="text-muted input_label_toman">
+                                                {{ __('products.toman') }}
+                                            </span>
                                             <input type="text" id="searchInputmax" class="only-number pe-2"
-                                                name="maxPrice" style="padding-left: 66px;" data-fakename="max"
+                                                name="maxPrice" style="padding-right: 66px !important;" data-fakename="max"
                                                 oninput="nameinput('max')">
-                                            <label for="searchInputmax">تا</label>
+                                            <label for="searchInputmax">{{ __('products.to') }}</label>
                                             <span class="clear-btn" id="clearBtn_max" onclick="clearInput('max')">×</span>
                                         </div>
                                     </div>
-                                    <button type="button" id="priceFilterBtn"
-                                        class="btn btn-custom w-100 mt-2">اعمال</button>
+                                    <button type="button" id="priceFilterBtn" class="btn btn-custom w-100 mt-2">
+                                        {{ __('products.apply') }}
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +103,7 @@
                             <div class="card-header bg-white">
                                 <a class="btn w-100 d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#collapseStock">
-                                    <span>فیلتر موجودی و تخفیف</span>
+                                    <span>{{ __('products.stock_discount_filter') }}</span>
                                     <span><i class="fa-solid fa-angle-down"></i></span>
                                 </a>
                             </div>
@@ -94,12 +111,15 @@
                                 <div class="card-body p-3">
                                     <div class="form-check form-switch mb-3">
                                         <input class="form-check-input filter-check" type="checkbox" id="stockSwitch">
-                                        <label class="form-check-label fw-bold" for="stockSwitch">فقط کالاهای
-                                            موجود</label>
+                                        <label class="form-check-label fw-bold">
+                                            {{ __('products.only_available') }}
+                                        </label>
                                     </div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input filter-check" type="checkbox" id="onlyOffer">
-                                        <label class="form-check-label fw-bold" for="onlyOffer">فقط تخفیف و حراجی</label>
+                                        <label class="form-check-label fw-bold">
+                                            {{ __('products.only_discount') }}
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +132,7 @@
                             <div class="card-header bg-white">
                                 <a class="btn w-100 d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#collapseCat">
-                                    <span>دسته‌بندی‌ها</span>
+                                    <span>{{ __('products.categories') }}</span>
                                     <span><i class="fa-solid fa-angle-down"></i></span>
                                 </a>
                             </div>
@@ -122,7 +142,9 @@
                                         <div class="autocomplete" id="autocompleteBoxcat">
                                             <input type="cat" id="searchInputcat" class="" name="cat"
                                                 oninput="nameinput('cat')">
-                                            <label for="searchInputcat">جستجوی دسته بندی...</label>
+                                            <label for="searchInputcat">
+                                                {{ __('products.search_category') }}
+                                            </label>
                                             <span class="clear-btn" id="clearBtn_cat"
                                                 onclick="clearInput('cat')">×</span>
                                         </div>
@@ -151,7 +173,7 @@
                             <div class="card-header bg-white">
                                 <a class="btn w-100 d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#collapseDesign">
-                                    <span>طرح</span>
+                                    <span>{{ __('products.design') }}</span>
                                     <span><i class="fa-solid fa-angle-down"></i></span>
                                 </a>
                             </div>
@@ -161,7 +183,9 @@
                                         <div class="autocomplete" id="autocompleteBoxdesign">
                                             <input type="text" id="searchInputdesign" class="" name="design"
                                                 oninput="nameinput('design')">
-                                            <label for="searchInputdesign">جستجوی طرح...</label>
+                                            <label for="searchInputdesign">
+                                                {{ __('products.search_design') }}
+                                            </label>
                                             <span class="clear-btn" id="clearBtn_design"
                                                 onclick="clearInput('design')">×</span>
                                         </div>
@@ -188,7 +212,7 @@
                             <div class="card-header bg-white">
                                 <a class="btn w-100 d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#collapseColor">
-                                    <span>رنگ</span>
+                                    <span>{{ __('products.color') }}</span>
                                     <span><i class="fa-solid fa-angle-down"></i></span>
                                 </a>
                             </div>
@@ -198,7 +222,9 @@
                                         <div class="autocomplete" id="autocompleteBoxcolor">
                                             <input type="text" id="searchInputcolor" class="" name="color"
                                                 oninput="nameinput('color')">
-                                            <label for="searchInputcolor">جستجوی رنگ...</label>
+                                            <label for="searchInputcolor">
+                                                {{ __('products.search_color') }}
+                                            </label>
                                             <span class="clear-btn" id="clearBtn_color"
                                                 onclick="clearInput('color')">×</span>
                                         </div>
@@ -230,12 +256,23 @@
                     class="filter-card d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 p-3">
 
                     <div class="d-flex align-items-center">
-                        <span class="ms-2 fw-bold text-muted"><i class="fas fa-sort-amount-down"></i> مرتب‌سازی:</span>
+                        <span class="ms-2 fw-bold text-muted">
+                            <i class="fas fa-sort-amount-down"></i>
+                            {{ __('products.sort_by') }}:
+                        </span>
                         <div class="sort-options" id="sortContainer">
-                            <span class="sort-item active" data-val="newest">جدیدترین</span>
-                            <span class="sort-item" data-val="cheapest">ارزان‌ترین</span>
-                            <span class="sort-item" data-val="expensive">گران‌ترین</span>
-                            <span class="sort-item" data-val="popular">محبوب‌ترین</span>
+                            <span class="sort-item active" data-val="newest">
+                                {{ __('products.newest') }}
+                            </span>
+                            <span class="sort-item" data-val="cheapest">
+                                {{ __('products.cheapest') }}
+                            </span>
+                            <span class="sort-item" data-val="expensive">
+                                {{ __('products.expensive') }}
+                            </span>
+                            <span class="sort-item" data-val="popular">
+                                {{ __('products.popular') }}
+                            </span>
                         </div>
                     </div>
 
@@ -256,7 +293,11 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'fa')
+        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @else
+        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    @endif
 
     <script>
         $(document).ready(function() {

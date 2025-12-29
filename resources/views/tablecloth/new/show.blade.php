@@ -2,7 +2,11 @@
 @section('title', $title . ' طرح ' . $tablecloth->color_design->design->title . ' رنگ ' .
     $tablecloth->color_design->color->color)
 @section('head')
-    <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    @if (app()->getLocale() == 'fa')
+        <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
+    @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
 @section('content')
@@ -13,9 +17,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/store" class="text-decoration-none text-muted"><i
-                                    class="fas fa-home"></i> خانه</a></li>
+                                    class="fas fa-home"></i> {{ __('products.home') }}</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('tablecloth.storeIndex') }}"
-                                class="text-decoration-none text-muted">محصولات رومیزی</a></li>
+                                class="text-decoration-none text-muted">{{ __('products.tablecloth_products') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             {{ $tablecloth->category->title }} طرح {{ $tablecloth->color_design->design->title }} رنگ
                             {{ $tablecloth->color_design->color->color }}
@@ -70,11 +74,11 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center gap-2" style="margin-top: 10px;">
                             <a href="#" id="share-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="اشتراک گذاری" class="share-btn telegram">
+                                title="{{ __('product.share') }}" class="share-btn telegram">
                                 <i class="fa-solid fa-share-nodes"></i>
                             </a>
                             <a href="#" id="compare" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="برای مقایسه کلیک کنید" class="share-btn telegram"
+                                title="{{ __('product.compare') }}" class="share-btn telegram"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                                 data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
@@ -87,7 +91,7 @@
                                 <i class="fa-solid fa-shuffle"></i>
                             </a>
                             <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="افزودن به لیست علاقه‌مندی ها"
+                                title="{{ __('product.wishlist') }}"
                                 class="share-btn telegram  favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
@@ -135,19 +139,23 @@
                             نظر)</span>
                     </div>
                     <ul class="product-specs ">
-                        <li> کد محصول: {{ $tablecloth->code }}</li>
-                        <li> تعداد رنگ بافت ترمه: {{ $tablecloth->color_design->design->countOfColor }} رنگ</li>
-                        <li> مشتمل بر: {{ $tablecloth->contains }}</li>
-                        <li> رنگ: {{ $tablecloth->color_design->color->color }}</li>
+                        <li>{{ __('product.product_code') }}: {{ $tablecloth->code }}</li>
+                        <li>
+                            {{ __('product.color_count') }}:
+                            {{ $tablecloth->color_design->design->countOfColor }}
+                            {{ __('product.colors') }}
+                        </li>
+                        <li>{{ __('product.contains') }}: {{ $tablecloth->contains }}</li>
+                        <li>{{ __('product.color') }}: {{ $tablecloth->color_design->color->color }}</li>
                     </ul>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">دسته‌بندی :</h6>
+                        <h6 class="color-title">{{ __('product.category') }} :</h6>
                         <a href="{{ route('tablecloth.storeIndex') }}"
                             class="tag">{{ $tablecloth->category->title }}</a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">برچسب ها :</h6>
+                        <h6 class="color-title">{{ __('product.tags') }} :</h6>
                         <span class="tag">{{ $tablecloth->color_design->design->title }}</span>
                     </div>
                     <div class="categories-tags">
@@ -167,9 +175,10 @@
                             @elseif($tablecloth->quantity > 5)
                             <span class="text-success text-bold"> موجود در انبار</span>
                             @endif --}}
-                            <span class="text-bold">{{ $tablecloth->quantity }} عدد موجود می باشد .</span>
+                            <span class="text-bold">
+                                {{ __('product.available_qty', ['count' => $tablecloth->quantity]) }}
+                            </span>
                         </div>
-
                         <div class="quantity-control">
                             <div class="quantity-controls gap-2">
                                 <button class="minus-btn" data-model="{{ substr($tablecloth->category->model, 4) }}"
@@ -186,8 +195,8 @@
                                 data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
                                 data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
-                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">افزودن به سبد
-                                خرید</button>
+                                data-offType="{{ $prices->offType }}"
+                                data-local="{{ $prices->local }}">{{ __('product.add_to_cart') }}</button>
                         </div>
                     </div>
                 </div>
@@ -198,8 +207,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/24hours.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">ضمانت محصولات</h5>
-                            <span class="point-span">و اصالت کالا</span>
+                            <h5 class="m-0">{{ __('product.guarantee_title') }}</h5>
+                            <span class="point-span">{{ __('product.guarantee_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -207,8 +216,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/newest.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">به‌روز ترین محصولات</h5>
-                            <span class="point-span">و بهترین کیفیت</span>
+                            <h5 class="m-0">{{ __('product.newest_title') }}</h5>
+                            <span class="point-span">{{ __('product.newest_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -216,8 +225,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/offBadges.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">حراج های مختلف</h5>
-                            <span class="point-span">تا 50 درصد تخفیف</span>
+                            <h5 class="m-0">{{ __('product.discount_title') }}</h5>
+                            <span class="point-span">{{ __('product.discount_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -225,8 +234,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/quality.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">تضمین بهترین قیمت</h5>
-                            <span class="point-span">و بالاترین کیفیت</span>
+                            <h5 class="m-0">{{ __('product.best_price_title') }}</h5>
+                            <span class="point-span">{{ __('product.best_price_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -237,7 +246,7 @@
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
                             {{-- <i class="fa-solid fa-info info-badge-icon"></i> --}}
                             <i class="fa-solid fa-circle-info info-badge-icon"></i>
-                            <h5 class="m-0">توضیحات</h5>
+                            <h5 class="m-0">{{ __('product.description') }}</h5>
                         </div>
                         <p class="text-justify text-muted">
                             {{ $tablecloth->description }}
@@ -246,7 +255,7 @@
                     <div class="bg-white rounded-4 p-4 shadow-sm">
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
                             <i class="fa-regular fa-comments info-badge-icon"></i>
-                            <h5 class="m-0">نظر شما برای ما مهم است</h5>
+                            <h5 class="m-0">{{ __('product.comments_title') }}</h5>
                         </div>
                         <form action="/comment" method="POST" class="">
                             @csrf
@@ -256,7 +265,9 @@
                                 <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
                                     <input type="text" id="searchInputtext" value="{{ old('text') }}"
                                         class="" name="text" oninput="nameinput('text')">
-                                    <label for="searchInputtext">دیدگاه خود را در مورد این محصول بنویسید ...</label>
+                                    <label for="searchInputtext">
+                                        {{ __('product.comment_placeholder') }}
+                                    </label>
                                     <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
                                         @if (old('text')) style="display:block !important" @endif>×</span>
                                 </div>
@@ -265,7 +276,7 @@
                                 @enderror
                             </div>
                             <div class="mb-4 d-flex justify-content-between align-items-center">
-                                امتیاز شما به این محصول :
+                                {{ __('product.your_rating') }} :
                                 <!-- ریتینگ ستاره‌ها -->
                                 <div class="rating-stars">
                                     <span class="star" data-value="1">★</span>
@@ -281,8 +292,9 @@
                             @if (Auth::check())
                                 <button type="submit" class="btn btn-primary w-25 mb-3">ثبت دیدگاه</button>
                             @else
-                                <button type="button" id="comment_btn" class="btn btn-primary w-25 mb-3">ثبت
-                                    دیدگاه</button>
+                                <button type="submit" class="btn btn-primary w-25 mb-3">
+                                    {{ __('product.submit_comment') }}
+                                </button>
                             @endif
                         </form>
                     </div>
@@ -291,54 +303,54 @@
                     <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
                         {{-- <i class="fa-solid fa-info info-badge-icon"></i> --}}
                         <i class="fa-solid fa-circle-info info-badge-icon"></i>
-                        <h5 class="m-0">جزئیات محصول</h5>
+                        <h5 class="m-0">{{ __('product.details') }}</h5>
                     </div>
                     <ul class="list-group list-group-flush p-0">
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>ابعاد محصول</span>
+                                <span>{{ __('product.dimensions') }}</span>
                                 <span class="point-span">{{ $tablecloth->dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>وزن تقریبی</span>
+                                <span>{{ __('product.weight') }}</span>
                                 <span class="point-span">{{ $tablecloth->weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>جنس محصول</span>
+                                <span>{{ __('product.material') }}</span>
                                 <span class="point-span">{{ $tablecloth->kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>نوع دوخت</span>
+                                <span>{{ __('product.sewing_type') }}</span>
                                 <span class="point-span">{{ $tablecloth->sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>آستر</span>
+                                <span>{{ __('product.lining') }}</span>
                                 <span class="point-span">{{ $tablecloth->haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>جنس آستر</span>
+                                <span>{{ __('product.lining_material') }}</span>
                                 <span class="point-span">{{ $tablecloth->kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>قابلیت شستشو</span>
+                                <span>{{ __('product.washable') }}</span>
                                 <span class="point-span">{{ $tablecloth->washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>موارد استفاده</span>
+                                <span>{{ __('product.uses') }}</span>
                                 <span class="point-span">{{ $tablecloth->uses }}</span>
                             </div>
                         </li>
@@ -357,7 +369,7 @@
                         <div class="d-flex align-items-center gap-2">
                             <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="محصولات مشابه"
                                 width="30">
-                            <h2 class="title m-0">محصولات مشابه</h2>
+                            <h2 class="title m-0">{{ __('product.related_products') }}</h2>
                         </div>
                         <div class="">
                             <!-- دکمه‌های کنترل جداگانه -->
@@ -529,8 +541,10 @@
                     {{-- <i class="fa-solid fa-info info-badge-icon top-0"></i> --}}
                     <i class="fa-regular fa-comments info-badge-icon"></i>
                     <div>
-                        <h5 class="m-0">دیدگاه کاربران</h5>
-                        <span class="point-span">{{ $comments->count() }} دیدگاه برای این محصول ثبت شده است</span>
+                        <h5 class="m-0">{{ __('product.user_comments') }}</h5>
+                        <span class="point-span">
+                            {{ __('product.comments_count', ['count' => $comments->count()]) }}
+                        </span>
                     </div>
                 </div>
                 @foreach ($comments as $comment)
@@ -569,7 +583,7 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="galleryModalLabel">گالری تصاویر محصول</h5>
+                        <h5 class="modal-title" id="galleryModalLabel">{{ __('product.gallery') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -593,7 +607,11 @@
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'fa')
+        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @else
+        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const stars = document.querySelectorAll('.star');
