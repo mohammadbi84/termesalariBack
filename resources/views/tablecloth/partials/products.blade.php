@@ -31,7 +31,7 @@
                             ' رنگ ' .
                             $tablecloth->color_design->color->color;
                     @endphp
-                    {{ Str::limit($name, 38) }}
+                    {{ Str::limit($name, 35) }}
                     {{-- {{ $tablecloth->category->title }} طرح
                     {{ $tablecloth->color_design->design->title }} رنگ
                     {{ $tablecloth->color_design->color->color }} --}}
@@ -60,7 +60,7 @@
                         $price = $prices->price;
                     }
                 @endphp
-                <small class="text-danger ms-2 fs-16">
+                <small class="text-danger ms-2 mb-2 fs-16">
                     @if ($tablecloth->quantity > 0 and $tablecloth->quantity <= 5)
                         <i class="fas fa-bell" style="color: #ef3a4e"></i>
                     @endif
@@ -92,7 +92,7 @@
                             <span class="rate-text">ضمانت</span>
                         </div>
                     </div>
-                    <div class="d-flex flex-column border-end border-2 pe-2">
+                    <div class="d-flex flex-column border-end border-2 pe-2 price-flex-col">
                         @if ($tablecloth->quantity != 0)
                             @if ($prices->offPrice > 0)
                                 @if ($prices->offType == 'مبلغ')
@@ -166,7 +166,7 @@
                                 </span>
                             @endif
                         @else
-                            <a href="#" class="btn btn-tell">خبرم کن</a>
+                            <a href="#" class="btn btn-tell px-3">خبرم کن</a>
                         @endif
                     </div>
                 </div>

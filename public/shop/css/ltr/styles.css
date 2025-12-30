@@ -21,16 +21,24 @@ html {
     background-color: #327942 !important;
     border: 1px solid #327942 !important;
 }
+
 .btn-tell {
+    height: 30px;
+    width: 88px;
     z-index: 3;
-    background-color: #ccc !important;
+    background-color: #e9ebeb !important;
     color: #282828 !important;
-    border: 1px solid #ccc;
+    border: 1px solid #e9ebeb;
+    font-size: 14px;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-tell:hover {
-    background-color: #ababab !important;
-    border: 1px solid #ababab !important;
+    background-color: #d8d8d8 !important;
+    border: 1px solid #d8d8d8 !important;
 }
 
 .btn-secondary {
