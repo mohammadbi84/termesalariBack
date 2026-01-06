@@ -397,6 +397,10 @@
                                 </div>
                             @endforeach
                         @else
+                            @php
+                                $price = 0;
+                                $off = 0;
+                            @endphp
                             {{-- empty cart fallback --}}
                             <div id="empty-cart" class="empty-cart text-center">
                                 <img src="{{ asset('/storetemplate/dist/img/empty-cart-icon.png') }}" alt="سبد خرید خالی"
