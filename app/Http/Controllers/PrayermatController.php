@@ -163,7 +163,7 @@ class PrayermatController extends Controller
                 // dd($prayermat,$likePrayermats);
             $title = $prayermat->category->title;
 
-            return view('prayermat.show')
+            return view('prayermat.new.show')
                 ->with('prayermat',$prayermat)
                 ->with('likePrayermats',$likePrayermats)
                 ->with('comments',$comments)

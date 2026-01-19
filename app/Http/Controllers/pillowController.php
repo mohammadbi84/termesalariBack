@@ -164,7 +164,7 @@ class PillowController extends Controller
                 // dd($pillow,$likePillows);
             $title = $pillow->category->title;
 
-            return view('pillow.show')
+            return view('pillow.new.show')
                 ->with('pillow',$pillow)
                 ->with('likePillows',$likePillows)
                 ->with('comments',$comments)

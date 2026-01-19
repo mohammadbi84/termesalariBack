@@ -163,7 +163,7 @@ class FabricController extends Controller
                 // dd($fabric,$likeFabrics);
             $title = $fabric->category->title;
 
-            return view('fabric.show')
+            return view('fabric.new.show')
                 ->with('fabric',$fabric)
                 ->with('likeFabrics',$likeFabrics)
                 ->with('comments',$comments)
