@@ -6,6 +6,10 @@ return [
     'home' => 'Home',
     'products' => 'Products',
     'tablecloth_products' => 'Tablecloth Products',
+    'praymat_products' => 'Praymat Products',
+    'bedcover_products' => 'Bed Cover Products',
+    'pillow_products' => 'Pillow Products',
+    'fabric_products' => 'Fabric Products',
 
     /* ---------- Filters ---------- */
     'search_in_products' => 'Search Products',

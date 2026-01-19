@@ -12,6 +12,9 @@
 */
 
 use App\Http\Controllers\BedcoverController;
+use App\Http\Controllers\FabricController;
+use App\Http\Controllers\PillowController;
+use App\Http\Controllers\PrayermatController;
 use App\Http\Controllers\TableclothController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -252,6 +255,7 @@ route::post('/prayermat/changeVisibilityGroup', 'PrayermatController@changeVisib
 Route::get('/prayermat/duplicate/{prayermat}', 'PrayermatController@duplicate')->name('prayermat.duplicate');
 Route::get('/store/prayermats/', 'PrayermatController@storeIndex')->name('prayermat.storeIndex');
 Route::get('/store/prayermats/filter', 'PrayermatController@storeFilter')->name('prayermat.storeFilter');
+Route::get('/ajax/prayermats', [PrayermatController::class, 'ajaxStore'])->name('prayermat.filter');
 
 
 Route::resource('pillow', 'PillowController');
@@ -260,6 +264,8 @@ route::post('/pillow/changeVisibilityGroup', 'PillowController@changeVisibilityG
 Route::get('/pillow/duplicate/{pillow}', 'PillowController@duplicate')->name('pillow.duplicate');
 Route::get('/store/pillows/', 'PillowController@storeIndex')->name('pillow.storeIndex');
 Route::get('/store/pillows/filter', 'PillowController@storeFilter')->name('pillow.storeFilter');
+Route::get('/ajax/pillow', [PillowController::class, 'ajaxStore'])->name('pillow.filter');
+
 
 
 Route::resource('fabric', 'FabricController');
@@ -268,6 +274,8 @@ route::post('/fabric/changeVisibilityGroup', 'FabricController@changeVisibilityG
 Route::get('/fabric/duplicate/{fabric}', 'FabricController@duplicate')->name('fabric.duplicate');
 Route::get('/store/fabrics/', 'FabricController@storeIndex')->name('fabric.storeIndex');
 Route::get('/store/fabrics/filter', 'FabricController@storeFilter')->name('fabric.storeFilter');
+Route::get('/ajax/fabric', [FabricController::class, 'ajaxStore'])->name('fabric.filter');
+
 
 // Route::get('/payment/callback',function(){
 // 	dd("ddddd");

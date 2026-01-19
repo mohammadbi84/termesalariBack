@@ -20,12 +20,13 @@ use App\Http\Requests\FabricEditRequest;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Thumbnail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FabricController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('show','storeIndex','storeFilter');
+        $this->middleware('auth')->except('show','storeIndex','storeFilter','ajaxStore');
         // $this->authorizeResource(Fabric::class, 'fabric');
     }
     /**
@@ -82,7 +83,7 @@ class FabricController extends Controller
             $fabric->save();
             // dd($request->all());
             if(isset($request->price)){
-            	
+
                 foreach($request->price as $key=>$p)
                 {
                     if(isset($p))
@@ -124,7 +125,7 @@ class FabricController extends Controller
                         ->save('storage/images/thumbnails/'.basename($path));
                 }
             }
-            
+
             return redirect()->route('fabric.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         }//if
@@ -149,7 +150,7 @@ class FabricController extends Controller
             $comments = $fabric->comments()
                 ->where("status",1)
                 ->get();
-            
+
             $grade = Grade::where("gradeable_id",$fabric->id)
                 ->where("gradeable_type","App\\Fabric")
                 ->avg('grade');
@@ -218,7 +219,7 @@ class FabricController extends Controller
 
 
         // $design = Design::find($request->design);
-        
+
         $fabric->fill($request->all());
         // $fabric->design_id = $request->design_id;
         $fabric->color_design_id  = $color_design->id;
@@ -226,7 +227,7 @@ class FabricController extends Controller
         $fabric->category_id = $request->category_id;
 
         if(isset($request->price)){
-                
+
             foreach($request->price as $key=>$p)
             {
                 if(isset($p))
@@ -278,9 +279,9 @@ class FabricController extends Controller
         }
 
         $fabric->save();
-        
-        
-       
+
+
+
         return redirect()->route('fabric.index')
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
@@ -330,7 +331,7 @@ class FabricController extends Controller
         }
         else if($delFlag == 0)
         {
-        
+
             $product->images()->delete();
 
             $product->grades()->delete();
@@ -358,7 +359,7 @@ class FabricController extends Controller
             $fabric->visibility = 0;
         }
         $fabric->save();
-        
+
         $result["res"] = "success";
         $result["message"] = "مورد انتخابی تغییر وضعیت یافت.";
         return $result;
@@ -390,52 +391,331 @@ class FabricController extends Controller
 
     public function storeIndex(Request $request)
     {
-        $designs_id = Design::where('active',1)
-            ->pluck('id');
+        $designs_id = Design::where('active', 1)->pluck('id');
+        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)->pluck('id');
 
-        $color_designs_id = ColorDesign::whereIn('design_id',$designs_id)
-            ->pluck('id');
+        $fabrics = Fabric::whereIn('color_design_id', $color_designs_id)
+            ->where('visibility', 1)
+            ->with([
+                'color_design.design',
+                'color_design.color'
+            ]);
 
-        $fabrics = Fabric::filter($request)
-            ->whereIn('color_design_id',$color_designs_id)
-            ->where('visibility',1)
-            ->paginate(15);
+
+        // *** فیلتر طرح ***
+        if ($request->designs) {
+            $fabrics->whereHas('color_design.design', function ($q) use ($request) {
+                $q->whereIn('id', $request->designs);
+            });
+        }
+
+
+        // *** فیلتر رنگ ***
+        if ($request->colors) {
+            $fabrics->whereHas('color_design.color', function ($q) use ($request) {
+                $q->whereIn('id', $request->colors);
+            });
+        }
+
+
+        // *** فیلتر دسته ***
+        if ($request->categories) {
+            $fabrics->whereIn('category_id', $request->categories);
+        }
+
+        // *** فیلتر موجود بودن ***
+        if ($request->quantity == 1) {
+            $fabrics->where('quantity', '>', 0);
+        }
+
+        // *** مرتب‌سازی ***
+        switch ($request->sort) {
+            case 'topSales':
+                $fabrics = $fabrics->get(); // ابتدا collection بگیر
+                $fabrics = $fabrics->sortByDesc(function ($fabric) {
+                    return $fabric->orderitems->sum('count'); // جمع فروش
+                });
+                break;
+
+            case 'lastDate':
+                $fabrics = $fabrics->orderByDesc('created_at')->get();
+                break;
+
+            case 'cheapest':
+                $fabrics = $fabrics->get()->sortBy(function ($fabric) {
+                    $price = $fabric->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'expensive':
+                $fabrics = $fabrics->get()->sortByDesc(function ($fabric) {
+                    $price = $fabric->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'topOffer':
+                $fabrics = $fabrics->get()->sortByDesc(function ($fabric) {
+                    $price = $fabric->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    $off = 0;
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ') $off = $price->offPrice;
+                        elseif ($price->offType == 'درصد') $off = $price->price * ($price->offPrice / 100);
+                    }
+                    return $off;
+                });
+                break;
+
+            case 'popular':
+                $fabrics = $fabrics->get()->sortByDesc(function ($fabric) {
+                    return $fabric->grades->sum('grade');
+                });
+                break;
+
+            default:
+                $fabrics = $fabrics->orderByDesc('created_at')->get();
+                break;
+        }
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
+
+            $fabrics = $fabrics->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
+        // بعد paginate collection (Laravel 7)
+        $page = request()->get('page', 1);
+        $perPage = 12;
+
+        $items = $fabrics->forPage($page, $perPage);
+
+        $fabrics = new LengthAwarePaginator(
+            $items,
+            $fabrics->count(),
+            $perPage,
+            $page,
+            [
+                'path' => route('fabric.storeIndex'),
+                'query' => request()->query() // این جایگزین withQueryString میشه
+            ]
+        );
 
         $designs = collect();
         $colors = collect();
-
-        $list_color_designs = ColorDesign::with('color','design')
-            ->whereIn('design_id',$designs_id)
+        $list_color_designs = ColorDesign::with('color', 'design')
+            ->whereIn('design_id', $designs_id)
             ->get();
-
         foreach ($list_color_designs as $item) {
             $designs->push($item->design);
             $colors->push($item->color);
         }
 
+
         $designs = $designs->unique('id');
         $colors = $colors->unique('id');
 
-        $minPrices = Price::where("local","تومان")->min('price');
-        $maxPrices = Price::where("local","تومان")->max('price');
-        // $types = Fabric::select('type')->DISTINCT()->get();
-        $categories = Category::where('parent_id',22)
-            ->where('model','App\Fabric')
+        $minPrices = $request->minPrice ?? Price::where("local", "تومان")->min('price');
+        $maxPrices = $request->maxPrice ?? Price::where("local", "تومان")->max('price');
+        $categories = Category::where('parent_id', 1)
+            ->where('model', 'App\Fabric')
             ->where('active', 1)
             ->get();
 
-        $slideshows = Slideshow::where('position','homeStore-A')
-            ->where('visibility',1)
+        $slideshows = Slideshow::where('position', 'homeStore-A')
+            ->where('visibility', 1)
             ->get();
 
-        return view('fabric.store-index')
-            ->with('fabrics',$fabrics)
-            ->with('designs',$designs)
-            ->with('colors',$colors)
-            ->with('slideshows',$slideshows)
-            ->with('minPrices',$minPrices)
-            ->with('maxPrices',$maxPrices)
-            ->with('categories',$categories);
+        return view('fabric.store-index2')
+            ->with('fabrics', $fabrics)
+            ->with('designs', $designs)
+            ->with('colors', $colors)
+            ->with('slideshows', $slideshows)
+            ->with('minPrices', $minPrices)
+            ->with('maxPrices', $maxPrices)
+            ->with('categories', $categories);
+    }
+    public function ajaxStore(Request $request)
+    {
+        $designs_id = Design::where('active', 1)->pluck('id');
+        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)->pluck('id');
+
+        $fabrics = Fabric::whereIn('color_design_id', $color_designs_id)
+            ->where('visibility', 1)
+            ->with([
+                'color_design.design',
+                'color_design.color'
+            ]);
+
+
+        // *** فیلتر طرح ***
+        if ($request->designs) {
+            $fabrics->whereHas('color_design.design', function ($q) use ($request) {
+                $q->whereIn('id', $request->designs);
+            });
+        }
+
+        // *** فیلتر رنگ ***
+        if ($request->colors) {
+            $fabrics->whereHas('color_design.color', function ($q) use ($request) {
+                $q->whereIn('id', $request->colors);
+            });
+        }
+
+        // *** فیلتر باکس جستجو ***
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $fabrics->where(function ($q) use ($search) {
+                // دسته‌بندی
+                $q->whereHas('category', function ($q2) use ($search) {
+                    $q2->where('title', 'LIKE', "%{$search}%");
+                })
+                    // طرح
+                    ->orWhereHas('color_design.design', function ($q2) use ($search) {
+                        $q2->where('title', 'LIKE', "%{$search}%");
+                    })
+                    // رنگ
+                    ->orWhereHas('color_design.color', function ($q2) use ($search) {
+                        $q2->where('color', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        // *** فیلتر دسته ***
+        if ($request->categories) {
+            $fabrics->whereIn('category_id', $request->categories);
+        }
+
+        // *** فیلتر موجود بودن ***
+        if ($request->stock == 1) {
+            $fabrics->where('quantity', '>', 0);
+        }
+
+        // *** فیلتر فقط تخفیف دار ها ***
+        if ($request->onlyOffer == 1) {
+            $fabrics->whereHas('prices', function ($q) {
+                $q->where('local', 'تومان')
+                    ->where('offPrice', '>', 0);
+            });
+        }
+
+        // *** مرتب‌سازی ***
+        switch ($request->sort) {
+            case 'topSales':
+                $fabrics = $fabrics->get(); // ابتدا collection بگیر
+                $fabrics = $fabrics->sortByDesc(function ($fabric) {
+                    return $fabric->orderitems->sum('count'); // جمع فروش
+                });
+                break;
+
+            case 'lastDate':
+                $fabrics = $fabrics->orderByDesc('created_at')->get();
+                break;
+
+            case 'cheapest':
+                $fabrics = $fabrics->get()->sortBy(function ($fabric) {
+                    $price = $fabric->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'expensive':
+                $fabrics = $fabrics->get()->sortByDesc(function ($fabric) {
+                    $price = $fabric->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'topOffer':
+                $fabrics = $fabrics->get()->sortByDesc(function ($fabric) {
+                    $price = $fabric->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    $off = 0;
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ') $off = $price->offPrice;
+                        elseif ($price->offType == 'درصد') $off = $price->price * ($price->offPrice / 100);
+                    }
+                    return $off;
+                });
+                break;
+
+            case 'popular':
+                $fabrics = $fabrics->get()->sortByDesc(function ($fabric) {
+                    return $fabric->grades->sum('grade');
+                });
+                break;
+
+            default:
+                $fabrics = $fabrics->orderByDesc('created_at')->get();
+                break;
+        }
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
+
+            $fabrics = $fabrics->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
+        // بعد paginate collection (Laravel 7)
+        $page = request()->get('page', 1);
+        $perPage = 12;
+
+        $items = $fabrics->forPage($page, $perPage);
+
+        $fabrics = new LengthAwarePaginator(
+            $items,
+            $fabrics->count(),
+            $perPage,
+            $page,
+            [
+                'path' => route('fabric.storeIndex'),
+                'query' => request()->query() // این جایگزین withQueryString میشه
+            ]
+        );
+
+        return response()->json([
+            'html' => view('fabric.partials.products', compact('fabrics'))->render(),
+            'pagination' => (string) $fabrics->links()
+        ]);
     }
 
     public function storeFilter(Request $request)
@@ -453,7 +733,7 @@ class FabricController extends Controller
 
         $designs = collect();
         $colors = collect();
-        
+
         $list_color_designs = ColorDesign::with('color','design')
             ->whereIn('design_id',$designs_id)
             ->get();
@@ -543,14 +823,14 @@ class FabricController extends Controller
                             });
                     // dd(6);
                 break;
-            
+
             default:
                     $fabrics = $fabrics->sortByDesc('created_at');
                 break;
         }
 
         // dd($fabrics);
-        
+
         if($request->expectsJson())
             return view('fabric.store-filter')
                 ->with('fabrics',$fabrics);

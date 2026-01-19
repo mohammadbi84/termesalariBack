@@ -6,6 +6,10 @@ return [
     'home' => 'خانه',
     'products' => 'محصولات',
     'tablecloth_products' => 'محصولات رومیزی',
+    'praymat_products' => 'محصولات سجاده و جانماز',
+    'bedcover_products' => 'محصولات روتختی',
+    'pillow_products' => 'محصولات پشتی و کوسن',
+    'fabric_products' => 'محصولات پارچه',
 
     /* ---------- Filters ---------- */
     'search_in_products' => 'جستجو در کالاها',

@@ -20,12 +20,13 @@ use App\Http\Requests\PrayermatEditRequest;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Thumbnail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PrayermatController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('show','storeIndex','storeFilter');
+        $this->middleware('auth')->except('show','storeIndex','storeFilter', 'ajaxStore');
         // $this->authorizeResource(Prayermat::class, 'prayermat');
     }
     /**
@@ -82,7 +83,7 @@ class PrayermatController extends Controller
             $prayermat->save();
             // dd($request->all());
             if(isset($request->price)){
-            	
+
                 foreach($request->price as $key=>$p)
                 {
                     if(isset($p))
@@ -124,7 +125,7 @@ class PrayermatController extends Controller
                         ->save('storage/images/thumbnails/'.basename($path));
                 }
             }
-            
+
             return redirect()->route('prayermat.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         }//if
@@ -149,7 +150,7 @@ class PrayermatController extends Controller
             $comments = $prayermat->comments()
                 ->where("status",1)
                 ->get();
-            
+
             $grade = Grade::where("gradeable_id",$prayermat->id)
                 ->where("gradeable_type","App\\Prayermat")
                 ->avg('grade');
@@ -215,14 +216,14 @@ class PrayermatController extends Controller
         $color_design = ColorDesign::where('design_id',$request->design_id)
             ->where('color_id',$request->color_id)
             ->first();
-        
+
         $prayermat->fill($request->all());
         $prayermat->color_design_id  = $color_design->id;
         $prayermat->prices()->delete($request->price);
         $prayermat->category_id = $request->category_id;
 
         if(isset($request->price)){
-                
+
             foreach($request->price as $key=>$p)
             {
                 if(isset($p))
@@ -273,9 +274,9 @@ class PrayermatController extends Controller
         }
 
         $prayermat->save();
-        
-        
-       
+
+
+
         return redirect()->route('prayermat.index')
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
@@ -325,7 +326,7 @@ class PrayermatController extends Controller
         }
         else if($delFlag == 0)
         {
-        
+
             $product->images()->delete();
 
             $product->grades()->delete();
@@ -353,7 +354,7 @@ class PrayermatController extends Controller
             $prayermat->visibility = 0;
         }
         $prayermat->save();
-        
+
         $result["res"] = "success";
         $result["message"] = "مورد انتخابی تغییر وضعیت یافت.";
         return $result;
@@ -385,52 +386,331 @@ class PrayermatController extends Controller
 
     public function storeIndex(Request $request)
     {
-        $designs_id = Design::where('active',1)
-            ->pluck('id');
+        $designs_id = Design::where('active', 1)->pluck('id');
+        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)->pluck('id');
 
-        $color_designs_id = ColorDesign::whereIn('design_id',$designs_id)
-            ->pluck('id');
+        $prayermats = Prayermat::whereIn('color_design_id', $color_designs_id)
+            ->where('visibility', 1)
+            ->with([
+                'color_design.design',
+                'color_design.color'
+            ]);
 
-        $prayermats = Prayermat::filter($request)
-            ->whereIn('color_design_id',$color_designs_id)
-            ->where('visibility',1)
-            ->paginate(15);
+
+        // *** فیلتر طرح ***
+        if ($request->designs) {
+            $prayermats->whereHas('color_design.design', function ($q) use ($request) {
+                $q->whereIn('id', $request->designs);
+            });
+        }
+
+
+        // *** فیلتر رنگ ***
+        if ($request->colors) {
+            $prayermats->whereHas('color_design.color', function ($q) use ($request) {
+                $q->whereIn('id', $request->colors);
+            });
+        }
+
+
+        // *** فیلتر دسته ***
+        if ($request->categories) {
+            $prayermats->whereIn('category_id', $request->categories);
+        }
+
+        // *** فیلتر موجود بودن ***
+        if ($request->quantity == 1) {
+            $prayermats->where('quantity', '>', 0);
+        }
+
+        // *** مرتب‌سازی ***
+        switch ($request->sort) {
+            case 'topSales':
+                $prayermats = $prayermats->get(); // ابتدا collection بگیر
+                $prayermats = $prayermats->sortByDesc(function ($prayermat) {
+                    return $prayermat->orderitems->sum('count'); // جمع فروش
+                });
+                break;
+
+            case 'lastDate':
+                $prayermats = $prayermats->orderByDesc('created_at')->get();
+                break;
+
+            case 'cheapest':
+                $prayermats = $prayermats->get()->sortBy(function ($prayermat) {
+                    $price = $prayermat->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'expensive':
+                $prayermats = $prayermats->get()->sortByDesc(function ($prayermat) {
+                    $price = $prayermat->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'topOffer':
+                $prayermats = $prayermats->get()->sortByDesc(function ($prayermat) {
+                    $price = $prayermat->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    $off = 0;
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ') $off = $price->offPrice;
+                        elseif ($price->offType == 'درصد') $off = $price->price * ($price->offPrice / 100);
+                    }
+                    return $off;
+                });
+                break;
+
+            case 'popular':
+                $prayermats = $prayermats->get()->sortByDesc(function ($prayermat) {
+                    return $prayermat->grades->sum('grade');
+                });
+                break;
+
+            default:
+                $prayermats = $prayermats->orderByDesc('created_at')->get();
+                break;
+        }
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
+
+            $prayermats = $prayermats->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
+        // بعد paginate collection (Laravel 7)
+        $page = request()->get('page', 1);
+        $perPage = 12;
+
+        $items = $prayermats->forPage($page, $perPage);
+
+        $prayermats = new LengthAwarePaginator(
+            $items,
+            $prayermats->count(),
+            $perPage,
+            $page,
+            [
+                'path' => route('prayermat.storeIndex'),
+                'query' => request()->query() // این جایگزین withQueryString میشه
+            ]
+        );
 
         $designs = collect();
         $colors = collect();
-
-        $list_color_designs = ColorDesign::with('color','design')
-            ->whereIn('design_id',$designs_id)
+        $list_color_designs = ColorDesign::with('color', 'design')
+            ->whereIn('design_id', $designs_id)
             ->get();
-
         foreach ($list_color_designs as $item) {
             $designs->push($item->design);
             $colors->push($item->color);
         }
 
+
         $designs = $designs->unique('id');
         $colors = $colors->unique('id');
 
-        $minPrices = Price::where("local","تومان")->min('price');
-        $maxPrices = Price::where("local","تومان")->max('price');
-        // $types = Prayermat::select('type')->DISTINCT()->get();
-        $categories = Category::where('parent_id',14)
-            ->where('model','App\Prayermat')
+        $minPrices = $request->minPrice ?? Price::where("local", "تومان")->min('price');
+        $maxPrices = $request->maxPrice ?? Price::where("local", "تومان")->max('price');
+        $categories = Category::where('parent_id', 1)
+            ->where('model', 'App\Prayermat')
             ->where('active', 1)
             ->get();
 
-        $slideshows = Slideshow::where('position','homeStore-A')
-            ->where('visibility',1)
+        $slideshows = Slideshow::where('position', 'homeStore-A')
+            ->where('visibility', 1)
             ->get();
 
-        return view('prayermat.store-index')
-            ->with('prayermats',$prayermats)
-            ->with('designs',$designs)
-            ->with('colors',$colors)
-            ->with('slideshows',$slideshows)
-            ->with('minPrices',$minPrices)
-            ->with('maxPrices',$maxPrices)
-            ->with('categories',$categories);
+        return view('prayermat.store-index2')
+            ->with('prayermats', $prayermats)
+            ->with('designs', $designs)
+            ->with('colors', $colors)
+            ->with('slideshows', $slideshows)
+            ->with('minPrices', $minPrices)
+            ->with('maxPrices', $maxPrices)
+            ->with('categories', $categories);
+    }
+    public function ajaxStore(Request $request)
+    {
+        $designs_id = Design::where('active', 1)->pluck('id');
+        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)->pluck('id');
+
+        $prayermats = Prayermat::whereIn('color_design_id', $color_designs_id)
+            ->where('visibility', 1)
+            ->with([
+                'color_design.design',
+                'color_design.color'
+            ]);
+
+
+        // *** فیلتر طرح ***
+        if ($request->designs) {
+            $prayermats->whereHas('color_design.design', function ($q) use ($request) {
+                $q->whereIn('id', $request->designs);
+            });
+        }
+
+        // *** فیلتر رنگ ***
+        if ($request->colors) {
+            $prayermats->whereHas('color_design.color', function ($q) use ($request) {
+                $q->whereIn('id', $request->colors);
+            });
+        }
+
+        // *** فیلتر باکس جستجو ***
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $prayermats->where(function ($q) use ($search) {
+                // دسته‌بندی
+                $q->whereHas('category', function ($q2) use ($search) {
+                    $q2->where('title', 'LIKE', "%{$search}%");
+                })
+                    // طرح
+                    ->orWhereHas('color_design.design', function ($q2) use ($search) {
+                        $q2->where('title', 'LIKE', "%{$search}%");
+                    })
+                    // رنگ
+                    ->orWhereHas('color_design.color', function ($q2) use ($search) {
+                        $q2->where('color', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        // *** فیلتر دسته ***
+        if ($request->categories) {
+            $prayermats->whereIn('category_id', $request->categories);
+        }
+
+        // *** فیلتر موجود بودن ***
+        if ($request->stock == 1) {
+            $prayermats->where('quantity', '>', 0);
+        }
+
+        // *** فیلتر فقط تخفیف دار ها ***
+        if ($request->onlyOffer == 1) {
+            $prayermats->whereHas('prices', function ($q) {
+                $q->where('local', 'تومان')
+                    ->where('offPrice', '>', 0);
+            });
+        }
+
+        // *** مرتب‌سازی ***
+        switch ($request->sort) {
+            case 'topSales':
+                $prayermats = $prayermats->get(); // ابتدا collection بگیر
+                $prayermats = $prayermats->sortByDesc(function ($prayermat) {
+                    return $prayermat->orderitems->sum('count'); // جمع فروش
+                });
+                break;
+
+            case 'lastDate':
+                $prayermats = $prayermats->orderByDesc('created_at')->get();
+                break;
+
+            case 'cheapest':
+                $prayermats = $prayermats->get()->sortBy(function ($prayermat) {
+                    $price = $prayermat->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'expensive':
+                $prayermats = $prayermats->get()->sortByDesc(function ($prayermat) {
+                    $price = $prayermat->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'topOffer':
+                $prayermats = $prayermats->get()->sortByDesc(function ($prayermat) {
+                    $price = $prayermat->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    $off = 0;
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ') $off = $price->offPrice;
+                        elseif ($price->offType == 'درصد') $off = $price->price * ($price->offPrice / 100);
+                    }
+                    return $off;
+                });
+                break;
+
+            case 'popular':
+                $prayermats = $prayermats->get()->sortByDesc(function ($prayermat) {
+                    return $prayermat->grades->sum('grade');
+                });
+                break;
+
+            default:
+                $prayermats = $prayermats->orderByDesc('created_at')->get();
+                break;
+        }
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
+
+            $prayermats = $prayermats->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
+        // بعد paginate collection (Laravel 7)
+        $page = request()->get('page', 1);
+        $perPage = 12;
+
+        $items = $prayermats->forPage($page, $perPage);
+
+        $prayermats = new LengthAwarePaginator(
+            $items,
+            $prayermats->count(),
+            $perPage,
+            $page,
+            [
+                'path' => route('prayermat.storeIndex'),
+                'query' => request()->query() // این جایگزین withQueryString میشه
+            ]
+        );
+
+        return response()->json([
+            'html' => view('prayermat.partials.products', compact('prayermats'))->render(),
+            'pagination' => (string) $prayermats->links()
+        ]);
     }
 
     public function storeFilter(Request $request)
@@ -452,7 +732,7 @@ class PrayermatController extends Controller
         $list_color_designs = ColorDesign::with('color','design')
             ->whereIn('design_id',$designs_id)
             ->get();
-            
+
         foreach ($list_color_designs as $item) {
             $designs->push($item->design);
             $colors->push($item->color);
@@ -460,7 +740,7 @@ class PrayermatController extends Controller
 
         $designs = $designs->unique('id');
         $colors = $colors->unique('id');
-        
+
         // dd( Prayermat::filter($request)->toSql());
         switch ($request->sort) {
             case 'topSales':
@@ -538,14 +818,14 @@ class PrayermatController extends Controller
                             });
                     // dd(6);
                 break;
-            
+
             default:
                     $prayermats = $prayermats->sortByDesc('created_at');
                 break;
         }
 
         // dd($prayermats);
-        
+
         if($request->expectsJson())
             return view('prayermat.store-filter')
                 ->with('prayermats',$prayermats);

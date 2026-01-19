@@ -20,12 +20,13 @@ use App\Http\Requests\BedcoverEditRequest;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Thumbnail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BedcoverController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('show','storeIndex','storeFilter');
+        $this->middleware('auth')->except('show','storeIndex','storeFilter','ajaxStore');
         // $this->authorizeResource(Bedcover::class, 'bedcover');
     }
     /**
@@ -390,52 +391,331 @@ class BedcoverController extends Controller
 
     public function storeIndex(Request $request)
     {
-        $designs_id = Design::where('active',1)
-            ->pluck('id');
+        $designs_id = Design::where('active', 1)->pluck('id');
+        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)->pluck('id');
 
-        $color_designs_id = ColorDesign::whereIn('design_id',$designs_id)
-            ->pluck('id');
+        $bedcovers = Bedcover::whereIn('color_design_id', $color_designs_id)
+            ->where('visibility', 1)
+            ->with([
+                'color_design.design',
+                'color_design.color'
+            ]);
 
-        $bedcovers = Bedcover::filter($request)
-            ->whereIn('color_design_id',$color_designs_id)
-            ->where('visibility',1)
-            ->paginate(15);
+
+        // *** فیلتر طرح ***
+        if ($request->designs) {
+            $bedcovers->whereHas('color_design.design', function ($q) use ($request) {
+                $q->whereIn('id', $request->designs);
+            });
+        }
+
+
+        // *** فیلتر رنگ ***
+        if ($request->colors) {
+            $bedcovers->whereHas('color_design.color', function ($q) use ($request) {
+                $q->whereIn('id', $request->colors);
+            });
+        }
+
+
+        // *** فیلتر دسته ***
+        if ($request->categories) {
+            $bedcovers->whereIn('category_id', $request->categories);
+        }
+
+        // *** فیلتر موجود بودن ***
+        if ($request->quantity == 1) {
+            $bedcovers->where('quantity', '>', 0);
+        }
+
+        // *** مرتب‌سازی ***
+        switch ($request->sort) {
+            case 'topSales':
+                $bedcovers = $bedcovers->get(); // ابتدا collection بگیر
+                $bedcovers = $bedcovers->sortByDesc(function ($bedcover) {
+                    return $bedcover->orderitems->sum('count'); // جمع فروش
+                });
+                break;
+
+            case 'lastDate':
+                $bedcovers = $bedcovers->orderByDesc('created_at')->get();
+                break;
+
+            case 'cheapest':
+                $bedcovers = $bedcovers->get()->sortBy(function ($bedcover) {
+                    $price = $bedcover->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'expensive':
+                $bedcovers = $bedcovers->get()->sortByDesc(function ($bedcover) {
+                    $price = $bedcover->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'topOffer':
+                $bedcovers = $bedcovers->get()->sortByDesc(function ($bedcover) {
+                    $price = $bedcover->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    $off = 0;
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ') $off = $price->offPrice;
+                        elseif ($price->offType == 'درصد') $off = $price->price * ($price->offPrice / 100);
+                    }
+                    return $off;
+                });
+                break;
+
+            case 'popular':
+                $bedcovers = $bedcovers->get()->sortByDesc(function ($bedcover) {
+                    return $bedcover->grades->sum('grade');
+                });
+                break;
+
+            default:
+                $bedcovers = $bedcovers->orderByDesc('created_at')->get();
+                break;
+        }
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
+
+            $bedcovers = $bedcovers->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
+        // بعد paginate collection (Laravel 7)
+        $page = request()->get('page', 1);
+        $perPage = 12;
+
+        $items = $bedcovers->forPage($page, $perPage);
+
+        $bedcovers = new LengthAwarePaginator(
+            $items,
+            $bedcovers->count(),
+            $perPage,
+            $page,
+            [
+                'path' => route('bedcover.storeIndex'),
+                'query' => request()->query() // این جایگزین withQueryString میشه
+            ]
+        );
 
         $designs = collect();
         $colors = collect();
-
-        $list_color_designs = ColorDesign::with('color','design')
-            ->whereIn('design_id',$designs_id)
+        $list_color_designs = ColorDesign::with('color', 'design')
+            ->whereIn('design_id', $designs_id)
             ->get();
-
         foreach ($list_color_designs as $item) {
             $designs->push($item->design);
             $colors->push($item->color);
         }
 
+
         $designs = $designs->unique('id');
         $colors = $colors->unique('id');
 
-        $minPrices = Price::where("local","تومان")->min('price');
-        $maxPrices = Price::where("local","تومان")->max('price');
-        // $types = Bedcover::select('type')->DISTINCT()->get();
-        $categories = Category::where('parent_id',13)
-            ->where('model','App\Bedcover')
+        $minPrices = $request->minPrice ?? Price::where("local", "تومان")->min('price');
+        $maxPrices = $request->maxPrice ?? Price::where("local", "تومان")->max('price');
+        $categories = Category::where('parent_id', 1)
+            ->where('model', 'App\Bedcover')
             ->where('active', 1)
             ->get();
 
-        $slideshows = Slideshow::where('position','homeStore-A')
-            ->where('visibility',1)
+        $slideshows = Slideshow::where('position', 'homeStore-A')
+            ->where('visibility', 1)
             ->get();
 
-        return view('bedcover.store-index')
-            ->with('bedcovers',$bedcovers)
-            ->with('designs',$designs)
-            ->with('colors',$colors)
-            ->with('slideshows',$slideshows)
-            ->with('minPrices',$minPrices)
-            ->with('maxPrices',$maxPrices)
-            ->with('categories',$categories);
+        return view('bedcover.store-index2')
+            ->with('bedcovers', $bedcovers)
+            ->with('designs', $designs)
+            ->with('colors', $colors)
+            ->with('slideshows', $slideshows)
+            ->with('minPrices', $minPrices)
+            ->with('maxPrices', $maxPrices)
+            ->with('categories', $categories);
+    }
+    public function ajaxStore(Request $request)
+    {
+        $designs_id = Design::where('active', 1)->pluck('id');
+        $color_designs_id = ColorDesign::whereIn('design_id', $designs_id)->pluck('id');
+
+        $bedcovers = Bedcover::whereIn('color_design_id', $color_designs_id)
+            ->where('visibility', 1)
+            ->with([
+                'color_design.design',
+                'color_design.color'
+            ]);
+
+
+        // *** فیلتر طرح ***
+        if ($request->designs) {
+            $bedcovers->whereHas('color_design.design', function ($q) use ($request) {
+                $q->whereIn('id', $request->designs);
+            });
+        }
+
+        // *** فیلتر رنگ ***
+        if ($request->colors) {
+            $bedcovers->whereHas('color_design.color', function ($q) use ($request) {
+                $q->whereIn('id', $request->colors);
+            });
+        }
+
+        // *** فیلتر باکس جستجو ***
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $bedcovers->where(function ($q) use ($search) {
+                // دسته‌بندی
+                $q->whereHas('category', function ($q2) use ($search) {
+                    $q2->where('title', 'LIKE', "%{$search}%");
+                })
+                    // طرح
+                    ->orWhereHas('color_design.design', function ($q2) use ($search) {
+                        $q2->where('title', 'LIKE', "%{$search}%");
+                    })
+                    // رنگ
+                    ->orWhereHas('color_design.color', function ($q2) use ($search) {
+                        $q2->where('color', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        // *** فیلتر دسته ***
+        if ($request->categories) {
+            $bedcovers->whereIn('category_id', $request->categories);
+        }
+
+        // *** فیلتر موجود بودن ***
+        if ($request->stock == 1) {
+            $bedcovers->where('quantity', '>', 0);
+        }
+
+        // *** فیلتر فقط تخفیف دار ها ***
+        if ($request->onlyOffer == 1) {
+            $bedcovers->whereHas('prices', function ($q) {
+                $q->where('local', 'تومان')
+                    ->where('offPrice', '>', 0);
+            });
+        }
+
+        // *** مرتب‌سازی ***
+        switch ($request->sort) {
+            case 'topSales':
+                $bedcovers = $bedcovers->get(); // ابتدا collection بگیر
+                $bedcovers = $bedcovers->sortByDesc(function ($bedcover) {
+                    return $bedcover->orderitems->sum('count'); // جمع فروش
+                });
+                break;
+
+            case 'lastDate':
+                $bedcovers = $bedcovers->orderByDesc('created_at')->get();
+                break;
+
+            case 'cheapest':
+                $bedcovers = $bedcovers->get()->sortBy(function ($bedcover) {
+                    $price = $bedcover->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'expensive':
+                $bedcovers = $bedcovers->get()->sortByDesc(function ($bedcover) {
+                    $price = $bedcover->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ')
+                            return $price->price - $price->offPrice;
+                        elseif ($price->offType == 'درصد')
+                            return $price->price - ($price->price * ($price->offPrice / 100));
+                    }
+                    return $price->price;
+                });
+                break;
+
+            case 'topOffer':
+                $bedcovers = $bedcovers->get()->sortByDesc(function ($bedcover) {
+                    $price = $bedcover->prices->where("local", "تومان")->first();
+                    if (!$price) return 0;
+
+                    $off = 0;
+                    if ($price->offPrice > 0) {
+                        if ($price->offType == 'مبلغ') $off = $price->offPrice;
+                        elseif ($price->offType == 'درصد') $off = $price->price * ($price->offPrice / 100);
+                    }
+                    return $off;
+                });
+                break;
+
+            case 'popular':
+                $bedcovers = $bedcovers->get()->sortByDesc(function ($bedcover) {
+                    return $bedcover->grades->sum('grade');
+                });
+                break;
+
+            default:
+                $bedcovers = $bedcovers->orderByDesc('created_at')->get();
+                break;
+        }
+        if ($request->minPrice || $request->maxPrice) {
+            $min = $request->minPrice ?? 0;
+            $max = $request->maxPrice ?? PHP_INT_MAX;
+
+            $bedcovers = $bedcovers->filter(function ($item) use ($min, $max) {
+                $price = $this->finalPrice($item);
+                return $price >= $min && $price <= $max;
+            });
+        }
+        // بعد paginate collection (Laravel 7)
+        $page = request()->get('page', 1);
+        $perPage = 12;
+
+        $items = $bedcovers->forPage($page, $perPage);
+
+        $bedcovers = new LengthAwarePaginator(
+            $items,
+            $bedcovers->count(),
+            $perPage,
+            $page,
+            [
+                'path' => route('bedcover.storeIndex'),
+                'query' => request()->query() // این جایگزین withQueryString میشه
+            ]
+        );
+
+        return response()->json([
+            'html' => view('bedcover.partials.products', compact('bedcovers'))->render(),
+            'pagination' => (string) $bedcovers->links()
+        ]);
     }
 
     public function storeFilter(Request $request)
