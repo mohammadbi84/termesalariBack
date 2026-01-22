@@ -11,29 +11,39 @@
     <link rel="stylesheet" href="{{ asset('shop/css/bootstrap.css') }}">
     {{-- <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('shop/css/splide.css') }}">
-    <link href="https://v1.fontapi.ir/css/VazirFD" rel="stylesheet">
+    {{-- <link href="https://v1.fontapi.ir/css/VazirFD" rel="stylesheet"> --}}
+    <link href="https://lib.arvancloud.ir/vazir-font/33.003/Farsi-Digits-Non-Latin/Vazirmatn-FD-NL-font-face.css" rel="stylesheet">
+
 
     <!-- icons -->
     <link rel="stylesheet" href="{{ asset('shop/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('shop/css/boxicons.css') }}">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"> --}}
-    <link rel="stylesheet" href="{{ asset('shop/css/bootstrap-icons.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('shop/css/bootstrap-icons.css') }}"> --}}
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
 
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="{{ asset('shop/js/bootstrap.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="https://lib.arvancloud.ir/jquery/3.6.3/jquery.js"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script> --}}
     <script src="{{ asset('shop/js/splide.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    <script src="https://lib.arvancloud.ir/sweetalert2/9.17.4/sweetalert2.all.js"></script>
+
 
     <!-- swiper slider -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> --}}
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/Swiper/9.0.5/swiper-bundle.min.css" />
+    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> --}}
+    <script src="https://lib.arvancloud.ir/Swiper/9.0.5/swiper-bundle.min.js"></script>
 
     <!-- slider styles -->
-    <script src="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/min/tiny-slider.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/tiny-slider.css">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/min/tiny-slider.js"></script> --}}
+    {{-- <link rel="stylesheet" href="https://lib.arvancloud.ir/tiny-slider/2.9.4/tiny-slider.min.css"> --}}
+    {{-- <script src="https://lib.arvancloud.ir/tiny-slider/2.9.4/min/tiny-slider.js"></script> --}}
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/tiny-slider.css"> --}}
     <link rel="stylesheet" href="{{ asset('shop/css/slider.css') }}">
     <script src="{{ asset('shop/js/slider.js') }}"></script>
 

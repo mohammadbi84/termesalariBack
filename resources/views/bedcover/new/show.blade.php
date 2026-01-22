@@ -3,7 +3,7 @@
     $bedcover->color_design->color->color)
 @section('head')
     <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"> --}}
 @endsection
 @section('content')
     <main>
@@ -592,7 +592,7 @@
     </main>
 @endsection
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
     <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

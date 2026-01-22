@@ -1,8 +1,11 @@
 @extends('shop.layouts.master')
 @section('title', 'درباره ما')
 @section('head')
-    <link rel="stylesheet" href="{{ asset('shop/css/leaflet.css') }}" />
-    <script src="{{ asset('shop/js/leaflet.js') }}"></script>
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/leaflet/1.9.3/leaflet.css" />
+    {{-- <link rel="stylesheet" href="{{ asset('shop/css/leaflet.css') }}" /> --}}
+    {{-- <script src="{{ asset('shop/js/leaflet.js') }}"></script> --}}
+    <script src="https://lib.arvancloud.ir/leaflet/1.9.3/leaflet.js"></script>
+    <script src="https://lib.arvancloud.ir/leaflet/1.9.3/leaflet.js.map"></script>
     {{-- <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}"> --}}
     @if (app()->getLocale() == 'fa')
         <link rel="stylesheet" href="{{ asset('shop/css/about.css') }}">
@@ -11,7 +14,6 @@
     @endif
     <script src="{{ asset('shop/js/map/mapdata.js') }}"></script>
     <script src="{{ asset('shop/js/map/countrymap.js') }}"></script>
-    <link href="https://v1.fontapi.ir/css/VazirFD" rel="stylesheet">
     <style>
         #map a {
             display: none !important;
@@ -38,8 +40,6 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
         }
     </style>
-    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-
 @endsection
 @section('content')
     <div class="container py-4" style="margin-top: 70px">
@@ -741,8 +741,8 @@
     @else
         <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
     @endif
-    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-    <script src="https://unpkg.com/leader-line@1.0.7/leader-line.min.js"></script>
+    {{-- <script src="https://unpkg.com/leader-line@1.0.7/leader-line.min.js"></script> --}}
+    <script src="https://lib.arvancloud.ir/leader-line/1.0.7/leader-line.min.js"></script>
     <script src="{{ asset('shop/js/about.js') }}"></script>
 
     <script>
