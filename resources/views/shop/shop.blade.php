@@ -88,27 +88,6 @@
                                 </div>
                             @endforeach
                         @endif
-
-                        {{-- <div class="item" data-duration="{{ $slider->show_time * 1000 }}">
-                            <div class="video-container position-relative w-100 h-100">
-                                <img src="assets/sliders/slider2.jpg" class="img-fluid video-cover w-100 h-100"
-                                    style="object-fit: cover;" alt="">
-                                <video class="d-none w-100 h-100 slider-video" style="object-fit: cover;"
-                                    preload="metadata">
-                                    <source src="assets/sliders/fazel.mp4" type="video/mp4">
-                                </video>
-                                <div
-                                    class="video-overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
-                                    <button id="btn-stop" class="btn-stop">
-                                        <span class="bi bi-pause-fill"></span>
-                                        <i class="fa-solid fa-pause"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-play">
-                                        <i class="fa-solid fa-play"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                     <!-- Vertical Pagination - اضافه کردن این بخش -->
                     <div class="vertical-pagination position-absolute d-flex flex-column gap-2">
@@ -129,8 +108,8 @@
                 <div class="container mb-5 px-0">
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2 offer-header">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ asset('shop/assets/svgs/badge-percent-title.svg') }}" alt="{{ __('menu.amazing') }}"
-                                width="30">
+                            <img src="{{ asset('shop/assets/svgs/badge-percent-title.svg') }}"
+                                alt="{{ __('menu.amazing') }}" width="30">
                             <h2 class="title m-0">{{ __('menu.amazing') }}</h2>
                         </div>
                         <div class="">
@@ -208,7 +187,8 @@
                                                                 </strong>
                                                             </span>
                                                         </div> --}}
-                                                        <a href="#" class="discount-squer discount-squer-front favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                        <a href="#"
+                                                            class="discount-squer discount-squer-front favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                             data-id="{{ $topRequest->orderitemable->id }}"
                                                             data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                             style="position: absolute;top: -4px;right: 20px;">
@@ -341,14 +321,14 @@
                                                             </span>
                                                         </div>
                                                     @endif
-                                                    <a href="#" class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                    <a href="#"
+                                                        class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
                                                         data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
                                                         data-title="{{ $topRequest->orderitemable->title }}"
-                                                        data-price="{{ $prices->price }}"
-                                                        data-pay="{{ $price }}"
+                                                        data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
                                                         data-local="{{ $prices->local }}"
@@ -523,8 +503,8 @@
             <div class="container mb-5 px-0">
                 <div class=" d-flex align-items-center justify-content-between w-100 p-2">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="{{ asset('shop/assets/svgs/layer-group-solid-full.svg') }}" alt="{{ __('main.categories') }}"
-                            width="30">
+                        <img src="{{ asset('shop/assets/svgs/layer-group-solid-full.svg') }}"
+                            alt="{{ __('main.categories') }}" width="30">
                         <h2 class="title m-0">{{ __('main.categories') }}</h2>
                     </div>
                     <div class="">
@@ -566,7 +546,8 @@
             <div class="container mb-5 px-0">
                 <div class=" d-flex justify-content-between align-items-center p-2 w-100">
                     <div class=" d-flex align-items-center gap-2">
-                        <img src="{{ asset('shop/assets/svgs/cup.svg') }}" alt="{{ __('main.newest') }}" width="30">
+                        <img src="{{ asset('shop/assets/svgs/cup.svg') }}" alt="{{ __('main.newest') }}"
+                            width="30">
                         <h2 class="title m-0">{{ __('main.newest') }}</h2>
                     </div>
                     <div class="">
@@ -743,8 +724,8 @@
                                                         data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
                                                         data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
                                                         data-title="{{ $product->orderitemable->title }}"
-                                                        data-price="{{ $prices->price }}" data-pay="{{ $price }}"
-                                                        data-off="{{ $off }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
                                                         data-local="{{ $prices->local }}"><i
                                                             class="fa-solid fa-cart-plus"></i>
@@ -800,7 +781,8 @@
                         </div>
 
                         <div class="col-2">
-                            <a class="btn btn-light w-100 text-blue" href="https://www.instagram.com/termehsalari/">{{ __('main.socialClick') }}</a>
+                            <a class="btn btn-light w-100 text-blue"
+                                href="https://www.instagram.com/termehsalari/">{{ __('main.socialClick') }}</a>
                         </div>
                     </div>
 
@@ -956,15 +938,15 @@
                                                     <span class="fs-10">28 عدد فروش رفته</span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
-                                                    <button class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                    <button
+                                                        class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
                                                         data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
                                                         data-title="{{ $topRequest->orderitemable->title }}"
                                                         data-price="{{ $prices->price }}"
-                                                        data-pay="{{ $price }}"
-                                                        data-off="{{ $off }}"
+                                                        data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
                                                         data-local="{{ $prices->local }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
@@ -1482,7 +1464,7 @@
                                 off: off,
                                 offType: offType,
                             });
-                            if (!$btn.hasClass("favorites") ) {
+                            if (!$btn.hasClass("favorites")) {
                                 Swal.fire({
                                     icon: "success",
                                     title: "محصول به سبد خرید اضافه شد!",
@@ -1524,7 +1506,43 @@
                     // اگر بود، فقط تعداد را افزایش بده
                     const $quantitySpan = existingItem.find('.item-quantity');
                     const currentQuantity = parseInt($quantitySpan.text()) || 0;
+                    newQuantity = currentQuantity +1;
                     $quantitySpan.text(currentQuantity + 1);
+
+                    const basePrice = existingItem.data('base-price');
+                    const baseOffPrice = existingItem.data('base-off-price') || 0;
+                    const offType = existingItem.data('off-type');
+                    /** محاسبه‌ی قیمت کل یک محصول */
+                    let priceAfterDiscount = 0;
+                    let priceBeforeDiscount = basePrice * newQuantity;
+                    let discountAmount = 0;
+
+                    if (baseOffPrice > 0) {
+                        if (offType === 'مبلغ') {
+                            discountAmount = baseOffPrice * newQuantity;
+                            priceAfterDiscount = (basePrice * newQuantity) - discountAmount;
+                        } else if (offType === 'درصد') {
+                            const d = basePrice * (baseOffPrice / 100);
+                            discountAmount = d * newQuantity;
+                            priceAfterDiscount = (basePrice * newQuantity) - discountAmount;
+                        }
+                    } else {
+                        priceAfterDiscount = basePrice * newQuantity;
+                    }
+
+                    /** آپدیت قیمت داخل آیتم */
+                    const $priceElement = existingItem.find('.cart-item-price');
+
+                    if (discountAmount > 0) {
+                        $priceElement.html(`
+                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                `);
+                    } else {
+                        $priceElement.html(`
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                `);
+                    }
                 } else {
                     // اگر نبود، آیتم جدید بساز (با data attributes کامل)
                     const newItem = `
@@ -1593,7 +1611,7 @@
 
             if ($btn.hasClass('active')) {
                 var urlFavorites = document.location.origin + "/user/remove-favorite/";
-            }else{
+            } else {
                 var urlFavorites = document.location.origin + "/user/add-favorite";
             }
 
@@ -1609,7 +1627,7 @@
                     // اگر سرور گفت نیاز به لاگین داری
                     if (data.res === "auth") {
                         Swal.fire({
-                             title: `
+                            title: `
                                 <div class="d-flex align-items-center gap-2">
                                     <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
                                     <h2 class="title m-0">ورود به حساب کاربری</h2>
@@ -1673,7 +1691,7 @@
                                         showConfirmButton: false
                                     });
 
-                                    setTimeout(()=> location.reload(),1200);
+                                    setTimeout(() => location.reload(), 1200);
                                 },
                                 error: function() {
                                     Swal.fire({
@@ -1716,30 +1734,30 @@
                             color: color
                         });
                         // روی همه اعمال کن
-                        allSameFavorites.each(function(){
+                        allSameFavorites.each(function() {
                             if ($(this).hasClass('active')) {
                                 const $item = $(this);
                                 if ($item.hasClass('discount-squer')) {
                                     $item.find(".fa-heart")
-                                    .removeClass("text-danger")
-                                    .addClass("text-white");
+                                        .removeClass("text-danger")
+                                        .addClass("text-white");
                                 } else {
                                     $item.find(".fa-heart")
-                                    .removeClass("fa-solid")
-                                    .addClass("fa-regular");
+                                        .removeClass("fa-solid")
+                                        .addClass("fa-regular");
                                 }
                                 $item.removeClass("active");
-                            }else{
+                            } else {
                                 const $item = $(this);
                                 $item.addClass("active");
                                 if ($item.hasClass('discount-squer')) {
                                     $item.find(".fa-heart")
-                                    .removeClass("text-white")
-                                    .addClass("text-danger");
-                                }else{
+                                        .removeClass("text-white")
+                                        .addClass("text-danger");
+                                } else {
                                     $item.find(".fa-heart")
-                                    .removeClass("fa-regular")
-                                    .addClass("fa-solid");
+                                        .removeClass("fa-regular")
+                                        .addClass("fa-solid");
                                 }
                                 $item.find(".fa-heart")
                                     .removeClass("fa-regular text-white")
@@ -1826,7 +1844,7 @@
                                         showConfirmButton: false
                                     });
 
-                                    setTimeout(()=> location.reload(),1200);
+                                    setTimeout(() => location.reload(), 1200);
                                 },
                                 error: function() {
                                     Swal.fire({
@@ -1862,8 +1880,8 @@
                 exists.remove(); // حذف از لیست
                 // بروزرسانی تعداد
                 let count = parseInt($badge.text()) || 0;
-                $badge.text( count > 0 ? count - 1 : 0 );
-                $badge2.html( count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ' );
+                $badge.text(count > 0 ? count - 1 : 0);
+                $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
 
                 return "removed";
             }

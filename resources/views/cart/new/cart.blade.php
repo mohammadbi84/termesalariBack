@@ -590,7 +590,7 @@
                 var basePrice = $productRow.data('base-price');
                 if (!basePrice) {
                     // اگر data attribute وجود نداشت، از متن فعلی خوانده شود
-                    basePrice = parseInt($itemPrice.text().replace(/,/g, '')) || 0;
+                    basePrice = parseInt($itemPrice.text().replace(/,/g, '')/$countInput.val()) || 0;
                     // ذخیره قیمت پایه برای استفاده بعدی
                     $productRow.data('base-price', basePrice);
                 }

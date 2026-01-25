@@ -41,9 +41,9 @@
 
     <!-- slider styles -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/min/tiny-slider.js"></script> --}}
-    {{-- <link rel="stylesheet" href="https://lib.arvancloud.ir/tiny-slider/2.9.4/tiny-slider.min.css"> --}}
-    {{-- <script src="https://lib.arvancloud.ir/tiny-slider/2.9.4/min/tiny-slider.js"></script> --}}
+    <script src="{{ asset('shop/js/tiny-slider.js') }}"></script>
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/tiny-slider.css"> --}}
+    <link rel="stylesheet" href="{{ asset('shop/css/tiny-slider.css') }}">
     <link rel="stylesheet" href="{{ asset('shop/css/slider.css') }}">
     <script src="{{ asset('shop/js/slider.js') }}"></script>
 

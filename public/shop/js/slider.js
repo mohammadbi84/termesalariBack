@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // اسلایدر اصلی
+    // ابتدا مطمئن شوید که عنصر اسلایدر وجود دارد
+    const sliderContainer = document.querySelector(".top-slider");
+    if (!sliderContainer) return;
+
+    // اسلایدر اصلی با تنظیمات اصلاح شده
     const slider = tns({
         container: ".top-slider",
         items: 1,
@@ -10,8 +14,25 @@ document.addEventListener("DOMContentLoaded", function () {
         autoplayButtonOutput: false,
         nav: false,
         speed: 500,
+        // اضافه کردن این تنظیمات
+        rewind: true,
+        preventScrollOnTouch: 'force',
+        // غیرفعال کردن برخی ویژگی‌های پیش‌فرض
+        autoWidth: false,
+        edgePadding: 0,
+        fixedWidth: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 1
+            },
+            992: {
+                items: 1
+            }
+        }
     });
-
     const slides = document.querySelectorAll(".top-slider .item");
     const paginationItems = document.querySelectorAll(".pagination-item");
     const videos = document.querySelectorAll(".top-slider video");
@@ -32,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateActivePagination(index) {
         // حذف کلاس active از همه آیتم‌ها
         paginationItems.forEach(item => item.classList.remove("active"));
-        
+
         // اضافه کردن کلاس active به آیتم فعلی
         if (paginationItems[index]) {
             paginationItems[index].classList.add("active");

@@ -1059,7 +1059,43 @@
                     // اگر بود، فقط تعداد را افزایش بده
                     const $quantitySpan = existingItem.find('.item-quantity');
                     const currentQuantity = parseInt($quantitySpan.text()) || 0;
-                    $quantitySpan.text(currentQuantity + item.quantity);
+                    newQuantity = currentQuantity +1;
+                    $quantitySpan.text(currentQuantity + 1);
+
+                    const basePrice = existingItem.data('base-price');
+                    const baseOffPrice = existingItem.data('base-off-price') || 0;
+                    const offType = existingItem.data('off-type');
+                    /** محاسبه‌ی قیمت کل یک محصول */
+                    let priceAfterDiscount = 0;
+                    let priceBeforeDiscount = basePrice * newQuantity;
+                    let discountAmount = 0;
+
+                    if (baseOffPrice > 0) {
+                        if (offType === 'مبلغ') {
+                            discountAmount = baseOffPrice * newQuantity;
+                            priceAfterDiscount = (basePrice * newQuantity) - discountAmount;
+                        } else if (offType === 'درصد') {
+                            const d = basePrice * (baseOffPrice / 100);
+                            discountAmount = d * newQuantity;
+                            priceAfterDiscount = (basePrice * newQuantity) - discountAmount;
+                        }
+                    } else {
+                        priceAfterDiscount = basePrice * newQuantity;
+                    }
+
+                    /** آپدیت قیمت داخل آیتم */
+                    const $priceElement = existingItem.find('.cart-item-price');
+
+                    if (discountAmount > 0) {
+                        $priceElement.html(`
+                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                `);
+                    } else {
+                        $priceElement.html(`
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                `);
+                    }
                 } else {
                     // اگر نبود، آیتم جدید بساز (با data attributes کامل)
                     const newItem = `
