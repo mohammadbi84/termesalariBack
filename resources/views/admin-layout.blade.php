@@ -18,7 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('/storetemplate/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
+
   <!-- bootstrap rtl -->
   <link rel="stylesheet" href="{{asset('/storetemplate/dist/css/bootstrap-rtl.min.css')}}">
   <!-- template rtl version -->
@@ -49,8 +49,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       width: 100% !important;
     }
   </style>
-  
-  
+
+
 </head>
 <body class="sidebar-mini" style="height: auto;">
 <div class="wrapper">
@@ -85,8 +85,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       @if (Auth::check())
 
         <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">             
-            {{Auth::user()->name}} {{Auth::user()->family}}&nbsp;<i class="fa fa-chevron-down" style="font-size: 0.5rem"></i>            
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            {{Auth::user()->name}} {{Auth::user()->family}}&nbsp;<i class="fa fa-chevron-down" style="font-size: 0.5rem"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
             <a href="#" class="dropdown-item">
@@ -144,33 +144,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           {{-- <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">مشاهده همه نوتیفیکیشن</a> --}}
-         
+
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
-      
+
       <li class="nav-item dropdown">
         <a class="nav-link cart" href="{{ route('order.index') }}" title="سفارش ها" >
           <i class="fa fa-shopping-cart"></i>
           @if(isset($countOrders) and $countOrders > 0)
             <span class="badge badge-danger navbar-badge shopping-cart-badge">{{ $countOrders }}</span>
           @endif
-        </a> 
+        </a>
       </li>
-  
+
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 444px;">
-    
+
     <!-- Brand Logo -->
       <a href="{{ route('homeStore.index') }}" class="brand-link" target="blank">
         <img src="{{asset('/hometemplate/img/logo.png')}}" alt="Termeh Salari" class="brand-image">
         <span class="brand-text font-weight-light">@if (Auth::check()) پنل مدیریت @else خوش آمدید @endif</span>
       </a>
-      
+
     <!-- Sidebar -->
     <div class="sidebar">
       <div>
@@ -199,7 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-4 mb-3">
                                 <a href="{{ route('user.adminChangeImage',["avatar".$i.".jpg"]) }}" class=""><img class="profile-user-img img-fluid img-circle" src="{{ asset('/storetemplate/dist/img/avatar'.$i.'.jpg') }} " alt="User profile picture"></a>
                             </div>
-                            
+
                         @endfor
                     </div>
                     <div class="modal-footer">
@@ -243,7 +243,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <a href="{{ route('design.index') }}" class="nav-link">
                 <i class="fas fa-swatchbook"></i>
                 <p>
-                  طرح ها 
+                  طرح ها
                 </p>
               </a>
             </li>
@@ -308,7 +308,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <p>سایر محصولات</p>
                   </a>
                 </li>
-                         
+
               </ul>
             </li>
 
@@ -374,6 +374,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>تصاویر اسلایدشو</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('popup.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-envelope"></i>
+                <p>پاپ آپ ها</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="{{ route('user.adminProfile') }}" class="nav-link">
@@ -412,7 +418,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        
+
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">@yield('title-content')</h1>
@@ -431,7 +437,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        
+
         @yield('main-content')
         <!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -440,7 +446,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- /.content-wrapper -->
 
-  
+
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -462,20 +468,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <animateTransform  attributeType="xml"
           attributeName="transform" type="scale"
           values="1,1; 1,3; 1,1"
-          begin="0s" dur="0.6s" repeatCount="indefinite" />       
+          begin="0s" dur="0.6s" repeatCount="indefinite" />
       </rect>
 
       <rect x="10" y="0" width="4" height="7" fill="#333">
         <animateTransform  attributeType="xml"
           attributeName="transform" type="scale"
           values="1,1; 1,3; 1,1"
-          begin="0.2s" dur="0.6s" repeatCount="indefinite" />       
+          begin="0.2s" dur="0.6s" repeatCount="indefinite" />
       </rect>
       <rect x="20" y="0" width="4" height="7" fill="#333">
         <animateTransform  attributeType="xml"
           attributeName="transform" type="scale"
           values="1,1; 1,3; 1,1"
-          begin="0.4s" dur="0.6s" repeatCount="indefinite" />       
+          begin="0.4s" dur="0.6s" repeatCount="indefinite" />
       </rect>
     </svg>
   </div> --}}
@@ -488,6 +494,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 <script src="{{asset('/storetemplate/plugins/jquery/jquery.min.js')}}"></script>
+    {{-- <script src="https://lib.arvancloud.ir/jquery/3.6.3/jquery.js"></script> --}}
+
 @stack('js')
 <!-- Bootstrap 4 -->
 <script src="{{asset('/storetemplate/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -518,7 +526,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     NProgress.done();
   });
 
-  $(function(){ 
+  $(function(){
     const timeout = 1800000;  // 900000 ms = 15 minutes
     var idleTimer = null;
     $('*').bind('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
@@ -530,7 +538,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
     $("body").trigger("mousemove");
   });
-  
+
 </script>
 </body>
 </html>

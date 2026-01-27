@@ -854,7 +854,7 @@ i {
     height: 500px;
     position: relative;
     padding: 0px 13px;
-    overflow: hidden;
+    overflow: visible;
     padding-left: 0;
     /* اضافه شده */
 }
@@ -904,10 +904,19 @@ i {
     display: none;
     /* مخفی کردن کنترل‌ها در دسکتاپ */
 }
+.right-slider .swiper-slide:hover {
+    background: #52AC661F;
+    transform: translateX(7px);
+}
 
 .right-slider .swiper-slide-thumb-active {
     background: #52ac66;
-    transform: scaleX(1.04);
+    transform: translateX(7px);
+    color: white;
+}
+.right-slider .swiper-slide-thumb-active:hover {
+    background: #52ac66;
+    transform: translateX(7px);
     color: white;
 }
 

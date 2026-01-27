@@ -11,6 +11,7 @@ use App\Price;
 use App\Slideshow;
 use App\Category;
 use App\Pillow;
+use App\Popup;
 use App\Prayermat;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,12 @@ class HomestoreController extends Controller
 {
     public function index()
     {
-
+        $popup = Popup::active()
+            ->with(['images' => function($query) {
+                $query->orderBy('order');
+            }])
+            ->latest()
+            ->first();
         $topRequests = Orderitem::with('orderitemable')
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')
@@ -133,6 +139,7 @@ class HomestoreController extends Controller
             ->with('sermehProducts', $sermehProducts)
             ->with('slideshows', $slideshows)
             ->with('newestProducts', $newestProducts)
+            ->with('popup', $popup)
             ->with('specials', $specials);
     }
     public function index3()

@@ -14,6 +14,7 @@
 use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\FabricController;
 use App\Http\Controllers\PillowController;
+use App\Http\Controllers\PopupController;
 use App\Http\Controllers\PrayermatController;
 use App\Http\Controllers\TableclothController;
 use Illuminate\Support\Facades\Auth;
@@ -284,7 +285,6 @@ Route::get('/ajax/fabric', [FabricController::class, 'ajaxStore'])->name('fabric
 Route::post('/payment/callback', 'PaymentController@verifyPayment')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 Route::get('/payment/callback', 'PaymentController@verifyPayment')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
-
 Route::resource('payment', 'PaymentController');
 
 
@@ -295,3 +295,18 @@ Route::resource('etc', 'EtcController');
 
 //Route::post('/payment/verify','PaymentController@verify')->name('payment.verify');
 //Route::get('/payment/verify','PaymentController@verify')->name('payment.verify');
+
+
+// new parts ============================================================================================================================
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::resource('popup', 'PopupController');
+    // Route::resource('popup', PopupController::class);
+    Route::delete('popup/image/{image}', [PopupController::class, 'deleteImage'])
+        ->name('popup.deleteImage');
+    Route::post('popup/{popup}/change-visibility', [PopupController::class, 'changeVisibility'])
+        ->name('popup.changeVisibility');
+});
+// routes/api.php
+Route::get('active-popup', [PopupController::class, 'getActivePopup']);
+// یا در routes/web.php برای دسترسی عمومی
+Route::get('api/active-popup', [PopupController::class, 'getActivePopup']);

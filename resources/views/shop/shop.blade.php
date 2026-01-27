@@ -2,73 +2,96 @@
 @section('title', 'فروشگاه ترمه سالاری')
 @section('content')
     <!-- start popup -->
-    <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true" dir="rtl">
-        <div class="modal-dialog modal-dialog-centered modal-lg rounded-2">
-            <div class="modal-content" style="border-radius: 12px !important">
-                <div class="modal-body p-0">
-                    <!-- Slider section with close button and badge -->
-                    <div class="position-relative">
-                        <button type="button" class="btn btn-light position-absolute top-0 start-0 modal-close-btn"
-                            data-bs-dismiss="modal"
-                            style="border-radius: 0 0 12px 0 !important;padding: 0 !important;z-index: 2;width: 41px;height: 41px;">
-                            <i class="fa-solid fa-xmark" style="font-size: x-large;position: relative;top: 2.5px;"></i>
-                        </button>
+    @if ($popup)
+        <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true"
+            dir="rtl">
+            <div class="modal-dialog modal-dialog-centered modal-lg rounded-2">
+                <div class="modal-content" style="border-radius: 12px !important">
+                    <div class="modal-body p-0">
+                        <!-- Slider section with close button and badge -->
+                        <div class="position-relative">
+                            <button type="button" class="btn btn-light position-absolute top-0 start-0 modal-close-btn"
+                                data-bs-dismiss="modal"
+                                style="border-radius: 0 0 12px 0 !important;padding: 0 !important;z-index: 2;width: 41px;height: 41px;">
+                                <i class="fa-solid fa-xmark" style="font-size: x-large;position: relative;top: 2.5px;"></i>
+                            </button>
 
-                        <div class="splide" id="modal-slider" style="direction: ltr;">
-                            <div class="splide__track">
-                                <ul class="splide__list">
-                                    <li class="splide__slide">
-                                        <div class="modal-image-container">
-                                            <img src="{{ asset('/hometemplate/img/intro-carousel/7.jpg') }}"
-                                                class="img-fluid w-100" alt="فروشگاه ترمه سالاری"
-                                                style="height: 400px; object-fit: cover;">
-                                        </div>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img src="{{ asset('/hometemplate/img/intro-carousel/8.jpg') }}"
-                                            class="img-fluid w-100" alt="فروشگاه ترمه سالاری"
-                                            style="height: 400px; object-fit: cover;">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img src="{{ asset('/hometemplate/img/intro-carousel/9.jpg') }}"
-                                            class="img-fluid w-100" alt="فروشگاه ترمه سالاری"
-                                            style="height: 400px; object-fit: cover;">
-                                    </li>
-                                </ul>
+                            <div class="splide" id="modal-slider" style="direction: ltr;">
+                                <div class="splide__track">
+                                    <ul class="splide__list">
+                                        @foreach ($popup->images as $image)
+                                            <li class="splide__slide">
+                                                <img src="{{ asset($image->image) }}" class="img-fluid w-100"
+                                                    style="height: 400px; object-fit: cover;" alt="{{ $popup->title }}">
+                                            </li>
+                                        @endforeach
+                                    </ul>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Content section -->
-                    <div class="p-4 px-5" style="direction: ltr;">
-                        <!-- Title -->
-                        <h2 class="fw-bold mb-3 text-center" dir="rtl">نشان اصالت محصول</h2>
+                        <!-- Content section -->
+                        <div class="p-4 px-5" style="direction: ltr;">
+                            <!-- Title -->
+                            <h2 class="fw-bold mb-3 text-center" dir="rtl">
+                                {{ app()->getLocale() == 'fa' ? $popup->title_fa : $popup->title_en }}
+                            </h2>
 
-                        <!-- Description -->
-                        <p class="text-muted text-center mb-4" dir="rtl">
-                            جهت اطمینان از اصل بودن کالای خریداری شده و اصالت ترمه و ضمانت محصولات ضمن خرید از فروشگاه های
-                            معتبر به نشان ترمه سالاری بر روی محصولات توجه فرمایید.
-                        </p>
+                            <!-- Description -->
+                            <p class="text-muted text-center mb-4" dir="rtl">
+                                {{ app()->getLocale() == 'fa' ? $popup->description_fa : $popup->description_en }}
+                            </p>
 
-                        <!-- Buttons -->
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button type="button" class="btn btn-text-link px-4 py-2" data-bs-dismiss="modal">
-                                بعدا چک میکنم
-                            </button>
-                            <button type="button" class="btn btn-primary d-flex align-items-center px-4 py-2">
-                                اطلاعات بیشتر
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                </svg>
-                            </button>
+                            <!-- Buttons -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button type="button" class="btn btn-text-link px-4 py-2" data-bs-dismiss="modal">
+                                    بعدا چک میکنم
+                                </button>
+                                <a href="{{ $popup->link ?? '#' }}"
+                                    class="btn btn-primary d-flex align-items-center px-4 py-2">
+                                    اطلاعات بیشتر
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+     @if ($popup)
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+
+                    if (!localStorage.getItem("popup_shown_{{ $popup->id }}")) {
+
+                        let modal = new bootstrap.Modal(
+                            document.getElementById("customModal")
+                        );
+                        modal.show();
+
+                        localStorage.setItem("popup_shown_{{ $popup->id }}", true);
+
+                        new Splide("#modal-slider", {
+                            type: "slide",
+                            perPage: 1,
+                            pagination: true,
+                            arrows: false,
+                            rewind: true,
+                            height: "400px",
+                            cover: true,
+                            autoplay: true,
+                        }).mount();
+                    }
+
+                });
+            </script>
+        @endif
     <!-- end popup -->
     <main>
         <!-- slider -->
@@ -1506,7 +1529,7 @@
                     // اگر بود، فقط تعداد را افزایش بده
                     const $quantitySpan = existingItem.find('.item-quantity');
                     const currentQuantity = parseInt($quantitySpan.text()) || 0;
-                    newQuantity = currentQuantity +1;
+                    newQuantity = currentQuantity + 1;
                     $quantitySpan.text(currentQuantity + 1);
 
                     const basePrice = existingItem.data('base-price');
