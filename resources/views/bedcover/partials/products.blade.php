@@ -198,9 +198,9 @@
                         @endif
                     </span>
                 </div> --}}
-                <div class="row g-0 footer_row">
-                    <div class="col-7 p-0 py-2 pb-3 bg-white">
-                        <div class="row g-0 border-start border-2">
+                <div class="row footer_row">
+                    <div class="col-7 p-0 pe-2 py-2 pb-3 bg-white">
+                        <div class="row g-0 ">
                             <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button
                                     class="buy-button add-to-cart favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
@@ -242,7 +242,7 @@
                                 <button data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به سبد خرید"
                                     class="buy-button add-to-cart @if ($bedcover->quantity != 0) addToCart @endif"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
-                                    data-id="{{ $bedcover->id }}" data-moddel="bedcover"
+                                    data-id="{{ $bedcover->id }}" data-moddel="Bedcover"
                                     data-design="{{ $bedcover->color_design->design->title ?? '' }}"
                                     data-color="{{ $bedcover->color_design->color->color ?? '' }}"
                                     data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"

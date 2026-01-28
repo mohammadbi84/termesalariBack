@@ -198,9 +198,9 @@
                         @endif
                     </span>
                 </div> --}}
-                <div class="row g-0 footer_row">
-                    <div class="col-7 p-0 py-2 pb-3 bg-white">
-                        <div class="row g-0 border-start border-2">
+                <div class="row footer_row">
+                    <div class="col-7 p-0 pe-2 py-2 pb-3 bg-white">
+                        <div class="row g-0 ">
                             <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button
                                     class="buy-button add-to-cart favorites-btn @if ($fabric->favorites->where('user_id', Auth::id())->count() > 0) active @endif"

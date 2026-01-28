@@ -172,7 +172,7 @@
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="mb-3 mt-4">
-                        <div class="autocomplete @error('login') filled @enderror" id="autocompleteBoxlogin">
+                        <div class="autocomplete {{ old('login') ? 'filled' : '' }}" id="autocompleteBoxlogin">
                             <input type="text" id="searchInputlogin" value="{{ old('login') }}" class=""
                                 name="login" oninput="nameinput('login')">
                             <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
@@ -215,30 +215,8 @@
     </div>
 @endsection
 @section('script')
-    <script>
-        const menu = $(".main-menu");
-        menu.addClass('small');
-        const bookmarkFirst = $("#bookmark");
-        bookmarkFirst.removeClass('expanded');
-        bookmarkFirst.addClass('collapsed');
-        let cart_dropdown = document.querySelector(".cart-dropdown");
-        let favorites_dropdown = document.querySelector(".favorites-dropdown");
-        let compare_dropdown = document.querySelector(".compare-dropdown");
-        if (favorites_dropdown) {
-            favorites_dropdown.style.top = "51px";
-            favorites_dropdown.style.left = "-192px";
-            cart_dropdown.style.left = "-113px";
-            compare_dropdown.style.left = "-150px";
-        } else {
-            compare_dropdown.style.left = "-173px";
-            cart_dropdown.style.left = "-133px";
-        }
-        compare_dropdown.style.top = "51px";
-        cart_dropdown.style.top = "51px";
-        categoriesMenu.style.top = "65px";
-        categoriesMenu.style.left = "1rem";
-        categoriesMenu.style.right = "1rem";
-    </script>
+    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+
     <!-- slider -->
     <script>
         var splide = new Splide('#slider-1', {

@@ -185,7 +185,7 @@
                 <form action="{{ route('register') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 @error('name') filled @enderror" id="autocompleteBoxname">
+                        <div class="autocomplete mb-3 {{ old('name') ? 'filled' :'' }}" id="autocompleteBoxname">
                             <input type="text" id="searchInputname" class="" name="name"
                                 oninput="nameinput('name')" value="{{ old('name') }}">
                             <label for="searchInputname">نام (الزامی)</label>
@@ -195,7 +195,7 @@
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
 
-                        <div class="autocomplete mb-3 @error('family') filled @enderror" id="autocompleteBoxfamily">
+                        <div class="autocomplete mb-3 {{ old('family') ? 'filled' :'' }}" id="autocompleteBoxfamily">
                             <input type="text" id="searchInputfamily" class="" name="family"
                                 oninput="nameinput('family')" value="{{ old('family') }}">
                             <label for="searchInputfamily">نام خانوادگی (الزامی)</label>
@@ -205,7 +205,7 @@
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
 
-                        <div class="autocomplete mb-3 @error('email') filled @enderror" id="autocompleteBoxemail">
+                        <div class="autocomplete mb-3 {{ old('email') ? 'filled' :'' }}" id="autocompleteBoxemail">
                             <input type="email" id="searchInputemail" class="" name="email"
                                 oninput="nameinput('email')" value="{{ old('email') }}">
                             <label for="searchInputemail">آدرس پست الکترونیک (اختیاری)</label>

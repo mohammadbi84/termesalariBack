@@ -194,7 +194,7 @@
                 <form action="{{ route('register.checkVerifyCode') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 @error('active_code') filled @enderror" id="autocompleteBoxactive_code">
+                        <div class="autocomplete mb-3 {{ old('active_code') ? 'filled' :'' }}" id="autocompleteBoxactive_code">
                             <input type="active_code" id="searchInputactive_code" class="" name="active_code"
                                 oninput="nameinput('active_code')" value="{{ old('active_code') }}" maxlength="11"
                                 pattern="[a-zA-Z0-9]+">

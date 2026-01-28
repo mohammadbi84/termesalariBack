@@ -1,5 +1,17 @@
 @extends('shop.layouts.master')
 @section('title', 'فروشگاه ترمه سالاری')
+@section('head')
+    @if (app()->getLocale() == 'fa')
+        <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
+    @endif
+        <script src="{{ asset('shop/js/scripts.js') }}"></script>
+
+    <!-- video -->
+
+    <script src="{{ asset('shop/js/video.js') }}"></script>
+@endsection
 @section('content')
     <!-- start popup -->
     @if ($popup)
@@ -64,34 +76,34 @@
             </div>
         </div>
     @endif
-     @if ($popup)
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
+    @if ($popup)
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
 
-                    if (!localStorage.getItem("popup_shown_{{ $popup->id }}")) {
+                if (!localStorage.getItem("popup_shown_{{ $popup->id }}")) {
 
-                        let modal = new bootstrap.Modal(
-                            document.getElementById("customModal")
-                        );
-                        modal.show();
+                    let modal = new bootstrap.Modal(
+                        document.getElementById("customModal")
+                    );
+                    modal.show();
 
-                        localStorage.setItem("popup_shown_{{ $popup->id }}", true);
+                    localStorage.setItem("popup_shown_{{ $popup->id }}", true);
 
-                        new Splide("#modal-slider", {
-                            type: "slide",
-                            perPage: 1,
-                            pagination: true,
-                            arrows: false,
-                            rewind: true,
-                            height: "400px",
-                            cover: true,
-                            autoplay: true,
-                        }).mount();
-                    }
+                    new Splide("#modal-slider", {
+                        type: "slide",
+                        perPage: 1,
+                        pagination: true,
+                        arrows: false,
+                        rewind: true,
+                        height: "400px",
+                        cover: true,
+                        autoplay: true,
+                    }).mount();
+                }
 
-                });
-            </script>
-        @endif
+            });
+        </script>
+    @endif
     <!-- end popup -->
     <main>
         <!-- slider -->

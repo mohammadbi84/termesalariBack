@@ -12,7 +12,8 @@
     {{-- <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('shop/css/splide.css') }}">
     {{-- <link href="https://v1.fontapi.ir/css/VazirFD" rel="stylesheet"> --}}
-    <link href="https://lib.arvancloud.ir/vazir-font/33.003/Farsi-Digits-Non-Latin/Vazirmatn-FD-NL-font-face.css" rel="stylesheet">
+    <link href="https://lib.arvancloud.ir/vazir-font/33.003/Farsi-Digits-Non-Latin/Vazirmatn-FD-NL-font-face.css"
+        rel="stylesheet">
 
 
     <!-- icons -->
@@ -30,7 +31,6 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script> --}}
     <script src="{{ asset('shop/js/splide.js') }}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
-    <script src="https://lib.arvancloud.ir/sweetalert2/9.17.4/sweetalert2.all.js"></script>
 
 
     <!-- swiper slider -->
@@ -53,23 +53,17 @@
     <script src="{{ asset('shop/js/main-menu.js') }}"></script>
     <!-- استایل‌های سفارشی -->
 
-    <script src="{{ asset('shop/js/scripts.js') }}"></script>
 
-    <!-- video -->
-
-    <script src="{{ asset('shop/js/video.js') }}"></script>
     <!-- footer -->
 
     {{-- <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}"> --}}
     @if (app()->getLocale() == 'fa')
         <link rel="stylesheet" href="{{ asset('shop/css/main-menu.css') }}">
         <link rel="stylesheet" href="{{ asset('shop/css/styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
         <link rel="stylesheet" href="{{ asset('shop/css/footer.css') }}">
     @else
         <link rel="stylesheet" href="{{ asset('shop/css/ltr/main-menu.css') }}">
         <link rel="stylesheet" href="{{ asset('shop/css/ltr/styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
         <link rel="stylesheet" href="{{ asset('shop/css/ltr/footer.css') }}">
     @endif
 
@@ -110,11 +104,12 @@
     <script src="{{ asset('shop/js/leaflet.js') }}"></script>
     @yield('script')
 
+    <script src="https://lib.arvancloud.ir/sweetalert2/9.17.4/sweetalert2.all.js"></script>
 
     @if (session('fail'))
         <script>
             Swal.fire({
-                position: "top-end",
+                position: "top-start",
                 icon: "error",
                 text: "{{ Session::get('fail') }}",
                 showConfirmButton: false,
@@ -126,9 +121,25 @@
     @if (session('success'))
         <script>
             Swal.fire({
-                position: "top-end",
+                position: "top-start",
                 icon: "success",
                 text: "{{ Session::get('success') }}",
+                showConfirmButton: false,
+                width: 400,
+                timer: 2000,
+            });
+        </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                text: `
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+                `,
                 showConfirmButton: false,
                 width: 400,
                 timer: 2000,

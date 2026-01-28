@@ -148,7 +148,7 @@
                 <form action="{{ route('password.email') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 @error('email') filled @enderror" id="autocompleteBoxemail">
+                        <div class="autocomplete mb-3 {{ old('email') ? 'filled' :'' }}" id="autocompleteBoxemail">
                             <input type="email" id="searchInputemail" class="" name="email"
                                 oninput="nameinput('email')" value="{{ old('email') }}">
                             <label for="searchInputemail">ایمیل یا شماره موبایل</label>

@@ -14,6 +14,16 @@
     @endif
     <script src="{{ asset('shop/js/map/mapdata.js') }}"></script>
     <script src="{{ asset('shop/js/map/countrymap.js') }}"></script>
+    @if (app()->getLocale() == 'fa')
+        <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
+    @endif
+        <script src="{{ asset('shop/js/scripts.js') }}"></script>
+
+    <!-- video -->
+
+    <script src="{{ asset('shop/js/video.js') }}"></script>
     <style>
         #map a {
             display: none !important;

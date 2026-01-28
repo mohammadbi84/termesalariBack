@@ -17,6 +17,7 @@ if (favorites_dropdown) {
 }
 compare_dropdown.style.top = "51px";
 cart_dropdown.style.top = "51px";
+let categoriesMenu = document.querySelector("#categoryMenu");
 categoriesMenu.style.top = "65px";
 categoriesMenu.style.left = "1rem";
 categoriesMenu.style.right = "1rem";

@@ -488,9 +488,9 @@
 .product-card:hover .cell-div {
     background-color: #fff;
 }
-.product-card:hover .price-flex-col {
+/* .product-card:hover .price-flex-col {
     border: none !important;
-}
+} */
 
 .cell-div {
     background-color: #f5f5f5;

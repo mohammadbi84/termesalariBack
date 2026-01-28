@@ -159,7 +159,7 @@
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 @error('mobile') filled @enderror" id="autocompleteBoxmobile">
+                        <div class="autocomplete mb-3 {{ old('mobile') ? 'filled' :'' }}" id="autocompleteBoxmobile">
                             <input type="mobile" id="searchInputmobile" class="" name="mobile"
                                 oninput="nameinput('mobile')" value="{{ $user->mobile ?? old('mobile') }}">
                             <label for="searchInputmobile">{{ __('شماره موبایل') }}</label>
@@ -169,7 +169,7 @@
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
 
-                        <div class="autocomplete mb-3 @error('password') filled @enderror" id="autocompleteBoxpassword">
+                        <div class="autocomplete mb-3 {{ old('password') ? 'filled' :'' }}" id="autocompleteBoxpassword">
                             <input type="password" id="searchInputpassword" class="" name="password"
                                 oninput="nameinput('password')">
                             <label for="searchInputpassword">{{ __('رمز عبور جدید') }}</label>
@@ -180,7 +180,7 @@
                         @enderror
 
 
-                        <div class="autocomplete mb-3 @error('password_confirmation') filled @enderror" id="autocompleteBoxpassword_confirmation">
+                        <div class="autocomplete mb-3 {{ old('password_confirmation') ? 'filled' :'' }}" id="autocompleteBoxpassword_confirmation">
                             <input type="password_confirmation" id="searchInputpassword_confirmation" class="" name="password_confirmation"
                                 oninput="nameinput('password_confirmation')">
                             <label for="searchInputpassword_confirmation">{{ __('تکرار رمز عبور جدید') }}</label>

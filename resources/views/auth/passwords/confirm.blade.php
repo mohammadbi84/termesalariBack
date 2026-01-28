@@ -96,7 +96,7 @@
                 <form action="{{ route('password.confirm') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 @error('password') filled @enderror" id="autocompleteBoxpassword">
+                        <div class="autocomplete mb-3 {{ old('password') ? 'filled' :'' }}" id="autocompleteBoxpassword">
                             <input type="password" id="searchInputpassword" class="" name="password"
                                 oninput="nameinput('password')" value="{{ old('password') }}">
                             <label for="searchInputpassword">رمز فعلی</label>
