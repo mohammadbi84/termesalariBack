@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\FabricController;
 use App\Http\Controllers\PillowController;
@@ -310,3 +311,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 Route::get('active-popup', [PopupController::class, 'getActivePopup']);
 // یا در routes/web.php برای دسترسی عمومی
 Route::get('api/active-popup', [PopupController::class, 'getActivePopup']);
+
+// article (صفحه های داخلی)
+Route::resource('article', 'ArticleController');

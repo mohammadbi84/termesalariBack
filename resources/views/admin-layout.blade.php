@@ -380,6 +380,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>پاپ آپ ها</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('article.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-file-alt"></i>
+                <p>صفحات داخلی</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="{{ route('user.adminProfile') }}" class="nav-link">
@@ -493,8 +499,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="{{asset('/storetemplate/plugins/jquery/jquery.min.js')}}"></script>
-    {{-- <script src="https://lib.arvancloud.ir/jquery/3.6.3/jquery.js"></script> --}}
+{{-- <script src="{{asset('/storetemplate/plugins/jquery/jquery.min.js')}}"></script> --}}
+    <script src="https://lib.arvancloud.ir/jquery/3.6.3/jquery.js"></script>
 
 @stack('js')
 <!-- Bootstrap 4 -->
@@ -506,10 +512,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- FastClick -->
 <script src="{{asset('/storetemplate/plugins/fastclick/fastclick.js')}}"></script>
 {{-- sweetalert --}}
-{{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script src="{{asset('/storetemplate/plugins/sweetalert/sweetalert.min.js')}}"></script>
-<script src="{{asset('/storetemplate/plugins/nprogress-master/nprogress.js')}}"></script>
+{{-- <script src="{{asset('/storetemplate/plugins/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('/storetemplate/plugins/nprogress-master/nprogress.js')}}"></script> --}}
 {{-- <script src="{{asset('/storetemplate/dist/js/autoLogout.js')}}"></script> --}}
 {{-- <script type="module" src="{{asset('/storetemplate/plugins/sweetalert2/src/SweetAlert.js')}}"></script> --}}
 {{-- <script type="module" src="{{asset('/storetemplate/plugins/sweetalert2/src/sweetalert2.js')}}"></script> --}}
