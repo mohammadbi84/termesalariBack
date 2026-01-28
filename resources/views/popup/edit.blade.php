@@ -161,6 +161,8 @@
             background-color: #17a2b8 !important;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
+
 @endpush
 
 @section('main-content')
@@ -270,9 +272,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="link" class="font-weight-bold">لینک</label>
-                                    <input type="url" name="link" id="link"
-                                        class="form-control @error('link') is-invalid @enderror"
-                                        placeholder="https://example.com" value="{{ old('link', $popup->link) }}">
+                                    <select class="form-control select2" name="link" id="link"
+                                        data-placeholder="لطفا صفحه مورد نظر خود را انخاب کنید"
+                                        style="width: 100%;text-align: right">
+                                        @foreach ($articles as $article)
+                                            <option value="{{ $article->id }}"
+                                                {{ $popup->link == $article->id ? 'selected' : '' }}>
+                                                {{ $article->title }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('link')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -310,8 +318,7 @@
                                             alt="تصویر {{ $index + 1 }}">
 
                                         <div class="image-actions">
-                                            <button type="button" class="btn-delete-image"
-                                                data-id="{{ $image->id }}"
+                                            <button type="button" class="btn-delete-image" data-id="{{ $image->id }}"
                                                 data-url="{{ route('popup.deleteImage', $image->id) }}"
                                                 title="حذف تصویر">
                                                 <i class="fas fa-trash"></i>
@@ -498,7 +505,11 @@
     <!-- SortableJS برای مرتب‌سازی -->
     <script src="https://lib.arvancloud.ir/Sortable/1.9.0/Sortable.min.js"></script>
     <script src="https://lib.arvancloud.ir/sweetalert2/9.17.4/sweetalert2.all.js"></script>
+    <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script>
+    <script>
+        $('.select2').select2();
 
+    </script>
 
     <script>
         $(document).ready(function() {

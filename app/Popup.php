@@ -41,6 +41,10 @@ class Popup extends Model
     {
         return $this->hasMany(PopupImage::class)->orderBy('order');
     }
+    public function article()
+    {
+        return $this->belongsTo(Article::class,'link');
+    }
 
     /**
      * بررسی آیا پاپ‌آپ در حال حاضر فعال است

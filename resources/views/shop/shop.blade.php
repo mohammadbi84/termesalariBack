@@ -60,7 +60,7 @@
                                 <button type="button" class="btn btn-text-link px-4 py-2" data-bs-dismiss="modal">
                                     بعدا چک میکنم
                                 </button>
-                                <a href="{{ $popup->link ?? '#' }}"
+                                <a href="{{ $popup->link ? route('article.show',[$popup->link]) : '#' }}"
                                     class="btn btn-primary d-flex align-items-center px-4 py-2">
                                     اطلاعات بیشتر
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -80,14 +80,15 @@
         <script>
             document.addEventListener("DOMContentLoaded", function() {
 
-                if (!localStorage.getItem("popup_shown_{{ $popup->id }}")) {
+                // if (!localStorage.getItem("popup_shown_{{ $popup->id }}")) {
+                if (1) {
 
                     let modal = new bootstrap.Modal(
                         document.getElementById("customModal")
                     );
                     modal.show();
 
-                    localStorage.setItem("popup_shown_{{ $popup->id }}", true);
+                    // localStorage.setItem("popup_shown_{{ $popup->id }}", true);
 
                     new Splide("#modal-slider", {
                         type: "slide",

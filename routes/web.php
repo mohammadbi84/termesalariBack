@@ -304,7 +304,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Route::resource('popup', PopupController::class);
     Route::delete('popup/image/{image}', [PopupController::class, 'deleteImage'])
         ->name('popup.deleteImage');
-    Route::post('popup/{popup}/change-visibility', [PopupController::class, 'changeVisibility'])
+    Route::post('popup/change-visibility', [PopupController::class, 'changeVisibility'])
         ->name('popup.changeVisibility');
 });
 // routes/api.php

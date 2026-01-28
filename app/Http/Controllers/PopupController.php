@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Popup;
 use App\PopupImage;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class PopupController extends Controller
 
     public function create()
     {
-        return view('popup.create');
+        $articles = Article::all();
+        return view('popup.create',compact('articles'));
     }
 
     public function store(Request $request)
@@ -39,7 +41,7 @@ class PopupController extends Controller
             'description_fa' => 'nullable|string',
             'title_en' => 'nullable|string|max:255',
             'description_en' => 'nullable|string',
-            'link' => 'nullable|url',
+            'link' => 'nullable',
             'is_active' => 'boolean',
             'start_at' => 'nullable|date',
             'end_at' => 'nullable|date|after_or_equal:start_at',
@@ -96,11 +98,13 @@ class PopupController extends Controller
 
     public function edit(Popup $popup)
     {
+        $articles = Article::all();
+
         $popup->load(['images' => function($query) {
             $query->orderBy('order');
         }]);
 
-        return view('popup.edit', compact('popup'));
+        return view('popup.edit', compact('popup','articles'));
     }
 
     public function update(Request $request, Popup $popup)
@@ -110,7 +114,7 @@ class PopupController extends Controller
             'description_fa' => 'nullable|string',
             'title_en' => 'nullable|string|max:255',
             'description_en' => 'nullable|string',
-            'link' => 'nullable|url',
+            'link' => 'nullable',
             'is_active' => 'boolean',
             'start_at' => 'nullable|date',
             'end_at' => 'nullable|date|after_or_equal:start_at',
