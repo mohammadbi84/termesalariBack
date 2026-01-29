@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * 
+     *
      Bootstrap any application services.
      *
      * @return void
@@ -34,49 +34,45 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        View::composer('admin-layout', function($view){
-            $countUserMessages = UserMessage::where('user_id','<>',Auth::id())
-                ->where('isRead',0)
+        View::composer('admin-layout', function ($view) {
+            $countUserMessages = UserMessage::where('user_id', '<>', Auth::id())
+                ->where('isRead', 0)
                 ->count();
 
-            $countMessages = Message::where('isRead',0)
+            $countMessages = Message::where('isRead', 0)
                 ->count();
 
-            $countComments = Comment::where('status',0)
+            $countComments = Comment::where('status', 0)
                 ->count();
 
-            $orders = Order::where('status',0)
-                ->get();
-            $countOrders = 0;
-            foreach ($orders as $key => $order) {
-                foreach ($order->payments as $payment) {
-                    if ($payment->tracing_code <> '' or $payment->res_code == 0) {
-                        $countOrders++;
-                    }
-                }
-            }
+            $countOrders = Order::whereHas('payments', function ($q) {
+                $q->where(function ($qq) {
+                    $qq->whereNotNull('tracing_code')
+                        ->orWhere('res_code', 0);
+                });
+            })->where('status',0)->count();
 
 
             $view
-                ->with('countUserMessages',$countUserMessages)
-                ->with('countMessages',$countMessages)
-                ->with('countComments',$countComments)
-                ->with('countOrders',$countOrders);
-            });
+                ->with('countUserMessages', $countUserMessages)
+                ->with('countMessages', $countMessages)
+                ->with('countComments', $countComments)
+                ->with('countOrders', $countOrders);
+        });
 
-            // if(Auth::check())
-            // {
-            //     $userLogined = User::find(Auth::id());
-            //     View::composer('user.user-layout', function($view){
-            //      $view
-            //         ->with('userLogined', $userLogined);           
-            //     });
-            // }
+        // if(Auth::check())
+        // {
+        //     $userLogined = User::find(Auth::id());
+        //     View::composer('user.user-layout', function($view){
+        //      $view
+        //         ->with('userLogined', $userLogined);
+        //     });
+        // }
 
         // if (session()->has('cart')) {
         //     $list=collect();
         //     $cart = session('cart');
-            
+
         //     foreach ($cart as $key => $value)
         //     {
         //         $class="App\\".$value['moddel'];
@@ -87,12 +83,12 @@ class AppServiceProvider extends ServiceProvider
         //          $view
         //             ->with('cart', $cart)
         //             ->with('list', $list)
-        //             ->with('countUserMessages',$countUserMessages);            
+        //             ->with('countUserMessages',$countUserMessages);
         //     });
         // }
         // else
         // {
-            
+
         // }
     }
 }

@@ -33,7 +33,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class UserController extends Controller
 {
     public function __construct()
-    {  
+    {
         $this->middleware('auth');
         //$this->authorizeResource(User::class, 'user');
     }
@@ -48,7 +48,7 @@ class UserController extends Controller
         $users = User::all();
 
         return view("user.index")
-            ->with("users",$users);    
+            ->with("users", $users);
     }
 
     /**
@@ -81,33 +81,32 @@ class UserController extends Controller
     public function show(User $user)
     {
         $this->authorize('view', $user);
-        $user = User::where('id',$user->id)
+        $user = User::where('id', $user->id)
             ->with('comments')
             ->with('favorites')
             ->with('orders')
             ->first();
         // dd($user);
-        $orders = $user->orders->filter(function($item){
+        $orders = $user->orders->filter(function ($item) {
             foreach ($item->payments as $pay) {
                 // dd($pay);
                 if ($pay->tracing_code <> '' or $pay->res_code == 0) {
                     return true;
-                }
-                else
+                } else
                     return false;
             }
         });
         // dd($user);
         // dd($payment);
-        $userMessages = UserMessage::where('user_id',$user->id)
-            ->orWhere('parentID',$user->id)
+        $userMessages = UserMessage::where('user_id', $user->id)
+            ->orWhere('parentID', $user->id)
             ->orderby('created_at')
             ->get();
-            
+
         return view('user.show')
-            ->with('user',$user)
-            ->with('orders',$orders)
-            ->with('userMessages',$userMessages);
+            ->with('user', $user)
+            ->with('orders', $orders)
+            ->with('userMessages', $userMessages);
     }
 
     /**
@@ -122,19 +121,18 @@ class UserController extends Controller
         // $user = User::find($id);
         $cities = City::all();
         // $subcities = Subcity::all();
-        $companySubcities =[];
+        $companySubcities = [];
 
-        if(isset($user->city_id))
-        {
+        if (isset($user->city_id)) {
             $companySubcities = Subcity::where('city_id', $user->city_id)
-            ->get();
+                ->get();
         }
 
         return view("user.edit")
             ->with('user', $user)
-            ->with("cities",$cities)
+            ->with("cities", $cities)
             // ->with("subcities",$subcities)
-            ->with("companySubcities",$companySubcities);
+            ->with("companySubcities", $companySubcities);
     }
 
     /**
@@ -150,25 +148,24 @@ class UserController extends Controller
         $this->authorize('update', $user);
         $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         $english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-         
-        $birthday= str_replace($persian, $english, $request->birthday);
+
+        $birthday = str_replace($persian, $english, $request->birthday);
         $birthday = Verta::parse($birthday);
         $birthday = $birthday->dateTime();
         // $birthday = $birthday->dateTime()->getTimestamp();
-        
-       
+
+
         $user->fill($request->all());
         $user->birthday = $birthday;
         $user->city_id = $request->city_id;
         $user->subcity_id = $request->subcity_id;
         $user->save();
 
-        $companySubcities =[];
+        $companySubcities = [];
 
-        if(isset(Auth::user()->city_id))
-        {
+        if (isset(Auth::user()->city_id)) {
             $companySubcities = Subcity::where('city_id', Auth::user()->city_id)
-            ->get();
+                ->get();
         }
 
         $cities = City::all();
@@ -176,8 +173,8 @@ class UserController extends Controller
         return redirect()
             ->back()
             ->with('success', '::ویرایش با موفقیت انجام شد ::')
-            ->with("cities",$cities)
-            ->with("companySubcities",$companySubcities);
+            ->with("cities", $cities)
+            ->with("companySubcities", $companySubcities);
     }
 
     /**
@@ -195,36 +192,29 @@ class UserController extends Controller
         $userMessages = $user->userMessages()->get();
         $msg = "درخواست شما برای حذف پذیرفته نشد. چون اطلاعات این کاربر در بخش";
         $delFlag = 0;
-        if($comments->count() > 0)
-        {
+        if ($comments->count() > 0) {
             $msg .= " ::نظرات::  ";
             $delFlag = 1;
         }
-        if($favorites->count() > 0)
-        {
+        if ($favorites->count() > 0) {
             $msg .= " ::علاقه مندی ها:: ";
             $delFlag = 1;
         }
-        if($userMessages->count() > 0)
-        {
+        if ($userMessages->count() > 0) {
             $msg .= "::پیام ها:: ";
             $delFlag = 1;
         }
-        if($orders->count() > 0)
-        {
+        if ($orders->count() > 0) {
             $msg .= " ::سفارش ها:: ";
             $delFlag = 1;
         }
         $msg .= "وجود دارد.";
 
-        if($delFlag == 1)
-        {
+        if ($delFlag == 1) {
             $result["res"] = "error";
             $result["message"] = $msg;
             return $result;
-        }
-        else if($delFlag == 0)
-        {
+        } else if ($delFlag == 0) {
             $user->delete();
             $result["res"] = "success";
             $result["message"] = "گزینه انتخابی با موفقیت حذف شد .";
@@ -252,25 +242,24 @@ class UserController extends Controller
 
         $cities = City::all();
         $subcities = Subcity::all();
-        $companySubcities =[];
+        $companySubcities = [];
 
-        if(isset(Auth::user()->city_id))
-        {
+        if (isset(Auth::user()->city_id)) {
             $companySubcities = Subcity::where('city_id', Auth::user()->city_id)
-            ->get();
+                ->get();
         }
         return view("user.profile")
-            ->with("cities",$cities)
-            ->with("subcities",$subcities)
-            ->with("companySubcities",$companySubcities);
+            ->with("cities", $cities)
+            ->with("subcities", $subcities)
+            ->with("companySubcities", $companySubcities);
     }
 
-    public function convertPersianToEnglish($string) 
+    public function convertPersianToEnglish($string)
     {
         $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         $english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-        
-        $output= str_replace($persian, $english, $string);
+
+        $output = str_replace($persian, $english, $string);
         return $output;
     }
 
@@ -284,27 +273,25 @@ class UserController extends Controller
         //     ->orWhere('res_code','0')
         //     ->get()
         //     ->sortbyDesc('created_at');
-        $listOrders = Order::where('user_id',Auth::id())
+        $listOrders = Order::where('user_id', Auth::id())
             ->get();
 
-        $unsuccessOrders = $listOrders->filter(function($item){
+        $unsuccessOrders = $listOrders->filter(function ($item) {
             foreach ($item->payments as $payment) {
                 if ($payment->tracing_code <> '' or $payment->res_code == 0) {
                     return false;
-                }
-                else
+                } else
                     return true;
-            }    
+            }
         });
 
-        $successOrders = $listOrders->filter(function($item){
+        $successOrders = $listOrders->filter(function ($item) {
             foreach ($item->payments as $payment) {
                 if ($payment->tracing_code <> '' or $payment->res_code == 0) {
                     return true;
-                }
-                else
+                } else
                     return false;
-            }    
+            }
         });
 
 
@@ -312,9 +299,9 @@ class UserController extends Controller
         // dd($unsuccessOrders);
 
         return view('user.my-orders')
-            ->with('listOrders',$listOrders)
-            ->with('successOrders',$successOrders)
-            ->with('unsuccessOrders',$unsuccessOrders);
+            ->with('listOrders', $listOrders)
+            ->with('successOrders', $successOrders)
+            ->with('unsuccessOrders', $unsuccessOrders);
     }
 
     public function myOrder($id)
@@ -323,20 +310,20 @@ class UserController extends Controller
         $order = Order::find($id);
         // dd($order);
         return view('user.my-order')
-            ->with('order',$order);
+            ->with('order', $order);
     }
 
     public function myPayments()
     {
         $this->authorize('myPayments', User::class);
-        $orders = Order::where('user_id',Auth::id())
+        $orders = Order::where('user_id', Auth::id())
             ->pluck('id');
         $listPayments = Payment::with('order')
-            ->whereIn('order_id',$orders)
-            ->orderby('created_at','desc')
+            ->whereIn('order_id', $orders)
+            ->orderby('created_at', 'desc')
             ->get();
         return view('user.my-payments')
-            ->with('listPayments',$listPayments);
+            ->with('listPayments', $listPayments);
     }
 
     public function changePassword()
@@ -349,21 +336,18 @@ class UserController extends Controller
     {
         $this->authorize('updatePassword', User::class);
         $rules = [
-           'currentPassword' => 'required',
-           'password' => 'required|string|min:8|confirmed',
-           'password_confirmation' => 'required|string|min:8' ,
+            'currentPassword' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8',
         ];
         $request->validate($rules);
         $user = Auth::user();
-        if (Hash::check($request->currentPassword, $user->password))
-        {
+        if (Hash::check($request->currentPassword, $user->password)) {
             // dd(111);
             return redirect()
                 ->back()
-                ->with("danger",":: رمز عبور فعلی نادرست می باشد . ::");
-        }
-        else
-        {
+                ->with("danger", ":: رمز عبور فعلی نادرست می باشد . ::");
+        } else {
             // dd(222);
             $user->password = Hash::make($request->currentPassword);
             $user->save();
@@ -371,28 +355,27 @@ class UserController extends Controller
                 ->back()
                 ->with('success', ':: رمز عبور با موفقیت تغییر یافت . ::');
         }
-
     }
 
     public function favorites(Request $request)
     {
         $this->authorize('favorites', User::class);
-        $favorites = Favorite::where('user_id',Auth::id())
+        $favorites = Favorite::where('user_id', Auth::id())
             ->get();
-            // dd($favorites);
+        // dd($favorites);
         return view('user.favorites')
-            ->with('favorites' , $favorites);
+            ->with('favorites', $favorites);
     }
 
     public function comments(Request $request)
     {
         $this->authorize('comments', User::class);
-        $comments = Comment::where('user_id',Auth::id())
+        $comments = Comment::where('user_id', Auth::id())
             // ->groupby('commentable_type','commentable_id')
-            ->orderby('created_at','asc')
+            ->orderby('created_at', 'asc')
             ->get();
         return view('user.comments')
-            ->with('comments',$comments);
+            ->with('comments', $comments);
     }
 
     public function deleteComment(Request $request)
@@ -400,40 +383,37 @@ class UserController extends Controller
         $this->authorize('deleteComment', User::class);
         $comment = Comment::find($request->id);
         $comment->delete();
-        $count = Comment::where('user_id',Auth::id())
-            ->where('commentable_type',$request->model)
-            ->where('commentable_id',$request->parentId)
+        $count = Comment::where('user_id', Auth::id())
+            ->where('commentable_type', $request->model)
+            ->where('commentable_id', $request->parentId)
             ->get()->count();
         $result["res"] = "success";
         $result["message"] = "گزینه انتخابی با موفقیت حدف شد .";
         $result["count"] = $count;
         return $result;
-
     }
 
     public function deleteComments(Request $request)
     {
         $this->authorize('deleteComments', User::class);
-        $comments = Comment::where('commentable_id',$request->id)
-            ->where('commentable_type',$request->model)
-            ->where('user_id',Auth::id())
+        $comments = Comment::where('commentable_id', $request->id)
+            ->where('commentable_type', $request->model)
+            ->where('user_id', Auth::id())
             ->delete();
         // $comments->detach();
         $result["res"] = "success";
         $result["message"] = "گزینه انتخابی با موفقیت حدف شد .";
         return $result;
-
     }
 
     public function recipients(Request $request)
     {
         $this->authorize('recipients', User::class);
-        $recipients = Recipient::where('user_id',Auth::id())
-            ->where('visibility',1)
+        $recipients = Recipient::where('user_id', Auth::id())
+            ->where('visibility', 1)
             ->get();
         return view('user.recipients')
-            ->with('recipients',$recipients);
-
+            ->with('recipients', $recipients);
     }
 
     public function messages(Request $request)
@@ -444,30 +424,30 @@ class UserController extends Controller
         //     ->orderby('created_at','desc')
         //     ->get();
 
-        $userMessages = UserMessage::orderby('created_at','desc')
+        $userMessages = UserMessage::orderby('created_at', 'desc')
             ->get();
 
         foreach ($userMessages as $key => $message) {
-            if($message->parentID != 0) {
+            if ($message->parentID != 0) {
                 $userMessages[$key] = $message->parent()->withTrashed()->first();
-                if($message->isRead == 0) {
+                if ($message->isRead == 0) {
                     $userMessages[$key]->isRead = 0;
                 }
             }
         }
 
         $userMessages = $userMessages->unique('id');
-        
+
         return view('user.messages')
-            ->with('userMessages',$userMessages);
+            ->with('userMessages', $userMessages);
     }
 
     public function messageStore(Request $request)
     {
         $this->authorize('messageStore', User::class);
         $rules = [
-           'subject' => 'required|string',
-           'message' => 'required|string',
+            'subject' => 'required|string',
+            'message' => 'required|string',
         ];
         $request->validate($rules);
         $message = new UserMessage;
@@ -488,47 +468,45 @@ class UserController extends Controller
         //     ->orderby('created_at','asc')
         //     ->get();
 
-        $messageDetails = UserMessage::where('parentID',$id)
+        $messageDetails = UserMessage::where('parentID', $id)
             // ->where('parentID',$id)
-            ->orderby('created_at','asc')
+            ->orderby('created_at', 'asc')
             ->get();
 
-        $messageStart = UserMessage::where('id',$id)
+        $messageStart = UserMessage::where('id', $id)
             ->first();
-            
-        if(isset($messageStart) and $messageStart->isRead == 0)
-        {
+
+        if (isset($messageStart) and $messageStart->isRead == 0) {
             $messageStart->isRead = 1;
             $messageStart->save();
         }
 
         // return $messageDetail;
         return view('user.message-details')
-            ->with('messageDetails',$messageDetails)
-            ->with('messageStart',$messageStart);
+            ->with('messageDetails', $messageDetails)
+            ->with('messageStart', $messageStart);
     }
 
     public function messageRead(Request $request)
     {
         $this->authorize('messageRead', User::class);
         $message = UserMessage::withTrashed()
-            ->where('id',$request->message_id)
+            ->where('id', $request->message_id)
             ->first();
-            
-        if(isset($message) and $message->isRead == 0 and $message->user_id != Auth::id())
-        {
+
+        if (isset($message) and $message->isRead == 0 and $message->user_id != Auth::id()) {
             $message->isRead = 1;
             $message->save();
         }
         return true;
     }
 
-    public function saveAnswer(Request $request , UserMessage $messageStart )
+    public function saveAnswer(Request $request, UserMessage $messageStart)
     {
         $this->authorize('saveAnswer', User::class);
         $rules = [
-           // 'subject' => 'required|string',
-           'message' => 'required|string',
+            // 'subject' => 'required|string',
+            'message' => 'required|string',
         ];
         $request->validate($rules);
         $message = new UserMessage;
@@ -543,11 +521,10 @@ class UserController extends Controller
     {
         $this->authorize('delConversation', User::class);
         // dd($request->id);
-        $userMessages = UserMessage::where('id',$request->id)
-            ->orWhere('parentID',$request->id);
+        $userMessages = UserMessage::where('id', $request->id)
+            ->orWhere('parentID', $request->id);
 
-        if ($userMessages->delete())
-        {
+        if ($userMessages->delete()) {
             $result["res"] = "success";
             $result["message"] = "پیام انتخابی به همراه گفتگوهای مربوط به آن حذف شد.";
             return $result;
@@ -558,10 +535,9 @@ class UserController extends Controller
     {
         $this->authorize('delMessage', User::class);
         // dd($request->all());
-        $userMessage = UserMessage::where('id',$request->id);
+        $userMessage = UserMessage::where('id', $request->id);
 
-        if ($userMessage->delete())
-        {
+        if ($userMessage->delete()) {
             $result["res"] = "success";
             $result["message"] = "پیام انتخابی با موفقیت حذف شد.";
             return $result;
@@ -583,14 +559,13 @@ class UserController extends Controller
         $this->authorize('changeStatus', User::class);
         // dd($user);
         $user = user::find($user);
-        if($user->isActive == "0"){
+        if ($user->isActive == "0") {
             $user->isActive = "1";
-        }
-        else if($user->isActive == "1"){
+        } else if ($user->isActive == "1") {
             $user->isActive = "0";
         }
         $user->save();
-        
+
         $result["res"] = "success";
         $result["message"] = "کاربر انتخابی تغییر وضعیت یافت.";
         return $result;
@@ -600,10 +575,10 @@ class UserController extends Controller
     {
         $this->authorize('changeStatusGroup', User::class);
         $result = [];
-        if(isset($request->items)){
-            foreach($request->items as $id){
+        if (isset($request->items)) {
+            foreach ($request->items as $id) {
                 $user = User::find($id);
-                if($user->isActive == 0)
+                if ($user->isActive == 0)
                     $user->isActive = 1;
                 else if ($user->isActive == 1)
                     $user->isActive = 0;
@@ -611,9 +586,7 @@ class UserController extends Controller
             }
             $result["res"] = "success";
             $result["message"] = "موارد انتخابی با موفقیت تغییر وضعیت یافت .";
-        }
-        else
-        {
+        } else {
             $result["res"] = "error";
             $result["message"] = "لطفا ابتداسطرهای مورد نظر را انتخاب کنید.";
         }
@@ -624,30 +597,30 @@ class UserController extends Controller
     {
         $this->authorize('saveChange', User::class);
         $rules = [
-            'name' => 'required|string' ,
-            'family' => 'required|string' ,
-            'nationalCode' => 'nullable|numeric|unique:users,nationalCode,'. $id ,
-            'mobile' => 'required|numeric|unique:users,mobile,'. $id ,
-            'birthday' => 'required|' ,
-            'email' => 'required|email|unique:users,email,'. $id ,
+            'name' => 'required|string',
+            'family' => 'required|string',
+            'nationalCode' => 'nullable|numeric|unique:users,nationalCode,' . $id,
+            'mobile' => 'required|numeric|unique:users,mobile,' . $id,
+            'birthday' => 'required|',
+            'email' => 'required|email|unique:users,email,' . $id,
             // 'password' => 'required|string|min:8|max:50' ,
 
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|dimensions:max_width=150,max_height=150' ,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|dimensions:max_width=150,max_height=150',
 
-            'companyName' => 'nullable|string' ,
+            'companyName' => 'nullable|string',
 
-            'companyEconomyID' => 'nullable|required_with:companyName,companyNationalID,companyRegistrationID,city_id,subcity_id|numeric|unique:users,companyEconomyID,'. $id ,
+            'companyEconomyID' => 'nullable|required_with:companyName,companyNationalID,companyRegistrationID,city_id,subcity_id|numeric|unique:users,companyEconomyID,' . $id,
 
-            'companyNationalID' => 'nullable|required_with:companyName,companyEconomyID,companyRegistrationID,city_id,subcity_id|numeric|unique:users,companyNationalID,'. $id ,
+            'companyNationalID' => 'nullable|required_with:companyName,companyEconomyID,companyRegistrationID,city_id,subcity_id|numeric|unique:users,companyNationalID,' . $id,
 
-            'companyRegistrationID' => 'nullable|required_with:companyName,companyEconomyID,companyNationalID,city_id,subcity_id|numeric|unique:users,companyRegistrationID,'. $id ,
+            'companyRegistrationID' => 'nullable|required_with:companyName,companyEconomyID,companyNationalID,city_id,subcity_id|numeric|unique:users,companyRegistrationID,' . $id,
 
-            'city_id' => 'required_with:companyName,companyEconomyID,companyNationalID,companyRegistrationID,subcity_id' ,
+            'city_id' => 'required_with:companyName,companyEconomyID,companyNationalID,companyRegistrationID,subcity_id',
 
-            'subcity_id' => 'required_with:companyName,companyEconomyID,companyNationalID,companyRegistrationID,city_id' ,
+            'subcity_id' => 'required_with:companyName,companyEconomyID,companyNationalID,companyRegistrationID,city_id',
 
-            'companyTel' => 'nullable|required_with:companyName,companyEconomyID,companyNationalID,companyRegistrationID|numeric' ,
-            'companySite' => 'nullable' ,
+            'companyTel' => 'nullable|required_with:companyName,companyEconomyID,companyNationalID,companyRegistrationID|numeric',
+            'companySite' => 'nullable',
         ];
         $request->validate($rules);
 
@@ -655,12 +628,12 @@ class UserController extends Controller
 
         $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         $english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-        
-        $birthday= str_replace($persian, $english, $request->birthday);
+
+        $birthday = str_replace($persian, $english, $request->birthday);
         $birthday = Verta::parse($birthday);
         $birthday = $birthday->dateTime();
         // $birthday = $birthday->dateTime()->getTimestamp();
-        
+
         $user = User::find($id);
         $user->fill($request->all());
         $user->birthday = $birthday;
@@ -668,12 +641,11 @@ class UserController extends Controller
         $user->subcity_id = $request->subcity_id;
         $user->save();
 
-        $companySubcities =[];
+        $companySubcities = [];
 
-        if(isset(Auth::user()->city_id))
-        {
+        if (isset(Auth::user()->city_id)) {
             $companySubcities = Subcity::where('city_id', Auth::user()->city_id)
-            ->get();
+                ->get();
         }
 
         $cities = City::all();
@@ -681,8 +653,8 @@ class UserController extends Controller
         return redirect()
             ->back()
             ->with('success', '::ویرایش با موفقیت انجام شد ::')
-            ->with("cities",$cities)
-            ->with("companySubcities",$companySubcities);
+            ->with("cities", $cities)
+            ->with("companySubcities", $companySubcities);
     }
 
     public function adminProfile(Request $request)
@@ -696,16 +668,16 @@ class UserController extends Controller
         $this->authorize('adminProfileStore', User::class);
         // dd($request->all());
         $rules = [
-           'name' => 'required|string',
-           'family' => 'required|string',
+            'name' => 'required|string',
+            'family' => 'required|string',
         ];
         $request->validate($rules);
         $user->name = $request->name;
         $user->family = $request->family;
         $user->save();
         return redirect()
-        ->back()
-        ->with('success','عملیات ویرایش با موفقیت انجام شد.');
+            ->back()
+            ->with('success', 'عملیات ویرایش با موفقیت انجام شد.');
     }
 
     public function adminChangeImage($image)
@@ -727,30 +699,27 @@ class UserController extends Controller
     public function dashboard()
     {
         $this->authorize('dashboard', User::class);
-        
+
         $countComments = Comment::count();
 
         $countNewsletters = Newsletter::count();
 
         $orders = Order::all();
-        $orders = $orders->filter(function($item){
+        $orders = $orders->filter(function ($item) {
             // dd($item);
             if ($item->status == 2) {
                 // dd(1);
                 return false;
-            }
-            else{
+            } else {
                 foreach ($item->payments as $payment) {
                     if ($payment->tracing_code <> '' or $payment->res_code == 0) {
                         return true;
-                    }
-                    else
+                    } else
                         return false;
                 }
             }
-            
         });
- 
+
         $countOrderitems = 0;
         $sumPrice = 0;
         $sumOff = 0;
@@ -759,52 +728,47 @@ class UserController extends Controller
                 $countOrderitems = $countOrderitems + $orderitem->count;
                 $sumPrice = $sumPrice + $orderitem->price;
                 $sumOff = $sumOff + $orderitem->offPrice;
-            }   
+            }
         }
 
         $countUsers = User::count();
 
-        $lastUsers = User::where('role','user')
-            ->orderby('created_at','desc')
+        $lastUsers = User::where('role', 'user')
+            ->orderby('created_at', 'desc')
             ->take(12)
             ->get();
 
-        $lastOrders = Order::orderby('created_at','desc')
+        // $list = Payment::with('order')
+        //     ->where('tracing_code','<>','')
+        //     ->orWhere('res_code','0')
+        //     ->get()
+        //     ->sortbyDesc('created_at');
+        $lastOrders = Order::whereHas('payments', function ($q) {
+            $q->where(function ($qq) {
+                $qq->whereNotNull('tracing_code')
+                    ->orWhere('res_code', 0);
+            });
+        })
+            ->latest()
             ->take(10)
             ->get();
-        $lastOrders = $lastOrders->filter(function($item){
-            // if ($item->status == 2) {
-            //     return false;
-            // }
-            // else{
-                foreach ($item->payments as $payment) {
-                    if ($payment->tracing_code <> '' or $payment->res_code == 0) {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-            // }
-            
-        });
+
 
 
         $topRequests = Orderitem::with('orderitemable')->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')
-            ->orderby('sum','desc')
+            ->orderby('sum', 'desc')
             ->take(10)
             ->get();
 
         // dd($topRequests);
-        $topRequests = $topRequests->filter(function($item){
+        $topRequests = $topRequests->filter(function ($item) {
             // dd($item);
             if ($item->orderitemable == null) {
                 return false;
-            }
-            else if ($item->orderitemable->visibility == 0) {
+            } else if ($item->orderitemable->visibility == 0) {
                 return false;
-            }
-            else
+            } else
                 return true;
         });
 
@@ -812,46 +776,45 @@ class UserController extends Controller
         //     ->get();
 
 
-        $oldYearData = Orderitem::whereYear('created_at',(now()->format('Y')) - 1)
+        $oldYearData = Orderitem::whereYear('created_at', (now()->format('Y')) - 1)
             ->get();
 
         $currentMounthShamsi = intVal(Verta(now())->format('m'));
         $currentMounthMiladi = intVal(now()->format('m'));
 
         $currentYearData = [];
-        for ($i= 12; $i > 0 ; $i--) { 
-            if($i < $currentMounthShamsi){
+        for ($i = 12; $i > 0; $i--) {
+            if ($i < $currentMounthShamsi) {
                 array_push($currentYearData, 0);
-                continue; 
+                continue;
             }
-            $price = Orderitem::whereYear('created_at',now()->format('Y'))
-                ->whereMonth('created_at',$currentMounthMiladi)
+            $price = Orderitem::whereYear('created_at', now()->format('Y'))
+                ->whereMonth('created_at', $currentMounthMiladi)
                 ->select(DB::raw('sum(price) - sum(offPrice) as sumPrice'))
                 ->first();
             // dd($price);
             array_push($currentYearData, $price->sumPrice);
             $currentMounthMiladi--;
-            
         }
 
         $oldYearData = [];
         $oldYear = intVal(now()->format('Y') - 1);
-        for ($i = 12; $i > 0 ; $i--) {
+        for ($i = 12; $i > 0; $i--) {
             $price = Orderitem::whereYear('created_at', $oldYear)
-                ->whereMonth('created_at',$i)
+                ->whereMonth('created_at', $i)
                 ->select(DB::raw('sum(price) - sum(offPrice) as sumPrice'))
                 ->first();
-            
+
             array_push($oldYearData, $price->sumPrice);
         }
 
         $countProducts = Tablecloth::count() +
-            Shoe::count() + 
-            Bedcover::count() + 
-            Bag::count() + 
-            Fabric::count() + 
-            Frame::count() + 
-            Pillow::count() + 
+            Shoe::count() +
+            Bedcover::count() +
+            Bag::count() +
+            Fabric::count() +
+            Frame::count() +
+            Pillow::count() +
             Prayermat::count();
 
         // $countOrders = Order::where('status','0')
@@ -871,34 +834,40 @@ class UserController extends Controller
 
 
 
-        $countOrders = Payment::with('order')
-            ->where('tracing_code','<>','')
-            ->orWhere('res_code','0')
-            ->count();
+        // $countOrders = Payment::with('order')
+        //     ->where('tracing_code', '<>', '')
+        //     ->orWhere('res_code', '0')
+        //     ->count();
+        $countOrders = Order::whereHas('payments', function ($q) {
+            $q->where(function ($qq) {
+                $qq->whereNotNull('tracing_code')
+                    ->orWhere('res_code', 0);
+            });
+        })->count();
         // dd($countOrders);
 
         $orderitems = Orderitem::all()
             ->groupby('orderitemable_type');
-        $countOfTypeProducts = 0;//تعداد اقلام فروخته شده
+        $countOfTypeProducts = 0; //تعداد اقلام فروخته شده
         foreach ($orderitems as $orderitem) {
             $countOfTypeProducts = $countOfTypeProducts + $orderitem->groupby('orderitemable_id')->count();
         }
 
-        return view ('user.dashboard')
-            ->with('countComments',$countComments)
-            ->with('countNewsletters',$countNewsletters)
-            ->with('countOrderitems',$countOrderitems)
-            ->with('countUsers',$countUsers)
-            ->with('lastUsers',$lastUsers)
-            ->with('lastOrders',$lastOrders)
-            ->with('topRequests',$topRequests)
-            ->with('currentYearData',$currentYearData)
-            ->with('oldYearData',$oldYearData)
-            ->with('countOrders',$countOrders)
-            ->with('sumPrice',$sumPrice)
-            ->with('sumOff',$sumOff)
-            ->with('countProducts',$countProducts)
-            ->with('countOfTypeProducts',$countOfTypeProducts);
+        return view('user.dashboard')
+            ->with('countComments', $countComments)
+            ->with('countNewsletters', $countNewsletters)
+            ->with('countOrderitems', $countOrderitems)
+            ->with('countUsers', $countUsers)
+            ->with('lastUsers', $lastUsers)
+            ->with('lastOrders', $lastOrders)
+            ->with('topRequests', $topRequests)
+            ->with('currentYearData', $currentYearData)
+            ->with('oldYearData', $oldYearData)
+            ->with('countOrders', $countOrders)
+            ->with('sumPrice', $sumPrice)
+            ->with('sumOff', $sumOff)
+            ->with('countProducts', $countProducts)
+            ->with('countOfTypeProducts', $countOfTypeProducts);
     }
 
     public function export()
@@ -906,13 +875,11 @@ class UserController extends Controller
         $this->authorize('export', User::class);
         return Excel::download(new UserExport, 'user.xlsx');
     }
-    
+
     public function resendVerifyEmail()
     {
         Auth::user()->sendEmailVerificationNotification();
     }
-
-
 }//End Class
 
 //https://medium.com/@selvakumar_P/laravel-send-mail-from-localhost-xampp-4b85e002ebe1

@@ -25,14 +25,14 @@ class OrderController extends Controller
     public function index()
     {
         $list = Payment::with('order')
-            ->where('tracing_code','<>','')
-            ->orWhere('res_code','0')
+            ->where('tracing_code', '<>', '')
+            ->orWhere('res_code', '0')
             ->get()
             ->sortbyDesc('created_at');
         // $orders = Order::all()
         //     ->sortbyDesc('created_at');
         // dd($list);
-        $list = $list->filter(function($item){
+        $list = $list->filter(function ($item) {
             // dd($item);
             if ($item->order == "") {
                 return false;
@@ -43,13 +43,12 @@ class OrderController extends Controller
             // }
             else if ($item->tracing_code <> '' or $item->res_code == 0) {
                 return true;
-            }
-            else
+            } else
                 return false;
         });
         // dd($list);
         return view('order.index')
-            ->with('list',$list);
+            ->with('list', $list);
     }
 
     /**
@@ -90,7 +89,7 @@ class OrderController extends Controller
         // dd($order);
         return view('order.show')
             // ->with('payment',$payment)
-            ->with('order',$order);
+            ->with('order', $order);
     }
 
     /**
@@ -124,13 +123,10 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        if($order->delete())
-        {
+        if ($order->delete()) {
             $result["res"] = "success";
             $result["message"] = "گزینه انتخابی با موفقیت حدف شد .";
-        }
-        else
-        {
+        } else {
             $result["res"] = "error";
             $result["message"] = "عملیات حذف با خطا روبرو شده است.";
         }
@@ -147,7 +143,7 @@ class OrderController extends Controller
     //         $result["message"] = "فاکتور انتخابی برای ارسال کالا تایید شد.";
     //     // }
     //     $order->save();
-        
+
     //     $result["res"] = "success";
     //     return $result;
     // }
@@ -162,22 +158,21 @@ class OrderController extends Controller
     //         $result["message"] = "سفارش انتخابی رد شد.";
     //     }
     //     $order->save();
-        
+
     //     $result["res"] = "success";
     //     return $result;
     // }
 
     public function setStatus(Request $request)
     {
-        $this->authorize('setStatus',Order::class);
+        $this->authorize('setStatus', Order::class);
         // dd($request->all());
         $order = Order::find($request->id);
         $result["message"] = "";
         if ($request->action == 'confirm') {
             $order->status = "1";
             $result["message"] = "سفارش انتخابی تایید شد.";
-        }
-        elseif ($request->action == 'reject'){
+        } elseif ($request->action == 'reject') {
             $order->status = "2";
             $result["message"] = "سفارش انتخابی رد شد.";
             foreach ($order->orderitems as $key => $orderitem) {
@@ -186,7 +181,7 @@ class OrderController extends Controller
             }
         }
         $order->save();
-        
+
         $result["res"] = "success";
         return $result;
     }
@@ -222,7 +217,7 @@ class OrderController extends Controller
         $order = Order::find($request->order_id);
         // $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         // $english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-         
+
         // $post_date= str_replace($persian, $english, $order->post_date);
         $data['code'] = $order->post_code;
         $data['date'] = Verta($order->post_date)->format('Y/m/d H:m:s');
@@ -233,13 +228,13 @@ class OrderController extends Controller
 
     public function savePostInfo(Request $request)
     {
-        $this->authorize('savePostInfo',Order::class);
+        $this->authorize('savePostInfo', Order::class);
         // dd($request->all());
         $order = Order::find($request->order_id);
         $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         $english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-         
-        $post_date= str_replace($persian, $english, $request->post_date);
+
+        $post_date = str_replace($persian, $english, $request->post_date);
         $post_date = Verta::parse($post_date);
         $post_date = $post_date->dateTime();
 
@@ -247,34 +242,35 @@ class OrderController extends Controller
         $order->post_date = $post_date;
         $order->save();
         return Verta($post_date)->format('Y/m/d H:m:s');
-        
     }
 
-    public function printAddresses( $items)
+    public function printAddresses($items)
     {
         // dd($items);
         $items = json_decode($items);
         // var_dump($items);
-        $orders = Order::whereIn('id',$items)
+        $orders = Order::whereIn('id', $items)
             ->get();
         // dd(storage_path()."/app/public/Addresses.docx");
-        $source = storage_path()."/app/public/Addresses.docx";
+        $source = storage_path() . "/app/public/Addresses.docx";
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($source);
         $values = [];
         foreach ($orders as $order) {
-           array_push($values, [
-                        "order_id"=>"",
-                        "receiver"=>$order->recipient->city->name.", ".$order->recipient->subcity->name.", ".$order->recipient->address.", پلاک  ".$order->recipient->houseId."جناب ".$order->recipient->name." ".$order->recipient->family,
-                        "mobile"=>$order->recipient->mobile,
-                        "zipcode"=>$order->recipient->zipcode,
-                        ]
-                     );
+            array_push(
+                $values,
+                [
+                    "order_id" => "",
+                    "receiver" => $order->recipient->city->name . ", " . $order->recipient->subcity->name . ", " . $order->recipient->address . ", پلاک  " . $order->recipient->houseId . "جناب " . $order->recipient->name . " " . $order->recipient->family,
+                    "mobile" => $order->recipient->mobile,
+                    "zipcode" => $order->recipient->zipcode,
+                ]
+            );
         }
 
         // $templateProcessor->cloneRowAndSetValues('order_id', $values);
         $templateProcessor->cloneBlock('block', 0, true, false, $values);
-        $destination = storage_path()."/app/public/downloadAddresses.docx";
+        $destination = storage_path() . "/app/public/downloadAddresses.docx";
 
         $templateProcessor->saveAs($destination);
 
@@ -283,24 +279,26 @@ class OrderController extends Controller
 
     public function printAddress($id)
     {
-        if (isset($id)){
-            $orders = Order::where('id',$id)
+        if (isset($id)) {
+            $orders = Order::where('id', $id)
                 ->get();
             // dd($orders);
-            $source = storage_path()."/app/public/Address.docx";
+            $source = storage_path() . "/app/public/Address.docx";
             $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($source);
             $values = [];
             foreach ($orders as $order) {
-               array_push($values, [
-                            "receiver"=>$order->recipient->city->name.", ".$order->recipient->subcity->name.", ".$order->recipient->address.", پلاک  ".$order->recipient->houseId."جناب ".$order->recipient->name." ".$order->recipient->family,
-                            "mobile"=>$order->recipient->mobile,
-                            "zipcode"=>$order->recipient->zipcode,
-                            ]
-                         );
+                array_push(
+                    $values,
+                    [
+                        "receiver" => $order->recipient->city->name . ", " . $order->recipient->subcity->name . ", " . $order->recipient->address . ", پلاک  " . $order->recipient->houseId . "جناب " . $order->recipient->name . " " . $order->recipient->family,
+                        "mobile" => $order->recipient->mobile,
+                        "zipcode" => $order->recipient->zipcode,
+                    ]
+                );
             }
 
             $templateProcessor->cloneBlock('block', 0, true, false, $values);
-            $destination = storage_path()."/app/public/downloadAddress.docx";
+            $destination = storage_path() . "/app/public/downloadAddress.docx";
             // dd($destination);
             $templateProcessor->saveAs($destination);
 
@@ -320,25 +318,22 @@ class OrderController extends Controller
     public function unsuccessOrders()
     {
         $list = Payment::with('order')
-            ->where('tracing_code','=','')
-            ->orWhere('res_code','<>','0')
+            ->where(function ($query) {
+                $query->where('tracing_code', '')
+                    ->orWhereNull('tracing_code');
+            })
+            ->where(function ($query) {
+                $query->where('res_code', '<>', '0')
+                    ->orWhereNull('res_code');
+            })
+            ->orderBy('created_at', 'desc')
             ->get()
-            ->sortbyDesc('created_at');
-        $list = $list->filter(function($item){
-            // dd($item);
-            if ($item->order == "") {
-                return false;
-            }
-            else if ($item->tracing_code == '' or $item->res_code != 0) {
-                return true;
-            }
-            else
-                return false;
-        });
+            ->filter(function ($item) {
+                // فقط مواردی که order دارند
+                return !empty($item->order);
+            });
         // dd($list);
         return view('order.unsuccess-orders')
-            ->with('list',$list);
+            ->with('list', $list);
     }
-
-
 }
