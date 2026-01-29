@@ -94,6 +94,9 @@
 .main-menu .nav-link:hover {
     color: var(--primary-color);
 }
+.main-menu .nav-link:hover .badge-percent-svg path{
+    fill: var(--primary-color);
+}
 
 /* انیمیشن خط زیر لینک‌ها */
 .main-menu .nav-link::after {
