@@ -711,7 +711,7 @@
 .compare-dropdown {
     position: absolute;
     top: 61px;
-    right: -172px;
+    right: -10px;
     width: 340px;
     background: white;
     border: 1px solid #dee2e6;
@@ -726,10 +726,10 @@
 }
 
 .favorites-dropdown {
-    right: -232px;
+    right: -10px;
 }
 .compare-dropdown {
-    right: -212px;
+    right: -10px;
 }
 
 .cart-container:hover .cart-dropdown {

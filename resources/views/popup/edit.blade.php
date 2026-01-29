@@ -718,15 +718,7 @@
 
                 // بررسی حجم تصاویر جدید
                 const files = $('#new_images')[0].files;
-                const maxSize = 2 * 1024 * 1024;
-
-                for (let i = 0; i < files.length; i++) {
-                    if (files[i].size > maxSize) {
-                        e.preventDefault();
-                        showToast('error', `حجم تصویر ${files[i].name} بیش از ۲ مگابایت است.`);
-                        return false;
-                    }
-                }
+                
 
                 return true;
             });

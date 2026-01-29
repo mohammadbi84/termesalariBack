@@ -19,12 +19,11 @@ class HomestoreController extends Controller
 {
     public function index()
     {
-        $popup = Popup::active()
+        $popups = Popup::active()
             ->with(['images' => function($query) {
                 $query->orderBy('order');
             }])
-            ->latest()
-            ->first();
+            ->latest()->get();
         $topRequests = Orderitem::with('orderitemable')
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')
@@ -139,7 +138,7 @@ class HomestoreController extends Controller
             ->with('sermehProducts', $sermehProducts)
             ->with('slideshows', $slideshows)
             ->with('newestProducts', $newestProducts)
-            ->with('popup', $popup)
+            ->with('popups', $popups)
             ->with('specials', $specials);
     }
     public function index3()

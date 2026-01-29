@@ -908,6 +908,7 @@ i {
     transform: translateX(-7px);
     color: white;
 }
+
 .right-slider .swiper-slide-thumb-active:hover {
     background: #52ac66;
     transform: translateX(-7px);
@@ -1296,13 +1297,18 @@ i {
     color: var(--primary-color);
 }
 
-.btn-close {
+.modal-close-btn {
     z-index: 2;
     background-color: #f7f7f7 !important;
     opacity: 1 !important;
+    border-radius: 0 0 12px 0 !important;
+    padding: 0 !important;
+    z-index: 2;
+    width: 41px;
+    height: 41px;
 }
 
-#modal-slider .splide__pagination {
+.popup-image-slider .splide__pagination {
     display: flex !important;
     /* justify-self: baseline !important; */
     justify-content: center;
@@ -1325,7 +1331,7 @@ i {
 }
 
 /* مثلث سمت چپ */
-#modal-slider .splide__pagination::before {
+.popup-image-slider .splide__pagination::before {
     content: "";
     position: absolute;
     left: -22px;
@@ -1338,7 +1344,7 @@ i {
 }
 
 /* مثلث سمت راست */
-#modal-slider .splide__pagination::after {
+.popup-image-slider .splide__pagination::after {
     content: "";
     position: absolute;
     right: -22px;
@@ -1350,18 +1356,46 @@ i {
     border-bottom: 0 solid transparent;
 }
 
-#modal-slider .splide__pagination__page.is-active {
+.popup-image-slider .splide__pagination__page.is-active {
     background: var(--primary-color);
 }
 
-#modal-slider .splide__arrow {
+.popup-image-slider .splide__arrow {
     background: rgba(255, 255, 255, 0.7);
     opacity: 1;
 }
 
-#modal-slider .splide__arrow svg {
+.popup-image-slider .splide__arrow svg {
     fill: #333;
 }
+
+
+.popup-pagination-numbers {
+    display: flex !important;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+    bottom: 1.3em;
+}
+
+.popup-page-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background-color: #e9efea9d;
+    color: #6a6a6a;
+    font-weight: bold;
+    opacity: 1;
+}
+
+.popup-page-btn.is-active {
+    background-color: #8ed55724;
+    border-color: transparent;
+    color: var(--primary-color);
+    transform: scale(1);
+}
+
 
 
 

@@ -46,7 +46,8 @@
             cursor: pointer;
         }
     </style>
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}"> --}}
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/select2/4.1.0-rc.0/css/select2.min.css">
 @endpush
 
 @section('main-content')
@@ -230,7 +231,8 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script>
+    {{-- <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script> --}}
+    <script src="https://lib.arvancloud.ir/select2/4.1.0-rc.0/js/select2.full.min.js"></script>
     <script>
         $('.select2').select2();
         $(document).ready(function() {
@@ -344,16 +346,6 @@
             // اعتبارسنجی فرم
             $('#popupForm').on('submit', function(e) {
                 const files = $('#images')[0].files;
-                const maxSize = 2 * 1024 * 1024; // 2MB
-
-                // بررسی حجم تصاویر
-                for (let i = 0; i < files.length; i++) {
-                    if (files[i].size > maxSize) {
-                        e.preventDefault();
-                        alert(`حجم تصویر ${files[i].name} بیش از ۲ مگابایت است.`);
-                        return false;
-                    }
-                }
 
                 // بررسی تاریخ‌ها
                 const startAt = $('#start_at').val();

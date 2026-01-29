@@ -8,13 +8,10 @@ let favorites_dropdown = document.querySelector(".favorites-dropdown");
 let compare_dropdown = document.querySelector(".compare-dropdown");
 if (favorites_dropdown) {
     favorites_dropdown.style.top = "51px";
-    favorites_dropdown.style.left = "-192px";
-    cart_dropdown.style.left = "-113px";
-    compare_dropdown.style.left = "-150px";
-} else {
-    compare_dropdown.style.left = "-177px";
-    cart_dropdown.style.left = "-137px";
+    favorites_dropdown.style.left = "1rem";
 }
+cart_dropdown.style.left = "1rem";
+compare_dropdown.style.left = "1rem";
 compare_dropdown.style.top = "51px";
 cart_dropdown.style.top = "51px";
 let categoriesMenu = document.querySelector("#categoryMenu");

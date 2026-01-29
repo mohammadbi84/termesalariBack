@@ -6,7 +6,7 @@
     @else
         <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
     @endif
-        <script src="{{ asset('shop/js/scripts.js') }}"></script>
+    <script src="{{ asset('shop/js/scripts.js') }}"></script>
 
     <!-- video -->
 
@@ -14,94 +14,143 @@
 @endsection
 @section('content')
     <!-- start popup -->
-    @if ($popup)
-        <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true"
-            dir="rtl">
-            <div class="modal-dialog modal-dialog-centered modal-lg rounded-2">
-                <div class="modal-content" style="border-radius: 12px !important">
-                    <div class="modal-body p-0">
-                        <!-- Slider section with close button and badge -->
-                        <div class="position-relative">
-                            <button type="button" class="btn btn-light position-absolute top-0 start-0 modal-close-btn"
-                                data-bs-dismiss="modal"
-                                style="border-radius: 0 0 12px 0 !important;padding: 0 !important;z-index: 2;width: 41px;height: 41px;">
-                                <i class="fa-solid fa-xmark" style="font-size: x-large;position: relative;top: 2.5px;"></i>
-                            </button>
+    @if ($popups)
+        <div class="modal fade" id="customModal" tabindex="-1" aria-hidden="true" dir="rtl">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
 
-                            <div class="splide" id="modal-slider" style="direction: ltr;">
-                                <div class="splide__track">
-                                    <ul class="splide__list">
-                                        @foreach ($popup->images as $image)
-                                            <li class="splide__slide">
-                                                <img src="{{ asset($image->image) }}" class="img-fluid w-100"
-                                                    style="height: 400px; object-fit: cover;" alt="{{ $popup->title }}">
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                    <button type="button" class="btn btn-light position-absolute top-0 start-0 modal-close-btn"
+                        data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
 
-                                </div>
-                            </div>
+                    {{-- 🔥 POPUP SLIDER --}}
+                    <div class="splide" id="popup-slider">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+
+                                @foreach ($popups as $popup)
+                                    <li class="splide__slide"
+                                        data-link="{{ $popup->link ? route('article.show', [$popup->link]) : '#' }}">
+
+                                        {{-- IMAGE SLIDER (قدیمی – دست نخورده) --}}
+                                        <div class="splide popup-image-slider" style="direction:ltr">
+                                            <div class="splide__track">
+                                                <ul class="splide__list">
+                                                    @foreach ($popup->images as $image)
+                                                        <li class="splide__slide">
+                                                            <img src="{{ asset($image->image) }}" class="img-fluid w-100"
+                                                                style="height:400px;object-fit:cover">
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        {{-- CONTENT --}}
+                                        <div class="p-4 px-5 pb-0">
+                                            <h2 class="fw-bold text-center">
+                                                {{ app()->getLocale() == 'fa' ? $popup->title_fa : $popup->title_en }}
+                                            </h2>
+
+                                            <p class="text-muted text-center mb-4">
+                                                {{ app()->getLocale() == 'fa' ? $popup->description_fa : $popup->description_en }}
+                                            </p>
+
+                                        </div>
+
+                                    </li>
+                                @endforeach
+
+                            </ul>
                         </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-4 px-5 pt-0">
+                        <a href="#" class="btn btn-primary" id="popup-more-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                            اطلاعات بیشتر
+                        </a>
+                        <!-- 👇 pagination بیاد اینجا -->
+                        <div id="popup-pagination-holder"></div>
+                        <button class="btn btn-text-link" data-bs-dismiss="modal">
+                            بعدا چک میکنم
+                        </button>
 
-                        <!-- Content section -->
-                        <div class="p-4 px-5" style="direction: ltr;">
-                            <!-- Title -->
-                            <h2 class="fw-bold mb-3 text-center" dir="rtl">
-                                {{ app()->getLocale() == 'fa' ? $popup->title_fa : $popup->title_en }}
-                            </h2>
-
-                            <!-- Description -->
-                            <p class="text-muted text-center mb-4" dir="rtl">
-                                {{ app()->getLocale() == 'fa' ? $popup->description_fa : $popup->description_en }}
-                            </p>
-
-                            <!-- Buttons -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-text-link px-4 py-2" data-bs-dismiss="modal">
-                                    بعدا چک میکنم
-                                </button>
-                                <a href="{{ $popup->link ? route('article.show',[$popup->link]) : '#' }}"
-                                    class="btn btn-primary d-flex align-items-center px-4 py-2">
-                                    اطلاعات بیشتر
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     @endif
-    @if ($popup)
+    @if ($popups)
         <script>
             document.addEventListener("DOMContentLoaded", function() {
 
-                // if (!localStorage.getItem("popup_shown_{{ $popup->id }}")) {
-                if (1) {
+                const modal = new bootstrap.Modal(document.getElementById("customModal"));
+                modal.show();
 
-                    let modal = new bootstrap.Modal(
-                        document.getElementById("customModal")
-                    );
-                    modal.show();
+                // 🔥 Popup Slider
+                const popupSplide = new Splide("#popup-slider", {
+                    type: "slide",
+                    perPage: 1,
+                    direction: "rtl",
+                    arrows: false,
+                    pagination: true,
+                    rewind: true,
+                    classes: {
+                        page: 'splide__pagination__page popup-page-btn'
+                    },
+                });
 
-                    // localStorage.setItem("popup_shown_{{ $popup->id }}", true);
+                popupSplide.on('pagination:mounted', function(data) {
+                    data.list.classList.add('popup-pagination-numbers');
 
-                    new Splide("#modal-slider", {
-                        type: "slide",
-                        perPage: 1,
-                        pagination: true,
-                        arrows: false,
-                        rewind: true,
-                        height: "400px",
-                        cover: true,
-                        autoplay: true,
-                    }).mount();
+                    data.items.forEach(function(item, index) {
+                        item.button.textContent = index + 1; // ← عددی کردن
+                    });
+                    // 👇 انتقال به جای دلخواه
+                    document
+                        .getElementById('popup-pagination-holder')
+                        .appendChild(data.list);
+                });
+
+                function updatePopupButton(index) {
+                    let slide = popupSplide.Components.Elements.slides[index];
+                    let link = slide.dataset.link || "#";
+                    document.getElementById('popup-more-btn').setAttribute('href', link);
                 }
 
+                popupSplide.on('mounted', function() {
+                    updatePopupButton(0);
+                });
+
+                popupSplide.on('moved', function(newIndex) {
+                    updatePopupButton(newIndex);
+                });
+
+
+                popupSplide.on("mounted", function() {
+
+                    // 🎯 Image sliders داخل هر popup
+                    document.querySelectorAll(".popup-image-slider").forEach(function(el) {
+                        new Splide(el, {
+                            type: "loop",
+                            perPage: 1,
+                            arrows: false,
+                            pagination: true,
+                            autoplay: true,
+                            height: "400px",
+                            cover: true,
+                        }).mount();
+                    });
+
+                });
+
+                popupSplide.mount();
             });
         </script>
     @endif

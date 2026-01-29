@@ -24,7 +24,7 @@ function initMainMenu() {
                         offerHeaderParentWidth.parentElement.clientWidth) /
                         2 +
                     12
-                }px`
+                }px`,
             );
         } else {
             let containerParentWidth =
@@ -32,7 +32,7 @@ function initMainMenu() {
 
             setCssVar(
                 "--main-menu-margin",
-                `${(screenWidth - containerParentWidth.clientWidth) / 2}px`
+                `${(screenWidth - containerParentWidth.clientWidth) / 2}px`,
             );
         }
 
@@ -49,13 +49,10 @@ function initMainMenu() {
                 categoryMenu.classList.add("small");
                 if (favorites_dropdown) {
                     favorites_dropdown.style.top = "51px";
-                    favorites_dropdown.style.left = "-192px";
-                    cart_dropdown.style.left = "-113px";
-                    compare_dropdown.style.left = "-150px";
-                } else {
-                    compare_dropdown.style.left = "-177px";
-                    cart_dropdown.style.left = "-137px";
+                    favorites_dropdown.style.left = "1rem";
                 }
+                cart_dropdown.style.left = "1rem";
+                compare_dropdown.style.left = "1rem";
                 compare_dropdown.style.top = "51px";
                 cart_dropdown.style.top = "51px";
                 categoriesMenu.style.top = "65px";
@@ -71,13 +68,10 @@ function initMainMenu() {
                 categoryMenu.classList.remove("small");
                 if (favorites_dropdown) {
                     favorites_dropdown.style.top = "61px";
-                    favorites_dropdown.style.left = "-228px";
-                    cart_dropdown.style.left = "-147px";
-                    compare_dropdown.style.left = "-188px";
-                } else {
-                    compare_dropdown.style.left = "-217px";
-                    cart_dropdown.style.left = "-177px";
+                    favorites_dropdown.style.left = "-10px";
                 }
+                cart_dropdown.style.left = "-10px";
+                compare_dropdown.style.left = "-10px";
                 cart_dropdown.style.top = "61px";
                 compare_dropdown.style.top = "61px";
                 categoriesMenu.style.top = "75px";
