@@ -1371,8 +1371,9 @@ i {
 
 
 .popup-pagination-numbers {
+    direction: ltr;
     display: flex !important;
-    gap: 8px;
+    gap: 0px;
     justify-content: center;
     margin-top: 12px;
     bottom: 1.3em;
