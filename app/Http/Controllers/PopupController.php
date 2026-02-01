@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Popup;
 use App\PopupImage;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
@@ -31,7 +32,7 @@ class PopupController extends Controller
     public function create()
     {
         $articles = Article::all();
-        return view('popup.create',compact('articles'));
+        return view('popup.create', compact('articles'));
     }
 
     public function store(Request $request)
@@ -88,7 +89,6 @@ class PopupController extends Controller
 
             return redirect()->route('popup.index')
                 ->with('success', 'پاپ‌آپ با موفقیت ایجاد شد.');
-
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'خطا در ایجاد پاپ‌آپ: ' . $e->getMessage())
@@ -100,12 +100,19 @@ class PopupController extends Controller
     {
         $articles = Article::all();
 
-        $popup->load(['images' => function($query) {
+        $popup->load(['images' => function ($query) {
             $query->orderBy('order');
         }]);
-
-        return view('popup.edit', compact('popup','articles'));
+        return view('popup.edit', compact('popup', 'articles'));
     }
+
+    function convertNumbersToEnglish($string)
+    {
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        return str_replace($persianNumbers, $englishNumbers, $string);
+    }
+
 
     public function update(Request $request, Popup $popup)
     {
@@ -116,8 +123,8 @@ class PopupController extends Controller
             'description_en' => 'nullable|string',
             'link' => 'nullable',
             'is_active' => 'boolean',
-            'start_at' => 'nullable|date',
-            'end_at' => 'nullable|date|after_or_equal:start_at',
+            'start_at' => 'nullable',
+            'end_at' => 'nullable',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'orders' => 'nullable|array',
@@ -129,6 +136,9 @@ class PopupController extends Controller
             'existing_durations' => 'nullable|array',
         ]);
 
+
+
+        // return $request;
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
@@ -137,18 +147,37 @@ class PopupController extends Controller
 
         $data = $validator->validated();
 
+        // ابتدا مقادیر شمسی از فرم رو بگیریم
+        $startAtShamsi = $request->start_at; // ۱۴۰۴/۱۱/۱۲ ۱۶:۵۴:۵۲
+        $endAtShamsi   = $request->end_at;
+
+        $startAtShamsi = $this->convertNumbersToEnglish($startAtShamsi);
+        $endAtShamsi   = $this->convertNumbersToEnglish($endAtShamsi);
+
+        $data['start_at'] = $startAtShamsi ? Verta::parse($startAtShamsi)->subDay(1)->datetime() : null;
+        $data['end_at']   = $endAtShamsi   ? Verta::parse($endAtShamsi)->subDay(1)->datetime() : null;
+
+        // اعتبارسنجی پایان بعد از شروع
+        if ($data['start_at'] && $data['end_at'] && $data['end_at'] <= $data['start_at']) {
+            return back()->withErrors([
+                'end_at' => 'تاریخ پایان باید بزرگتر از تاریخ شروع باشد.'
+            ])->withInput();
+        }
+
+
+
         try {
             // بروزرسانی اطلاعات پاپ‌آپ
             $popup->update($data);
 
             // بروزرسانی تصاویر موجود
-            if ($request->has('existing_images')) {
-                foreach ($popup->images as $image) {
-                    if (in_array($image->id, $request->existing_images ?? [])) {
-                        $index = array_search($image->id, $request->existing_images);
-                        $image->update([
-                            'order' => $request->existing_orders[$index] ?? $image->order,
-                            'duration' => $request->existing_durations[$index] ?? $image->duration,
+            if ($request->has('images_order')) {
+                foreach ($request->images_order as $imageId => $order) {
+                    $popupImage = $popup->images()->find($imageId);
+                    if ($popupImage) {
+                        $popupImage->update([
+                            'order' => $order,
+                            'duration' => $request->images_delay[$imageId]*1000 ?? 3
                         ]);
                     }
                 }
@@ -164,15 +193,14 @@ class PopupController extends Controller
                     PopupImage::create([
                         'popup_id' => $popup->id,
                         'image' => $path,
-                        'order' => $data['orders'][$index] ?? $index,
-                        'duration' => $data['durations'][$index] ?? 5000, // پیش‌فرض 3 ثانیه
+                        'order' => $request->new_images_order[$index] ?? 0,
+                        'duration' => $request->new_images_delay[$index] * 1000 ?? 3000,
                     ]);
                 }
             }
 
             return redirect()->route('popup.index')
                 ->with('success', 'پاپ‌آپ با موفقیت بروزرسانی شد.');
-
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'خطا در بروزرسانی پاپ‌آپ: ' . $e->getMessage())
@@ -196,7 +224,6 @@ class PopupController extends Controller
                 'success' => true,
                 'message' => 'پاپ‌آپ با موفقیت حذف شد.'
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -209,15 +236,14 @@ class PopupController extends Controller
     {
         try {
             if (File::exists($image->image)) {
-                    File::delete($image->image);
-                }
+                File::delete($image->image);
+            }
             $image->delete();
 
             return response()->json([
                 'success' => true,
                 'message' => 'تصویر با موفقیت حذف شد.'
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -243,7 +269,6 @@ class PopupController extends Controller
                 'message' => 'وضعیت پاپ‌آپ تغییر کرد',
                 'is_active' => $popup->is_active
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -258,7 +283,7 @@ class PopupController extends Controller
     public function getActive()
     {
         $popup = Popup::active()
-            ->with(['images' => function($query) {
+            ->with(['images' => function ($query) {
                 $query->orderBy('order');
             }])
             ->first();
@@ -276,7 +301,7 @@ class PopupController extends Controller
                 'title' => app()->getLocale() == 'fa' ? $popup->title_fa : $popup->title_en,
                 'description' => app()->getLocale() == 'fa' ? $popup->description_fa : $popup->description_en,
                 'link' => $popup->link,
-                'images' => $popup->images->map(function($image) {
+                'images' => $popup->images->map(function ($image) {
                     return [
                         'url' => $image->image_url,
                         'duration' => $image->duration ?? 3000,
@@ -287,65 +312,65 @@ class PopupController extends Controller
     }
 
     public function getActivePopup()
-{
-    try {
-        // دریافت پاپ‌آپ فعال
-        $popup = Popup::active()
-            ->with(['images' => function($query) {
-                $query->orderBy('order');
-            }])
-            ->latest()
-            ->first();
+    {
+        try {
+            // دریافت پاپ‌آپ فعال
+            $popup = Popup::active()
+                ->with(['images' => function ($query) {
+                    $query->orderBy('order');
+                }])
+                ->latest()
+                ->first();
 
-        // اگر پاپ‌آپ فعالی وجود ندارد
-        if (!$popup) {
+            // اگر پاپ‌آپ فعالی وجود ندارد
+            if (!$popup) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No active popup found',
+                    'data' => null
+                ]);
+            }
+
+            // انتخاب زبان بر اساس لوکال
+            $locale = App::getLocale();
+            $isRtl = in_array($locale, ['fa', 'ar']);
+
+            // ساخت پاسخ
+            $response = [
+                'success' => true,
+                'data' => [
+                    'id' => $popup->id,
+                    'title' => $locale === 'fa' ? $popup->title_fa : $popup->title_en,
+                    'description' => $locale === 'fa' ? $popup->description_fa : $popup->description_en,
+                    'link' => $popup->link,
+                    'is_active' => $popup->is_active,
+                    'start_at' => $popup->start_at ? $popup->start_at->format('Y-m-d H:i:s') : null,
+                    'end_at' => $popup->end_at ? $popup->end_at->format('Y-m-d H:i:s') : null,
+                    'is_rtl' => $isRtl,
+                    'images' => $popup->images->map(function ($image) {
+                        return [
+                            'id' => $image->id,
+                            'url' => asset('storage/' . $image->image),
+                            'order' => $image->order,
+                            'duration' => $image->duration ?? 3000,
+                            'created_at' => $image->created_at->format('Y-m-d H:i:s'),
+                        ];
+                    })->toArray(),
+                    'created_at' => $popup->created_at->format('Y-m-d H:i:s'),
+                    'updated_at' => $popup->updated_at->format('Y-m-d H:i:s'),
+                ]
+            ];
+
+            // ذخیره کوکی برای نمایش یک بار در روز
+            return response()->json($response)
+                ->cookie('popup_last_shown', $popup->id, 1440); // 24 ساعت
+
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'No active popup found',
+                'message' => 'Error fetching popup: ' . $e->getMessage(),
                 'data' => null
-            ]);
+            ], 500);
         }
-
-        // انتخاب زبان بر اساس لوکال
-        $locale = App::getLocale();
-        $isRtl = in_array($locale, ['fa', 'ar']);
-
-        // ساخت پاسخ
-        $response = [
-            'success' => true,
-            'data' => [
-                'id' => $popup->id,
-                'title' => $locale === 'fa' ? $popup->title_fa : $popup->title_en,
-                'description' => $locale === 'fa' ? $popup->description_fa : $popup->description_en,
-                'link' => $popup->link,
-                'is_active' => $popup->is_active,
-                'start_at' => $popup->start_at ? $popup->start_at->format('Y-m-d H:i:s') : null,
-                'end_at' => $popup->end_at ? $popup->end_at->format('Y-m-d H:i:s') : null,
-                'is_rtl' => $isRtl,
-                'images' => $popup->images->map(function($image) {
-                    return [
-                        'id' => $image->id,
-                        'url' => asset('storage/' . $image->image),
-                        'order' => $image->order,
-                        'duration' => $image->duration ?? 3000,
-                        'created_at' => $image->created_at->format('Y-m-d H:i:s'),
-                    ];
-                })->toArray(),
-                'created_at' => $popup->created_at->format('Y-m-d H:i:s'),
-                'updated_at' => $popup->updated_at->format('Y-m-d H:i:s'),
-            ]
-        ];
-
-        // ذخیره کوکی برای نمایش یک بار در روز
-        return response()->json($response)
-            ->cookie('popup_last_shown', $popup->id, 1440); // 24 ساعت
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Error fetching popup: ' . $e->getMessage(),
-            'data' => null
-        ], 500);
     }
-}
 }

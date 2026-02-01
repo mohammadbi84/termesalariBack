@@ -25,7 +25,7 @@
                     </button>
 
                     {{-- 🔥 POPUP SLIDER --}}
-                    <div class="splide" id="popup-slider">
+                    <div class="splide" id="popup-slider" style="direction: ltr;">
                         <div class="splide__track">
                             <ul class="splide__list">
 
@@ -34,18 +34,20 @@
                                         data-link="{{ $popup->link ? route('article.show', [$popup->link]) : '#' }}">
 
                                         {{-- IMAGE SLIDER (قدیمی – دست نخورده) --}}
-                                        <div class="splide popup-image-slider" style="direction:ltr">
-                                            <div class="splide__track">
-                                                <ul class="splide__list">
-                                                    @foreach ($popup->images as $image)
-                                                        <li class="splide__slide">
-                                                            <img src="{{ asset($image->image) }}" class="img-fluid w-100"
-                                                                style="height:400px;object-fit:cover">
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
+                                        <div class="swiper popup-image-slider">
+                                            <div class="swiper-wrapper">
+                                                @foreach ($popup->images as $image)
+                                                    <div class="swiper-slide" data-delay="{{ $image->duration }}">
+                                                        <img src="{{ asset($image->image) }}"
+                                                            style="height:400px;object-fit:cover;width:100%;">
+                                                    </div>
+                                                @endforeach
                                             </div>
+
+                                            <!-- pagination -->
+                                            <div class="swiper-pagination popup-pagination"></div>
                                         </div>
+
 
                                         {{-- CONTENT --}}
                                         <div class="p-4 px-5 pb-0">
@@ -97,7 +99,7 @@
                 const popupSplide = new Splide("#popup-slider", {
                     type: "slide",
                     perPage: 1,
-                    direction: "rtl",
+                    direction: "ltr",
                     arrows: false,
                     pagination: true,
                     rewind: true,
@@ -135,18 +137,49 @@
 
                 popupSplide.on("mounted", function() {
 
-                    // 🎯 Image sliders داخل هر popup
-                    document.querySelectorAll(".popup-image-slider").forEach(function(el) {
-                        new Splide(el, {
-                            type: "loop",
-                            perPage: 1,
-                            arrows: false,
-                            pagination: true,
-                            autoplay: true,
-                            height: "400px",
-                            cover: true,
-                        }).mount();
+                    document.querySelectorAll('.popup-image-slider').forEach(function(el) {
+
+                        let swiper = new Swiper(el, {
+                            loop: true,
+                            speed: 600,
+                            autoplay: {
+                                delay: 3000, // مقدار اولیه دلخواه
+                                disableOnInteraction: false,
+                            },
+                            pagination: {
+                                el: el.querySelector('.swiper-pagination'),
+                                clickable: true,
+                                renderBullet: function(index, className) {
+                                    return `<span class="${className}"></span>`;
+                                }
+                            },
+                            watchOverflow: false,
+                            on: {
+                                init: function() {
+                                    // وقتی swiper mount شد، delay اولین اسلاید رو اعمال کن
+                                    let firstSlide = this.slides[this.activeIndex];
+                                    let delay = firstSlide.dataset.delay;
+                                    if (delay) {
+                                        this.params.autoplay.delay = parseInt(delay);
+                                        this.autoplay.start();
+                                    }
+                                },
+                                slideChangeTransitionEnd: function() {
+                                    let activeSlide = this.slides[this.activeIndex];
+                                    let delay = activeSlide.dataset.delay;
+
+                                    if (delay) {
+                                        this.params.autoplay.delay = parseInt(delay);
+                                        this.autoplay.start();
+                                    }
+                                }
+                            }
+                        });
+
                     });
+
+
+
 
                 });
 
@@ -661,6 +694,13 @@
                                 $price = $prices->price;
                             }
                         @endphp
+                        @php
+                            $score =
+                                $product->orderitemable->comments->sum('score') /
+                                ($product->orderitemable->comments->count() > 0
+                                    ? $product->orderitemable->comments->count()
+                                    : 1);
+                        @endphp
 
                         <!-- محصول 1 -->
                         <div class="col-md-4 col-lg-3 p-2">
@@ -686,11 +726,11 @@
                                                 class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
                                                     <div class="text-center">
-                                                        <span class="sell-count d-block">98</span>
+                                                        <span class="sell-count d-block">{{ $product->sum }}</span>
                                                         <span class="sell-text">فروش</span>
                                                     </div>
                                                     <div class="text-center">
-                                                        <span class="rate-count d-block">5%</span>
+                                                        <span class="rate-count d-block">{{ $score }}</span>
                                                         <span class="rate-text">رضایت</span>
                                                     </div>
                                                     <div class="text-center">
@@ -1020,7 +1060,7 @@
                                             <div
                                                 class="px-1 pt-2 hot-description border-top d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
-                                                    <span class="fs-10">28 عدد فروش رفته</span>
+                                                    <span class="fs-10">{{ $topRequest->sum }} عدد فروش رفته</span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
                                                     <button

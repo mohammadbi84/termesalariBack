@@ -160,9 +160,18 @@
         .toast-info {
             background-color: #17a2b8 !important;
         }
+
+        .file-drop-zone .file-preview-thumbnails {
+            display: flex;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput.min.css') }}"
+        media="all">
+    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}"
+        media="all">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('/storetemplate/plugins/datepicker-master/persian-datepicker.min.css') }}">
 @endpush
 
 @section('main-content')
@@ -309,78 +318,36 @@
                         </h4>
 
                         @if ($popup->images->count() > 0)
-                            <div id="existingImagesContainer" class="image-preview-container">
-                                @foreach ($popup->images->sortBy('order') as $index => $image)
-                                    <div class="image-preview-item existing-image-item"
-                                        data-image-id="{{ $image->id }}">
-                                        <div class="image-number">{{ $index + 1 }}</div>
-                                        <img src="{{ asset($image->image) }}" class="image-preview"
-                                            alt="تصویر {{ $index + 1 }}">
+                            <div class="row">
+                                @foreach ($popup->images as $image)
+                                    <div class="col-md-3 mb-3" data-image-id="{{ $image->id }}">
+                                        <div class="image-info p-2">
+                                            <img src="{{ asset($image->image) }}" class="img-fluid mb-2" alt="">
 
-                                        <div class="image-actions">
-                                            <button type="button" class="btn-delete-image" data-id="{{ $image->id }}"
-                                                data-url="{{ route('popup.deleteImage', $image->id) }}"
-                                                title="حذف تصویر">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
+                                            <div class="form-group">
+                                                <label>ترتیب نمایش</label>
+                                                <input type="number" name="images_order[{{ $image->id }}]"
+                                                    value="{{ old('images_order.' . $image->id, $image->order ?? 0) }}"
+                                                    class="form-control" placeholder="مثلاً 1">
+                                            </div>
 
-                                        <!-- اطلاعات مخفی برای فرم -->
-                                        <input type="hidden" name="existing_images[]" value="{{ $image->id }}">
-                                        <input type="hidden" name="existing_orders[]" value="{{ $image->order }}"
-                                            id="order_{{ $image->id }}">
-                                        <input type="hidden" name="existing_durations[]" value="{{ $image->duration }}"
-                                            id="duration_{{ $image->id }}">
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <!-- فرم ویرایش اطلاعات تصاویر موجود -->
-                            <div class="mt-4">
-                                <h5><i class="fas fa-edit ml-2"></i> ویرایش اطلاعات تصاویر موجود</h5>
-                                <div id="existingImagesInfo" class="mt-3">
-                                    @foreach ($popup->images->sortBy('order') as $index => $image)
-                                        <div class="image-info mb-3" id="info_{{ $image->id }}">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <label>تصویر {{ $index + 1 }}</label>
-                                                    <div class="text-center">
-                                                        <img src="{{ asset($image->image) }}"
-                                                            style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;">
-                                                        <p class="small text-muted mt-1">{{ basename($image->image) }}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>ترتیب نمایش</label>
-                                                    <input type="number" class="form-control order-input"
-                                                        data-image-id="{{ $image->id }}" value="{{ $image->order }}"
-                                                        min="0">
-                                                    <small class="text-muted">عدد کمتر = نمایش زودتر</small>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>مدت نمایش (میلی‌ثانیه)</label>
-                                                    <input type="number" class="form-control duration-input"
-                                                        data-image-id="{{ $image->id }}"
-                                                        value="{{ $image->duration ?? 5000 }}" min="1000"
-                                                        step="500">
-                                                    <small class="text-muted">1000 = 1 ثانیه</small>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>عملیات</label>
-                                                    <div class="mt-2">
-                                                        <button type="button"
-                                                            class="btn btn-sm btn-danger btn-block btn-delete-image"
-                                                            data-id="{{ $image->id }}"
-                                                            data-url="{{ route('popup.deleteImage', $image->id) }}">
-                                                            <i class="fas fa-trash ml-1"></i>
-                                                            حذف تصویر
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group">
+                                                <label>زمان نمایش (ثانیه)</label>
+                                                <input type="number" name="images_delay[{{ $image->id }}]"
+                                                    value="{{ old('images_delay.' . $image->id, $image->duration / 1000 ?? 3) }}"
+                                                    class="form-control" placeholder="مثلاً 3">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-danger btn-sm remove-existing-image"
+                                                    data-id="{{ $image->id }}"
+                                                    data-url="{{ route('popup.deleteImage', $image->id) }}">
+                                                    <i class="fas fa-trash-alt ml-1"></i>
+                                                    حذف تصویر
+                                                </button>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
+                                    </div>
+                                @endforeach
                             </div>
                         @else
                             <div class="alert alert-warning">
@@ -398,12 +365,12 @@
                         </h4>
 
                         <div class="form-group">
-                            <label for="new_images" class="font-weight-bold">تصاویر جدید</label>
+                            <label for="image" class="font-weight-bold">تصاویر جدید</label>
                             <div class="custom-file">
-                                <input type="file" name="images[]" id="new_images"
-                                    class="custom-file-input @error('images') is-invalid @enderror" multiple
+                                <input type="file" name="images[]" id="image"
+                                    class="custom-file-input d-none @error('images') is-invalid @enderror" multiple
                                     accept="image/*">
-                                <label class="custom-file-label" for="new_images">انتخاب تصاویر جدید...</label>
+                                {{-- <label class="custom-file-label" for="image">انتخاب تصاویر جدید...</label> --}}
                             </div>
                             <small class="form-text text-muted">
                                 حداکثر حجم هر تصویر: ۲ مگابایت | فرمت‌های مجاز: jpg, png, gif, webp
@@ -433,10 +400,25 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="popup_sort" class="font-weight-bold">ترتیب نمایش پاپ‌آپ</label>
+                                    <input type="number" name="sort" id="popup_sort"
+                                        class="form-control @error('sort') is-invalid @enderror"
+                                        value="{{ old('sort', $popup->sort ?? 0) }}"
+                                        placeholder="عدد بزرگتر = بعدی نمایش داده شود">
+                                    @error('sort')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="start_at" class="font-weight-bold">تاریخ و زمان شروع</label>
-                                    <input type="datetime-local" name="start_at" id="start_at"
-                                        class="form-control @error('start_at') is-invalid @enderror"
-                                        value="{{ old('start_at', $popup->start_at ? $popup->start_at->format('Y-m-d\TH:i') : '') }}">
+                                    <input type="text" name="start_at" id="start_at"
+                                        class="form-control date @error('start_at') is-invalid @enderror"
+                                        value="{{ old('start_at', $popup->start_at ? $popup->start_at->format('Y/m/d H:i:s') : '') }}">
                                     @error('start_at')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -447,9 +429,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="end_at" class="font-weight-bold">تاریخ و زمان پایان</label>
-                                    <input type="datetime-local" name="end_at" id="end_at"
-                                        class="form-control @error('end_at') is-invalid @enderror"
-                                        value="{{ old('end_at', $popup->end_at ? $popup->end_at->format('Y-m-d\TH:i') : '') }}">
+                                    <input type="text" name="end_at" id="end_at"
+                                        class="form-control date @error('end_at') is-invalid @enderror"
+                                        value="{{ old('end_at', $popup->end_at ? $popup->end_at->format('Y/m/d H:i:s') : '') }}">
                                     @error('end_at')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -506,159 +488,123 @@
     <script src="https://lib.arvancloud.ir/Sortable/1.9.0/Sortable.min.js"></script>
     <script src="https://lib.arvancloud.ir/sweetalert2/9.17.4/sweetalert2.all.js"></script>
     <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/piexif.min.js') }}"></script>
+    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/purify.min.js') }}"></script>
+    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/sortable.min.js') }}"></script>
+    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
+    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
+
+    <script src="{{ asset('/storetemplate/plugins/datepicker-master/persian-date.min.js') }}"></script>
+    <script src="{{ asset('/storetemplate/plugins/datepicker-master/persian-datepicker.min.js') }}"></script>
     <script>
         $('.select2').select2();
-
     </script>
-
     <script>
         $(document).ready(function() {
-            let newImageCount = 0;
-
-            // مرتب‌سازی تصاویر موجود
-            const existingImagesContainer = document.getElementById('existingImagesContainer');
-            if (existingImagesContainer) {
-                new Sortable(existingImagesContainer, {
-                    animation: 150,
-                    handle: '.image-preview-item',
-                    onEnd: function(evt) {
-                        updateExistingImagesOrder();
-                    }
-                });
-            }
-
-            // به‌روزرسانی ترتیب تصاویر موجود
-            function updateExistingImagesOrder() {
-                $('.existing-image-item').each(function(index) {
-                    const imageId = $(this).data('image-id');
-                    $(`#order_${imageId}`).val(index);
-                    $(`.order-input[data-image-id="${imageId}"]`).val(index);
-                    $(this).find('.image-number').text(index + 1);
-                });
-            }
-
-            // نمایش نام فایل‌های جدید
-            $('#new_images').on('change', function(e) {
-                let files = e.target.files;
-                let fileNames = [];
-
-                for (let i = 0; i < files.length; i++) {
-                    fileNames.push(files[i].name);
-                }
-
-                $(this).next('.custom-file-label').html(fileNames.join(', ') || 'انتخاب تصاویر جدید...');
-
-                // نمایش پیش‌نمایش تصاویر جدید
-                showNewImagePreviews(files);
+            // برای start_at
+            var startVal = $('#start_at').val();
+            $('#start_at').pDatepicker({
+                onlySelectOnDate: true,
+                autoClose: true,
+                responsive: true,
+                initialValueType: 'gregorian',
+                persianDigit: false,
+                format: 'YYYY/MM/DD H:m:s',
+                timePicker: {
+                    enabled: true
+                },
+                monthPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
+                yearPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
             });
+            $('#start_at').val(startVal);
 
-            // نمایش پیش‌نمایش تصاویر جدید
-            function showNewImagePreviews(files) {
-                const previewContainer = $('#newImagesPreviewContainer');
-                const infoContainer = $('#newImagesInfoContainer');
+            // برای end_at
+            var endVal = $('#end_at').val();
+            $('#end_at').pDatepicker({
+                onlySelectOnDate: true,
+                autoClose: true,
+                responsive: true,
+                initialValueType: 'gregorian',
+                persianDigit: false,
+                format: 'YYYY/MM/DD H:m:s',
+                timePicker: {
+                    enabled: true
+                },
+                monthPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
+                yearPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
+            });
+            $('#end_at').val(endVal);
 
-                previewContainer.empty();
-                infoContainer.empty();
 
-                const existingImageCount = $('.existing-image-item').length;
-
-                Array.from(files).forEach((file, index) => {
-                    const reader = new FileReader();
-                    const imageId = 'new_image_' + newImageCount++;
-
-                    reader.onload = function(e) {
-                        // پیش‌نمایش تصویر
-                        const previewHtml = `
-                        <div class="image-preview-item new-image-item" id="preview_${imageId}">
-                            <div class="image-number">${existingImageCount + index + 1}</div>
-                            <img src="${e.target.result}" class="image-preview" alt="Preview">
-                            <button type="button" class="remove-image" onclick="removeNewImage('${imageId}')">
-                                ×
-                            </button>
+            $("#image").fileinput({
+                // initialPreview: popupImages,
+                initialPreviewAsData: true,
+                initialPreviewShowDelete: false,
+                previewTemplates: {
+                    // ما از پیش‌نمایش پیش‌فرض استفاده میکنیم و فقط info اضافه میکنیم
+                    image: `
+                    <div class="file-preview-frame kv-preview-thumb">
+                        <div class="kv-file-content">
+                            <img src="{data}" class="file-preview-image" style="width:auto;height:120px;">
                         </div>
-                    `;
-
-                        previewContainer.append(previewHtml);
-
-                        // فرم اطلاعات تصویر جدید
-                        const infoHtml = `
-                        <div class="image-info mb-3" id="info_${imageId}">
-                            <h6>تصویر جدید ${index + 1}: ${file.name}</h6>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>ترتیب نمایش</label>
-                                    <input type="number"
-                                           name="orders[]"
-                                           class="form-control"
-                                           min="0"
-                                           value="${existingImageCount + index}"
-                                           required>
-                                    <small class="text-muted">ترتیب نسبت به تمام تصاویر</small>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>مدت نمایش (میلی‌ثانیه)</label>
-                                    <input type="number"
-                                           name="durations[]"
-                                           class="form-control"
-                                           min="1000"
-                                           value="5000"
-                                           required>
-                                    <small class="text-muted">پیش‌فرض: 5000 (5 ثانیه)</small>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>اطلاعات فایل</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               value="${(file.size / 1024).toFixed(2)} KB"
-                                               readonly>
-                                        <small class="text-muted">${file.type}</small>
-                                    </div>
-                                </div>
+                        <div class="file-thumbnail-footer">
+                            <div class="file-caption-name">{caption}</div>
+                            <div class="image-extra-fields mt-1">
+                                <input type="number" name="new_images_order[]" placeholder="ترتیب" class="form-control mb-1" style="width: 80px; display:inline-block;">
+                                <input type="number" name="new_images_delay[]" placeholder="زمان (ثانیه)" class="form-control" style="width: 80px; display:inline-block;">
                             </div>
-                            <input type="hidden" name="images[]" value="${index}">
                         </div>
-                    `;
+                    </div>`
+                },
 
-                        infoContainer.append(infoHtml);
-                    }
+                uploadAsync: false,
+                initialPreviewFileType: 'image',
 
-                    reader.readAsDataURL(file);
-                });
-            }
+                overwriteInitial: false, // ❗ خیلی مهم (چند عکس)
+                enableResumableUpload: true,
 
-            // حذف تصویر جدید
-            window.removeNewImage = function(imageId) {
-                $(`#preview_${imageId}`).remove();
-                $(`#info_${imageId}`).remove();
-                updateNewImagesOrder();
-            }
+                showCaption: false,
+                maxFileCount: 10, // یا هر تعدادی که میخوای
+                showCancel: false,
+                showUpload: false,
 
-            // به‌روزرسانی ترتیب تصاویر جدید
-            function updateNewImagesOrder() {
-                const existingImageCount = $('.existing-image-item').length;
-                $('.new-image-item').each(function(index) {
-                    $(this).find('.image-number').text(existingImageCount + index + 1);
-                    const infoId = $(this).attr('id').replace('preview_', 'info_');
-                    $(`#${infoId} input[name="orders[]"]`).val(existingImageCount + index);
-                });
-            }
+                browseOnZoneClick: true,
+                allowedFileTypes: ["image"],
+                allowedFileExtensions: ["jpg", "png", "jpeg"],
 
-            // بروزرسانی اطلاعات تصاویر موجود
-            $(document).on('change', '.order-input, .duration-input', function() {
-                const imageId = $(this).data('image-id');
-                const value = $(this).val();
+                browseLabel: "انتخاب تصاویر پاپ آپ",
+                theme: 'fas',
+                browseClass: "btn btn-primary",
+                rtl: true,
+                language: "fa",
 
-                if ($(this).hasClass('order-input')) {
-                    $(`#order_${imageId}`).val(value);
-                } else {
-                    $(`#duration_${imageId}`).val(value);
-                    alert($(`#duration_${imageId}`).val());
-                }
+                layoutTemplates: {
+                    main1: "{preview}\n" +
+                        "<div class='input-group {class}'>\n" +
+                        "   <div class='input-group-btn input-group-prepend'>\n" +
+                        "       {browse}\n" +
+                        "   </div>\n" +
+                        "   {caption}\n" +
+                        "</div>"
+                },
             });
 
-            // حذف تصویر موجود با Ajax
-            $(document).on('click', '.btn-delete-image', function(e) {
+
+
+            $(document).on('click', '.remove-existing-image', function(e) {
                 e.preventDefault();
 
                 const imageId = $(this).data('id');
@@ -677,13 +623,6 @@
                                 // حذف از DOM
                                 imageElement.remove();
                                 $(`#info_${imageId}`).remove();
-
-                                // به‌روزرسانی ترتیب
-                                updateExistingImagesOrder();
-                                updateNewImagesOrder();
-
-                                // نمایش پیام موفقیت
-                                showToast('success', response.message);
                             }
                         },
                         error: function(xhr) {
@@ -691,60 +630,6 @@
                             showToast('error', error);
                         }
                     });
-                }
-            });
-
-            // اعتبارسنجی فرم
-            $('#popupEditForm').on('submit', function(e) {
-                const startAt = $('#start_at').val();
-                const endAt = $('#end_at').val();
-
-                // بررسی تاریخ‌ها
-                if (startAt && endAt && new Date(startAt) > new Date(endAt)) {
-                    e.preventDefault();
-                    showToast('error', 'تاریخ پایان باید بعد از تاریخ شروع باشد.');
-                    return false;
-                }
-
-                // بررسی حداقل یک تصویر
-                const existingCount = $('.existing-image-item').length;
-                const newCount = $('.new-image-item').length;
-
-                if (existingCount + newCount === 0) {
-                    e.preventDefault();
-                    showToast('warning', 'حداقل یک تصویر برای پاپ‌آپ الزامی است.');
-                    return false;
-                }
-
-                // بررسی حجم تصاویر جدید
-                const files = $('#new_images')[0].files;
-                
-
-                return true;
-            });
-
-            // نمایش Toast
-            function showToast(type, message) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom-end', // مشابه bottom-right
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true
-                });
-
-                Toast.fire({
-                    icon: type, // success | error | warning | info
-                    title: message
-                });
-            }
-
-
-            // تنظیم حداقل تاریخ برای end_at
-            $('#start_at').on('change', function() {
-                const startDate = $(this).val();
-                if (startDate) {
-                    $('#end_at').attr('min', startDate);
                 }
             });
         });

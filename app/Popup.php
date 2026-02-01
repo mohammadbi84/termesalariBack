@@ -15,6 +15,7 @@ class Popup extends Model
         'is_active',
         'start_at',
         'end_at',
+        'sort',
     ];
 
     protected $casts = [
@@ -59,13 +60,13 @@ class Popup extends Model
     /**
      * فرمت تاریخ برای نمایش
      */
-    public function getFormattedStartAtAttribute()
-    {
-        return $this->start_at ? verta($this->start_at)->format('Y/m/d H:i') : '-';
-    }
+    // public function getFormattedStartAtAttribute()
+    // {
+    //     return $this->start_at ? verta($this->start_at)->format('Y/m/d H:i') : '-';
+    // }
 
-    public function getFormattedEndAtAttribute()
-    {
-        return $this->end_at ? verta($this->end_at)->format('Y/m/d H:i') : '-';
-    }
+    // public function getFormattedEndAtAttribute()
+    // {
+    //     return $this->end_at ? verta($this->end_at)->format('Y/m/d H:i') : '-';
+    // }
 }

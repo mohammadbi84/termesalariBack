@@ -46,8 +46,10 @@
             cursor: pointer;
         }
     </style>
-    {{-- <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}"> --}}
-    <link rel="stylesheet" href="https://lib.arvancloud.ir/select2/4.1.0-rc.0/css/select2.min.css">
+    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
+    {{-- <link rel="stylesheet" href="https://lib.arvancloud.ir/select2/4.1.0-rc.0/css/select2.min.css"> --}}
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('/storetemplate/plugins/datepicker-master/persian-datepicker.min.css') }}">
 @endpush
 
 @section('main-content')
@@ -178,8 +180,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="start_at">تاریخ و زمان شروع</label>
-                                <input type="datetime-local" name="start_at" id="start_at"
-                                    class="form-control @error('start_at') is-invalid @enderror"
+                                <input type="text" name="start_at" id="start_at"
+                                    class="form-control date @error('start_at') is-invalid @enderror"
                                     value="{{ old('start_at') }}">
                                 @error('start_at')
                                     <span class="invalid-feedback">{{ $message }}</span>
@@ -190,8 +192,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="end_at">تاریخ و زمان پایان</label>
-                                <input type="datetime-local" name="end_at" id="end_at"
-                                    class="form-control @error('end_at') is-invalid @enderror"
+                                <input type="text" name="end_at" id="end_at"
+                                    class="form-control date @error('end_at') is-invalid @enderror"
                                     value="{{ old('end_at') }}">
                                 @error('end_at')
                                     <span class="invalid-feedback">{{ $message }}</span>
@@ -231,11 +233,60 @@
 @endsection
 
 @push('js')
-    {{-- <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script> --}}
-    <script src="https://lib.arvancloud.ir/select2/4.1.0-rc.0/js/select2.full.min.js"></script>
+    <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script>
+    {{-- <script src="https://lib.arvancloud.ir/select2/4.1.0-rc.0/js/select2.full.min.js"></script> --}}
+
+    <script src="{{ asset('/storetemplate/plugins/datepicker-master/persian-date.min.js') }}"></script>
+    <script src="{{ asset('/storetemplate/plugins/datepicker-master/persian-datepicker.min.js') }}"></script>
     <script>
         $('.select2').select2();
         $(document).ready(function() {
+
+            var startVal = $('#start_at').val();
+            $('#start_at').pDatepicker({
+                onlySelectOnDate: true,
+                autoClose: true,
+                responsive: true,
+                initialValueType: 'gregorian',
+                persianDigit: false,
+                format: 'YYYY/MM/DD H:m:s',
+                timePicker: {
+                    enabled: true
+                },
+                monthPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
+                yearPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
+            });
+            $('#start_at').val(startVal);
+
+            // برای end_at
+            var endVal = $('#end_at').val();
+            $('#end_at').pDatepicker({
+                onlySelectOnDate: true,
+                autoClose: true,
+                responsive: true,
+                initialValueType: 'gregorian',
+                persianDigit: false,
+                format: 'YYYY/MM/DD H:m:s',
+                timePicker: {
+                    enabled: true
+                },
+                monthPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
+                yearPicker: {
+                    enabled: true,
+                    titleFormat: "YYYY"
+                },
+            });
+            $('#end_at').val(endVal);
+
             let imageCount = 0;
             let fileNames = [];
 
@@ -270,7 +321,7 @@
                         const previewHtml = `
                         <div class="image-preview-item" id="preview_${imageId}">
                             <img src="${e.target.result}" class="image-preview" alt="Preview">
-                            <button type="button" class="remove-image" onclick="removeImage('${imageId}')">
+                            <button type="button" class="remove-image" onclick="removeImage('${imageId}','${file.name}')">
                                 ×
                             </button>
                         </div>
@@ -324,9 +375,12 @@
             }
 
             // حذف تصویر از لیست
-            window.removeImage = function(imageId) {
+            window.removeImage = function(imageId,fileName = null) {
                 $(`#preview_${imageId}`).remove();
                 $(`#info_${imageId}`).remove();
+                if (fileName) {
+                    fileNames = fileNames.filter(name => name !== fileName);
+                }
 
                 // به‌روزرسانی input فایل
                 updateFileInput();

@@ -1308,15 +1308,16 @@ i {
     height: 41px;
 }
 
-.popup-image-slider .splide__pagination {
+.popup-image-slider .swiper-pagination {
     display: flex !important;
     /* justify-self: baseline !important; */
     justify-content: center;
     align-items: center;
     gap: 6px;
-    padding: 5px 25px;
+    padding: 8px 25px;
+    min-height: 26px;
     position: absolute !important;
-    bottom: -7px;
+    bottom: 0;
     /* left: auto !important;
     right: auto; */
     left: 50%;
@@ -1329,9 +1330,12 @@ i {
     overflow: visible;
     width: fit-content;
 }
+.swiper-pagination-bullet:only-child{
+    display: block !important;
+}
 
 /* مثلث سمت چپ */
-.popup-image-slider .splide__pagination::before {
+.popup-image-slider .swiper-pagination::before {
     content: "";
     position: absolute;
     left: -22px;
@@ -1344,7 +1348,7 @@ i {
 }
 
 /* مثلث سمت راست */
-.popup-image-slider .splide__pagination::after {
+.popup-image-slider .swiper-pagination::after {
     content: "";
     position: absolute;
     right: -22px;
