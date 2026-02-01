@@ -712,7 +712,7 @@
 .favorites-dropdown,
 .compare-dropdown {
     position: absolute;
-    top: 61px;
+    top: 75px;
     left: -10px;
     width: 340px;
     background: white;
