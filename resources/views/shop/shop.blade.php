@@ -14,7 +14,7 @@
 @endsection
 @section('content')
     <!-- start popup -->
-    @if ($popups)
+    @if ($popups->count()>0)
         <div class="modal fade" id="customModal" tabindex="-1" aria-hidden="true" dir="rtl">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -88,7 +88,7 @@
         </div>
 
     @endif
-    @if ($popups)
+    @if ($popups->count()>0)
         <script>
             document.addEventListener("DOMContentLoaded", function() {
 

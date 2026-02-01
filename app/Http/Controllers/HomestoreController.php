@@ -23,7 +23,7 @@ class HomestoreController extends Controller
             ->with(['images' => function($query) {
                 $query->orderBy('order');
             }])
-            ->latest()->get();
+            ->orderBy('sort','asc')->get();
         $topRequests = Orderitem::with('orderitemable')
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')

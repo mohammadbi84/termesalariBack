@@ -17,6 +17,7 @@
                             <th>#</th>
                             <th>عنوان فارسی</th>
                             <th>بازه زمانی</th>
+                            <th>ترتیب نمایش</th>
                             <th>وضعیت</th>
                             <th>ویرایش</th>
                             <th>حذف</th>
@@ -30,13 +31,17 @@
                                 <td>{{ $popup->title_fa }}</td>
 
                                 <td>
-                                    <span>{{ $popup->start_at ? $popup->start_at->format('Y-m-d') : '—' }}</span>
+                                    <span>{{ $popup->start_at ? Verta($popup->start_at)->format('%d %B %Y H:m:s') : '—' }}</span>
                                     تا
-                                    <span>{{ $popup->end_at ? $popup->end_at->format('d-m-Y') : '—' }}</span>
+                                    <span>{{ $popup->end_at ? Verta($popup->end_at)->format('%d %B %Y H:m:s') : '—' }}</span>
                                 </td>
 
                                 <td>
-                                    <a href="#" class="changeVisibility" id="changeVisibility" data-id="{{ $popup->id }}">
+                                    {{ $popup->sort }}
+                                </td>
+                                <td>
+                                    <a href="#" class="changeVisibility" id="changeVisibility"
+                                        data-id="{{ $popup->id }}">
                                         @if ($popup->is_active)
                                             فعال
                                         @else
@@ -88,7 +93,7 @@
                         // alert('فعال شد')
                         document.getElementById("changeVisibility").textContent = `فعال`;
                         // $("#changeVisibility").textContent = 'فعال';
-                    }else{
+                    } else {
                         // alert('غیرفعال شد')
                         document.getElementById("changeVisibility").textContent = `غیر فعال`;
                         // $("#changeVisibility").textContent = 'غیر فعال';

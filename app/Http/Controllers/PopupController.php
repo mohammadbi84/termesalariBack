@@ -23,7 +23,7 @@ class PopupController extends Controller
     {
         $popups = Popup::withCount('images')
             ->with('images')
-            ->latest()
+            ->orderBy('sort','asc')
             ->paginate(10);
 
         return view('popup.index', compact('popups'));
@@ -52,6 +52,7 @@ class PopupController extends Controller
             'orders.*' => 'nullable|integer|min:0',
             'durations' => 'nullable|array',
             'durations.*' => 'nullable|integer|min:1',
+            'sort' => 'nullable|unique:popups,sort',
         ], [
             'title_fa.required' => 'عنوان فارسی الزامی است.',
             'link.url' => 'لینک وارد شده معتبر نیست.',
@@ -134,6 +135,7 @@ class PopupController extends Controller
             'existing_images' => 'nullable|array',
             'existing_orders' => 'nullable|array',
             'existing_durations' => 'nullable|array',
+            'sort' => 'nullable|unique:popups,sort',
         ]);
 
 
@@ -220,15 +222,10 @@ class PopupController extends Controller
 
             $popup->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'پاپ‌آپ با موفقیت حذف شد.'
-            ]);
+            return redirect()->back()->with('success','پاپ آپ با موفقیت حذف شد.');
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'خطا در حذف پاپ‌آپ: ' . $e->getMessage()
-            ], 500);
+            return redirect()->back()->with('fail','در حذف پاپ آپ مشکلی پیش امده، لطفا دوباره تلاش کنید.');
+
         }
     }
 

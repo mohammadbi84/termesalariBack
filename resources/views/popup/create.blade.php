@@ -45,6 +45,27 @@
             height: 25px;
             cursor: pointer;
         }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .clear-date-btn {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            cursor: pointer;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .clear-date-btn:hover {
+            color: #a71d2a;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
     {{-- <link rel="stylesheet" href="https://lib.arvancloud.ir/select2/4.1.0-rc.0/css/select2.min.css"> --}}
@@ -177,24 +198,44 @@
 
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="popup_sort" class="font-weight-bold">ترتیب نمایش پاپ‌آپ</label>
+                                <input type="number" name="sort" id="popup_sort"
+                                    class="form-control @error('sort') is-invalid @enderror"
+                                    value="{{ old('sort',1) }}"
+                                    placeholder="عدد بزرگتر = بعدی نمایش داده شود">
+                                @error('sort')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="start_at">تاریخ و زمان شروع</label>
-                                <input type="text" name="start_at" id="start_at"
-                                    class="form-control date @error('start_at') is-invalid @enderror"
-                                    value="{{ old('start_at') }}">
+                                <div class="position-relative">
+                                    <input type="text" name="start_at" id="start_at"
+                                        class="form-control date @error('start_at') is-invalid @enderror"
+                                        value="{{ old('start_at') }}">
+                                    <button type="button" id="Clearstart_at" class="clear-date-btn"
+                                        style="display: none;" onclick="clearDate('start_at')">×</button>
+                                </div>
                                 @error('start_at')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="end_at">تاریخ و زمان پایان</label>
-                                <input type="text" name="end_at" id="end_at"
-                                    class="form-control date @error('end_at') is-invalid @enderror"
-                                    value="{{ old('end_at') }}">
+                                <div class="position-relative">
+                                    <input type="text" name="end_at" id="end_at"
+                                        class="form-control date @error('end_at') is-invalid @enderror"
+                                        value="{{ old('end_at') }}">
+                                    <button type="button" id="Clearend_at" class="clear-date-btn"
+                                        style="display: none;" onclick="clearDate('end_at')">×</button>
+                                </div>
                                 @error('end_at')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
@@ -239,9 +280,21 @@
     <script src="{{ asset('/storetemplate/plugins/datepicker-master/persian-date.min.js') }}"></script>
     <script src="{{ asset('/storetemplate/plugins/datepicker-master/persian-datepicker.min.js') }}"></script>
     <script>
+        function clearDate(inputId) {
+            const input = document.getElementById(inputId);
+            const btn = input.nextElementSibling;
+            if (input) {
+                input.value = '';
+                if ($(input).data('pDatepicker')) {
+                    $(input).data('pDatepicker').clear(); // پاک کردن تاریخ پرشین دیت پیکر
+                }
+                btn.style.display = 'none'; // بعد از پاک شدن دکمه مخفی شود
+            }
+        }
         $('.select2').select2();
         $(document).ready(function() {
 
+            // برای start_at
             var startVal = $('#start_at').val();
             $('#start_at').pDatepicker({
                 onlySelectOnDate: true,
@@ -261,6 +314,10 @@
                     enabled: true,
                     titleFormat: "YYYY"
                 },
+                onSelect: function(unix) {
+                    const btn = $('#start_at').next('.clear-date-btn')[0];
+                    btn.style.display = 'block';
+                }
             });
             $('#start_at').val(startVal);
 
@@ -284,8 +341,20 @@
                     enabled: true,
                     titleFormat: "YYYY"
                 },
+                onSelect: function(unix) {
+                    const btn = $('#end_at').next('.clear-date-btn')[0];
+                    btn.style.display = 'block';
+                }
             });
             $('#end_at').val(endVal);
+
+            $('.date').each(function() {
+                const input = this;
+                const btn = $(input).next('.clear-date-btn')[0];
+
+                // اگر از قبل مقدار داشت دکمه نمایش داده شود
+                if (input.value) btn.style.display = 'block';
+            });
 
             let imageCount = 0;
             let fileNames = [];
@@ -375,7 +444,7 @@
             }
 
             // حذف تصویر از لیست
-            window.removeImage = function(imageId,fileName = null) {
+            window.removeImage = function(imageId, fileName = null) {
                 $(`#preview_${imageId}`).remove();
                 $(`#info_${imageId}`).remove();
                 if (fileName) {

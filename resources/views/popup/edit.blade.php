@@ -164,6 +164,27 @@
         .file-drop-zone .file-preview-thumbnails {
             display: flex;
         }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .clear-date-btn {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            cursor: pointer;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .clear-date-btn:hover {
+            color: #a71d2a;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput.min.css') }}"
@@ -280,7 +301,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="link" class="font-weight-bold">لینک</label>
+                                    <label for="link" class="font-weight-bold">آدرس صفحه مقصد</label>
                                     <select class="form-control select2" name="link" id="link"
                                         data-placeholder="لطفا صفحه مورد نظر خود را انخاب کنید"
                                         style="width: 100%;text-align: right">
@@ -372,8 +393,8 @@
                                     accept="image/*">
                                 {{-- <label class="custom-file-label" for="image">انتخاب تصاویر جدید...</label> --}}
                             </div>
-                            <small class="form-text text-muted">
-                                حداکثر حجم هر تصویر: ۲ مگابایت | فرمت‌های مجاز: jpg, png, gif, webp
+                            <small class="form-text text-muted mt-4">
+                                 فرمت‌های مجاز: jpg, png, gif, webp
                             </small>
                             @error('images')
                                 <span class="invalid-feedback d-block">{{ $message }}</span>
@@ -398,7 +419,7 @@
                         </h4>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="popup_sort" class="font-weight-bold">ترتیب نمایش پاپ‌آپ</label>
                                     <input type="number" name="sort" id="popup_sort"
@@ -410,15 +431,17 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="start_at" class="font-weight-bold">تاریخ و زمان شروع</label>
-                                    <input type="text" name="start_at" id="start_at"
-                                        class="form-control date @error('start_at') is-invalid @enderror"
-                                        value="{{ old('start_at', $popup->start_at ? $popup->start_at->format('Y/m/d H:i:s') : '') }}">
+                                    <div class="position-relative">
+                                        <input type="text" name="start_at" id="start_at"
+                                            class="form-control date @error('start_at') is-invalid @enderror"
+                                            value="{{ old('start_at', $popup->start_at ? $popup->start_at->format('Y/m/d H:i:s') : '') }}">
+                                        <button type="button" id="Clearstart_at" class="clear-date-btn"
+                                            style="display: none;" onclick="clearDate('start_at')">×</button>
+                                    </div>
                                     @error('start_at')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -426,12 +449,16 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="end_at" class="font-weight-bold">تاریخ و زمان پایان</label>
-                                    <input type="text" name="end_at" id="end_at"
-                                        class="form-control date @error('end_at') is-invalid @enderror"
-                                        value="{{ old('end_at', $popup->end_at ? $popup->end_at->format('Y/m/d H:i:s') : '') }}">
+                                    <div class="position-relative">
+                                        <input type="text" name="end_at" id="end_at"
+                                            class="form-control date @error('end_at') is-invalid @enderror"
+                                            value="{{ old('end_at', $popup->end_at ? $popup->end_at->format('Y/m/d H:i:s') : '') }}">
+                                        <button type="button" id="Clearend_at" class="clear-date-btn"
+                                            style="display: none;" onclick="clearDate('end_at')">×</button>
+                                    </div>
                                     @error('end_at')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -501,7 +528,20 @@
         $('.select2').select2();
     </script>
     <script>
+        function clearDate(inputId) {
+            const input = document.getElementById(inputId);
+            const btn = input.nextElementSibling;
+            if (input) {
+                input.value = '';
+                if ($(input).data('pDatepicker')) {
+                    $(input).data('pDatepicker').clear(); // پاک کردن تاریخ پرشین دیت پیکر
+                }
+                btn.style.display = 'none'; // بعد از پاک شدن دکمه مخفی شود
+            }
+        }
         $(document).ready(function() {
+
+
             // برای start_at
             var startVal = $('#start_at').val();
             $('#start_at').pDatepicker({
@@ -522,6 +562,10 @@
                     enabled: true,
                     titleFormat: "YYYY"
                 },
+                onSelect: function(unix) {
+                    const btn = $('#start_at').next('.clear-date-btn')[0];
+                    btn.style.display = 'block';
+                }
             });
             $('#start_at').val(startVal);
 
@@ -545,8 +589,20 @@
                     enabled: true,
                     titleFormat: "YYYY"
                 },
+                onSelect: function(unix) {
+                    const btn = $('#end_at').next('.clear-date-btn')[0];
+                    btn.style.display = 'block';
+                }
             });
             $('#end_at').val(endVal);
+
+            $('.date').each(function() {
+                const input = this;
+                const btn = $(input).next('.clear-date-btn')[0];
+
+                // اگر از قبل مقدار داشت دکمه نمایش داده شود
+                if (input.value) btn.style.display = 'block';
+            });
 
 
             $("#image").fileinput({
