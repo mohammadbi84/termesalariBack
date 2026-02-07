@@ -268,13 +268,13 @@
     top: 0;
     right: 0;
     left: 0;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
     color: white;
-    /* border-radius: 10px 10px 0 0; */
+    /* حذف بک‌گراند از اینجا - بک‌گراند از body می‌آید */
+    background: var(--primary-color);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    /* overflow: hidden; */
     transition: all 0.4s ease;
     margin-bottom: 20px;
+    overflow: hidden; /* اضافه شده */
 }
 
 .bookmark.expanded {
@@ -283,52 +283,108 @@
 
 .bookmark.collapsed {
     height: 5px;
-    padding-bottom: 5px;
-}
-
-.bookmark.collapsed .bookmark-content {
-    height: 5px;
-    position: relative;
-    bottom: 10px;
 }
 
 /* محتوای بوکمارک */
 .bookmark-content {
-    padding: 0px 20px;
+    padding: 0;
     height: 60px;
-
-    overflow: hidden;
+    width: 100%;
 }
 
-/* دکمه پایین بوکمارک */
-.bookmark-tab {
-    position: absolute;
-    bottom: -40px;
-    left: 30px;
-    width: 120px;
-    height: 40px;
-    background: #28a745;
-    border-radius: 0px 0px 10px 10px;
+.bookmark-item {
+    height: 100%;
+    width: 100%;
+    position: relative; /* برای موقعیت‌دهی عنوان */
+}
+
+.bookmark-media {
+    width: 100%;
+    height: 100%;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    overflow: hidden;
+}
+
+/* استایل برای محتوای داخل body */
+.bookmark-media > * {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* اگر body شامل عکس باشد */
+.bookmark-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* اگر body شامل ویدیو باشد */
+.bookmark-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* اگر body شامل div با بک‌گراند باشد */
+.bookmark-media > div {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* عنوان به صورت overlay */
+.bookmark-title-overlay {
+        position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-right: 30px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
     z-index: 10;
-    transition: all 0.3s ease;
-}
-
-.bookmark-tab:hover {
-    background: linear-gradient(135deg, #239c56, #1db984);
-}
-
-.bookmark-tab i {
+    /* background: rgba(0, 0, 0, 0.3); */
+    /* padding: 10px 20px; */
     font-size: 1.2rem;
-    transition: transform 0.3s ease;
+    font-weight: bold;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
 }
 
-.bookmark.collapsed .bookmark-tab i {
-    transform: rotate(180deg);
+/* استایل برای محتوای متنی داخل body */
+.bookmark-media p,
+.bookmark-media span,
+.bookmark-media div:not(.bookmark-title-overlay) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    /* padding: 20px; */
+    text-align: center;
 }
+
+/* دکمه بستن */
+.btn-close {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 20;
+    opacity: 0.8;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+
 
 #bookmarkToggle {
     padding: 10px;

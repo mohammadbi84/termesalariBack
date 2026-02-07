@@ -37,7 +37,7 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-6 mb-3">
+                            <div class="col-4 mb-3">
                                 <div class="form-group @error('title_fa') is-invalid @enderror">
                                     <label for="title_fa">عنوان فارسی</label>
                                     <input type="text" name="title_fa" id="title_fa" class="form-control"
@@ -47,7 +47,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-4 mb-3">
                                 <div class="form-group @error('title_en') is-invalid @enderror">
                                     <label for="title_en">عنوان انگلیسی</label>
                                     <input type="text" name="title_en" id="title_en" class="form-control"
@@ -55,6 +55,17 @@
                                     @error('title_en')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="show_title" id="show_title" value="1"
+                                            class="custom-control-input" {{ $bookmark->show_title ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="show_title">
+                                            عنوان فعال باشد
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -221,12 +232,52 @@
             $('#body_fa').summernote({
                 placeholder: 'محتوای صفحه را اینجا وارد کنید ...',
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onImageUpload: function(files) {
+                        let data = new FormData();
+                        data.append("file", files[0]);
+
+                        $.ajax({
+                            url: '/upload-image',
+                            method: 'POST',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>',
+                            },
+                            success: function(response) {
+                                $('#body_fa').summernote('insertImage', response.url);
+                            }
+                        });
+                    }
+                }
             });
             $('#body_en').summernote({
                 placeholder: 'محتوای صفحه را اینجا وارد کنید ...',
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onImageUpload: function(files) {
+                        let data = new FormData();
+                        data.append("file", files[0]);
+
+                        $.ajax({
+                            url: '/upload-image',
+                            method: 'POST',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>',
+                            },
+                            success: function(response) {
+                                $('#body_fa').summernote('insertImage', response.url);
+                            }
+                        });
+                    }
+                }
             });
         });
     </script>

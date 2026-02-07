@@ -320,3 +320,4 @@ Route::resource('article', 'ArticleController');
 Route::resource('bookmark', 'BookmarkController');
 Route::post('bookmark/change-visibility', [BookmarkController::class, 'changeVisibility'])
     ->name('bookmark.changeVisibility');
+Route::post('/upload-image', [BookmarkController::class, 'upload']);

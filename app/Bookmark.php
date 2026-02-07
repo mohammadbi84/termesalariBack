@@ -16,6 +16,7 @@ class Bookmark extends Model
         'start_at',
         'end_at',
         'duration',
+        'show_title',
     ];
     public function scopeActive($query)
     {

@@ -56,6 +56,7 @@ class BookmarkController extends Controller
             'start_at' => 'nullable',
             'end_at' => 'nullable',
             'active' => 'boolean',
+            'show_title' => 'boolean',
             'duration' => 'nullable',
         ]);
 
@@ -74,6 +75,12 @@ class BookmarkController extends Controller
 
 
         $bookmark = Bookmark::create($data);
+        if (in_array('show_title',$data) && $data['show_title'] == 1) {
+            $bookmark->show_title = true;
+        } else {
+            $bookmark->show_title = false;
+        }
+        $bookmark->save();
 
         return redirect()->route('bookmark.index')->with('success', 'بوکمارک با موفقیت اضافه شد.');
     }
@@ -115,6 +122,7 @@ class BookmarkController extends Controller
             'start_at' => 'nullable',
             'end_at' => 'nullable',
             'active' => 'boolean',
+            'show_title' => 'boolean',
             'duration' => 'nullable',
         ]);
 
@@ -133,6 +141,12 @@ class BookmarkController extends Controller
 
 
         $bookmark->update($data);
+        if (in_array('show_title',$data) && $data['show_title'] == 1) {
+            $bookmark->show_title = true;
+        } else {
+            $bookmark->show_title = false;
+        }
+        $bookmark->save();
 
         return redirect()->route('bookmark.index')->with('success', 'بوکمارک با موفقیت ویرایش شد.');
     }
@@ -171,6 +185,20 @@ class BookmarkController extends Controller
                 'success' => false,
                 'message' => 'خطا در تغییر وضعیت'
             ], 500);
+        }
+    }
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            $pathName = time() . rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
+            $file->move('file/editor/', $pathName);
+            $path = 'file/editor/' . $pathName;
+
+            return response()->json([
+                'url' => asset($path)
+            ]);
         }
     }
 }

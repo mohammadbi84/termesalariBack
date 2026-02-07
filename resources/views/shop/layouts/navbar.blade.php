@@ -10,11 +10,18 @@
                     <div class="swiper-wrapper">
                         @foreach ($bookmarks as $bookmark)
                             <div class="swiper-slide bookmark-content px-0" data-delay="{{ $bookmark->duration }}">
-                                <div class="bookmark-text d-flex align-items-center justify-content-start h-100 gap-3">
-                                    <h6 class="m-0 px-3">
-                                        {{ app()->getLocale() == 'fa' ? $bookmark->title_fa : $bookmark->title_en }}
-                                    </h6>
-                                    {!! app()->getLocale() == 'fa' ? $bookmark->body_fa : $bookmark->body_en !!}
+                                <div class="bookmark-item">
+                                    <!-- محتوای body که می‌تواند شامل عکس یا بک‌گراند باشد -->
+                                    <div class="bookmark-media">
+                                        {!! app()->getLocale() == 'fa' ? $bookmark->body_fa : $bookmark->body_en !!}
+                                    </div>
+
+                                    <!-- عنوان روی محتوا -->
+                                    @if ($bookmark->show_title)
+                                        <div class="bookmark-title-overlay">
+                                            {{ app()->getLocale() == 'fa' ? $bookmark->title_fa : $bookmark->title_en }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
@@ -25,6 +32,31 @@
         </div>
 
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // تنظیم ارتفاع و موقعیت بر اساس محتوا
+                const bookmarkMedia = document.querySelectorAll('.bookmark-media');
+
+                bookmarkMedia.forEach(media => {
+                    const content = media.innerHTML.trim();
+
+                    // اگر محتوا عکس یا ویدیو است
+                    if (content.startsWith('<img') || content.startsWith('<video')) {
+                        media.style.position = 'relative';
+                        media.style.overflow = 'hidden';
+                    }
+
+                    // اگر محتوا div با بک‌گراند است
+                    if (content.includes('background:')) {
+                        const div = media.querySelector('div');
+                        if (div) {
+                            div.style.width = '100%';
+                            div.style.height = '100%';
+                            div.style.backgroundSize = 'cover';
+                            div.style.backgroundPosition = 'center';
+                        }
+                    }
+                });
+            });
             let swiper = new Swiper("#bookmarkSlider", {
                 loop: true,
                 speed: 600,

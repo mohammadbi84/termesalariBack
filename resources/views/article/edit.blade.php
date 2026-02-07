@@ -67,7 +67,27 @@
             $('#body').summernote({
                 placeholder: 'محتوای صفحه را اینجا وارد کنید ...',
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onImageUpload: function(files) {
+                        let data = new FormData();
+                        data.append("file", files[0]);
+
+                        $.ajax({
+                            url: '/upload-image',
+                            method: 'POST',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>',
+                            },
+                            success: function(response) {
+                                $('#body').summernote('insertImage', response.url);
+                            }
+                        });
+                    }
+                }
             });
         });
     </script>
