@@ -386,6 +386,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>صفحات داخلی</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('bookmark.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-file-alt"></i>
+                <p>بوکمارک ها</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="{{ route('user.adminProfile') }}" class="nav-link">

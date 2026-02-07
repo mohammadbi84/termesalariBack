@@ -44,8 +44,8 @@ class PopupController extends Controller
             'description_en' => 'nullable|string',
             'link' => 'nullable',
             'is_active' => 'boolean',
-            'start_at' => 'nullable|date',
-            'end_at' => 'nullable|date|after_or_equal:start_at',
+            'start_at' => 'nullable',
+            'end_at' => 'nullable',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'orders' => 'nullable|array',
@@ -68,6 +68,22 @@ class PopupController extends Controller
         }
 
         $data = $validator->validated();
+
+        $startAtShamsi = $request->start_at; // ۱۴۰۴/۱۱/۱۲ ۱۶:۵۴:۵۲
+        $endAtShamsi   = $request->end_at;
+
+        $startAtShamsi = $this->convertNumbersToEnglish($startAtShamsi);
+        $endAtShamsi   = $this->convertNumbersToEnglish($endAtShamsi);
+
+        $data['start_at'] = $startAtShamsi ? Verta::parse($startAtShamsi)->subDay(1)->datetime() : null;
+        $data['end_at']   = $endAtShamsi   ? Verta::parse($endAtShamsi)->subDay(1)->datetime() : null;
+
+        // اعتبارسنجی پایان بعد از شروع
+        if ($data['start_at'] && $data['end_at'] && $data['end_at'] <= $data['start_at']) {
+            return back()->withErrors([
+                'end_at' => 'تاریخ پایان باید بزرگتر از تاریخ شروع باشد.'
+            ])->withInput();
+        }
 
         try {
             $popup = Popup::create($data);
@@ -135,7 +151,7 @@ class PopupController extends Controller
             'existing_images' => 'nullable|array',
             'existing_orders' => 'nullable|array',
             'existing_durations' => 'nullable|array',
-            'sort' => 'nullable|unique:popups,sort',
+            'sort' => 'nullable',
         ]);
 
 

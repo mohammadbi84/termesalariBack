@@ -1,22 +1,82 @@
 <header>
     <!-- بوکمارک -->
-    <div class="bookmark-container">
-        <div class="bookmark expanded" id="bookmark">
-            <div class="bookmark-content">
-                <div class="bookmark-text d-flex align-items-center justify-content-start h-100 gap-3">
-                    <h6 class="m-0">توجه!</h6>
-                    <p class="m-0">رنگ تصاویر با رنگ واقعی محصولات 20% تفاوت دارد.</p>
-                    <button class="btn btn-close bg-light" id="bookmarkToggle"></button>
+    @php
+        $bookmarks = App\Bookmark::active()->orderBy('sort', 'asc')->get();
+    @endphp
+    @if ($bookmarks->count() > 0)
+        <div class="bookmark-container">
+            <div class="bookmark expanded" id="bookmark">
+                <div class="swiper" id="bookmarkSlider">
+                    <div class="swiper-wrapper">
+                        @foreach ($bookmarks as $bookmark)
+                            <div class="swiper-slide bookmark-content px-0" data-delay="{{ $bookmark->duration }}">
+                                <div class="bookmark-text d-flex align-items-center justify-content-start h-100 gap-3">
+                                    <h6 class="m-0 px-3">
+                                        {{ app()->getLocale() == 'fa' ? $bookmark->title_fa : $bookmark->title_en }}
+                                    </h6>
+                                    {!! app()->getLocale() == 'fa' ? $bookmark->body_fa : $bookmark->body_en !!}
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <button class="btn btn-close bg-light" id="bookmarkToggle"></button>
+            </div>
+        </div>
+
+        <script>
+            let swiper = new Swiper("#bookmarkSlider", {
+                loop: true,
+                speed: 600,
+                effect: "fade",
+                fadeEffect: {
+                    crossFade: true
+                },
+                autoplay: {
+                    delay: 3000, // مقدار اولیه دلخواه
+                    disableOnInteraction: false,
+                },
+                pagination: false,
+                watchOverflow: false,
+                on: {
+                    init: function() {
+                        // وقتی swiper mount شد، delay اولین اسلاید رو اعمال کن
+                        let firstSlide = this.slides[this.activeIndex];
+                        let delay = firstSlide.dataset.delay;
+                        if (delay) {
+                            this.params.autoplay.delay = parseInt(delay);
+                            this.autoplay.start();
+                        }
+                    },
+                    slideChangeTransitionEnd: function() {
+                        let activeSlide = this.slides[this.activeIndex];
+                        let delay = activeSlide.dataset.delay;
+
+                        if (delay) {
+                            this.params.autoplay.delay = parseInt(delay);
+                            this.autoplay.start();
+                        }
+                    }
+                }
+            });
+        </script>
+    @else
+        <div class="bookmark-container">
+            <div class="bookmark collapsed" id="bookmark">
+                <div class="bookmark-content">
+                    <div class="bookmark-text d-flex align-items-center justify-content-start h-100 gap-3">
+                        <button class="btn btn-close bg-light" id="bookmarkToggle"></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <!-- navbar -->
     <div class="main-menu rounded-3">
         <nav class="navbar navbar-expand-lg">
             <div class="container p-0 px-3 position-relative">
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
-                    <img src="{{ asset('/hometemplate/img/logo.png') }}" alt="website logo">
+                    <img src="{{ asset('hometemplate/img/logo.png') }}" alt="website logo">
                 </a>
                 <button class="navbar-toggler" type="button" id="mobileMenuToggle">
                     <span class="navbar-toggler-icon"></span>

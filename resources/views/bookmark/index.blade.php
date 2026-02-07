@@ -1,13 +1,13 @@
 @extends('admin-layout')
 
-@section('title', 'لیست پاپ آپ‌ها')
+@section('title', 'لیست بوکمارک ها')
 
 @section('main-content')
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('popup.create') }}" class="btn btn-danger btn-flat float-left">+</a>
-                <div class="card-title float-right">پاپ آپ‌ها</div>
+                <a href="{{ route('bookmark.create') }}" class="btn btn-danger btn-flat float-left">+</a>
+                <div class="card-title float-right">بوکمارک ها</div>
             </div>
 
             <div class="card-body">
@@ -26,41 +26,41 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($popups as $popup)
+                        @foreach ($bookmarks as $bookmark)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $popup->title_fa }}</td>
+                                <td>{{ $bookmark->title_fa }}</td>
 
                                 <td>
-                                    <span>{{ $popup->start_at ? Verta($popup->start_at)->format('%d %B %Y H:m:s') : '—' }}</span>
+                                    <span>{{ $bookmark->start_at ? Verta($bookmark->start_at)->format('%d %B %Y H:m:s') : '—' }}</span>
                                     تا
-                                    <span>{{ $popup->end_at ? Verta($popup->end_at)->format('%d %B %Y H:m:s') : '—' }}</span>
+                                    <span>{{ $bookmark->end_at ? Verta($bookmark->end_at)->format('%d %B %Y H:m:s') : '—' }}</span>
                                 </td>
 
                                 <td>
-                                    {{ $popup->sort }}
+                                    {{ $bookmark->sort }}
                                 </td>
                                 <td>
                                     <a href="#" class="changeVisibility" id="changeVisibility"
-                                        data-id="{{ $popup->id }}">
-                                        @if ($popup->is_active)
+                                        data-id="{{ $bookmark->id }}">
+                                        @if ($bookmark->active)
                                             فعال
                                         @else
                                             غیرفعال
                                         @endif
                                     </a>
                                 </td>
-                                <td>
-                                    {{ Verta($popup->created_at)->format('%d %B %Y') }}
-                                </td>
 
                                 <td>
-                                    <a href="{{ route('popup.edit', $popup) }}"
+                                    {{ Verta($bookmark->created_at)->format('%d %B %Y') }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('bookmark.edit', $bookmark) }}"
                                         class="btn btn-outline-primary btn-sm">ویرایش</a>
                                 </td>
 
                                 <td>
-                                    <form method="POST" action="{{ route('popup.destroy', $popup) }}">
+                                    <form method="POST" action="{{ route('bookmark.destroy', $bookmark) }}">
                                         @csrf @method('DELETE')
                                         <button class="btn btn-outline-danger btn-sm">
                                             حذف
@@ -79,7 +79,7 @@
     <script>
         $(document).on('click', '.changeVisibility', function(event) {
             event.preventDefault();
-            var url = "{{ route('popup.changeVisibility') }}";
+            var url = "{{ route('bookmark.changeVisibility') }}";
             var id = $(this).data("id");
             var $thiz = $(this);
             $.ajax({

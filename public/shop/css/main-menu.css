@@ -94,9 +94,11 @@
 .main-menu .nav-link:hover {
     color: var(--primary-color);
 }
-.main-menu .nav-link:hover .badge-percent-svg path{
+
+.main-menu .nav-link:hover .badge-percent-svg path {
     fill: var(--primary-color);
 }
+
 /* انیمیشن خط زیر لینک‌ها */
 .main-menu .nav-link::after {
     content: '';
@@ -332,6 +334,9 @@
     padding: 10px;
     position: absolute;
     left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
 }
 
 .login-link:hover {
@@ -678,6 +683,7 @@
     position: relative;
     display: inline-block;
 }
+
 .compare-container {
     position: relative;
     display: inline-block;
@@ -730,6 +736,7 @@
 .favorites-dropdown {
     left: -10px;
 }
+
 .compare-dropdown {
     left: -10px;
 }
@@ -849,6 +856,7 @@
     background-color: darkgrey;
     border-radius: 10px;
 }
+
 .compare-items {
     max-height: 400px;
     overflow-y: auto;
@@ -905,6 +913,7 @@
     text-decoration: line-through;
     margin-right: 5px;
 }
+
 .compare-item {
     padding: 15px 10px;
     border-bottom: 1px solid #f0f0f0;

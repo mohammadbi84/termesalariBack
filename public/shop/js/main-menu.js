@@ -95,6 +95,7 @@ function initMainMenu() {
             Bookmark.classList.add("collapsed");
             mainMenu.classList.remove("with-bookmark");
             mainMenu.classList.remove("smallBookmark");
+            bookmarkToggle.classList.add("d-none");
         } else {
             // باز کردن بوکمارک
             Bookmark.classList.remove("collapsed");

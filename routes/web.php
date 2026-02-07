@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BedcoverController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\FabricController;
 use App\Http\Controllers\PillowController;
 use App\Http\Controllers\PopupController;
@@ -314,3 +315,8 @@ Route::get('api/active-popup', [PopupController::class, 'getActivePopup']);
 
 // article (صفحه های داخلی)
 Route::resource('article', 'ArticleController');
+
+// bookmarks
+Route::resource('bookmark', 'BookmarkController');
+Route::post('bookmark/change-visibility', [BookmarkController::class, 'changeVisibility'])
+    ->name('bookmark.changeVisibility');

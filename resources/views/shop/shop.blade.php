@@ -1754,7 +1754,7 @@
                         Swal.fire({
                             title: `
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
                                     <h2 class="title m-0">ورود به حساب کاربری</h2>
                                 </div>`,
                             html: `
@@ -1907,7 +1907,7 @@
                         Swal.fire({
                             title: `
                                 <div class="d-flex justify-content-center align-items-center gap-2">
-                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
+                                    <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
                                     <h2 class="title m-0">ورود به حساب کاربری</h2>
                                 </div>`,
                             html: `
