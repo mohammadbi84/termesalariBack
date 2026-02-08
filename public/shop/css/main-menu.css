@@ -284,6 +284,9 @@
 .bookmark.collapsed {
     height: 5px;
 }
+.bookmark.collapsed #bookmarkToggle {
+    display: none;
+}
 
 /* محتوای بوکمارک */
 .bookmark-content {
@@ -825,7 +828,7 @@
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1;
 }
 
 .cart-items {
