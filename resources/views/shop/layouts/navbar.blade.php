@@ -9,7 +9,8 @@
                 <div class="swiper" id="bookmarkSlider">
                     <div class="swiper-wrapper">
                         @foreach ($bookmarks as $bookmark)
-                            <div class="swiper-slide bookmark-content px-0" data-delay="{{ $bookmark->duration }}">
+                            <div class="swiper-slide bookmark-content px-0" style="height: {{ $bookmark->height }}px;"
+                                data-height="{{ $bookmark->height }}" data-delay="{{ $bookmark->duration }}">
                                 <div class="bookmark-item">
                                     <!-- محتوای body که می‌تواند شامل عکس یا بک‌گراند باشد -->
                                     <div class="bookmark-media">
@@ -17,11 +18,11 @@
                                     </div>
 
                                     <!-- عنوان روی محتوا -->
-                                    @if ($bookmark->show_title)
+                                    {{-- @if ($bookmark->show_title)
                                         <div class="bookmark-title-overlay">
                                             {{ app()->getLocale() == 'fa' ? $bookmark->title_fa : $bookmark->title_en }}
                                         </div>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         @endforeach
@@ -31,6 +32,17 @@
             </div>
         </div>
 
+        @if ($bookmarks->count() ==1)
+            @php
+                $height = $bookmarks->first()->height;
+            @endphp
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    fixedHeight = {{ $height }};
+                    setCssVar("--bookmark-height",`${fixedHeight}px`,);
+                });
+            </script>
+        @endif
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // تنظیم ارتفاع و موقعیت بر اساس محتوا
@@ -75,6 +87,8 @@
                         // وقتی swiper mount شد، delay اولین اسلاید رو اعمال کن
                         let firstSlide = this.slides[this.activeIndex];
                         let delay = firstSlide.dataset.delay;
+                        let height = firstSlide.dataset.height;
+                        setCssVar("--bookmark-height",`${height}px`,);
                         if (delay) {
                             this.params.autoplay.delay = parseInt(delay);
                             this.autoplay.start();
@@ -83,6 +97,8 @@
                     slideChangeTransitionEnd: function() {
                         let activeSlide = this.slides[this.activeIndex];
                         let delay = activeSlide.dataset.delay;
+                        let height = activeSlide.dataset.height;
+                        setCssVar("--bookmark-height",`${height}px`,);
 
                         if (delay) {
                             this.params.autoplay.delay = parseInt(delay);
@@ -94,7 +110,7 @@
         </script>
     @else
         <div class="bookmark-container">
-            <div class="bookmark collapsed" id="bookmark">
+            <div class="bookmark collapsed" style="height: 5px;background: var(--primary-color);" id="bookmark">
                 <div class="bookmark-content">
                     <div class="bookmark-text d-flex align-items-center justify-content-start h-100 gap-3">
                         <button class="btn btn-close bg-light" id="bookmarkToggle"></button>

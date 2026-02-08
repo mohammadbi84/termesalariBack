@@ -8,6 +8,7 @@
     /*  اگر متغیر --raduis را تعریف نکرده اید، این خط را اضافه کنید: */
     --raduis: 5px;
     /* یا هر مقدار دلخواه دیگر */
+    --bookmark-height: 60px;
 }
 
 .main-menu {
@@ -36,11 +37,11 @@
 }
 
 .main-menu.with-bookmark {
-    top: 70px;
+    top: calc(var(--bookmark-height) + 10px);
 }
 
 .main-menu.smallBookmark {
-    top: 60px !important;
+    top: var(--bookmark-height) !important;
 }
 
 .main-menu.small .navbar .container-fluid {
@@ -269,21 +270,20 @@
     right: 0;
     left: 0;
     color: white;
+    height: var(--bookmark-height);
     /* حذف بک‌گراند از اینجا - بک‌گراند از body می‌آید */
-    background: var(--primary-color);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     transition: all 0.4s ease;
     margin-bottom: 20px;
-    overflow: hidden; /* اضافه شده */
+    overflow: hidden;
+    /* اضافه شده */
+    background: transparent;
 }
 
-.bookmark.expanded {
-    height: 60px;
-}
 
 .bookmark.collapsed {
     height: 5px;
 }
+
 .bookmark.collapsed #bookmarkToggle {
     display: none;
 }
@@ -291,14 +291,16 @@
 /* محتوای بوکمارک */
 .bookmark-content {
     padding: 0;
-    height: 60px;
     width: 100%;
+    background: var(--primary-color);
+    /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); */
 }
 
 .bookmark-item {
     height: 100%;
     width: 100%;
-    position: relative; /* برای موقعیت‌دهی عنوان */
+    position: relative;
+    /* برای موقعیت‌دهی عنوان */
 }
 
 .bookmark-media {
@@ -307,15 +309,18 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     overflow: hidden;
 }
 
 /* استایل برای محتوای داخل body */
-.bookmark-media > * {
-    width: 100%;
+.bookmark-media>* {
+    /* width: 100%; */
     height: 100%;
     object-fit: cover;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
 }
 
 /* اگر body شامل عکس باشد */
@@ -333,7 +338,7 @@
 }
 
 /* اگر body شامل div با بک‌گراند باشد */
-.bookmark-media > div {
+.bookmark-media>div {
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -343,7 +348,7 @@
 
 /* عنوان به صورت overlay */
 .bookmark-title-overlay {
-        position: absolute;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -361,14 +366,12 @@
 }
 
 /* استایل برای محتوای متنی داخل body */
-.bookmark-media p,
-.bookmark-media span,
-.bookmark-media div:not(.bookmark-title-overlay) {
+.bookmark-media p {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     margin: 0;
     /* padding: 20px; */
     text-align: center;

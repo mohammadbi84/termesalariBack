@@ -30,7 +30,8 @@ class BookmarkController extends Controller
      */
     public function create()
     {
-        return view('bookmark.create');
+        $last = Bookmark::orderByDesc('sort')->first();
+        return view('bookmark.create',compact('last'));
     }
 
     function convertNumbersToEnglish($string)
@@ -56,7 +57,7 @@ class BookmarkController extends Controller
             'start_at' => 'nullable',
             'end_at' => 'nullable',
             'active' => 'boolean',
-            'show_title' => 'boolean',
+            'height' => 'nullable|integer',
             'duration' => 'nullable',
         ]);
 
@@ -75,12 +76,6 @@ class BookmarkController extends Controller
 
 
         $bookmark = Bookmark::create($data);
-        if (in_array('show_title',$data) && $data['show_title'] == 1) {
-            $bookmark->show_title = true;
-        } else {
-            $bookmark->show_title = false;
-        }
-        $bookmark->save();
 
         return redirect()->route('bookmark.index')->with('success', 'بوکمارک با موفقیت اضافه شد.');
     }
@@ -122,7 +117,7 @@ class BookmarkController extends Controller
             'start_at' => 'nullable',
             'end_at' => 'nullable',
             'active' => 'boolean',
-            'show_title' => 'boolean',
+            'height' => 'nullable',
             'duration' => 'nullable',
         ]);
 
@@ -141,12 +136,6 @@ class BookmarkController extends Controller
 
 
         $bookmark->update($data);
-        if (in_array('show_title',$data) && $data['show_title'] == 1) {
-            $bookmark->show_title = true;
-        } else {
-            $bookmark->show_title = false;
-        }
-        $bookmark->save();
 
         return redirect()->route('bookmark.index')->with('success', 'بوکمارک با موفقیت ویرایش شد.');
     }

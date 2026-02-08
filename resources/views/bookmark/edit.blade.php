@@ -22,18 +22,18 @@
                     </div>
                 </div>
                 @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body">
                     {{-- {{ dd($products) }} --}}
-                    <form class="form" role="form" action="{{ route('bookmark.update',['bookmark'=>$bookmark->id]) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form class="form" role="form" action="{{ route('bookmark.update', ['bookmark' => $bookmark->id]) }}"
+                        method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -41,7 +41,8 @@
                                 <div class="form-group @error('title_fa') is-invalid @enderror">
                                     <label for="title_fa">عنوان فارسی</label>
                                     <input type="text" name="title_fa" id="title_fa" class="form-control"
-                                        placeholder="لطفا عنوان صفحه را وارد کنید." value="{{ old('title_fa',$bookmark->title_fa ) }}">
+                                        placeholder="لطفا عنوان صفحه را وارد کنید."
+                                        value="{{ old('title_fa', $bookmark->title_fa) }}">
                                     @error('title_fa')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -51,21 +52,11 @@
                                 <div class="form-group @error('title_en') is-invalid @enderror">
                                     <label for="title_en">عنوان انگلیسی</label>
                                     <input type="text" name="title_en" id="title_en" class="form-control"
-                                        placeholder="لطفا عنوان صفحه را وارد کنید." value="{{ old('title_en', $bookmark->title_en ) }}">
+                                        placeholder="لطفا عنوان صفحه را وارد کنید."
+                                        value="{{ old('title_en', $bookmark->title_en) }}">
                                     @error('title_en')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
-                            </div>
-                            <div class="col-4 mb-3">
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="show_title" id="show_title" value="1"
-                                            class="custom-control-input" {{ $bookmark->show_title ? 'checked' : '' }}>
-                                        <label class="custom-control-label" for="show_title">
-                                            عنوان فعال باشد
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,8 +82,20 @@
                                     <label for="sort" class="font-weight-bold">ترتیب نمایش بوکمارک</label>
                                     <input type="number" name="sort" id="sort"
                                         class="form-control @error('sort') is-invalid @enderror"
-                                        value="{{ old('sort', $bookmark->sort) }}" placeholder="عدد بزرگتر = بعدی نمایش داده شود">
+                                        value="{{ old('sort', $bookmark->sort) }}" readonly
+                                        placeholder="عدد بزرگتر = بعدی نمایش داده شود">
                                     @error('sort')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="height" class="font-weight-bold">ارتفاع بوکمارک</label>
+                                    <input type="number" name="height" id="height"
+                                        class="form-control @error('height') is-invalid @enderror"
+                                        value="{{ old('height', $bookmark->height) }}">
+                                    @error('height')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -140,15 +143,16 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="active" id="active" value="1"
-                                    class="custom-control-input" {{ $bookmark->active ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="active">
-                                    بوکمارک فعال باشد
-                                </label>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="active" id="active" value="1"
+                                            class="custom-control-input" {{ $bookmark->active ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="active">
+                                            بوکمارک فعال باشد
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

@@ -14,7 +14,7 @@ class AddShowTitleToBookmarksTable extends Migration
     public function up()
     {
         Schema::table('bookmarks', function (Blueprint $table) {
-            $table->boolean('show_title')->default(true)->after('title_fa');
+            $table->tinyInteger('height')->default(60)->after('title_fa');
         });
     }
 
@@ -26,7 +26,7 @@ class AddShowTitleToBookmarksTable extends Migration
     public function down()
     {
         Schema::table('bookmarks', function (Blueprint $table) {
-            $table->dropColumn('show_title');
+            $table->dropColumn('height');
         });
     }
 }

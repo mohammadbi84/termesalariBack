@@ -15,13 +15,14 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>عنوان فارسی</th>
-                            <th>بازه زمانی</th>
                             <th>ترتیب نمایش</th>
-                            <th>وضعیت</th>
+                            <th>عنوان فارسی</th>
                             <th>تاریخ ثبت</th>
-                            <th>ویرایش</th>
-                            <th>حذف</th>
+                            <th>تاریخ شروع انتشار</th>
+                            <th>تاریخ پایان انتشار</th>
+                            <th>مدت نمایش <small>( ثانیه )</small></th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
                         </tr>
                     </thead>
 
@@ -29,17 +30,22 @@
                         @foreach ($bookmarks as $bookmark)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $bookmark->sort }}</td>
                                 <td>{{ $bookmark->title_fa }}</td>
 
                                 <td>
+                                    {{ Verta($bookmark->created_at)->format('%d %B %Y') }}
+                                </td>
+                                <td>
                                     <span>{{ $bookmark->start_at ? Verta($bookmark->start_at)->format('%d %B %Y H:m:s') : '—' }}</span>
-                                    تا
+                                </td>
+                                <td>
                                     <span>{{ $bookmark->end_at ? Verta($bookmark->end_at)->format('%d %B %Y H:m:s') : '—' }}</span>
                                 </td>
-
                                 <td>
-                                    {{ $bookmark->sort }}
+                                    {{ $bookmark->duration / 1000 }} ثانیه
                                 </td>
+
                                 <td>
                                     <a href="#" class="changeVisibility" id="changeVisibility"
                                         data-id="{{ $bookmark->id }}">
@@ -52,14 +58,8 @@
                                 </td>
 
                                 <td>
-                                    {{ Verta($bookmark->created_at)->format('%d %B %Y') }}
-                                </td>
-                                <td>
                                     <a href="{{ route('bookmark.edit', $bookmark) }}"
                                         class="btn btn-outline-primary btn-sm">ویرایش</a>
-                                </td>
-
-                                <td>
                                     <form method="POST" action="{{ route('bookmark.destroy', $bookmark) }}">
                                         @csrf @method('DELETE')
                                         <button class="btn btn-outline-danger btn-sm">

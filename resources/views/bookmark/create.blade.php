@@ -56,17 +56,6 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-4 mb-3">
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="show_title" id="show_title" value="1"
-                                            class="custom-control-input" checked>
-                                        <label class="custom-control-label" for="show_title">
-                                            عنوان فعال باشد
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-group @error('body_fa') is-invalid @enderror">
                             <label for="body_fa">محتوای فارسی</label>
@@ -90,8 +79,20 @@
                                     <label for="sort" class="font-weight-bold">ترتیب نمایش بوکمارک</label>
                                     <input type="number" name="sort" id="sort"
                                         class="form-control @error('sort') is-invalid @enderror"
-                                        value="{{ old('sort', 1) }}" placeholder="عدد بزرگتر = بعدی نمایش داده شود">
+                                        value="{{ old('sort', $last->sort + 1) }}" readonly
+                                        placeholder="عدد بزرگتر = بعدی نمایش داده شود">
                                     @error('sort')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="height" class="font-weight-bold">ارتفاع بوکمارک</label>
+                                    <input type="number" name="height" id="height"
+                                        class="form-control @error('height') is-invalid @enderror"
+                                        value="{{ old('height', 60) }}">
+                                    @error('height')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -139,17 +140,20 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="active" id="active" value="1"
-                                    class="custom-control-input" checked>
-                                <label class="custom-control-label" for="active">
-                                    بوکمارک فعال باشد
-                                </label>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="active" id="active" value="1"
+                                            class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="active">
+                                            بوکمارک فعال باشد
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
 
 
 

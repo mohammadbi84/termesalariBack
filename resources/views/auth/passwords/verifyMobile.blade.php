@@ -94,7 +94,7 @@
     <div class="container wrapper d-flex align-items-center justify-content-center">
         <div class="row w-75 login-card bg-white">
             <!-- اسلایدر راست -->
-            <div class="col-md-6 d-none d-md-block p-0">
+            <div class="col-md-6 d-none d-md-block p-0 h-100">
                 <section dir="ltr" class="splide h-100" id="slider-1" aria-label="Splide Basic HTML Example">
                     <div class="splide__track h-100 shadow">
                         <ul class="splide__list h-100">

@@ -67,13 +67,13 @@ function initMainMenu() {
                 mainMenu.classList.remove("small");
                 categoryMenu.classList.remove("small");
                 if (favorites_dropdown) {
-                    favorites_dropdown.style.top = "71px";
+                    favorites_dropdown.style.top = "75px";
                     favorites_dropdown.style.left = "-10px";
                 }
                 cart_dropdown.style.left = "-10px";
                 compare_dropdown.style.left = "-10px";
-                cart_dropdown.style.top = "71px";
-                compare_dropdown.style.top = "71px";
+                cart_dropdown.style.top = "75px";
+                compare_dropdown.style.top = "75px";
                 categoriesMenu.style.top = "75px";
                 categoriesMenu.style.left = "-10px";
                 categoriesMenu.style.right = "-10px";
