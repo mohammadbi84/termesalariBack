@@ -19,7 +19,7 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        $bookmarks = Bookmark::all();
+        $bookmarks = Bookmark::orderBy('created_at','desc')->get();
         return view('bookmark.index', compact('bookmarks'));
     }
 

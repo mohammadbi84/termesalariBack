@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/datatables/dataTables.bootstrap4.css') }}">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/iCheck/all.css') }}">
+    <style>
+        .dataTable tr td{
+            text-align: center;
+        }
+    </style>
 @endpush
 
 @section('main-content')
@@ -38,6 +43,11 @@
                 style="width:100%;text-align: center;" cellspacing="0">
                 <thead>
                     <tr>
+                        <th class="no-sort">
+                            <label>
+                                <input type="checkbox" data-value = "All" class="flat-red checkAll">
+                            </label>
+                        </th>
                         <th class="no-sort">ردیف</th>
                         <th>عنوان</th>
                         <th>لینک</th>
@@ -50,6 +60,11 @@
                 <tbody>
                     @foreach ($articles as $article)
                         <tr>
+                            <td>
+                                <label>
+                                    <input type="checkbox" data-value = "{{ $article->id }}" class="flat-red checkbox">
+                                </label>
+                            </td>
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 {{ $article->title }}
@@ -83,6 +98,20 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="no-sort">
+
+                        </th>
+                        <th class="no-sort">ردیف</th>
+                        <th>عنوان</th>
+                        <th>لینک</th>
+                        <th>نمایش</th>
+                        <th>تاریخ ثبت</th>
+                        <th class="no-sort">ویرایش</th>
+                        <th class="no-sort">حذف</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
