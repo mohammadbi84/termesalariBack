@@ -48,6 +48,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     .container-fluid{
       width: 100% !important;
     }
+    .note-codable{
+        direction: ltr;
+    }
   </style>
 
 

@@ -93,6 +93,8 @@ function initMainMenu() {
             // جمع کردن بوکمارک
             Bookmark.classList.remove("expanded");
             Bookmark.classList.add("collapsed");
+            Bookmark.style.background = "var(--primary-color)";
+            Bookmark.innerHTML = '';
             mainMenu.classList.remove("with-bookmark");
             mainMenu.classList.remove("smallBookmark");
             bookmarkToggle.classList.add("d-none");
