@@ -16,25 +16,25 @@ class CreatePopupsTable extends Migration
         Schema::create('popups', function (Blueprint $table) {
             $table->id();
 
-    // محتوای فارسی
-    $table->string('title_fa');
-    $table->text('description_fa')->nullable();
+            // محتوای فارسی
+            $table->string('title_fa');
+            $table->text('description_fa')->nullable();
 
-    // محتوای انگلیسی
-    $table->string('title_en')->nullable();
-    $table->text('description_en')->nullable();
+            // محتوای انگلیسی
+            $table->string('title_en')->nullable();
+            $table->text('description_en')->nullable();
 
-    // لینک هدایت
-    $table->string('link')->nullable();
+            // لینک هدایت
+            $table->string('link')->nullable();
 
-    // وضعیت
-    $table->boolean('is_active')->default(false);
+            // وضعیت
+            $table->boolean('is_active')->default(false);
 
-    // بازه زمانی نمایش
-    $table->timestamp('start_at')->nullable();
-    $table->timestamp('end_at')->nullable();
+            // بازه زمانی نمایش
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
 
-    $table->timestamps();
+            $table->timestamps();
         });
     }
 
