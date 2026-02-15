@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("fullscreen-video");
-    
-    const playPauseBtn = document.querySelector(".play-pause-btn");
-    const playIcon = playPauseBtn.querySelector("i");
-    const videoContainer = document.querySelector(".video-full-container");
-    const videoOverlay = document.querySelector(".video-overlay");
 
-    
+    const playPauseBtn = document.querySelector("#play-pause-btn");
+    const playIcon = playPauseBtn.querySelector("i");
+    const videoContainer = document.querySelector(".video-full-container-main");
+    const videoOverlay = document.querySelector(".video-overlay2");
+
     // تابع پخش/توقف ویدیو
     function togglePlayPause() {
         if (video.paused) {
@@ -36,12 +35,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // رویداد کلیک روی ویدیو
-    videoOverlay.addEventListener("click", function () {
+    video.addEventListener("click", function (e) {
+        e.stopPropagation();
+        togglePlayPause();
+    });
+    // رویداد کلیک روی ویدیو
+    videoOverlay.addEventListener("click", function (e) {
+        e.stopPropagation();
         togglePlayPause();
     });
 
     // رویداد کلیک روی خود ویدیو
-    videoContainer.addEventListener("click", function () {
+    videoContainer.addEventListener("click", function (e) {
+        e.stopPropagation();
         togglePlayPause();
     });
 

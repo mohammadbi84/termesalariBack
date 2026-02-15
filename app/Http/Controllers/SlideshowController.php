@@ -49,9 +49,15 @@ class SlideshowController extends Controller
     {
         // dd($request->all());
         $path = $request->image->store('public/images/slideshow/');
+        if ($request->video) {
+            $pathVideo = $request->video->store('public/videos/slideshow/');
+        }
         $slideshow = new Slideshow;
         $slideshow->fill($request->all());
         $slideshow->image = "/slideshow/" . basename($path);
+        if ($request->video) {
+            $slideshow->video = "/slideshow/" . basename($pathVideo);
+        }
         $slideshow->save();
         return redirect()
             ->back()
@@ -120,7 +126,7 @@ class SlideshowController extends Controller
         }
 
         if ($slideshow->position != $request->position) {
-            
+
             $count = Slideshow::where('position', $slideshow->position)
                 ->count();
             // dd($count);
@@ -141,7 +147,7 @@ class SlideshowController extends Controller
             $slideshow->image = "/slideshow/" . basename($path);
 
         }
-        
+
         // dd($slideshow);
         // $slideshow->position = $request->position;
         // $slideshow->title = $request->title;
@@ -180,7 +186,7 @@ class SlideshowController extends Controller
                 ->back()
                 ->with("success","::عملیات با موفقیت انجام شد.::");
         }
-        
+
     }
 
     public function changeVisibility(Request $request)
@@ -195,7 +201,7 @@ class SlideshowController extends Controller
             $slideshow->visibility = 0;
         }
         $slideshow->save();
-        
+
         $result["res"] = "success";
         $result["message"] = "مورد انتخابی تغییر وضعیت یافت.";
         return $result;

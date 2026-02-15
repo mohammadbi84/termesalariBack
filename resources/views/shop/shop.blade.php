@@ -14,7 +14,7 @@
 @endsection
 @section('content')
     <!-- start popup -->
-    @if ($popups->count()>0)
+    @if ($popups->count() > 0)
         <div class="modal fade" id="customModal" tabindex="-1" aria-hidden="true" dir="rtl">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -88,7 +88,7 @@
         </div>
 
     @endif
-    @if ($popups->count()>0)
+    @if ($popups->count() > 0)
         <script>
             document.addEventListener("DOMContentLoaded", function() {
 
@@ -198,11 +198,26 @@
                         @if (isset($slideshows) and count($slideshows) > 0)
                             @foreach ($slideshows as $key => $slideshow)
                                 <div class="item" data-duration="5000">
-                                    <a href="{{ $slideshow->link }}">
+                                    @if ($slideshow->video)
+                                        <div class="video-full-container video-full-container-slider mb-5 px-0">
+                                            <video class="slider-video" poster="{{ asset('storage/images/' . $slideshow->image) }}">
+                                                <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
+                                                <source src="{{ asset('storage/videos/' . $slideshow->video) }}" type="video/mp4">
+                                                مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
+                                            </video>
+
+                                            <div class="video-overlay"></div>
+
+                                            <div class="play-pause-btn d-flex">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                    @else
                                         <img src="{{ asset('storage/images/' . $slideshow->image) }}"
                                             class="img-fluid w-100 h-100" style="object-fit: cover;"
                                             alt="{{ $slideshow->title }}">
-                                    </a>
+                                    @endif
+
                                 </div>
                             @endforeach
                         @endif
@@ -919,16 +934,16 @@
         <!-- end instagram -->
         <!-- start video -->
         <section>
-            <div class="video-full-container mb-5 px-0">
+            <div class="video-full-container video-full-container-main mb-5 px-0">
                 <video id="fullscreen-video" poster="{{ asset('shop/assets/cover.png') }}">
                     <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
                     <source src="{{ asset('shop/assets/termesalari.mp4') }}" type="video/mp4">
                     مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
                 </video>
 
-                <div class="video-overlay"></div>
+                <div class="video-overlay video-overlay2"></div>
 
-                <div class="play-pause-btn">
+                <div class="play-pause-btn" id="play-pause-btn">
                     <i class="fas fa-play"></i>
                 </div>
             </div>

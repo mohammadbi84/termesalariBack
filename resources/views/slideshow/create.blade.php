@@ -25,14 +25,14 @@
 		            </div>
 		      	@endif
 		    </div>
-		
+
 			<div class="card col-md-10 col-sm-12">
 				<div class="card-header">
 					<div class="card-title"><span>تنظیمات اسلایدشو صفحه اصلی فروشگاه</span></div>
 				</div>
 				<form class="form" role="form" action="{{ route('slideshow.store') }}" method="POST" enctype="multipart/form-data">
 					<div class="card-body">
-						
+
 						@csrf
 
 						<div class="form-group @error('position') is-invalid @enderror">
@@ -62,10 +62,21 @@
 
 						<div class="form-group @error('image') is-invalid @enderror">
 				            <label for="image">انتخاب تصویر </label>
+                            <small class="text-danger">در صورت اپلود ویدیو، این فیلد به عنوان کاور انتخاب میشود.</small>
 							<div class="file-loading">
 							    <input id="image" name="image" type="file" multiple data-browse-on-zone-click="true" data-show-upload="true" data-show-caption="true" data-upload-url="#">
 							</div>
 							@error('image')
+								<div class="invalid-feedback d-block">{{$message}}</div>
+							@enderror
+				        </div>
+						<div class="form-group @error('video') is-invalid @enderror">
+				            <label for="video">ویدیو </label>
+                            <small class="text-danger">در صورت عدم نیاز به اسلایدشو ویدیویی، این فیلد را خالی بگذارید.</small>
+							<div class="file-loading">
+							    <input id="video" name="video" type="file" multiple data-browse-on-zone-click="true" data-show-upload="true" data-show-caption="true" data-upload-url="#">
+							</div>
+							@error('video')
 								<div class="invalid-feedback d-block">{{$message}}</div>
 							@enderror
 				        </div>
@@ -113,7 +124,7 @@
 	    	minimumResultsForSearch: Infinity
 	    });
 
-	    
+
 
 	    var p = $('#position').select2('data');
 		var position_value = p[0].id;
@@ -150,6 +161,42 @@
 	        // showRemove: true,
 	        rtl: true,
 	        required: true,
+	        language: "fa",
+	     	//    previewFileIcon: '<i class="fas fa-file"></i>',
+		    // allowedPreviewTypes: null, // set to empty, null or false to disable preview for all types
+		    // previewFileIconSettings: {
+		    //     'docx': '<i class="fas fa-file-word text-primary"></i>',
+		    //     'xlsx': '<i class="fas fa-file-excel text-success"></i>',
+		    //     'pptx': '<i class="fas fa-file-powerpoint text-danger"></i>',
+		    //     'jpg': '<i class="fas fa-file-image text-warning"></i>',
+		    //     'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
+		    //     'zip': '<i class="fas fa-file-archive text-muted"></i>',
+		    // },
+	        layoutTemplates: {
+	            main1: "{preview}\n" +
+	            "<div class=\'input-group {class}\'>\n" +
+	            "   <div class=\'input-group-btn\ input-group-prepend'>\n" +
+	            "       {browse}\n" +
+	            "   </div>\n" +
+	            "   {caption}\n" +
+	            "</div>"
+	        }
+	    });
+		$("#video").fileinput({
+	        enableResumableUpload: true,
+	        allowedFileTypes: ["video"],
+	        allowedFileExtensions: ["mp4", "mkv"],
+	        browseLabel: "انتخاب ویدیو ",
+	        maxFileCount: 1,
+	        theme: 'fas',
+	        showUpload: false,
+	        showPause :false,
+	        // browseIcon: "<i class=\"fas fa-trash\"></i> ",
+	        browseClass: "btn btn-primary btn-block",
+	        showCaption: true,
+	        // showRemove: true,
+	        rtl: true,
+	        required: false,
 	        language: "fa",
 	     	//    previewFileIcon: '<i class="fas fa-file"></i>',
 		    // allowedPreviewTypes: null, // set to empty, null or false to disable preview for all types

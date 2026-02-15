@@ -1,150 +1,144 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ابتدا مطمئن شوید که عنصر اسلایدر وجود دارد
     const sliderContainer = document.querySelector(".top-slider");
     if (!sliderContainer) return;
 
-    // اسلایدر اصلی با تنظیمات اصلاح شده
     const slider = tns({
         container: ".top-slider",
         items: 1,
         slideBy: "page",
         loop: true,
         controls: false,
-        autoplay: false,
-        autoplayButtonOutput: false,
         nav: false,
+        autoplay: false,
         speed: 500,
-        // اضافه کردن این تنظیمات
         rewind: true,
-        preventScrollOnTouch: 'force',
-        // غیرفعال کردن برخی ویژگی‌های پیش‌فرض
-        autoWidth: false,
-        edgePadding: 0,
-        fixedWidth: false,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            992: {
-                items: 1
-            }
-        }
     });
+
     const slides = document.querySelectorAll(".top-slider .item");
     const paginationItems = document.querySelectorAll(".pagination-item");
-    const videos = document.querySelectorAll(".top-slider video");
 
     let timeoutId = null;
-    let isVideoPlaying = false;
+    let activeVideo = null;
+
+    /* -------------------- اسلاید اتومات -------------------- */
 
     function playNextSlide() {
-        if (isVideoPlaying) return;
+        if (activeVideo && !activeVideo.paused) return;
+
+        clearTimeout(timeoutId);
+
         const info = slider.getInfo();
-        const currentSlide = slides[info.index % slides.length];
+        const realIndex = info.displayIndex - 1; // مهم
+
+        const currentSlide = slides[realIndex];
         const duration = parseInt(currentSlide.dataset.duration) || 5000;
+
         timeoutId = setTimeout(() => {
             slider.goTo("next");
         }, duration);
     }
 
-    function updateActivePagination(index) {
-        // حذف کلاس active از همه آیتم‌ها
-        paginationItems.forEach(item => item.classList.remove("active"));
+    function stopAutoSlide() {
+        clearTimeout(timeoutId);
+    }
 
-        // اضافه کردن کلاس active به آیتم فعلی
+    /* -------------------- Pagination -------------------- */
+
+    function updateActivePagination(index) {
+        paginationItems.forEach((item) => item.classList.remove("active"));
         if (paginationItems[index]) {
             paginationItems[index].classList.add("active");
         }
     }
 
-    // کلیک روی پیجینیشن
     paginationItems.forEach((item, index) => {
-        item.dataset.index = index;
         item.addEventListener("click", () => {
-            clearTimeout(timeoutId);
-            const itemIndex = parseInt(item.dataset.index);
-            slider.goTo(itemIndex);
+            stopAutoSlide();
+            slider.goTo(index);
         });
     });
 
-    // مدیریت ویدیوها (کد قبلی بدون تغییر)
-    videos.forEach((video) => {
-        const container = video.closest(".video-container");
-        if (!container) return;
+    /* -------------------- مدیریت ویدیو داخل اسلایدر -------------------- */
 
-        const overlay = container.querySelector(".video-overlay");
-        const cover = container.querySelector(".video-cover");
-        const playBtn = container.querySelector(".btn-play");
-        const stopButton = container.querySelector(".btn-stop");
+    const videoContainers = document.querySelectorAll(".video-full-container-slider");
 
-        if (!overlay) return;
+    videoContainers.forEach((container) => {
+        const video = container.querySelector(".slider-video");
+        const playBtn = container.querySelector(".play-pause-btn");
+        const icon = playBtn.querySelector("i");
 
-        const toggleVideo = () => {
-            if (isVideoPlaying) {
-                // توقف ویدیو
-                if (playBtn) playBtn.style.display = "flex";
-                if (cover) cover.style.display = "block";
-                video.classList.add("d-none");
-                video.pause();
-                playNextSlide();
-                isVideoPlaying = false;
+        function toggleVideo() {
+            if (video.paused) {
+                // اگر ویدیوی دیگه‌ای در حال پخشه، ببندش
+                if (activeVideo && activeVideo !== video) {
+                    activeVideo.pause();
+                }
+
+                stopAutoSlide();
+                video.play();
+                playBtn.classList.remove("d-flex");
+                icon.classList.remove("fa-play");
+                icon.classList.add("fa-pause");
+                container.classList.add("playing");
+                activeVideo = video;
             } else {
-                // پخش ویدیو
-                if (playBtn) playBtn.style.display = "none";
-                if (cover) cover.style.display = "none";
-                video.classList.remove("d-none");
-                video.play().catch((e) => console.error("Video play error:", e));
-                clearTimeout(timeoutId);
-                isVideoPlaying = true;
+                video.pause();
+                icon.classList.remove("fa-pause");
+                icon.classList.add("fa-play");
+                playBtn.classList.add("d-flex");
+                container.classList.remove("playing");
+                activeVideo = null;
+                playNextSlide();
             }
-        };
+        }
 
-        overlay.addEventListener("click", toggleVideo);
-        video.addEventListener("click", toggleVideo);
+        playBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleVideo();
+        });
+        video.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleVideo();
+        });
 
-        video.addEventListener("ended", () => {
-            if (stopButton) stopButton.style.display = "none";
-            if (playBtn) playBtn.style.display = "flex";
-            if (cover) cover.style.display = "block";
-            video.classList.add("d-none");
-            isVideoPlaying = false;
+        container
+            .querySelector(".video-overlay")
+            .addEventListener("click", toggleVideo);
+
+        video.addEventListener("ended", function () {
+            icon.classList.remove("fa-pause");
+            icon.classList.add("fa-play");
+            container.classList.remove("playing");
+
+            activeVideo = null;
+
             setTimeout(() => {
                 slider.goTo("next");
-            }, 500);
+            }, 400);
         });
-
-        if (overlay) {
-            overlay.addEventListener("mouseover", () => {
-                if (isVideoPlaying && stopButton) {
-                    stopButton.style.display = "flex";
-                }
-            });
-
-            overlay.addEventListener("mouseleave", () => {
-                if (stopButton) stopButton.style.display = "none";
-            });
-        }
-
-        if (stopButton) {
-            stopButton.addEventListener("click", function (e) {
-                e.stopPropagation();
-                toggleVideo();
-            });
-        }
     });
 
-    // وقتی اسلاید اصلی تغییر کرد
+    /* -------------------- وقتی اسلاید عوض شد -------------------- */
+
     slider.events.on("indexChanged", (info) => {
-        const index = info.displayIndex - 1;
-        updateActivePagination(index);
         clearTimeout(timeoutId);
+
+        const realIndex = info.displayIndex - 1;
+
+        updateActivePagination(realIndex);
+
+        // ریست کامل هر ویدیویی که داخل اسلاید قبلی بوده
+        document.querySelectorAll(".slider-video").forEach((v) => {
+            v.pause();
+            v.currentTime = 0;
+        });
+
+        activeVideo = null;
+
         playNextSlide();
     });
 
-    // شروع اسلاید اول
-    playNextSlide();
+    /* شروع اولیه */
     updateActivePagination(0);
+    playNextSlide();
 });

@@ -28,6 +28,7 @@ class SlideshowRequest extends FormRequest
             'title' => 'required|string' ,
             'description' => 'nullable|string' ,
             'image' => 'required|image|mimes:jpeg,png,jpg',
+            'video' => 'nullable',
             'link' => 'required|string' ,
             'order' => 'required|numeric|unique:slideshows,order,NULL,id,position,'.$this->position,
             // 'order' => 'required|numeric',
