@@ -197,12 +197,14 @@
                     <div class="top-slider">
                         @if (isset($slideshows) and count($slideshows) > 0)
                             @foreach ($slideshows as $key => $slideshow)
-                                <div class="item" data-duration="5000">
+                                <div class="item" data-duration="{{ $slideshow->duration * 1000 }}">
                                     @if ($slideshow->video)
                                         <div class="video-full-container video-full-container-slider mb-5 px-0">
-                                            <video class="slider-video" poster="{{ asset('storage/images/' . $slideshow->image) }}">
+                                            <video class="slider-video"
+                                                poster="{{ asset('storage/images/' . $slideshow->image) }}" preload="none">
                                                 <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
-                                                <source src="{{ asset('storage/videos/' . $slideshow->video) }}" type="video/mp4">
+                                                <source src="{{ asset('storage/videos/' . $slideshow->video) }}"
+                                                    type="video/mp4">
                                                 مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
                                             </video>
 

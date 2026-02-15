@@ -385,4 +385,18 @@
     .vertical-pagination {
         left: 10px;
     }
+
+    .top-slider {
+        position: static;
+        /* necessary */
+
+        width: 100%;
+        height: auto !important;
+    }
+
+    .top-slider .item {
+        position: relative;
+        width: 100%;
+        height: auto !important;
+    }
 }

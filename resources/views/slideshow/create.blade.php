@@ -35,12 +35,12 @@
 
 						@csrf
 
-						<div class="form-group @error('position') is-invalid @enderror">
+						<div class="form-group @error('position') is-invalid @enderror d-none">
 							<label for="position">موقعیت اسلایدشو</label>
 		                  	<select name="position" id="position" class="form-control select2 select2-hidden-accessible " style="width: 100%;">
-			                    <option value="" selected="selected" style="">.موقعیت اسلایدشو را انتخاب کنید</option>
-			                  	<option value="homeStore-A" @if (old('position') == 'homeStore-A')) selected @endif >صفحه اصلی - موقعیت اول</option>
-			                  	<option value="homeStore-B" @if (old('position') == 'homeStore-B')) selected @endif >صفحه اصلی - موقعیت دوم</option>
+			                    {{-- <option value="" selected="selected" style="">.موقعیت اسلایدشو را انتخاب کنید</option> --}}
+			                  	<option value="homeStore-A" selected >صفحه اصلی - موقعیت اول</option>
+			                  	{{-- <option value="homeStore-B" @if (old('position') == 'homeStore-B')) selected @endif >صفحه اصلی - موقعیت دوم</option> --}}
 		                  	</select>
 		                </div>
 
@@ -93,6 +93,13 @@
 							<label for="order">ترتیب</label>
 							<input type="text" name="order" id="order" class="form-control @error('order') is-invalid @enderror" placeholder="لطفا عدد مربوط به ترتیب تصویر را وارد کنید." value="{{old('order')}}">
 							@error('order')
+							    <div class="invalid-feedback">{{$message}}</div>
+							@enderror
+						</div>
+				        <div class="form-group">
+							<label for="duration">تایمر (ثانیه)</label>
+							<input type="number" name="duration" id="duration" class="form-control @error('duration') is-invalid @enderror" placeholder="لطفا زمان نمایش اسلایدشو را به ثانیه وارد کنید." value="{{old('duration')}}">
+							@error('duration')
 							    <div class="invalid-feedback">{{$message}}</div>
 							@enderror
 						</div>

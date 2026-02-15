@@ -41,10 +41,11 @@
 			                  	</label>
 			                </th>
 							<th class="no-sort">ردیف</th>
-							<th>موقعیت</th>
+							{{-- <th>موقعیت</th> --}}
 							<th>عنوان</th>
 							<th>لینک</th>
 							<th>ترتیب</th>
+							<th>تایمر</th>
 							<th>نمایش</th>
 							<th class="no-sort">ویرایش</th>
 							<th class="no-sort">حذف</th>
@@ -59,18 +60,19 @@
 			                  	</label>
 		                	</td>
 							<td>{{ $loop->iteration }}</td>
-							<td>
+							{{-- <td>
 								@if($slideshow->position == 'homeStore-B') صفحه اصلی - موقعیت دوم @elseif ($slideshow->position == 'homeStore-A') صفحه اصلی - موقعیت اول  @endif
-							</td>
+							</td> --}}
 							<td>
 								<img src="{{asset('storage/images'. $slideshow->image)}}" class="img-circle img-size-50 mr-2">
 								{{ $slideshow->title }}
 							</td>
 							<td>{{ $slideshow->link }}</td>
 							<td>{{ $slideshow->order }}</td>
+							<td>{{ $slideshow->duration }} ثانیه</td>
 							<td>
 								@if($slideshow->visibility == 0)
-									<a class="changeVisibility" href="#" data-id="{{$slideshow->id}}"><i class="fas fa-close danger-color"></i></a> 
+									<a class="changeVisibility" href="#" data-id="{{$slideshow->id}}"><i class="fas fa-close danger-color"></i></a>
 								@else
 									<a class="changeVisibility" href="#" data-id="{{$slideshow->id}}"><i class="fas fa-check success-color"></i> </a>
 								@endif
@@ -141,8 +143,8 @@
 				  	if (willDelete) {
 						// title = "عملیات با موفقیت انجام شد.";
 						// swal(title, data.message,data.res);
-						// thiz.closest("tr").fadeOut('slow');       
-				        // $thiz.unbind('click').click(); 
+						// thiz.closest("tr").fadeOut('slow');
+				        // $thiz.unbind('click').click();
 				        $thiz.parent('.del-form').submit()
 			        }
 				});
@@ -175,7 +177,7 @@
 				        	$i.removeClass("fa-close danger-color");
 				        	$i.addClass("fa-check success-color");
 				        }
-			
+
 				        if(data.res == "error")
 				        {
 				        	title = "خطا  در اجرای عملیات" ;
@@ -229,7 +231,7 @@
 						        	$thiz.removeClass("fa-close danger-color");
 						        	$thiz.addClass("fa-check success-color");
 						        }
-								
+
 							});
 				        }
 				        swal(title, data.message,data.res);
@@ -279,7 +281,7 @@
 		       	// },
 		       	// "dom":'Pfrtip'
 
-				
+
 		    });
 
 		});

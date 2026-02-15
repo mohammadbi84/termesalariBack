@@ -60,7 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* -------------------- مدیریت ویدیو داخل اسلایدر -------------------- */
 
-    const videoContainers = document.querySelectorAll(".video-full-container-slider");
+    const videoContainers = document.querySelectorAll(
+        ".video-full-container-slider",
+    );
 
     videoContainers.forEach((container) => {
         const video = container.querySelector(".slider-video");
@@ -114,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             setTimeout(() => {
                 slider.goTo("next");
-            }, 400);
+            }, 2000);
         });
     });
 
@@ -130,7 +132,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // ریست کامل هر ویدیویی که داخل اسلاید قبلی بوده
         document.querySelectorAll(".slider-video").forEach((v) => {
             v.pause();
-            v.currentTime = 0;
+
+            // ریست کامل برای برگشت poster
+            const src = v.querySelector("source").getAttribute("src");
+            v.removeAttribute("src");
+            v.load();
+
+            v.querySelector("source").setAttribute("src", src);
+            v.load();
         });
 
         activeVideo = null;

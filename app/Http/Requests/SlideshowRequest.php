@@ -30,6 +30,7 @@ class SlideshowRequest extends FormRequest
             'image' => 'required|image|mimes:jpeg,png,jpg',
             'video' => 'nullable',
             'link' => 'required|string' ,
+            'duration' =>'required|integer',
             'order' => 'required|numeric|unique:slideshows,order,NULL,id,position,'.$this->position,
             // 'order' => 'required|numeric',
             //     Rule::unique('slideshows')->where(function ($query) use($position) {

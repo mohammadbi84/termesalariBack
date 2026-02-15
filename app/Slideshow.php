@@ -5,6 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Slideshow extends Model
-{
-    protected $fillable = ['position','title','description','image','link','order'];
+{   
+    protected $fillable = ['position','title','description','image','link','order','video','duration'];
 }
