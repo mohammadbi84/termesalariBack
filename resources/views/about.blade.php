@@ -119,15 +119,15 @@
         <div class="row p-3 py-5 mb-4 bg-white rounded-3 g-0 mx-1 gap-4">
 
             <div class="col-md-3">
-                <div class="video-full-container mb-5 px-0 shadow">
+                <div class="video-full-container video-full-container-main mb-5 px-0 shadow">
                     <video id="fullscreen-video" class="w-100 h-100" poster="{{ asset('shop/assets/cover2.png') }}">
                         <source src="{{ asset('shop/assets/yalda.mp4') }}" type="video/mp4">
                         {{ __('general.video_not_supported') ?? 'Your browser does not support the video tag.' }}
                     </video>
 
-                    <div class="video-overlay"></div>
+                    <div class="video-overlay video-overlay2"></div>
 
-                    <div class="play-pause-btn" id="video-btn">
+                    <div class="play-pause-btn" id="play-pause-btn">
                         <i class="fas fa-play"></i>
                     </div>
                 </div>

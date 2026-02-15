@@ -1,4 +1,4 @@
-const swiper = new Swiper(".mySwiper", {
+const swiper7 = new Swiper(".mySwiper", {
     loop: true,
     spaceBetween: 40,
     centeredSlides: true,
