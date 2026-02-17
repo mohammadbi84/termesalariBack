@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\BookmarkController;
@@ -321,3 +322,8 @@ Route::resource('bookmark', 'BookmarkController');
 Route::post('bookmark/change-visibility', [BookmarkController::class, 'changeVisibility'])
     ->name('bookmark.changeVisibility');
 Route::post('/upload-image', [BookmarkController::class, 'upload']);
+
+Route::resource('agency',"AgencyController");
+Route::delete('/agency/delete-main-image/{agency}', [AgencyController::class, 'deleteMainImage'])->name('agency.deleteMainImage');
+Route::delete('/agency/delete-slider-image/{sliderImage}', [AgencyController::class, 'deleteSliderImage'])->name('agency.deleteSliderImage');
+Route::get('/get-cities-by-province/{province}', [AgencyController::class, 'getByProvince'])->name('get.cities.by.province');
