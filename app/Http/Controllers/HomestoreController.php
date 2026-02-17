@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Agency;
 use App\Bedcover;
 use Illuminate\Http\Request;
 use App\Tablecloth;
@@ -19,6 +20,7 @@ class HomestoreController extends Controller
 {
     public function index()
     {
+        $agencies = Agency::with('city', 'state')->orderBy('city_id', 'asc')->get();
         $popups = Popup::active()
             ->with(['images' => function($query) {
                 $query->orderBy('order');
@@ -139,6 +141,7 @@ class HomestoreController extends Controller
             ->with('slideshows', $slideshows)
             ->with('newestProducts', $newestProducts)
             ->with('popups', $popups)
+            ->with('agencies', $agencies)
             ->with('specials', $specials);
     }
     public function index3()

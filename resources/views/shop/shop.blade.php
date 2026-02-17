@@ -1136,69 +1136,16 @@
                     <!-- اسلایدر کوچک (سمت راست) -->
                     <div class="swiper right-slider">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>تهران</h6>
-                                    <span>آقای صفائی</span>
+                            @foreach ($agencies as $agent)
+                                <div class="swiper-slide">
+                                    <div class="text-end w-100">
+                                        <h6>{{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->name }}
+                                        </h6>
+                                        <span>{{ app()->getLocale() == 'fa' ? $agent->name_fa : $agent->name_en }}</span>
+                                    </div>
+                                    <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی ترمه سالاری" />
                                 </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>تهران</h6>
-                                    <span>آقای میرزایی</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>مشهد</h6>
-                                    <span>آقای شفاجو</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>رفسنجان</h6>
-                                    <span>آقای عربی</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>اصفهان</h6>
-                                    <span>آقای شجائی</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>کرمان</h6>
-                                    <span>آقای نیک نفس</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>قزوین</h6>
-                                    <span>خانم حاتمی</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>یاسوج</h6>
-                                    <span>خانم کیانوش</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="text-end w-100">
-                                    <h6>نجف آباد اصفهان</h6>
-                                    <span>خانم اکبری</span>
-                                </div>
-                                <img src="{{ asset('shop/assets/svgs/person.png') }}" alt="نمایندگی ترمه سالاری" />
-                            </div>
+                            @endforeach
                         </div>
 
                         <!-- کنترل‌های اسلایدر کوچک -->
@@ -1211,322 +1158,40 @@
                     <div class="swiper left-slider">
                         <div class="swiper-wrapper">
                             <!-- اسلاید 1 با اسلایدر داخلی -->
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
+                            @foreach ($agencies as $agent)
+                                <div class="swiper-slide">
+                                    <div class="image-section">
+                                        <div class="swiper inner-image-slider" data-slider-id="1">
+                                            <div class="swiper-wrapper">
+                                                @foreach ($agent->images as $image)
+                                                    <div class="swiper-slide">
+                                                        <img src="{{ asset('storage/images/' . $image->name) }}"
+                                                            alt="نمایندگی ترمه سالاری" />
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
+                                            <!-- کنترل‌های اسلایدر داخلی -->
+                                            <div class="inner-slider-controls">
+                                                <div class="swiper-button-prev"></div>
+                                                <div class="swiper-pagination"></div>
+                                                <div class="swiper-button-next"></div>
                                             </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    <p class="flex-grow-1">بازار کفاش ها - خانه ترمه ایران
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
-                                    </p>
-                                    <div class="text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="تهران آقای صفائی بازار کفاش ها - خانه ترمه ایران 035-36260637"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
+                                    <div class="info d-flex justify-content-between align-items-center">
+                                        <p class="flex-grow-1">{{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }}
+                                            <br>
+                                            <i class="bi bi-telephone ms-1"></i> {{$agent->phone}}
+                                        </p>
+                                        <div class="text-start">
+                                            <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
+                                                data-location="{{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }} {{$agent->phone}}"
+                                                data-lat="{{$agent->latitude}}" data-lng="{{$agent->longitude}}">مشاهده روی
+                                                نقشه</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">تهران</h3> --}}
-                                    <p class="flex-grow-1">مینی سیتی - شهرک شهید محلاتی
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="تهران آقای میرزایی مینی سیتی - شهرک شهید محلاتی 035-36260637"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">مشهد</h3> --}}
-                                    <p class="flex-grow-1">چهارراه خسروی - پاساژ جواد - طبقه اول
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 05132253572
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="مشهد آقای شفاجو چهارراه خسروی - پاساژ جواد - طبقه اول 05132253572"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">رفسنجان</h3> --}}
-                                    <p class="flex-grow-1">خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای
-                                        عربی
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 03434265741
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="رفسنجان آقای عربی خ شهدا پاساژ بزرگ شهر طبقه زیرین اولین مغازه سمت راست ترمه سرای عربی 03434265741"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">اصفهان</h3> --}}
-                                    <p class="flex-grow-1">میدان نقش جهان
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="اصفهان آقای شجائی میدان نقش جهان  035-36260637"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">کرمان</h3> --}}
-                                    <p class="flex-grow-1">سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 03432239460
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="کرمان آقای نیک نفس  سه راهی شمال جنوبی - جنب مسجد شیخها - ترمه ابریشم 03432239460"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">قزوین</h3> --}}
-                                    <p class="flex-grow-1">خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه
-                                        سیان
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 02833359101
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="قزوین خانم حاتمی خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان 02833359101"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">یاسوج</h3> --}}
-                                    <p class="flex-grow-1">خیابان30 متری معاد
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="یاسوج خانم کیانوش خیابان30 متری معاد 035-36260637"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="image-section">
-                                    <div class="swiper inner-image-slider" data-slider-id="1">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img src="{{ asset('shop/assets/sliders/branch2.png') }}"
-                                                    alt="نمایندگی ترمه سالاری" />
-                                            </div>
-                                        </div>
-                                        <!-- کنترل‌های اسلایدر داخلی -->
-                                        <div class="inner-slider-controls">
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                            <div class="swiper-button-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="info d-flex justify-content-between align-items-center">
-                                    {{-- <h3 class="mb-3">نجف آباد اصفهان</h3> --}}
-                                    <p class="flex-grow-1">مجتمع تجاری فردوسی - صنایع ترمه
-                                        <br>
-                                        <i class="bi bi-telephone ms-1"></i> 035-36260637
-                                    </p>
-                                    <div class=" text-start">
-                                        <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                            data-location="نجف آباد اصفهان خانم اکبری  مجتمع تجاری فردوسی - صنایع ترمه 035-36260637"
-                                            data-lat="31.89413819001718" data-lng="54.36943179325213">مشاهده روی
-                                            نقشه</button>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
 
                         <!-- کنترل‌های اسلایدر اصلی -->
