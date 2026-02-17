@@ -1139,9 +1139,8 @@
                             @foreach ($agencies as $agent)
                                 <div class="swiper-slide">
                                     <div class="text-end w-100">
-                                        <h6>{{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->name }}
-                                        </h6>
-                                        <span>{{ app()->getLocale() == 'fa' ? $agent->name_fa : $agent->name_en }}</span>
+                                        <h6>{{ app()->getLocale() == 'fa' ? $agent->name_fa : $agent->name_en }}</h6>
+                                        <span>استان {{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->name }} - شهر {{ app()->getLocale() == 'fa' ? $agent->city->name : $agent->city->name }}</span>
                                     </div>
                                     <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی ترمه سالاری" />
                                 </div>
