@@ -567,25 +567,25 @@ i {
 }
 
 .sell-count {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: #1fa726;
 }
 
 .sell-text {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 100;
     color: #666;
 }
 
 .rate-count {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: #f8b931;
 }
 
 .rate-text {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 100;
     color: #666;
 }

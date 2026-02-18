@@ -15,6 +15,7 @@ function initMainMenu() {
         let cart_dropdown = document.querySelector(".cart-dropdown");
         let favorites_dropdown = document.querySelector(".favorites-dropdown");
         let compare_dropdown = document.querySelector(".compare-dropdown");
+        let profile_dropdown = document.querySelector(".profile-dropdown");
         let categoriesMenu = document.querySelector("#categoryMenu");
         if (offerHeaderParentWidth) {
             setCssVar(
@@ -54,6 +55,8 @@ function initMainMenu() {
                 cart_dropdown.style.left = "1rem";
                 compare_dropdown.style.left = "1rem";
                 compare_dropdown.style.top = "65px";
+                profile_dropdown.style.left = "1rem";
+                profile_dropdown.style.top = "65px";
                 cart_dropdown.style.top = "65px";
                 categoriesMenu.style.top = "65px";
                 categoriesMenu.style.left = "1rem";
@@ -72,8 +75,10 @@ function initMainMenu() {
                 }
                 cart_dropdown.style.left = "-10px";
                 compare_dropdown.style.left = "-10px";
+                profile_dropdown.style.left = "-10px";
                 cart_dropdown.style.top = "75px";
                 compare_dropdown.style.top = "75px";
+                profile_dropdown.style.top = "75px";
                 categoriesMenu.style.top = "75px";
                 categoriesMenu.style.left = "-10px";
                 categoriesMenu.style.right = "-10px";

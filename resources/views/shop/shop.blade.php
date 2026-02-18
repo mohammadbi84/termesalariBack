@@ -456,6 +456,21 @@
                                                             </span>
                                                         </div>
                                                     @endif
+                                                    <button
+                                                        class="buy-button shadow-none add-to-cart compare"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}" data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
+                                                        data-local="{{ $prices->local }}"
+                                                        data-id="{{ $topRequest->orderitemable->id }}"
+                                                        data-model="{{ substr($topRequest->orderitemable->category->model, 4) }}"
+                                                        style="width: 30px;height: 30px;position: absolute;left: 40px;top: 33px;transform: translateZ(51px);"><i
+                                                            class="fa-solid fa-shuffle"></i></button>
                                                     <a href="#"
                                                         class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
@@ -733,7 +748,7 @@
                                             {{ $product->orderitemable->color_design->design->title }}
                                             رنگ
                                             {{ $product->orderitemable->color_design->color->color }}</h3>
-                                        <p class="product-description">دسته بندی
+                                        <p class="product-description m-0">دسته بندی
                                             {{ $product->orderitemable->category->title }}
                                         </p>
                                     </div>
@@ -773,6 +788,27 @@
                                                             </a>
                                                         </span>
                                                         <span class="rate-text">علاقه‌مندی</span>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <span class="sell-count d-block">
+                                                            <a name="" id=""
+                                                                class="text-decoration-none text-reset compare"
+                                                                href="#" role="button"
+                                                                data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                                                data-moddel="{{ substr($product->orderitemable->category->model, 4) }}"
+                                                                data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
+                                                                data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
+                                                                data-title="{{ $product->orderitemable->title }}"
+                                                                data-price="{{ $prices->price }}"
+                                                                data-pay="{{ $price }}"
+                                                                data-off="{{ $off }}"
+                                                                data-offType="{{ $prices->offType }}"
+                                                                data-local="{{ $prices->local }}"
+                                                                data-id="{{ $product->orderitemable->id }}"
+                                                                data-model="{{ substr($product->orderitemable->category->model, 4) }}"><i
+                                                                    class="fa-solid fa-shuffle"></i></a>
+                                                        </span>
+                                                        <span class="rate-text">مقایسه</span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-column">
@@ -1081,6 +1117,21 @@
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
                                                     <button
+                                                        class="buy-button shadow-none add-to-cart compare"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-price="{{ $prices->price }}"
+                                                        data-pay="{{ $price }}" data-off="{{ $off }}"
+                                                        data-offType="{{ $prices->offType }}"
+                                                        data-local="{{ $prices->local }}"
+                                                        data-id="{{ $topRequest->orderitemable->id }}"
+                                                        data-model="{{ substr($topRequest->orderitemable->category->model, 4) }}"
+                                                        style="width:30px;height:30px"><i
+                                                            class="fa-solid fa-shuffle"></i></button>
+                                                    <button
                                                         class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
@@ -1140,7 +1191,10 @@
                                 <div class="swiper-slide">
                                     <div class="text-end w-100">
                                         <h6>{{ app()->getLocale() == 'fa' ? $agent->name_fa : $agent->name_en }}</h6>
-                                        <span>استان {{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->name }} - شهر {{ app()->getLocale() == 'fa' ? $agent->city->name : $agent->city->name }}</span>
+                                        <span>استان
+                                            {{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->name }} -
+                                            شهر
+                                            {{ app()->getLocale() == 'fa' ? $agent->city->name : $agent->city->name }}</span>
                                     </div>
                                     <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی ترمه سالاری" />
                                 </div>
@@ -1178,14 +1232,17 @@
                                         </div>
                                     </div>
                                     <div class="info d-flex justify-content-between align-items-center">
-                                        <p class="flex-grow-1">{{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }}
+                                        <p class="flex-grow-1">
+                                            {{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }}
                                             <br>
-                                            <i class="bi bi-telephone ms-1"></i> {{$agent->phone}}
+                                            <i class="bi bi-telephone ms-1"></i> {{ $agent->phone }}
                                         </p>
                                         <div class="text-start">
-                                            <button data-bs-toggle="modal" class="btn btn-primary" data-bs-target="#mapModal"
-                                                data-location="{{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }} {{$agent->phone}}"
-                                                data-lat="{{$agent->latitude}}" data-lng="{{$agent->longitude}}">مشاهده روی
+                                            <button data-bs-toggle="modal" class="btn btn-primary"
+                                                data-bs-target="#mapModal"
+                                                data-location="{{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }} {{ $agent->phone }}"
+                                                data-lat="{{ $agent->latitude }}"
+                                                data-lng="{{ $agent->longitude }}">مشاهده روی
                                                 نقشه</button>
                                         </div>
                                     </div>
@@ -1750,6 +1807,72 @@
                 $favList.prepend(newItem);
             }
         }
+
+        $(document).on("click", ".compare", function(event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+            var model = $(this).data("model");
+            var $btn = $(this);
+            const image = $btn.data('image');
+            const title = $btn.data('title');
+            const design = $btn.data('design');
+            const color = $btn.data('color');
+            const price = $btn.data('price');
+
+            const card = $btn.closest('.product-card');
+            if (card) {
+                $btn.removeClass('hovered'); // حذف کلاس
+                card.removeClass('hovered'); // حذف کلاس
+            }
+            // برداشتن فوکوس از روی دکمه (مهم!)
+                if (document.activeElement && document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                }
+
+            $.ajax({
+                type: "GET",
+                url: document.location.origin + "/compare/add",
+                data: {
+                    id: id,
+                    model: model,
+                },
+                success: function(data) {
+                    document.querySelector(".compare-badge").textContent = data;
+                    document.querySelector(".compare-items-count").textContent = data +
+                        " کالا";
+                    const $compList = $("#navbarCompareList"); // لیست داخل منو
+                    const exists = $compList.find(
+                        `.compare-item[data-id="${id}"][data-model="${model}"]`);
+                    if (exists.length === 0) {
+                        const newItem = `
+                    <div class="compare-item"
+                        data-id="${id}"
+                        data-model="${model}" >
+                        <img src="${image}"
+                            alt="product" class="cart-item-image">
+                        <div class="cart-item-content">
+                            <div class="cart-item-title">
+                                ${title} طرح ${design} رنگ ${color}
+                            </div>
+                            <div class="cart-item-price">
+                                ${Number(price).toLocaleString()} تومان
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                        $compList.prepend(newItem);
+                    }
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "عملیا با موفقیت انجام شد.",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                },
+            });
+        });
 
 
         $(document).on("input", ".only-number", function() {

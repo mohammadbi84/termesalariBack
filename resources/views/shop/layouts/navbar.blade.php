@@ -32,14 +32,14 @@
             </div>
         </div>
 
-        @if ($bookmarks->count() ==1)
+        @if ($bookmarks->count() == 1)
             @php
                 $height = $bookmarks->first()->height;
             @endphp
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     fixedHeight = {{ $height }};
-                    setCssVar("--bookmark-height",`${fixedHeight}px`,);
+                    setCssVar("--bookmark-height", `${fixedHeight}px`, );
                 });
             </script>
         @endif
@@ -88,7 +88,7 @@
                         let firstSlide = this.slides[this.activeIndex];
                         let delay = firstSlide.dataset.delay;
                         let height = firstSlide.dataset.height;
-                        setCssVar("--bookmark-height",`${height}px`,);
+                        setCssVar("--bookmark-height", `${height}px`, );
                         if (delay) {
                             this.params.autoplay.delay = parseInt(delay);
                             this.autoplay.start();
@@ -98,7 +98,7 @@
                         let activeSlide = this.slides[this.activeIndex];
                         let delay = activeSlide.dataset.delay;
                         let height = activeSlide.dataset.height;
-                        setCssVar("--bookmark-height",`${height}px`,);
+                        setCssVar("--bookmark-height", `${height}px`, );
 
                         if (delay) {
                             this.params.autoplay.delay = parseInt(delay);
@@ -273,32 +273,13 @@
                                     <i class="fa-solid fa-arrow-right-to-bracket me-1"></i>
                                 </div>
                             @else
-                                <div class="dropdown">
+                                <div class="profile-container">
                                     <button type="button"
                                         class="button-container border border-secondary text-muted bg-white rounded p-2"
                                         data-bs-toggle="dropdown">
                                         <i class="fa-solid fa-user mx-1"></i>
                                         {{ Auth::user()->name }} {{ Auth::user()->family }}
                                     </button>
-                                    <ul class="dropdown-menu text-end">
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('user.profile') }}">
-                                                <i class="fa-solid fa-user ms-1 top-0"></i>
-                                                <span>{{ __('menu.profile') }}</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item text-danger" href="#"
-                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                                <i class="fa-solid fa-arrow-right-from-bracket ms-1 top-0"></i>
-                                                <span>{{ __('menu.logout') }}</span>
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </li>
-                                    </ul>
                                 </div>
                             @endif
                         </div>
@@ -431,6 +412,28 @@
                                 تومان</span>
                             <a href="{{ route('cart.index') }}" class="btn-checkout">مشاهده سبد خرید</a>
                         </div>
+                    </div>
+                </div>
+                {{-- منوی پروفایل --}}
+                <div class="profile-dropdown">
+                    <div class="profile-items px-4 py-3" id="navbarprofileList">
+                        <li class=" list-unstyled mb-3">
+                            <a class="dropdown-item" href="{{ route('user.profile') }}">
+                                <i class="fa-solid fa-user ms-1 top-0"></i>
+                                <span>{{ __('menu.profile') }}</span>
+                            </a>
+                        </li>
+                        <li class=" list-unstyled">
+                            <a class="dropdown-item text-danger" href="#"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                <i class="fa-solid fa-arrow-right-from-bracket ms-1 top-0"></i>
+                                <span>{{ __('menu.logout') }}</span>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
                     </div>
                 </div>
                 {{-- منوی علاقه مندی ها --}}
@@ -897,6 +900,41 @@
         function() {
             cartTimeout = setTimeout(function() {
                 $('.cart-dropdown').css({
+                    'opacity': '0',
+                    'visibility': 'hidden',
+                    'transform': 'translateY(10px)'
+                });
+            }, 200);
+        }
+    );
+    let profileTimeout;
+    $('.profile-container').hover(
+        function() {
+            clearTimeout(profileTimeout);
+            $('.profile-dropdown').css({
+                'opacity': '1',
+                'visibility': 'visible',
+                'transform': 'translateY(0)'
+            });
+        },
+        function() {
+            profileTimeout = setTimeout(function() {
+                $('.profile-dropdown').css({
+                    'opacity': '0',
+                    'visibility': 'hidden',
+                    'transform': 'translateY(10px)'
+                });
+            }, 200);
+        }
+    );
+    // جلوگیری از بستن وقتی هاور روی منو است
+    $('.profile-dropdown').hover(
+        function() {
+            clearTimeout(profileTimeout);
+        },
+        function() {
+            profileTimeout = setTimeout(function() {
+                $('.profile-dropdown').css({
                     'opacity': '0',
                     'visibility': 'hidden',
                     'transform': 'translateY(10px)'

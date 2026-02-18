@@ -750,6 +750,10 @@
     position: relative;
     display: inline-block;
 }
+.profile-container {
+    position: relative;
+    display: inline-block;
+}
 
 .cart-btn {
     position: relative;
@@ -778,6 +782,7 @@
 
 .cart-dropdown,
 .favorites-dropdown,
+.profile-dropdown,
 .compare-dropdown {
     position: absolute;
     top: 75px;
@@ -802,6 +807,10 @@
 .compare-dropdown {
     left: -10px;
 }
+.profile-dropdown {
+    width: 200px !important;
+    left: -10px;
+}
 
 .cart-container:hover .cart-dropdown {
     opacity: 1;
@@ -816,6 +825,11 @@
 }
 
 .compare-container:hover .compare-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.profile-container:hover .profile-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);

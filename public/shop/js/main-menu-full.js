@@ -9,11 +9,14 @@ Bookmark2.innerHTML = "";
 let cart_dropdown = document.querySelector(".cart-dropdown");
 let favorites_dropdown = document.querySelector(".favorites-dropdown");
 let compare_dropdown = document.querySelector(".compare-dropdown");
+let profile_dropdown = document.querySelector(".profile-dropdown");
 if (favorites_dropdown) {
     favorites_dropdown.style.top = "65px";
     favorites_dropdown.style.left = "1rem";
 }
 cart_dropdown.style.left = "1rem";
+profile_dropdown.style.left = "1rem";
+profile_dropdown.style.top = "65px";
 compare_dropdown.style.left = "1rem";
 compare_dropdown.style.top = "65px";
 cart_dropdown.style.top = "65px";
