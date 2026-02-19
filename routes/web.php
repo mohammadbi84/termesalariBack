@@ -69,9 +69,7 @@ Route::get('/shop/privacy-and-policy', function () {
 Route::get('/shop/terms', function () {
     return view('terms');
 })->name('terms');
-Route::get('/store/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/store/about', 'HomestoreController@about')->name('about');
 
 
 Route::Post("/home/sendMessage", "MessageController@store")->name("message.store");

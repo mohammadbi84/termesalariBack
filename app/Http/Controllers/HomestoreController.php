@@ -22,10 +22,10 @@ class HomestoreController extends Controller
     {
         $agencies = Agency::with('city', 'state')->orderBy('city_id', 'asc')->get();
         $popups = Popup::active()
-            ->with(['images' => function($query) {
+            ->with(['images' => function ($query) {
                 $query->orderBy('order');
             }])
-            ->orderBy('sort','asc')->get();
+            ->orderBy('sort', 'asc')->get();
         $topRequests = Orderitem::with('orderitemable')
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')
@@ -158,5 +158,15 @@ class HomestoreController extends Controller
         return $query = $query->when($request->col, function ($query) use ($request) {
             $query->where($request->col, $request->value);
         });
+    }
+
+    public function about()
+    {
+        $agencies = Agency::with('city', 'state')->get();
+
+        $grouped = $agencies->groupBy(function ($agency) {
+            return optional($agency->state)->map_code;
+        });
+        return view('about', compact('agencies', 'grouped'));
     }
 }

@@ -43,7 +43,7 @@ const observer = new IntersectionObserver(
     },
     {
         threshold: 0.9,
-    }
+    },
 );
 
 counters.forEach((counter) => observer.observe(counter));
@@ -54,7 +54,7 @@ var HotSplide = new Splide("#hot_slider", {
     type: "loop",
     perPage: 4,
     perMove: 1,
-    padding: '20px',
+    padding: "20px",
     gap: "1.7rem",
     arrows: false,
     pagination: false,
@@ -78,7 +78,9 @@ let perPage = 4; // تعداد اسلایدهای قابل مشاهده
 
 // تابع برای تغییر اسلاید فعال
 function changeActiveSlide() {
-    const slides = document.querySelectorAll("#hot_slider .splide__slide.is-visible");
+    const slides = document.querySelectorAll(
+        "#hot_slider .splide__slide.is-visible",
+    );
 
     // حذف کلاس active از همه اسلایدها
     slides.forEach((slide) => {
@@ -104,7 +106,7 @@ function changeActiveSlide() {
         // بعد از حرکت اسلایدر، اسلاید اول را فعال کن
         setTimeout(() => {
             const newSlides = document.querySelectorAll(
-                "#hot_slider .splide__slide"
+                "#hot_slider .splide__slide",
             );
             if (newSlides[0]) {
                 newSlides[0].classList.add("is-active");
@@ -212,146 +214,8 @@ var swiper2 = new Swiper(".branches-slider", {
 });
 
 // map ============================================================================================
-const branches = [
-    { stateId: "IR07", labelId: "label-tehran", name: "تهران" },
-    { stateId: "IR04", labelId: "label-isfahan", name: "اصفهان" },
-    { stateId: "IR30", labelId: "label-mashhad", name: "مشهد" },
-    { stateId: "IR15", labelId: "label-kerman", name: "کرمان" },
-    { stateId: "IR28", labelId: "label-ghazvin", name: "قزوین" },
-    { stateId: "IR18", labelId: "label-yasoj", name: "یاسوج" },
-];
-
-// branches.forEach((b) => {
-//     simplemaps_countrymap_mapdata.state_specific[b.stateId].color = "#4FBA6C";
-//     simplemaps_countrymap_mapdata.state_specific[b.stateId].name = b.name;
-//     simplemaps_countrymap_mapdata.state_specific[b.stateId].hover_color =
-//         "#1f8717";
-// });
-
-// simplemaps_countrymap_mapdata.main_settings.zoom = "no";
-// simplemaps_countrymap_mapdata.main_settings.manual_zoom = "no";
-// simplemaps_countrymap_mapdata.main_settings.all_states_zoomable = "no";
-
-// function getStateElement(stateId) {
-//     return document.querySelector(`.sm_state_${stateId}`);
-// }
-
-// let lines = [];
-
-// function drawLines() {
-//     lines.forEach((l) => l.remove());
-//     lines = [];
-
-//     branches.forEach((b) => {
-//         const stateEl = getStateElement(b.stateId);
-//         const labelEl = document.getElementById(b.labelId);
-//         if (!stateEl || !labelEl) return;
-
-//         lines.push(
-//             new LeaderLine(
-//                 LeaderLine.pointAnchor(stateEl, { x: "60%", y: "50%" }),
-//                 labelEl,
-//                 {
-//                     startPlug: "square",
-//                     endPlug: "square",
-//                     endPlugSize: 2,
-//                     color: "#061f10",
-//                     size: 2,
-//                     dash: { len: 8, gap: 5, animation: true },
-//                 }
-//             )
-//         );
-//     });
-// }
-
-// simplemaps_countrymap.hooks.complete = function () {
-//     drawLines();
-//     $("#map a").addClass("d-none");
-// };
-
-// window.addEventListener("resize", () => {
-//     lines.forEach((l) => l.position());
-// });
 document.addEventListener("DOMContentLoaded", function () {
-    const branchesData = {
-        IR07: {
-            province: "تهران",
-            offices: [
-                {
-                    manager: "آقای صفائی",
-                    address: "بازار کفاش‌ها - خانه ترمه ایران",
-                    phone: "",
-                },
-                {
-                    manager: "آقای میرزایی",
-                    address: "مینی سیتی - شهرک شهید محلاتی",
-                    phone: "",
-                },
-            ],
-        },
-
-        IR30: {
-            province: "مشهد",
-            offices: [
-                {
-                    manager: "آقای شفاجو",
-                    address: "چهارراه خسروی - پاساژ جواد - طبقه اول",
-                    phone: "05132253572",
-                },
-            ],
-        },
-
-        IR04: {
-            province: "اصفهان",
-            offices: [
-                {
-                    manager: "آقای شجائی",
-                    address: "میدان نقش جهان",
-                    phone: "",
-                },
-                {
-                    manager: "خانم اکبری",
-                    address: "نجف آباد - مجتمع تجاری فردوسی - صنایع ترمه",
-                    phone: "",
-                },
-            ],
-        },
-
-        IR15: {
-            province: "کرمان",
-            offices: [
-                {
-                    manager: "آقای نیک نفس",
-                    address:
-                        "سه‌راهی شمالی جنوبی - جنب مسجد شیخ‌ها - ترمه ابریشم",
-                    phone: "03432239460",
-                },
-            ],
-        },
-
-        IR28: {
-            province: "قزوین",
-            offices: [
-                {
-                    manager: "خانم حاتمی",
-                    address:
-                        "خیابان فردوسی - بعد از چهارراه بوعلی - جنب تالار فرهنگیان - ترمه سیان",
-                    phone: "02833359101",
-                },
-            ],
-        },
-
-        IR18: {
-            province: "یاسوج",
-            offices: [
-                {
-                    manager: "خانم کیانوش",
-                    address: "خیابان ۳۰ متری معاد",
-                    phone: "",
-                },
-            ],
-        },
-    };
+    
     const activeStates = Object.keys(branchesData);
     activeStates.forEach((stateId) => {
         if (simplemaps_countrymap_mapdata.state_specific[stateId]) {
@@ -447,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     startPlug: "disc",
                     endPlug: "arrow1",
                     endPlugSize: 1.5,
-                }
+                },
             );
 
             lines.push(line);
@@ -458,10 +322,6 @@ document.addEventListener("DOMContentLoaded", function () {
             drawLines();
         }, 500); // زمان مکث - قابل تغییر
     };
-
-    // window.addEventListener("resize", () => {
-    //     lines.forEach((line) => line.position());
-    // });
 });
 
 // Office Map ============================================================================================

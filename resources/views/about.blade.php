@@ -19,7 +19,7 @@
     @else
         <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
     @endif
-        <script src="{{ asset('shop/js/scripts.js') }}"></script>
+    <script src="{{ asset('shop/js/scripts.js') }}"></script>
 
     <!-- video -->
 
@@ -492,94 +492,31 @@
                 <div id="branchs-slider" class="splide">
                     <div class="splide__track py-3">
                         <ul class="splide__list py-3">
-                            <li class="splide__slide">
-                                <div class="horizontal-card">
-                                    <div class="card-image">
-                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
-                                    </div>
-                                    <div class="card-info">
-                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
-                                        <div class="card-detail">
-                                            <i class="fa fa-map-marker"></i>
-                                            خیابان مثال، کوچه نمونه
+                            @foreach ($agencies as $agent)
+                                <li class="splide__slide">
+                                    <div class="horizontal-card">
+                                        <div class="card-image">
+                                            <img src="{{ asset('storage/'.$agent->image) }}" alt="نمایندگی">
                                         </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-phone"></i>
-                                            021-12345678
-                                        </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-envelope"></i>
-                                            example@gmail.com
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="splide__slide">
-                                <div class="horizontal-card">
-                                    <div class="card-image">
-                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
-                                    </div>
-                                    <div class="card-info">
-                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
-                                        <div class="card-detail">
-                                            <i class="fa fa-map-marker"></i>
-                                            خیابان مثال، کوچه نمونه
-                                        </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-phone"></i>
-                                            021-12345678
-                                        </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-envelope"></i>
-                                            example@gmail.com
+                                        <div class="card-info">
+                                            <h3 class="card-title">نمایندگی استان {{ $agent->state->name }} - شهر
+                                                {{ $agent->city->name }}</h3>
+                                            <div class="card-detail">
+                                                <i class="fa fa-map-marker"></i>
+                                                {{ $agent->address_fa }}
+                                            </div>
+                                            <div class="card-detail">
+                                                <i class="fa fa-phone"></i>
+                                                {{ $agent->phone }}
+                                            </div>
+                                            <div class="card-detail">
+                                                <i class="fa fa-mobile"></i>
+                                                {{ $agent->mobile }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="splide__slide">
-                                <div class="horizontal-card">
-                                    <div class="card-image">
-                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
-                                    </div>
-                                    <div class="card-info">
-                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
-                                        <div class="card-detail">
-                                            <i class="fa fa-map-marker"></i>
-                                            خیابان مثال، کوچه نمونه
-                                        </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-phone"></i>
-                                            021-12345678
-                                        </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-envelope"></i>
-                                            example@gmail.com
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="splide__slide">
-                                <div class="horizontal-card">
-                                    <div class="card-image">
-                                        <img src="{{ asset('shop/assets/products/product2.webp') }}" alt="نمایندگی">
-                                    </div>
-                                    <div class="card-info">
-                                        <h3 class="card-title">نمایندگی ترمه ابریشم</h3>
-                                        <div class="card-detail">
-                                            <i class="fa fa-map-marker"></i>
-                                            خیابان مثال، کوچه نمونه
-                                        </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-phone"></i>
-                                            021-12345678
-                                        </div>
-                                        <div class="card-detail">
-                                            <i class="fa fa-envelope"></i>
-                                            example@gmail.com
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -753,7 +690,29 @@
     @endif
     {{-- <script src="https://unpkg.com/leader-line@1.0.7/leader-line.min.js"></script> --}}
     <script src="https://lib.arvancloud.ir/leader-line/1.0.7/leader-line.min.js"></script>
+
+    @php
+        $mapped = $grouped->map(function ($items, $mapCode) {
+            return [
+                'province' => $items->first()->state->name,
+                'offices' => $items
+                    ->map(function ($agency) {
+                        return [
+                            'manager' => $agency->name_fa,
+                            'address' => $agency->address_fa,
+                            'phone' => $agency->phone,
+                        ];
+                    })
+                    ->values(),
+            ];
+        });
+    @endphp
+
+    <script>
+        const branchesData = @json($mapped);
+    </script>
     <script src="{{ asset('shop/js/about.js') }}"></script>
+
 
     <script>
         const videoBtn = document.getElementById("video-btn");
