@@ -469,7 +469,7 @@
                                                         data-local="{{ $prices->local }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-model="{{ substr($topRequest->orderitemable->category->model, 4) }}"
-                                                        style="width: 30px;height: 30px;position: absolute;left: 40px;top: 33px;transform: translateZ(51px);"><i
+                                                        style="width: 35px;height: 32px;position: absolute;left: 40px;top: 3px;transform: translateZ(51px);"><i
                                                             class="fa-solid fa-shuffle"></i></button>
                                                     <a href="#"
                                                         class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
@@ -1856,6 +1856,12 @@
                             </div>
                             <div class="cart-item-price">
                                 ${Number(price).toLocaleString()} تومان
+                            </div>
+                            <div
+                                class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                                <button class="buy-button add-to-cart close"
+                                    data-id="${id}" style="width: 30px;height:30px"><i
+                                        class="fa-solid fa-close text-danger fa-lg"></i></button>
                             </div>
                         </div>
                     </div>

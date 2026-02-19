@@ -436,7 +436,7 @@
                         </li>
                     </div>
                 </div>
-                {{-- منوی علاقه مندی ها --}}
+                {{-- منوی مقایسه ها --}}
                 <div class="compare-dropdown">
                     <div class="favorites-header">
                         <span class="mb-0">{{ __('menu.compare') }}</span>
@@ -485,6 +485,12 @@
                                             @else
                                                 ناموجود
                                             @endif
+                                        </div>
+                                        <div
+                                            class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
+                                            <button class="buy-button add-to-cart close"
+                                                data-id="{{ $compare->id }}" style="width: 30px;height:30px"><i
+                                                    class="fa-solid fa-close text-danger fa-lg"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -1012,4 +1018,36 @@
             }, 200);
         }
     );
+
+    $(document).on("click", ".close", function(event) {
+        event.preventDefault();
+        var id = $(this).data("id");
+        var thiz = $(this);
+        $.ajax({
+            type: 'get',
+            url: "{{ route('compare.remove') }}",
+            data: {
+                _token: '<?php echo csrf_token(); ?>',
+                id: id,
+                model: "Tablecloth",
+            },
+            success: function(data) {
+                const $comList = $("#navbarCompareList"); // لیست داخل منو
+                const exists = $comList.find(
+                    `.compare-item[data-id="${id}"]`);
+                if (exists.length > 0) {
+                    exists.remove(); // حذف از لیست
+                    // بروزرسانی تعداد
+                    const $badge = $(".compare-badge"); // شمارشگر علاقه‌مندی
+                    const $badge2 = $("#compare-items-count"); // شمارشگر علاقه‌مندی
+                    let count = parseInt($badge.text()) || 0;
+                    $badge.text(count > 0 ? count - 1 : 0);
+                    $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
+
+                    return "removed";
+                }
+
+            }
+        });
+    });
 </script>

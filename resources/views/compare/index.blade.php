@@ -18,9 +18,9 @@
 
 		main>.container-fluid{
 			padding-right: 0px !important;
-			padding-left: 0px !important; 
+			padding-left: 0px !important;
 			margin-right: 0px !important;
-			margin-left: 0px !important; 
+			margin-left: 0px !important;
 		}
 
 		#main ul>li{
@@ -157,7 +157,7 @@
 		.compare_list_value:first-child {
 		    border-right: none;
 		}
-		
+
 		.compare_list_title{
 			-ms-flex: 0 0 100%;
 		    -webkit-box-flex: 0;
@@ -228,7 +228,7 @@
 			          							<small class="text-muted float-right">{{ count($compare->grades) }} نفر</small>
 							                    <div class="br-wrapper br-theme-fontawesome-stars float-left">
 							                    	{{-- @dump($key) --}}
-							                        <select class="showGrade{{$compare->id}}"> 
+							                        <select class="showGrade{{$compare->id}}">
 							                            <option value="1">1</option>
 							                            <option value="2">2</option>
 							                            <option value="3">3</option>
@@ -263,9 +263,7 @@
 		          							</div>
 		          						</div>
 		          					</div>
-		          					<a href="{{ route('compare.remove') }}" class="close" data-id="{{ $compare->id }}"><i class="fa fa-close"></i>
-
-		          					</a>
+		          					<a href="{{ route('compare.remove') }}" class="close" data-id="{{ $compare->id }}"><i class="fa fa-close"></i></a>
 		          						{{-- {{ dd($compare->category->model) }} --}}
 		          					<a href="
 		          						@switch($compare->category->model)
@@ -379,7 +377,7 @@
 
 	          		@endif
 
-	          		
+
 
 
 	          	{{-- </div> --}}
@@ -409,7 +407,7 @@
 
 			$(window).scroll(function(){
 			    if ($(window).scrollTop() >= 250) {
-			        $('#header-compare').addClass('fixed-header');	
+			        $('#header-compare').addClass('fixed-header');
 			    }
 			    else {
 			        $('#header-compare').removeClass('fixed-header');
@@ -449,7 +447,7 @@
 					}
 				});
 			})
-			
+
 		})//End
 	</script>
 @endpush

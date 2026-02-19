@@ -1053,6 +1053,9 @@
                 $btn.removeClass('hovered'); // حذف کلاس
                 card.removeClass('hovered'); // حذف کلاس
             }
+            if (document.activeElement && document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                }
 
             $.ajax({
                 type: "GET",

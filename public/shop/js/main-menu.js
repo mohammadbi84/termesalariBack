@@ -111,7 +111,9 @@ function initMainMenu() {
     }
 
     // افزودن رویداد کلیک به دکمه بوکمارک
-    bookmarkToggle.addEventListener("click", toggleBookmark);
+    if (bookmarkToggle) {
+        bookmarkToggle.addEventListener("click", toggleBookmark);
+    }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
