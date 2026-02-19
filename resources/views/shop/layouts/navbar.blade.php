@@ -394,7 +394,7 @@
                                                     data-id="{{ $productId }}">+</button>
                                                 <a href="#" class="delete-item me-3" data-id="{{ $productId }}"
                                                     data-model="{{ $model }}">
-                                                    <i class="far fa-trash-alt text-danger"></i>
+                                                    <i class="fa-solid fa-close text-danger"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -488,9 +488,9 @@
                                         </div>
                                         <div
                                             class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
-                                            <button class="buy-button add-to-cart close"
-                                                data-id="{{ $compare->id }}" style="width: 30px;height:30px"><i
-                                                    class="fa-solid fa-close text-danger fa-lg"></i></button>
+                                            <button class="delete-btn close"
+                                                data-id="{{ $compare->id }}"><i
+                                                    class="fa-solid fa-close text-danger"></i></button>
                                         </div>
                                     </div>
                                 </div>

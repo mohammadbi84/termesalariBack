@@ -1432,7 +1432,7 @@
                         <a href="#" class="delete-item me-3"
                             data-id="${item.id}"
                             data-model="${item.model}">
-                            <i class="far fa-trash-alt text-danger"></i>
+                            <i class="fa-solid fa-close text-danger"></i>
                         </a>
                     </div>
                 </div>
