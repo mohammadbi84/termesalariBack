@@ -325,3 +325,7 @@ Route::resource('agency',"AgencyController");
 Route::delete('/agency/delete-main-image/{agency}', [AgencyController::class, 'deleteMainImage'])->name('agency.deleteMainImage');
 Route::delete('/agency/delete-slider-image/{sliderImage}', [AgencyController::class, 'deleteSliderImage'])->name('agency.deleteSliderImage');
 Route::get('/get-cities-by-province/{province}', [AgencyController::class, 'getByProvince'])->name('get.cities.by.province');
+
+
+// generation (صفحه های داخلی)
+Route::resource('generation', 'GenerationController');
