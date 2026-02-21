@@ -68,62 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // مقداردهی اولیه وضعیت دکمه‌ها
     updateButtonStates();
 
-    // category===========================================================================================
-    var categorySplide = new Splide("#categories", {
-        perPage: 7,
-        padding: "20px",
-        arrows: false,
-        pagination: false,
-        direction: "rtl",
-        breakpoints: {
-            1024: { perPage: 3 },
-            768: { perPage: 2 },
-            480: { perPage: 2, focus: "start" },
-        },
-    });
-    categorySplide.mount();
-
-    const prevBtnCategory = document.querySelector(".splide-category-prev-btn");
-    const nextBtnCategory = document.querySelector(".splide-category-next-btn");
-
-    // اضافه کردن event listener برای دکمه‌ها
-    if (prevBtnCategory) {
-        prevBtnCategory.addEventListener("click", function () {
-            categorySplide.go("<");
-        });
-    }
-
-    if (nextBtnCategory) {
-        nextBtnCategory.addEventListener("click", function () {
-            categorySplide.go(">");
-        });
-    }
-
-    // به‌روزرسانی وضعیت دکمه‌ها هنگام تغییر اسلاید
-    categorySplide.on("moved", function () {
-        updateButtonStatesCategory();
-        updateRangeDisplay(categorySplide, "category-range");
-    });
-
-    // تابع برای به‌روزرسانی وضعیت دکمه‌ها
-    function updateButtonStatesCategory() {
-        const index = categorySplide.index;
-        const length = categorySplide.length;
-
-        if (prevBtnCategory) {
-            prevBtnCategory.disabled = index === 0;
-        }
-
-        if (nextBtnCategory) {
-            nextBtnCategory.disabled =
-                index >= length - categorySplide.options.perPage;
-        }
-    }
-
-    // مقداردهی اولیه وضعیت دکمه‌ها
-    updateButtonStatesCategory();
-    updateRangeDisplay(categorySplide, "category-range");
-
     // Hot===========================================================================================
     var HotSplide = new Splide("#hot_slider", {
         perPage: 4,

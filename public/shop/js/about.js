@@ -215,7 +215,7 @@ var swiper2 = new Swiper(".branches-slider", {
 
 // map ============================================================================================
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     const activeStates = Object.keys(branchesData);
     activeStates.forEach((stateId) => {
         if (simplemaps_countrymap_mapdata.state_specific[stateId]) {
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ${office.manager}
           </div>
           <div class="branch-card__address">
-            ${office.address}
+            ${office.city} - ${office.address}
           </div>
           ${
               office.phone

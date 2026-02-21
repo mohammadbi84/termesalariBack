@@ -11,6 +11,7 @@ use App\Orderitem;
 use App\Price;
 use App\Slideshow;
 use App\Category;
+use App\Generation;
 use App\Pillow;
 use App\Popup;
 use App\Prayermat;
@@ -47,7 +48,7 @@ class HomestoreController extends Controller
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')
             ->latest()
-            ->take(20)
+            ->take(10)
             ->get();
 
         $newestProducts = $newestProducts->filter(function ($item) {
@@ -167,6 +168,8 @@ class HomestoreController extends Controller
         $grouped = $agencies->groupBy(function ($agency) {
             return optional($agency->state)->map_code;
         });
-        return view('about', compact('agencies', 'grouped'));
+
+        $generations = Generation::all();
+        return view('about', compact('agencies', 'grouped','generations'));
     }
 }

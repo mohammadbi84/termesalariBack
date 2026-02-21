@@ -38,8 +38,7 @@
                                             <div class="swiper-wrapper">
                                                 @foreach ($popup->images as $image)
                                                     <div class="swiper-slide" data-delay="{{ $image->duration }}">
-                                                        <img src="{{ asset($image->image) }}"
-                                                            style="height:400px;object-fit:cover;width:100%;">
+                                                        <img src="{{ asset($image->image) }}">
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -67,7 +66,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center p-4 px-5 pt-0">
+                    <div class="d-flex justify-content-between align-items-center p-4 px-5 pt-0 popup-footer">
                         <a href="#" class="btn btn-primary" id="popup-more-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
@@ -456,15 +455,14 @@
                                                             </span>
                                                         </div>
                                                     @endif
-                                                    <button
-                                                        class="buy-button shadow-none add-to-cart compare"
+                                                    <button class="buy-button shadow-none add-to-cart compare"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
                                                         data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
                                                         data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
                                                         data-title="{{ $topRequest->orderitemable->title }}"
-                                                        data-price="{{ $prices->price }}"
-                                                        data-pay="{{ $price }}" data-off="{{ $off }}"
+                                                        data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                                        data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
                                                         data-local="{{ $prices->local }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
@@ -651,43 +649,26 @@
         <!-- start categories -->
         <section>
             <div class="container mb-5 px-0">
-                <div class=" d-flex align-items-center justify-content-between w-100 p-2">
+                <div class=" d-flex align-items-center justify-content-between w-100 p-2 mb-3">
                     <div class="d-flex align-items-center gap-2">
                         <img src="{{ asset('shop/assets/svgs/layer-group-solid-full.svg') }}"
                             alt="{{ __('main.categories') }}" width="30">
                         <h2 class="title m-0">{{ __('main.categories') }}</h2>
                     </div>
-                    <div class="">
-                        <!-- دکمه‌های کنترل جداگانه -->
-                        <div class="custom-splide-controls">
-                            <button class="splide-prev-btn splide-category-prev-btn">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </button>
-                            <span id="category-range" class="slide-range">1-5</span>
-                            <button class="splide-next-btn splide-category-next-btn">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </button>
-                        </div>
-                    </div>
                 </div>
-                <section class="splide" id="categories" aria-label="دسته بندی‌ها">
-                    <div class="splide__track py-3">
-                        <ul class="splide__list justify-content-cecnter" style="justify-content: center;">
-                            @foreach ($allCategories as $category)
-                                <li class="splide__slide">
-                                    <a href="{{ route($category->link) ?? '#' }}"
-                                        class="text-decoration-none text-reset">
-                                        <div class="category-card">
-                                            <img src="{{ asset($category->image) }}" alt="تصاویر">
-                                            <div class="title">{{ $category->title }}</div>
-                                            <div class="count">{{ $category['productsCount'] }}</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </section>
+                <div class="row row-cols-2 row-cols-md-6 justify-content-center g-0">
+                    @foreach ($allCategories as $category)
+                        <div class="col mb-3 d-flex justify-content-center align-items-center">
+                            <a href="{{ route($category->link) ?? '#' }}" class="text-decoration-none text-reset">
+                                <div class="category-card">
+                                    <img src="{{ asset($category->image) }}" alt="تصاویر">
+                                    <div class="title">{{ $category->title }}</div>
+                                    <div class="count">{{ $category['productsCount'] }}</div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </section>
         <!-- end categories -->
@@ -954,18 +935,17 @@
                             <!-- empty for image place -->
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-7 col-md-8">
                             <p class="text-white text-center mb-0 text-bold-3">{{ __('main.socialText') }}</p>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-3 col-md-2">
                             <a class="btn btn-light w-100 text-blue"
                                 href="https://www.instagram.com/termehsalari/">{{ __('main.socialClick') }}</a>
                         </div>
                     </div>
 
-                    <img src="{{ asset('shop/assets/svgs/invite-instagram.png') }}" alt=""
-                        style="height: 160px; margin-top: -120px">
+                    <img src="{{ asset('shop/assets/svgs/invite-instagram.png') }}" alt="" class="insta-image">
                 </div>
             </div>
         </section>
@@ -1116,8 +1096,7 @@
                                                     <span class="fs-10">{{ $topRequest->sum }} عدد فروش رفته</span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
-                                                    <button
-                                                        class="buy-button shadow-none add-to-cart compare"
+                                                    <button class="buy-button shadow-none add-to-cart compare"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
                                                         data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
@@ -1825,9 +1804,9 @@
                 card.removeClass('hovered'); // حذف کلاس
             }
             // برداشتن فوکوس از روی دکمه (مهم!)
-                if (document.activeElement && document.activeElement instanceof HTMLElement) {
-                    document.activeElement.blur();
-                }
+            if (document.activeElement && document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
 
             $.ajax({
                 type: "GET",

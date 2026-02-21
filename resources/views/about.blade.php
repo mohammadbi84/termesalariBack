@@ -56,63 +56,26 @@
         {{-- family start --}}
         <div class="row p-3 mb-4">
 
-            <!-- نفر اول -->
-            <div class="col-md-4 px-0 builder-col">
-                <div class="ps-3 h-100">
-                    <div class="d-flex justify-content-between align-items-end">
-                        <img src="{{ asset('shop/assets/1.jpeg') }}" alt="founder" class="builder-image">
-                        <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                            <span class="builder-title">
-                                {{ __('about.founder_1_name') }} <br>
-                                <small>{{ __('about.founder_1_role') }}</small>
-                            </span>
-                            <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+            @foreach ($generations as $generation)
+                <!-- نفر اول -->
+                <div class="col-md-4 px-0 builder-col">
+                    <div class="ps-3 h-100">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <img src="{{ asset('storage/'.$generation->image) }}" alt="founder" class="builder-image">
+                            <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
+                                <span class="builder-title">
+                                    {{ app()->getLocale() == 'fa' ? $generation->name_fa : $generation->name_en }} <br>
+                                    <small>{{ app()->getLocale() == 'fa' ? $generation->pretext_fa : $generation->pretext_en }}</small>
+                                </span>
+                                <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
+                            </div>
+                        </div>
+                        <div class="pb-4 px-4 pt-5 builder-text">
+                            {{ app()->getLocale() == 'fa' ? $generation->description_fa : $generation->description_en }}
                         </div>
                     </div>
-                    <div class="pb-4 px-4 pt-5 builder-text">
-                        {{ __('about.founder_1_text') }}
-                    </div>
                 </div>
-            </div>
-
-            <!-- نفر دوم -->
-            <div class="col-md-4 px-0 builder-col">
-                <div class="px-3 h-100">
-                    <div class="d-flex justify-content-between align-items-end">
-                        <img src="{{ asset('shop/assets/2.jpeg') }}" alt="founder" class="builder-image">
-                        <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                            <span class="builder-title">
-                                {{ __('about.founder_2_name') }} <br>
-                                <small>{{ __('about.founder_2_role') }}</small>
-                            </span>
-                            <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
-                        </div>
-                    </div>
-                    <div class="pb-4 px-4 pt-5 builder-text">
-                        {{ __('about.founder_2_text') }}
-                    </div>
-                </div>
-            </div>
-
-            <!-- نفر سوم -->
-            <div class="col-md-4 px-0 builder-col">
-                <div class="pe-3 h-100">
-                    <div class="d-flex justify-content-between align-items-end">
-                        <img src="{{ asset('shop/assets/3.jpeg') }}" alt="founder" class="builder-image">
-                        <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
-                            <span class="builder-title">
-                                {{ __('about.founder_3_name') }} <br>
-                                <small>{{ __('about.founder_3_role') }}</small>
-                            </span>
-                            <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
-                        </div>
-                    </div>
-                    <div class="pb-4 px-4 pt-5 builder-text">
-                        {{ __('about.founder_3_text') }}
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
         {{-- family end --}}
         {{-- mission start --}}
@@ -496,7 +459,7 @@
                                 <li class="splide__slide">
                                     <div class="horizontal-card">
                                         <div class="card-image">
-                                            <img src="{{ asset('storage/'.$agent->image) }}" alt="نمایندگی">
+                                            <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی">
                                         </div>
                                         <div class="card-info">
                                             <h3 class="card-title">نمایندگی استان {{ $agent->state->name }} - شهر
@@ -701,6 +664,7 @@
                             'manager' => $agency->name_fa,
                             'address' => $agency->address_fa,
                             'phone' => $agency->phone,
+                            'city' => $agency->city->name,
                         ];
                     })
                     ->values(),
