@@ -706,7 +706,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="row g-0 p-2">
+                <div class="row g-0 p-0 p-md-2">
                     @foreach ($newestProducts as $key => $product)
                         @php
                             $prices = $product->orderitemable->prices->where('local', 'تومان')->first();
@@ -735,7 +735,7 @@
                         @endphp
 
                         <!-- محصول 1 -->
-                        <div class="col-md-4 col-lg-3 p-2">
+                        <div class="col-6 col-md-4 col-lg-3 p-1 p-md-2">
                             <div class="product-card">
                                 {{-- <div class="discount-badge">20% تخفیف</div> --}}
                                 <div class="product-image">

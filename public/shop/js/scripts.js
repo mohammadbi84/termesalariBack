@@ -16,10 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 perPage: 3,
             },
             600: {
-                perPage: 2,
-                focus: "center",
-                gap: "0.6rem",
-                fixedWidth: "calc(66.666% - 0.6rem)",
+                perPage: 1,
+                focus: "start",
+                padding: { left: "150px" },
             },
         },
     });
@@ -73,14 +72,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var categorySplide = new Splide("#categories", {
         perPage: 7,
         padding: "20px",
-        gap: "1.5rem",
         arrows: false,
         pagination: false,
         direction: "rtl",
         breakpoints: {
             1024: { perPage: 3 },
             768: { perPage: 2 },
-            480: { perPage: 2 },
+            480: { perPage: 2, focus: "start" },
         },
     });
     categorySplide.mount();
@@ -104,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // به‌روزرسانی وضعیت دکمه‌ها هنگام تغییر اسلاید
     categorySplide.on("moved", function () {
         updateButtonStatesCategory();
-        updateRangeDisplay(splide, "category-range");
+        updateRangeDisplay(categorySplide, "category-range");
     });
 
     // تابع برای به‌روزرسانی وضعیت دکمه‌ها
@@ -136,8 +134,8 @@ document.addEventListener("DOMContentLoaded", function () {
         direction: "rtl",
         breakpoints: {
             1024: { perPage: 4 },
-            768: { perPage: 2 },
-            480: { perPage: 1 },
+            768: { perPage: 2, focus: "start", padding: { left: "50px" } },
+            480: { perPage: 1, focus: "start", padding: { left: "150px" } },
         },
     });
     HotSplide.mount();
@@ -210,10 +208,10 @@ $(document).ready(function () {
             if (timeLeft > 0) {
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
                 const hours = Math.floor(
-                    (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                    (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
                 );
                 const minutes = Math.floor(
-                    (timeLeft % (1000 * 60 * 60)) / (1000 * 60)
+                    (timeLeft % (1000 * 60 * 60)) / (1000 * 60),
                 );
                 const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
@@ -221,50 +219,50 @@ $(document).ready(function () {
                     .find(".days")
                     .html(
                         pad(days) +
-                            '<span class="d-block text-dark timer-label">روز</span>'
+                            '<span class="d-block text-dark timer-label">روز</span>',
                     );
                 $(this)
                     .find(".hours")
                     .html(
                         pad(hours) +
-                            '<span class="d-block text-dark timer-label">ساعت</span>'
+                            '<span class="d-block text-dark timer-label">ساعت</span>',
                     );
                 $(this)
                     .find(".minutes")
                     .html(
                         pad(minutes) +
-                            '<span class="d-block text-dark timer-label">دقیقه</span>'
+                            '<span class="d-block text-dark timer-label">دقیقه</span>',
                     );
                 $(this)
                     .find(".seconds")
                     .html(
                         pad(seconds) +
-                            '<span class="d-block text-dark timer-label">ثانیه</span>'
+                            '<span class="d-block text-dark timer-label">ثانیه</span>',
                     );
             } else {
                 $(this)
                     .find(".days")
                     .html(
                         0 +
-                            '<span class="d-block text-dark timer-label">روز</span>'
+                            '<span class="d-block text-dark timer-label">روز</span>',
                     );
                 $(this)
                     .find(".hours")
                     .html(
                         0 +
-                            '<span class="d-block text-dark timer-label">ساعت</span>'
+                            '<span class="d-block text-dark timer-label">ساعت</span>',
                     );
                 $(this)
                     .find(".minutes")
                     .html(
                         0 +
-                            '<span class="d-block text-dark timer-label">دقیقه</span>'
+                            '<span class="d-block text-dark timer-label">دقیقه</span>',
                     );
                 $(this)
                     .find(".seconds")
                     .html(
                         0 +
-                            '<span class="d-block text-dark timer-label">ثانیه</span>'
+                            '<span class="d-block text-dark timer-label">ثانیه</span>',
                     );
             }
         });
@@ -445,9 +443,8 @@ $(document).ready(function () {
         const lng = parseFloat(button.getAttribute("data-lng"));
 
         // آپدیت عنوان مدال
-        document.getElementById(
-            "mapModalLabel"
-        ).textContent = `${locationName}`;
+        document.getElementById("mapModalLabel").textContent =
+            `${locationName}`;
 
         // مقداردهی نقشه
         initializeMap(lat, lng, locationName);
@@ -507,4 +504,3 @@ $(document).ready(function () {
 });
 
 // نمایش خودکار پاپ‌آپ بعد از لود صفحه
-

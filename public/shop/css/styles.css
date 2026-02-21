@@ -9,29 +9,30 @@
 html {
     scroll-padding-top: 130px;
 }
+
 .delete-btn {
-            color: var(--danger-color);
-            background: #f9e4e5;
-            border-radius: 5px;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 25px;
-            width: 25px;
-            text-decoration: none;
-        }
+    color: var(--danger-color);
+    background: #f9e4e5;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    text-decoration: none;
+}
 
-        .delete-btn i {
-            top: 1px;
-        }
+.delete-btn i {
+    top: 1px;
+}
 
-        .delete-btn:hover {
-            background: #f8d7da;
-        }
+.delete-btn:hover {
+    background: #f8d7da;
+}
 
 .btn-primary {
     background-color: var(--primary-color) !important;
@@ -1282,6 +1283,58 @@ i {
     #mapModal .modal-body {
         height: 400px;
     }
+
+    .flip-card-inner {
+        min-height: 325px;
+    }
+
+    .card-img-top {
+        height: 180px;
+    }
+
+    .product-image {
+        height: 200px;
+    }
+
+    .product-footer {
+        padding: 11px 5px;
+    }
+
+    .product-footer .product-price {
+        flex-direction: column;
+    }
+
+    .product-card.hovered .product-footer {
+        transform: translateY(-28px);
+    }
+
+    .custom-splide-controls {
+        gap: 4px;
+        padding: 0;
+    }
+
+    .hot-product-card {
+        height: 324px;
+    }
+
+    .hot-image-container {
+        height: 65%;
+    }
+
+    .hot-product-card:hover .overlay {
+        height: 87%;
+    }
+
+    .hot-product-card:hover .hot-image-container {
+        height: 58%;
+    }
+
+    .hot-product-card:hover .hot-description {
+        transform: translateY(270px);
+    }
+
+
+
 }
 
 
@@ -1352,7 +1405,8 @@ i {
     overflow: visible;
     width: fit-content;
 }
-.swiper-pagination-bullet:only-child{
+
+.swiper-pagination-bullet:only-child {
     display: block !important;
 }
 
