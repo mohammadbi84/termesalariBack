@@ -16,10 +16,12 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\FabricController;
+use App\Http\Controllers\MissionSectionController;
 use App\Http\Controllers\PillowController;
 use App\Http\Controllers\PopupController;
 use App\Http\Controllers\PrayermatController;
 use App\Http\Controllers\TableclothController;
+use App\MissionCounter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -329,3 +331,7 @@ Route::get('/get-cities-by-province/{province}', [AgencyController::class, 'getB
 
 // generation (صفحه های داخلی)
 Route::resource('generation', 'GenerationController');
+
+// mission
+Route::get('/mission',[MissionSectionController::class, 'edit'])->name('mission.edit');
+Route::post('/mission/update',[MissionSectionController::class, 'update'])->name('mission.update');

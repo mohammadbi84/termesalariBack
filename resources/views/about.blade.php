@@ -61,7 +61,7 @@
                 <div class="col-md-4 px-0 builder-col">
                     <div class="ps-3 h-100">
                         <div class="d-flex justify-content-between align-items-end">
-                            <img src="{{ asset('storage/'.$generation->image) }}" alt="founder" class="builder-image">
+                            <img src="{{ asset('storage/' . $generation->image) }}" alt="founder" class="builder-image">
                             <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
                                 <span class="builder-title">
                                     {{ app()->getLocale() == 'fa' ? $generation->name_fa : $generation->name_en }} <br>
@@ -83,8 +83,9 @@
 
             <div class="col-md-3">
                 <div class="video-full-container video-full-container-main mb-5 px-0 shadow">
-                    <video id="fullscreen-video" class="w-100 h-100" poster="{{ asset('shop/assets/cover2.png') }}">
-                        <source src="{{ asset('shop/assets/yalda.mp4') }}" type="video/mp4">
+                    <video id="fullscreen-video" class="w-100 h-100"
+                        poster="{{ asset('storage/' . $mission->video_cover) }}">
+                        <source src="{{ asset('storage/' . $mission->video_path) }}" type="video/mp4">
                         {{ __('general.video_not_supported') ?? 'Your browser does not support the video tag.' }}
                     </video>
 
@@ -99,50 +100,22 @@
             <div class="col">
 
                 <header class="section-header">
-                    <h3>{{ __('about.mission_title') }}</h3>
+                    <h3>{{ app()->getLocale() == 'fa' ? $mission->title_fa : $mission->title_en }}</h3>
                 </header>
 
                 <p class="mission-text mb-4">
-                    {{ __('about.mission_text') }}
+                    {{ app()->getLocale() == 'fa' ? $mission->description_fa : $mission->description_en }}
                 </p>
 
                 <div class="row mission-row p-0 bg-white rounded-4 shadow-sm mx-3">
-
-                    <div class="col">
-                        <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number" data-target="220">0</span>
-                            <span>{{ __('about.counter_product') }}</span>
+                    @foreach ($mission->counters()->orderBy('order', 'ASC')->get() as $counter)
+                        <div class="col">
+                            <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
+                                <span class="mission-number" data-target="{{ $counter->number }}">0</span>
+                                <span>{{ app()->getLocale() == 'fa' ? $counter->title_fa : $counter->title_en }}</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number" data-target="160">0</span>
-                            <span>{{ __('about.counter_design') }}</span>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number" data-target="186">0</span>
-                            <span>{{ __('about.counter_customer') }}</span>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number" data-target="10">0</span>
-                            <span>{{ __('about.counter_agency') }}</span>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                            <span class="mission-number" data-target="100">0</span>
-                            <span>{{ __('about.counter_project') }}</span>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
         </div>

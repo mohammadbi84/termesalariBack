@@ -12,6 +12,7 @@ use App\Price;
 use App\Slideshow;
 use App\Category;
 use App\Generation;
+use App\MissionSection;
 use App\Pillow;
 use App\Popup;
 use App\Prayermat;
@@ -170,6 +171,8 @@ class HomestoreController extends Controller
         });
 
         $generations = Generation::all();
-        return view('about', compact('agencies', 'grouped','generations'));
+
+        $mission = MissionSection::first();
+        return view('about', compact('agencies', 'grouped','generations','mission'));
     }
 }
