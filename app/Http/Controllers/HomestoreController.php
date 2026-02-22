@@ -11,11 +11,13 @@ use App\Orderitem;
 use App\Price;
 use App\Slideshow;
 use App\Category;
+use App\CertificateSection;
 use App\Generation;
 use App\MissionSection;
 use App\Pillow;
 use App\Popup;
 use App\Prayermat;
+use App\ProductAuthenticitySection;
 use Illuminate\Support\Facades\DB;
 
 class HomestoreController extends Controller
@@ -173,6 +175,10 @@ class HomestoreController extends Controller
         $generations = Generation::all();
 
         $mission = MissionSection::first();
-        return view('about', compact('agencies', 'grouped','generations','mission'));
+
+        $productAuthentication = ProductAuthenticitySection::first();
+
+        $certificateSection = CertificateSection::first();
+        return view('about', compact('agencies', 'grouped','generations','mission','productAuthentication','certificateSection'));
     }
 }

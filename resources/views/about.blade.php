@@ -123,12 +123,14 @@
         {{-- mission end --}}
         {{-- about us start --}}
         <section id="about" class="mb-5 mx-1"
-            style="background: url({{ asset('/hometemplate/img/facts-bg.jpg') }}) center top no-repeat fixed;z-index: 1;">
+            style="background: url({{ asset('storage/' . $productAuthentication->background_image) }}) center top no-repeat fixed;z-index: 1;">
             <div class="container">
                 <header class="section-header">
-                    <h3>{{ __('about.authenticity_title') }}</h3>
-                    <p>{{ __('about.authenticity_text') }}</p>
-                    <img src="{{ asset('/hometemplate/img/original.png') }}" alt="originality seal">
+                    <h3>{{ app()->getLocale() == 'fa' ? $productAuthentication->title_fa : $productAuthentication->title_en }}
+                    </h3>
+                    <p>{{ app()->getLocale() == 'fa' ? $productAuthentication->description_fa : $productAuthentication->description_en }}
+                    </p>
+                    <img src="{{ asset('storage/' . $productAuthentication->image) }}" alt="originality seal">
                 </header>
             </div>
         </section>
@@ -243,12 +245,13 @@
             <div class="container">
                 <div class="container mb-5 px-0">
                     <header class="section-header">
-                        <h3>{{ __('about.ip_title') }}</h3>
+                        <h3>{{ app()->getLocale() == 'fa' ? $certificateSection->title_fa : $certificateSection->title_en }}
+                        </h3>
                     </header>
 
                     <div class="d-flex align-items-center justify-content-between w-100 p-2">
                         <div>
-                            <span>{{ __('about.ip_text') }}</span>
+                            <span>{{ app()->getLocale() == 'fa' ? $certificateSection->description_fa : $certificateSection->description_en }}</span>
                         </div>
 
                         <div>
@@ -268,50 +271,12 @@
                     <div class="splide" id="hot_slider" role="group" aria-label="Splide Basic HTML Example">
                         <div class="splide__track py-4">
                             <ul class="splide__list py-4">
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/1.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/2.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/3.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/4.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/5.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/6.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/7.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/8.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/9.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/10.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
-                                <li class="splide__slide">
-                                    <img src="{{ asset('/hometemplate/img/certificate/11.jpg') }}"
-                                        alt="حقوق مالکیت معنوی">
-                                </li>
+                                @foreach ($certificateSection->certificates as $certificate)
+                                    <li class="splide__slide">
+                                        <img src="{{ asset('storage/'.$certificate->image) }}"
+                                            alt="حقوق مالکیت معنوی">
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

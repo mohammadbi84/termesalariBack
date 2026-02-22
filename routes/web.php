@@ -15,11 +15,13 @@ use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\CertificateSectionController;
 use App\Http\Controllers\FabricController;
 use App\Http\Controllers\MissionSectionController;
 use App\Http\Controllers\PillowController;
 use App\Http\Controllers\PopupController;
 use App\Http\Controllers\PrayermatController;
+use App\Http\Controllers\ProductAuthenticitySectionController;
 use App\Http\Controllers\TableclothController;
 use App\MissionCounter;
 use Illuminate\Support\Facades\Auth;
@@ -335,3 +337,14 @@ Route::resource('generation', 'GenerationController');
 // mission
 Route::get('/mission',[MissionSectionController::class, 'edit'])->name('mission.edit');
 Route::post('/mission/update',[MissionSectionController::class, 'update'])->name('mission.update');
+
+
+// product-authenticity
+Route::get('/authenticity',[ProductAuthenticitySectionController::class, 'edit'])->name('product-authenticity.edit');
+Route::post('/authenticity/update',[ProductAuthenticitySectionController::class, 'update'])->name('product-authenticity.update');
+
+
+// Certificate
+Route::get('/certificate',[CertificateSectionController::class, 'edit'])->name('certificate.edit');
+Route::post('/certificate/update',[CertificateSectionController::class, 'update'])->name('certificate.update');
+Route::delete('/certificates/delete/{id}', [CertificateSectionController::class,'delete']);

@@ -413,6 +413,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>رسالت ترمه سالاری</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('product-authenticity.edit') }}" class="nav-link">
+                <i class="nav-icon fa fa-file-alt"></i>
+                <p>نشان اصالت محصولات</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('certificate.edit') }}" class="nav-link">
+                <i class="nav-icon fa fa-file-alt"></i>
+                <p>حقوق مالکیت معنوی</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="{{ route('user.adminProfile') }}" class="nav-link">
