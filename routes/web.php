@@ -23,6 +23,7 @@ use App\Http\Controllers\PopupController;
 use App\Http\Controllers\PrayermatController;
 use App\Http\Controllers\ProductAuthenticitySectionController;
 use App\Http\Controllers\TableclothController;
+use App\Http\Controllers\TrustSectionController;
 use App\MissionCounter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -348,3 +349,8 @@ Route::post('/authenticity/update',[ProductAuthenticitySectionController::class,
 Route::get('/certificate',[CertificateSectionController::class, 'edit'])->name('certificate.edit');
 Route::post('/certificate/update',[CertificateSectionController::class, 'update'])->name('certificate.update');
 Route::delete('/certificates/delete/{id}', [CertificateSectionController::class,'delete']);
+
+
+// trust
+Route::get('/trust',[TrustSectionController::class, 'edit'])->name('trust.edit');
+Route::post('/trust/update',[TrustSectionController::class, 'update'])->name('trust.update');

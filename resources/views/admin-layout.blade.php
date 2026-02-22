@@ -420,6 +420,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
             </li>
             <li class="nav-item">
+              <a href="{{ route('trust.edit') }}" class="nav-link">
+                <i class="nav-icon fa fa-file-alt"></i>
+                <p>اعتماد به ما</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="{{ route('certificate.edit') }}" class="nav-link">
                 <i class="nav-icon fa fa-file-alt"></i>
                 <p>حقوق مالکیت معنوی</p>

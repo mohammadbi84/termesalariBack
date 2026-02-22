@@ -140,37 +140,34 @@
             <div class="row">
 
                 <div class="col-md-6 px-4">
+                    @php
+                        $highlight = app()->getLocale() == 'fa' ? 'اعتماد' : 'trust';
+                        $text = app()->getLocale() == 'fa' ? $trusrSection->title_fa : $trusrSection->title_en;
+                        $parts = explode($highlight, $text);
+                    @endphp
                     <h1 class="comment-title">
-                        {{ __('about.trust_title_line_1') }}
-                        <span class="etemad">{{ __('about.trust_title_highlight') }}</span>
-                        {{ __('about.trust_title_line_2') }}
+                        @if (count($parts) > 1)
+                            {{ $parts[0] ?? '' }}
+                            <span class="etemad">{{ $highlight }}</span>
+                            {{ $parts[1] ?? '' }}
+                        @else
+                            {{ $text }}
+                        @endif
                     </h1>
 
                     <p class="commetn-text">
-                        {{ __('about.trust_text') }}
+                        {{ app()->getLocale() == 'fa' ? $trusrSection->description_fa : $trusrSection->description_en }}
                     </p>
 
                     <div class="row mission-row p-0 g-0 bg-white rounded-4 shadow-sm" style="margin-top: 28px;">
-                        <div class="col">
-                            <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                                <span class="mission-number" data-target="100">0</span>
-                                <span>{{ __('about.trust_years') }}</span>
+                        @foreach ($trusrSection->counters as $counter)
+                            <div class="col">
+                                <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
+                                    <span class="mission-number" data-target="{{ $counter->number }}">0</span>
+                                    <span>{{ app()->getLocale() == 'fa' ? $counter->title_fa : $counter->title_en }}</span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                                <span class="mission-number" data-target="186">0</span>
-                                <span>{{ __('about.trust_users') }}</span>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
-                                <span class="mission-number" data-target="13">0</span>
-                                <span>{{ __('about.trust_agencies') }}</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -180,56 +177,32 @@
                             <div class="swiper-wrapper">
 
                                 <!-- Testimonial 1 -->
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <div class="user">
-                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="user">
-                                                <div>
-                                                    <h4>{{ __('about.testimonial_1_name') }}</h4>
-                                                    <span>{{ __('about.testimonial_role') }}</span>
+                                @foreach ($comments as $comment)
+                                    <div class="swiper-slide">
+                                        <div class="card">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <div class="user">
+                                                    <img src="{{ asset('storetemplate/dist/img/user.png') }}"
+                                                        alt="user">
+                                                    <div>
+                                                        <h4>{{ $comment->user->name . ' ' . $comment->user->family }}</h4>
+                                                        <span>{{ __('about.testimonial_role') }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="stars">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < $comment->score ?? 0)
+                                                            <i class="fa-solid fa-star"></i>
+                                                        @else
+                                                            <i class="fa-regular fa-star"></i>
+                                                        @endif
+                                                    @endfor
                                                 </div>
                                             </div>
-                                            <div class="stars">★★★★★</div>
+                                            <p>{{ $comment->text }}</p>
                                         </div>
-                                        <p>{{ __('about.testimonial_1_text') }}</p>
                                     </div>
-                                </div>
-
-                                <!-- Testimonial 2 -->
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <div class="user">
-                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="user">
-                                                <div>
-                                                    <h4>{{ __('about.testimonial_2_name') }}</h4>
-                                                    <span>{{ __('about.testimonial_role') }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="stars">★★★★★</div>
-                                        </div>
-                                        <p>{{ __('about.testimonial_2_text') }}</p>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial 3 -->
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <div class="user">
-                                                <img src="{{ asset('storetemplate/dist/img/user.png') }}" alt="user">
-                                                <div>
-                                                    <h4>{{ __('about.testimonial_3_name') }}</h4>
-                                                    <span>{{ __('about.testimonial_role') }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="stars">★★★★★</div>
-                                        </div>
-                                        <p>{{ __('about.testimonial_3_text') }}</p>
-                                    </div>
-                                </div>
-
+                                @endforeach
                             </div>
 
                             <div class="swiper-pagination"></div>
@@ -273,8 +246,7 @@
                             <ul class="splide__list py-4">
                                 @foreach ($certificateSection->certificates as $certificate)
                                     <li class="splide__slide">
-                                        <img src="{{ asset('storage/'.$certificate->image) }}"
-                                            alt="حقوق مالکیت معنوی">
+                                        <img src="{{ asset('storage/' . $certificate->image) }}" alt="حقوق مالکیت معنوی">
                                     </li>
                                 @endforeach
                             </ul>
