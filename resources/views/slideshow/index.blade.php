@@ -41,7 +41,7 @@
 			                  	</label>
 			                </th>
 							<th class="no-sort">ردیف</th>
-							{{-- <th>موقعیت</th> --}}
+							<th>موقعیت</th>
 							<th>عنوان</th>
 							<th>لینک</th>
 							<th>ترتیب</th>
@@ -60,9 +60,9 @@
 			                  	</label>
 		                	</td>
 							<td>{{ $loop->iteration }}</td>
-							{{-- <td>
-								@if($slideshow->position == 'homeStore-B') صفحه اصلی - موقعیت دوم @elseif ($slideshow->position == 'homeStore-A') صفحه اصلی - موقعیت اول  @endif
-							</td> --}}
+							<td>
+								@if($slideshow->position == 'homeStore-B') صفحه ورود @elseif ($slideshow->position == 'homeStore-A') صفحه اصلی - موقعیت اول  @endif
+							</td>
 							<td>
 								<img src="{{asset('storage/images'. $slideshow->image)}}" class="img-circle img-size-50 mr-2">
 								{{ $slideshow->title }}

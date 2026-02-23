@@ -35,12 +35,12 @@
 
 						@csrf
 
-						<div class="form-group @error('position') is-invalid @enderror d-none">
+						<div class="form-group @error('position') is-invalid @enderror">
 							<label for="position">موقعیت اسلایدشو</label>
 		                  	<select name="position" id="position" class="form-control select2 select2-hidden-accessible " style="width: 100%;">
-			                    {{-- <option value="" selected="selected" style="">.موقعیت اسلایدشو را انتخاب کنید</option> --}}
+			                    <option value="" selected="selected" style="">.موقعیت اسلایدشو را انتخاب کنید</option>
 			                  	<option value="homeStore-A" selected >صفحه اصلی - موقعیت اول</option>
-			                  	{{-- <option value="homeStore-B" @if (old('position') == 'homeStore-B')) selected @endif >صفحه اصلی - موقعیت دوم</option> --}}
+			                  	<option value="homeStore-B" @if (old('position') == 'homeStore-B') selected @endif >صفحه ورود</option>
 		                  	</select>
 		                </div>
 

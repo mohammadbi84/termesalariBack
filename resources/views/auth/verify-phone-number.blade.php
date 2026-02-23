@@ -154,33 +154,7 @@
         <div class="row w-75 login-card bg-white">
             <!-- اسلایدر راست -->
             <div class="col-md-6 d-none d-md-block p-0 h-100">
-                <section dir="ltr" class="splide h-100" id="slider-1" aria-label="Splide Basic HTML Example">
-                    <div class="splide__track h-100 shadow">
-                        <ul class="splide__list h-100">
-                            <li class="splide__slide position-relative">
-                                <a href="#">
-                                    <img src="{{ asset('shop/assets/sliders/l1.jpg') }}" class="h-100"
-                                        style="object-fit: cover;width: 100%;height: 100%;">
-                                    <div class="slide-caption">فروشگاه ترمه سالاری</div>
-                                </a>
-                            </li>
-                            <li class="splide__slide position-relative">
-                                <a href="#">
-                                    <img src="{{ asset('shop/assets/sliders/l2.jpg') }}" class="h-100"
-                                        style="object-fit: cover;width: 100%;height: 100%;">
-                                    <div class="slide-caption">فروشگاه ترمه سالاری</div>
-                                </a>
-                            </li>
-                            <li class="splide__slide position-relative">
-                                <a href="#">
-                                    <img src="{{ asset('shop/assets/sliders/l3.jpg') }}" class="h-100"
-                                        style="object-fit: cover;width: 100%;height: 100%;">
-                                    <div class="slide-caption">فروشگاه ترمه سالاری</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
+                @include('auth.slider')
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
@@ -242,15 +216,7 @@
             });
         });
     </script>
-    <!-- slider -->
-    <script>
-        var splide = new Splide('#slider-1', {
-            type: 'loop',
-            perPage: 1,
-            autoplay: true,
-        });
-        splide.mount();
-    </script>
+
     <script>
         $(document).on("input", ".only-number", function() {
             this.value = this.value.replace(/[^0-9]/g, '');
