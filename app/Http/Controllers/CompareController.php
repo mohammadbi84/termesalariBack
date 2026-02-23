@@ -8,7 +8,8 @@ class CompareController extends Controller
 {
 	public function index()
 	{
-		return view("compare.index");
+		return view("compare.compare");
+		// return view("compare.index");
 	}
 
     public function add(Request $request)
