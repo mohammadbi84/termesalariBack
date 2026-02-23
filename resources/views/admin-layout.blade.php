@@ -437,6 +437,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>مشتری های ما</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('video.edit') }}" class="nav-link">
+                <i class="nav-icon fa fa-file-alt"></i>
+                <p>ویدیو اصلی</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="{{ route('user.adminProfile') }}" class="nav-link">

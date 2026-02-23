@@ -953,9 +953,9 @@
         <!-- start video -->
         <section>
             <div class="video-full-container video-full-container-main mb-5 px-0">
-                <video id="fullscreen-video" poster="{{ asset('shop/assets/cover.png') }}">
+                <video id="fullscreen-video" poster="{{ asset('storage/'.$mainVideo->cover) }}">
                     <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
-                    <source src="{{ asset('shop/assets/termesalari.mp4') }}" type="video/mp4">
+                    <source src="{{ asset('storage/'.$mainVideo->video) }}" type="video/mp4">
                     مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
                 </video>
 

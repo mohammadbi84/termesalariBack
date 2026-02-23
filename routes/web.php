@@ -17,6 +17,7 @@ use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CertificateSectionController;
 use App\Http\Controllers\FabricController;
+use App\Http\Controllers\MainvideoController;
 use App\Http\Controllers\MissionSectionController;
 use App\Http\Controllers\PillowController;
 use App\Http\Controllers\PopupController;
@@ -357,3 +358,8 @@ Route::post('/trust/update',[TrustSectionController::class, 'update'])->name('tr
 
 // client (مشتری ها)
 Route::resource('client', 'ClientController');
+
+
+// video
+Route::get('/video',[MainvideoController::class, 'edit'])->name('video.edit');
+Route::post('/video/update',[MainvideoController::class, 'update'])->name('video.update');

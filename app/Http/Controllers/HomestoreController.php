@@ -15,6 +15,7 @@ use App\CertificateSection;
 use App\Client;
 use App\Comment;
 use App\Generation;
+use App\Mainvideo;
 use App\MissionSection;
 use App\Pillow;
 use App\Popup;
@@ -139,6 +140,8 @@ class HomestoreController extends Controller
             ->where('visibility', 1)
             ->get();
 
+        $mainVideo = Mainvideo::first();
+
         return view('shop.shop')
             ->with('topRequests', $topRequests)
             ->with('slideshowImagesB', $slideshowImagesB)
@@ -147,6 +150,7 @@ class HomestoreController extends Controller
             ->with('sermehProducts', $sermehProducts)
             ->with('slideshows', $slideshows)
             ->with('newestProducts', $newestProducts)
+            ->with('mainVideo', $mainVideo)
             ->with('popups', $popups)
             ->with('agencies', $agencies)
             ->with('specials', $specials);
