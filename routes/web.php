@@ -354,3 +354,6 @@ Route::delete('/certificates/delete/{id}', [CertificateSectionController::class,
 // trust
 Route::get('/trust',[TrustSectionController::class, 'edit'])->name('trust.edit');
 Route::post('/trust/update',[TrustSectionController::class, 'update'])->name('trust.update');
+
+// client (مشتری ها)
+Route::resource('client', 'ClientController');

@@ -701,6 +701,10 @@ a {
     #branchs-slider .splide__arrows {
         display: block !important;
     }
+
+    .show-only-desktop {
+        display: none;
+    }
 }
 
 .swiper-pagination {
@@ -916,4 +920,65 @@ a {
 
 .play-pause-btn {
     display: flex;
+}
+
+
+@media screen and (max-width: 767px) {
+    .section-header h3 {
+        font-size: 26px;
+
+    }
+
+    .mission-text {
+        font-size: 14px;
+    }
+
+    .comment-title {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 8px 12px;
+    }
+
+    .stars {
+        font-size: 12px;
+    }
+
+    .user h4 {
+        font-size: 16px;
+    }
+
+    .user span {
+        font-size: 14px;
+    }
+
+    .card p {
+        margin-bottom: 5px;
+    }
+
+    .mySwiper::before,
+    .mySwiper::after {
+        height: 64%;
+        top: 14%;
+    }
+
+    .swiper-pagination-bullet-active {
+        transform: scale(1);
+    }
+
+    .luxina_customers_title-wrap {
+        padding: 10px 30px 10px;
+    }
+
+    .luxina_customers_container:has(.luxina_customers_title-wrap) {
+        margin-top: 75px;
+    }
+
+    .map-row {
+        display: none;
+    }
+    .leader-line{
+        display: none;
+    }
 }

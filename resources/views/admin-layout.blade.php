@@ -431,6 +431,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>حقوق مالکیت معنوی</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('client.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-file-alt"></i>
+                <p>مشتری های ما</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="{{ route('user.adminProfile') }}" class="nav-link">

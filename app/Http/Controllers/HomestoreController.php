@@ -12,6 +12,7 @@ use App\Price;
 use App\Slideshow;
 use App\Category;
 use App\CertificateSection;
+use App\Client;
 use App\Comment;
 use App\Generation;
 use App\MissionSection;
@@ -184,6 +185,8 @@ class HomestoreController extends Controller
 
         $trusrSection = TrustSection::first();
         $comments = Comment::orderBy('score', 'desc')->where('status',1)->take(5)->get();
-        return view('about', compact('agencies', 'grouped', 'generations', 'mission', 'productAuthentication', 'certificateSection', 'trusrSection', 'comments'));
+
+        $clients = Client::all();
+        return view('about', compact('agencies', 'grouped', 'generations', 'mission', 'productAuthentication', 'certificateSection', 'trusrSection', 'comments','clients'));
     }
 }

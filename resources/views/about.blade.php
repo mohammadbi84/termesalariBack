@@ -283,58 +283,27 @@
                                 </span>
                             </div>
                             <div class="luxina_customers_items" style="--desktop-cols:5;--tablet-cols:4;--mobile-cols:2">
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('/hometemplate/img/clients/client-1.png') }}"
-                                        class="luxina_customers_item-img" alt="">
-                                    <span class="luxina_customers_item-square hide-desktop hide-tablet hide-mobile"
-                                        aria-hidden="true"></span>
-                                </div>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('/hometemplate/img/clients/client-2.png') }}"
-                                        class="luxina_customers_item-img" alt="">
-                                    <span class="luxina_customers_item-square" aria-hidden="true"></span>
-                                </div>
-                                <span class="luxina_customers_item title-placeholder show-only-desktop desktop-first-row"
-                                    aria-hidden="true">
-                                    <span class="luxina_customers_item-square" aria-hidden="true"></span>
-                                </span>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('/hometemplate/img/clients/client-3.png') }}"
-                                        class="luxina_customers_item-img" alt="">
-                                    <span class="luxina_customers_item-square hide-mobile" aria-hidden="true"></span>
-                                </div>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('/hometemplate/img/clients/client-4.png') }}"
-                                        class="luxina_customers_item-img" alt="">
-                                    <span class="luxina_customers_item-square" aria-hidden="true"></span>
-                                </div>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('/hometemplate/img/clients/client-5.png') }}"
-                                        class="luxina_customers_item-img" alt="">
-                                    <span class="luxina_customers_item-square hide-desktop hide-tablet hide-mobile"
-                                        aria-hidden="true"></span>
-                                </div>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('/hometemplate/img/clients/client-6.png') }}"
-                                        class="luxina_customers_item-img" alt="">
-                                    <span class="luxina_customers_item-square hide-desktop" aria-hidden="true"></span>
-                                </div>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async"
-                                        src="{{ asset('shop/assets/logo/Tejarat bank logo Vector.png') }}"
-                                        class="luxina_customers_item-img w-50" alt="">
-                                    <span class="luxina_customers_item-square hide-desktop" aria-hidden="true"></span>
-                                </div>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('shop/assets/logo/sepah.png') }}"
-                                        class="luxina_customers_item-img w-50" alt="">
-                                    <span class="luxina_customers_item-square hide-desktop" aria-hidden="true"></span>
-                                </div>
-                                <div class="luxina_customers_item">
-                                    <img decoding="async" src="{{ asset('shop/assets/logo/saman.png') }}"
-                                        class="luxina_customers_item-img w-50" alt="">
-                                    <span class="luxina_customers_item-square hide-desktop" aria-hidden="true"></span>
-                                </div>
+
+                                @foreach ($clients as $client)
+                                    {{-- اگر جای خاصی باید placeholder بیاد --}}
+                                    @if ($loop->index == 2)
+                                        <span
+                                            class="luxina_customers_item title-placeholder show-only-desktop desktop-first-row"
+                                            aria-hidden="true">
+                                            <span class="luxina_customers_item-square hide-mobile"
+                                                aria-hidden="true"></span>
+                                        </span>
+                                    @endif
+
+                                    <div class="luxina_customers_item">
+                                        <img decoding="async" src="{{ asset('storage/' . $client->image) }}"
+                                            class="luxina_customers_item-img" alt="{{ $client->title }}">
+                                        <span
+                                            class="luxina_customers_item-square {{ $loop->index % 2 == 0 ? 'hide-mobile' : '' }} {{ $loop->first ? 'hide-desktop hide-mobile' : '' }} {{ $loop->index % 4 == 0 ? 'hide-desktop hide-mobile' : '' }}"
+                                            aria-hidden="true"></span>
+                                    </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -344,10 +313,10 @@
         {{-- partners end --}}
         {{-- branch map start --}}
         <section class="branch-map mb-5 mt-4 px-1">
-            <div class="row mb-3">
-                <header class="section-header">
-                    <h3>{{ __('main.branchs') }}</h3>
-                </header>
+            <header class="section-header">
+                <h3>{{ __('main.branchs') }}</h3>
+            </header>
+            <div class="row mb-3 map-row">
                 <div class="col-md-3 col-3 d-flex flex-column justify-content-around align-items-center gap-3 labels-col"
                     id="branch-labels-left">
                 </div>
@@ -455,8 +424,8 @@
             </div>
             <!-- بخش کارت‌ها -->
             <div class="row mb-4 g-0">
-                <div class="col-md-4 px-0">
-                    <div class="ps-3">
+                <div class="col-md-4 px-0 mb-3">
+                    <div class="p-0 ps-md-3">
                         <div class="contact-card h-100 d-flex flex-wrap align-content-between w-100">
                             <div class="card-box d-flex align-items-center justify-content-end rounded-4">
                                 <div class="icon-box bg-white bg-opacity-25 border rounded-3 p-2">
@@ -488,8 +457,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 px-0">
-                    <div class="px-3">
+                <div class="col-md-4 px-0 mb-3">
+                    <div class="p-0 px-md-3">
                         <div class="contact-card h-100 d-flex flex-wrap align-content-between w-100">
                             <div class="card-box d-flex align-items-center justify-content-end rounded-4">
                                 <div class="icon-box bg-white bg-opacity-25 border rounded-3 p-2">
@@ -519,8 +488,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 px-0">
-                    <div class="pe-3">
+                <div class="col-md-4 px-0 mb-3">
+                    <div class="p-0 pe-md-3">
                         <div class="contact-card h-100 d-flex flex-wrap align-content-between w-100">
                             <div class="card-box d-flex align-items-center justify-content-end rounded-4">
                                 <div class="icon-box bg-white bg-opacity-25 border rounded-3 p-2">
