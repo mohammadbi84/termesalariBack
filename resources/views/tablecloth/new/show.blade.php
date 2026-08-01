@@ -1,5 +1,5 @@
 @extends('shop.layouts.master')
-@section('title', $title . ' طرح ' . $tablecloth->color_design->design->title . ' رنگ ' .
+@section('title', $title . __('products.design') . $tablecloth->color_design->design->title . __('products.color') .
     $tablecloth->color_design->color->color)
 @section('head')
     @if (app()->getLocale() == 'fa')
@@ -21,7 +21,7 @@
                         <li class="breadcrumb-item"><a href="{{ route('tablecloth.storeIndex') }}"
                                 class="text-decoration-none text-muted">{{ __('products.tablecloth_products') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            {{ $tablecloth->category->title }} طرح {{ $tablecloth->color_design->design->title }} رنگ
+                            {{ $tablecloth->category->title }} {{ __('products.design') }} {{ $tablecloth->color_design->design->title }} {{ __('products.color') }}
                             {{ $tablecloth->color_design->color->color }}
                         </li>
                     </ol>
@@ -120,8 +120,8 @@
                 <!-- left Column - Additional Info -->
                 <div class="col order-lg-3 mb-2">
                     <h1 class="product-title">
-                        {{ $tablecloth->category->title }} طرح
-                        {{ $tablecloth->color_design->design->title }} رنگ
+                        {{ $tablecloth->category->title }} {{ __('products.design') }}
+                        {{ $tablecloth->color_design->design->title }} {{ __('products.color') }}
                         {{ $tablecloth->color_design->color->color }}
                     </h1>
                     <div class="rating">
@@ -135,8 +135,8 @@
                                 <i class="fa-regular fa-star"></i>
                             @endif
                         @endfor
-                        <span class="text-muted">({{ number_format($score, 1) }} از ۵ - {{ $comments->count() }}
-                            نظر)</span>
+                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} ۵ - {{ $comments->count() }}
+                            {{ __('products.comment') }})</span>
                     </div>
                     <ul class="product-specs ">
                         <li>{{ __('product.product_code') }}: {{ $tablecloth->code }}</li>
@@ -162,9 +162,9 @@
                         <hr>
                         <div class="price-section text-start">
                             @if ($off > 0)
-                                <span class="original-price">{{ number_format($prices->price) }} تومان</span>
+                                <span class="original-price">{{ number_format($prices->price) }} {{ __('products.currency') }}</span>
                             @endif
-                            <span class="discounted-price">{{ number_format($price) }} تومان</span>
+                            <span class="discounted-price">{{ number_format($price) }} {{ __('products.currency') }}</span>
                         </div>
 
                         <div class="stock-info">
@@ -290,7 +290,7 @@
                                 <input type="hidden" name="rating" id="ratingInput" value="{{ old('rating', 0) }}">
                             </div>
                             @if (Auth::check())
-                                <button type="submit" class="btn btn-primary w-25 mb-3">ثبت دیدگاه</button>
+                                <button type="submit" class="btn btn-primary w-25 mb-3">{{ __('product.submit_comment') }}</button>
                             @else
                                 <button type="submit" class="btn btn-primary w-25 mb-3">
                                     {{ __('product.submit_comment') }}
@@ -367,7 +367,7 @@
                     </div> --}}
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="محصولات مشابه"
+                            <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="{{ __('product.related_products') }}"
                                 width="30">
                             <h2 class="title m-0">{{ __('product.related_products') }}</h2>
                         </div>
@@ -416,9 +416,9 @@
                                                 </div>
                                                 <div class="overlay">
                                                     <h3 class="product-title">
-                                                        {{ $tablecloth->category->title }} طرح
+                                                        {{ $tablecloth->category->title }} {{ __('products.design') }}
                                                         {{ $tablecloth->color_design->design->title }}
-                                                        رنگ
+                                                        {{ __('products.color') }}
                                                         {{ $tablecloth->color_design->color->color }}</h3>
                                                     <div
                                                         class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
@@ -443,7 +443,7 @@
                                                                   @break
                                                             @endswitch
                                                             "
-                                                                class="buy-button text-decoration-none h-100 px-3 py-1">مشاهده</a>
+                                                                class="buy-button text-decoration-none h-100 px-3 py-1">{{ __('main.view') }}</a>
                                                         </div>
                                                         <div class="d-flex flex-column hot-product-price">
                                                             @if ($prices->offPrice > 0)
@@ -489,7 +489,7 @@
                                                 <div
                                                     class="px-1 pt-2 hot-description border-top d-flex justify-content-between align-items-center">
                                                     <div class="d-flex align-items-center justify-content-center gap-2">
-                                                        <span class="fs-10">28 عدد فروش رفته</span>
+                                                        <span class="fs-10">28 {{ __('main.sell') }}</span>
                                                     </div>
                                                     <div class="d-flex justify-content-between align-items-center gap-2">
                                                         <button
@@ -699,10 +699,10 @@
                             alt="product" class="cart-item-image">
                         <div class="cart-item-content">
                             <div class="cart-item-title">
-                                ${title} طرح ${design} رنگ ${color}
+                                ${title} {{ __('products.design') }} ${design} {{ __('products.color') }} ${color}
                             </div>
                             <div class="cart-item-price">
-                                ${Number(price).toLocaleString()} تومان
+                                ${Number(price).toLocaleString()} {{ __('products.currency') }}
                             </div>
                         </div>
                     </div>
@@ -990,7 +990,7 @@
                 const offType = $btn.data('offType');
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
-                const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
+                const title = `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.color') }} ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
                 const quantity = parseInt($('#item-quantity-product').text()) || 1;
                 const url = `${document.location.origin}/cart/add/${id}/${model}/${quantity}`;
@@ -1088,12 +1088,12 @@
 
                     if (discountAmount > 0) {
                         $priceElement.html(`
-                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} تومان</span>
-                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} {{ __('products.currency') }}</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} {{ __('products.currency') }}</span>
                 `);
                     } else {
                         $priceElement.html(`
-                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} {{ __('products.currency') }}</span>
                 `);
                     }
                 } else {
@@ -1112,7 +1112,7 @@
                     <div class="cart-item-title">${item.title}</div>
 
                     <div class="cart-item-price">
-                        ${Number(item.price * item.quantity).toLocaleString()} تومان
+                        ${Number(item.price * item.quantity).toLocaleString()} {{ __('products.currency') }}
                     </div>
 
                     <div class="quantity-controls">
@@ -1452,10 +1452,10 @@
                         alt="product" class="cart-item-image">
                     <div class="cart-item-content">
                         <div class="cart-item-title">
-                            ${item.title} طرح ${item.design} رنگ ${item.color}
+                            ${item.title} {{ __('products.design') }} ${item.design} {{ __('products.color') }} ${item.color}
                         </div>
                         <div class="cart-item-price">
-                            ${Number(item.price).toLocaleString()} تومان
+                            ${Number(item.price).toLocaleString()} {{ __('products.currency') }}
                         </div>
                         <div
                             class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">

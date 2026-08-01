@@ -41,4 +41,21 @@ return [
     'expensive' => 'گران‌ترین',
     'popular' => 'محبوب‌ترین',
 
+
+    'out_of_stock' => 'اتمام موجودی',
+    'less_than_5' => 'کمتر از 5 عدد موجود می باشد.',
+    'sales' => 'فروش',
+    'satisfaction' => 'رضایت',
+    'guarantee' => 'ضمانت',
+    'notify_me' => 'خبرم کن',
+    'add_to_favorites' => 'افزودن به لیست علاقه‌مندی ها',
+    'compare_tooltip' => 'برای مقایسه کلیک کنید',
+    'view_product' => 'مشاهده محصول',
+    'add_to_cart' => 'افزودن به سبد خرید',
+    'currency' => 'تومان',
+
+
+
+    'comment' => 'نظر',
+    'of' => 'از',
 ];

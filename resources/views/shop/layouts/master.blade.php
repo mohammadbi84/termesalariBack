@@ -49,8 +49,11 @@
 
 
     <!-- menu styles -->
-
-    <script src="{{ asset('shop/js/main-menu.js') }}"></script>
+    @if (app()->getLocale() == 'fa')
+        <script src="{{ asset('shop/js/main-menu.js') }}"></script>
+    @else
+        <script src="{{ asset('shop/js/ltr/main-menu.js') }}"></script>
+    @endif
     <!-- استایل‌های سفارشی -->
 
 

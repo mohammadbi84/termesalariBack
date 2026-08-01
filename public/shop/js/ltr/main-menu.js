@@ -15,6 +15,7 @@ function initMainMenu() {
         let cart_dropdown = document.querySelector(".cart-dropdown");
         let favorites_dropdown = document.querySelector(".favorites-dropdown");
         let compare_dropdown = document.querySelector(".compare-dropdown");
+        let profile_dropdown = document.querySelector(".profile-dropdown");
         let categoriesMenu = document.querySelector("#categoryMenu");
         if (offerHeaderParentWidth) {
             setCssVar(
@@ -48,16 +49,20 @@ function initMainMenu() {
                 mainMenu.classList.add("small");
                 categoryMenu.classList.add("small");
                 if (favorites_dropdown) {
-                    favorites_dropdown.style.top = "51px";
+                    favorites_dropdown.style.top = "65px";
                     favorites_dropdown.style.right = "1rem";
                 }
-                compare_dropdown.style.right = "1rem";
+                if (profile_dropdown) {
+                    profile_dropdown.style.right = "1rem";
+                    profile_dropdown.style.top = "65px";
+                }
                 cart_dropdown.style.right = "1rem";
-                compare_dropdown.style.top = "51px";
-                cart_dropdown.style.top = "51px";
+                compare_dropdown.style.right = "1rem";
+                compare_dropdown.style.top = "65px";
+                cart_dropdown.style.top = "65px";
                 categoriesMenu.style.top = "65px";
                 categoriesMenu.style.right = "1rem";
-                categoriesMenu.style.left = "1rem";
+                categoriesMenu.style.right = "1rem";
 
                 if (Bookmark && Bookmark.classList.contains("expanded")) {
                     mainMenu.classList.add("smallBookmark");
@@ -67,16 +72,20 @@ function initMainMenu() {
                 mainMenu.classList.remove("small");
                 categoryMenu.classList.remove("small");
                 if (favorites_dropdown) {
-                    favorites_dropdown.style.top = "61px";
+                    favorites_dropdown.style.top = "75px";
                     favorites_dropdown.style.right = "-10px";
+                }
+                if (profile_dropdown) {
+                    profile_dropdown.style.right = "-10px";
+                    profile_dropdown.style.top = "75px";
                 }
                 cart_dropdown.style.right = "-10px";
                 compare_dropdown.style.right = "-10px";
-                cart_dropdown.style.top = "61px";
-                compare_dropdown.style.top = "61px";
+                cart_dropdown.style.top = "75px";
+                compare_dropdown.style.top = "75px";
                 categoriesMenu.style.top = "75px";
                 categoriesMenu.style.right = "-10px";
-                categoriesMenu.style.left = "-10px";
+                categoriesMenu.style.right = "-10px";
 
                 if (Bookmark && Bookmark.classList.contains("expanded")) {
                     mainMenu.classList.remove("smallBookmark");
@@ -93,8 +102,11 @@ function initMainMenu() {
             // جمع کردن بوکمارک
             Bookmark.classList.remove("expanded");
             Bookmark.classList.add("collapsed");
+            Bookmark.style.background = "var(--primary-color)";
+            Bookmark.innerHTML = "";
             mainMenu.classList.remove("with-bookmark");
             mainMenu.classList.remove("smallBookmark");
+            bookmarkToggle.classList.add("d-none");
         } else {
             // باز کردن بوکمارک
             Bookmark.classList.remove("collapsed");
@@ -103,7 +115,9 @@ function initMainMenu() {
     }
 
     // افزودن رویداد کلیک به دکمه بوکمارک
-    bookmarkToggle.addEventListener("click", toggleBookmark);
+    if (bookmarkToggle) {
+        bookmarkToggle.addEventListener("click", toggleBookmark);
+    }
 }
 
 window.addEventListener("DOMContentLoaded", () => {

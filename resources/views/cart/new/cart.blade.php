@@ -1,5 +1,5 @@
 @extends('shop.layouts.master')
-@section('title', 'سبد خرید')
+@section('title', __('cart.title'))
 @section('head')
     <style>
         /* استایل نوار مراحل */
@@ -268,28 +268,28 @@
                 <div class="step-icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <div class="step-text">سبد خرید</div>
+                <div class="step-text">{{ __('cart.steps.step1') }}</div>
             </div>
 
             <div class="step" data-step="2">
                 <div class="step-icon">
                     <i class="fas fa-truck"></i>
                 </div>
-                <div class="step-text">تکمیل اطلاعات پستی</div>
+                <div class="step-text">{{ __('cart.steps.step2') }}</div>
             </div>
 
             <div class="step" data-step="3">
                 <div class="step-icon">
                     <i class="fas fa-credit-card"></i>
                 </div>
-                <div class="step-text">پرداخت</div>
+                <div class="step-text">{{ __('cart.steps.step3') }}</div>
             </div>
 
             <div class="step" data-step="4">
                 <div class="step-icon">
                     <i class="fas fa-check-circle"></i>
                 </div>
-                <div class="step-text">تکمیل سفارش</div>
+                <div class="step-text">{{ __('cart.steps.step4') }}</div>
             </div>
         </div>
         <div class="row">
@@ -297,13 +297,15 @@
             <div class="col-lg-8 mb-4">
                 <div class="cart-container-new">
                     <div class="cart-header p-0 pb-2 d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="h4 mb-0">سبد خرید شما</h2>
+                        <h2 class="h4 mb-0">{{ __('cart.cart.header') }}</h2>
                         @if (isset($sum))
                             <span class="badge" style="background:#4FBA6C;color:#fff; padding:0.5rem 0.7rem;">
-                                <span class="header-total-quantity">{{ $sum }}</span> کالا
+                                <span class="header-total-quantity">{{ $sum }}</span>
+                                {{ __('cart.cart.items_label') }}
                             </span>
                         @else
-                            <span class="badge" style="background:#4FBA6C;color:#fff; padding:0.5rem 0.7rem;">0 کالا</span>
+                            <span class="badge" style="background:#4FBA6C;color:#fff; padding:0.5rem 0.7rem;">0
+                                {{ __('cart.cart.items_label') }}</span>
                         @endif
                     </div>
 
@@ -360,11 +362,11 @@
                                             <small class="me-1 text-success" style="font-size: 15px;">(
                                                 {{ number_format($cartItemPrice) }} تومان )</small>
                                         </h5>
-                                        <p class="text-muted small mb-2">دسته بندی: {{ $product->category->title ?? '—' }}
+                                        <p class="text-muted small mb-2">{{ __("cart.product_row.category_label") }}: {{ $product->category->title ?? '—' }}
                                         </p>
                                         <div class="ml-3 small">
-                                            <div>کد محصول: <span class="text-muted">{{ $product->code }}</span></div>
-                                            <div class="text-success small">گارانتی اصالت و سلامت فیزیکی کالا</div>
+                                            <div>{{ __("cart.product_row.code_label") }}: <span class="text-muted">{{ $product->code }}</span></div>
+                                            <div class="text-success small">{{ __("cart.product_row.guarantee_text") }}</div>
                                         </div>
                                         <div class="quantity-control d-flex align-items-center">
                                             <button class="quantity-btn btn btn-sm btn-outline-secondary decrease"
@@ -381,17 +383,17 @@
                                     </div>
                                     <div class="col-12 col-md-4 mt-2 mt-md-0 text-start text-md-end">
                                         <div class="price-highlight d-flex justify-content-around align-items-center">
-                                            <small class="text-muted" style="font-size:14px;">جمع جزء : </small>
+                                            <small class="text-muted" style="font-size:14px;">{{ __("cart.product_row.subtotal_label") }} : </small>
                                             <span
                                                 class="item-price">{{ number_format($cartItemPrice * $list['quantities'][$key]) }}</span>
-                                            <small> تومان</small>
+                                            <small> {{ __("cart.order_summary.currency") }}</small>
                                         </div>
                                         @if ($cartItemOff > 0)
                                             <div class="discount-price"><del><span
                                                         class="original-price">{{ number_format($p->price) }}</span>
-                                                    <small>تومان</small></del></div>
-                                            <div class="text-danger small">تخفیف: <span
-                                                    class="item-off">{{ number_format($cartItemOff) }}</span> تومان</div>
+                                                    <small>{{ __("cart.order_summary.currency") }}</small></del></div>
+                                            <div class="text-danger small">{{ __("cart.product_row.discount_label") }}: <span
+                                                    class="item-off">{{ number_format($cartItemOff) }}</span> {{ __("cart.order_summary.currency") }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -405,10 +407,10 @@
                             <div id="empty-cart" class="empty-cart text-center">
                                 <img src="{{ asset('/storetemplate/dist/img/empty-cart-icon.png') }}" alt="سبد خرید خالی"
                                     style="max-width:200px">
-                                <h4 class="mt-3">سبد خرید شما خالی است!</h4>
-                                <p class="text-muted">می‌توانید برای مشاهده محصولات به صفحه فروشگاه بروید.</p>
+                                <h4 class="mt-3">{{ __('cart.cart.empty_title') }}</h4>
+                                <p class="text-muted">{{ __('cart.cart.empty_text') }}</p>
                                 <a href="{{ url('/shop') }}" class="btn btn-primary-custom mt-2"
-                                    style="background:#4FBA6C;color:#fff;">مشاهده محصولات</a>
+                                    style="background:#4FBA6C;color:#fff;">{{ __('cart.cart.empty_button') }}</a>
                             </div>
                         @endif
                     </div>
@@ -424,7 +426,7 @@
                             <div class="card-header bg-white">
                                 <a class="btn w-100 d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#collapseOne">
-                                    <span>آیا کد تخفیف دارید؟</span>
+                                    <span>{{ __('cart.discount.accordion_title') }}</span>
                                     <span><i class="fa-solid fa-angle-down"></i></span>
                                 </a>
                             </div>
@@ -436,11 +438,11 @@
                                                 <div class="input-group input-group-md">
                                                     <input type="text" name="code" id="code"
                                                         style="border-top-left-radius: 0;border-bottom-left-radius: 0;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
-                                                        placeholder="کد تخفیف..." class="form-control"
-                                                        style="font-size: 0.95rem;">
+                                                        placeholder="{{ __('cart.discount.input_placeholder') }}"
+                                                        class="form-control" style="font-size: 0.95rem;">
                                                     <button type="button border" id="saveDiscountCard"
                                                         class="btn btn-primary btn-md"
-                                                        style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">اعمال</button>
+                                                        style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">{{ __('cart.discount.apply_button') }}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -454,39 +456,39 @@
                 <!-- بخش جزئیات سفارش -->
                 <div class="order-summary mb-4 p-3 shadow-sm"
                     style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
-                    <h3 class="section-title mb-3">جزئیات سفارش</h3>
+                    <h3 class="section-title mb-3">{{ __("cart.order_summary.title") }}</h3>
 
                     <div class="d-flex justify-content-between mb-2">
-                        <span>قیمت کالاها (<span id="cart_info-quantity">{{ $sum ?? 0 }}</span> عدد)</span>
+                        <span>{{ __("cart.order_summary.items_price_label") }} (<span id="cart_info-quantity">{{ $sum ?? 0 }}</span> {{ __("cart.order_summary.items_unit") }})</span>
                         <span><span id="cart-info-price"
-                                data-value="{{ $price + $off }}">{{ number_format($price + $off) }}</span> تومان</span>
+                                data-value="{{ $price + $off }}">{{ number_format($price + $off) }}</span> {{ __("cart.order_summary.currency") }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2 text-danger">
-                        <span>تخفیف کالاها</span>
-                        <span><span id="cart-info-off">{{ number_format($off) }}</span> تومان</span>
+                        <span>{{ __("cart.order_summary.discount_label") }}</span>
+                        <span><span id="cart-info-off">{{ number_format($off) }}</span> {{ __("cart.order_summary.currency") }}</span>
                     </div>
                     @if (session()->has('discountCardPrice'))
                         <div class="d-flex justify-content-between mb-2">
-                            <span>کد تخفیف</span>
-                            <span>{{ number_format(session('discountCardPrice')) }} تومان</span>
+                            <span>{{ __("cart.order_summary.discount_code_label") }}</span>
+                            <span>{{ number_format(session('discountCardPrice')) }} {{ __("cart.order_summary.currency") }}</span>
                         </div>
                     @else
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="text-danger">کد تخفیف</span>
-                            <span class="text-danger"><span id="cart-info-discount-special">0</span> تومان</span>
+                            <span class="text-danger">{{ __("cart.order_summary.discount_code_label") }}</span>
+                            <span class="text-danger"><span id="cart-info-discount-special">0</span> {{ __("cart.order_summary.currency") }}</span>
                         </div>
                     @endif
 
                     <div class="d-flex justify-content-between mb-2">
-                        <span>هزینه ارسال</span>
-                        <span class="text-success">محاسبه در مرحله بعد</span>
+                        <span>{{ __("cart.order_summary.shipping_label") }}</span>
+                        <span class="text-success">{{ __("cart.order_summary.shipping_note") }}</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between fw-bold">
-                        <span>جمع کل</span>
+                        <span>{{ __("cart.order_summary.total_label") }}</span>
                         <span><span id="cart-info-total"
                                 data-value="{{ $price - $discountCardPrice }}">{{ number_format($price - $discountCardPrice) }}</span>
-                            تومان</span>
+                            {{ __("cart.order_summary.currency") }}</span>
                     </div>
                 </div>
 
@@ -494,21 +496,24 @@
                 <div class="payment-section p-3 shadow-sm"
                     style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="fw-bold">مبلغ قابل پرداخت:</span>
+                        <span class="fw-bold">{{ __("cart.payment.payable_label") }}:</span>
                         <span class="price-highlight"><span
-                                id="total">{{ number_format($price - $discountCardPrice) }}</span> تومان</span>
+                                id="total">{{ number_format($price - $discountCardPrice) }}</span> {{ __("cart.order_summary.currency") }}</span>
                     </div>
-                    <a href="{{ route('cart.cartlevel2') }}" class="btn btn-primary w-100 py-2 mb-2">ادامه فرایند
-                        خرید</a>
-                    <a href="/store" class="btn btn-secondary w-100 py-2">افزودن دیگر محصولات</a>
+                    <a href="{{ route('cart.cartlevel2') }}" class="btn btn-primary w-100 py-2 mb-2">{{ __("cart.payment.continue_button") }}</a>
+                    <a href="/store" class="btn btn-secondary w-100 py-2">{{ __("cart.payment.add_more_button") }}</a>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
-    <script src="{{ asset('/storetemplate/dist/js/jquery.number.min.js') }}"></script>
+    @if (app()->getLocale() == 'fa')
+        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @else
+        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    @endif
+    <script src="{{ asset('storetemplate/dist/js/jquery.number.min.js') }}"></script>
     <script>
         $(function() {
             // format initial numbers
@@ -559,7 +564,7 @@
                 var basePrice = $productRow.data('base-price');
                 if (!basePrice) {
                     // اگر data attribute وجود نداشت، از متن فعلی خوانده شود
-                    basePrice = parseInt($itemPrice.text().replace(/,/g, '')/$countInput.val()) || 0;
+                    basePrice = parseInt($itemPrice.text().replace(/,/g, '') / $countInput.val()) || 0;
                     // ذخیره قیمت پایه برای استفاده بعدی
                     $productRow.data('base-price', basePrice);
                 }
@@ -578,7 +583,7 @@
                     model: model
                 }, function(data) {
                     if (data == "error") {
-                        Swal.fire("خطا در اجرای عملیات", "اتمام موجودی در انبار", "error");
+                        Swal.fire("{{ __('cart.js.error_general') }}", "{{ __('cart.js.error_stock') }}", "error");
                     } else {
                         if (data == "finish") {
                             $productRow.fadeOut(function() {
@@ -599,7 +604,7 @@
                                 // fallback toggling +/- by 1
                                 var cur = parseInt($countInput.val()) || 0;
                                 newQuantity = action === 'increase' ? cur + 1 : Math.max(0, cur -
-                                1);
+                                    1);
                                 $countInput.val(newQuantity);
                             }
 
@@ -611,7 +616,7 @@
                         calculateTotals();
                     }
                 }).fail(function() {
-                    Swal.fire("خطا", "ارتباط با سرور برقرار نشد.", "error");
+                    Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.js.error_server') }}", "error");
                 }).always(function() {
                     $('.loader').hide ? $('.loader').hide() : null;
                 });
@@ -681,13 +686,13 @@
                     '.count').text()) || 1;
 
                 Swal.fire({
-                    title: "آیا از حذف این محصول مطمئن هستید؟",
-                    text: "این عملیات منجر به حذف محصول از سبد خرید شما خواهد شد.",
+                    title: "{{ __('cart.js.confirm_delete_title') }}",
+                    text: "{{ __('cart.js.confirm_delete_text') }}",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "حذف",
+                    confirmButtonText: "{{ __('cart.js.confirm_delete_confirm') }}",
                     confirmButtonColor: "#d33",
-                    cancelButtonText: "انصراف",
+                    cancelButtonText: "{{ __('cart.js.confirm_delete_cancel') }}",
                     dangerMode: true,
                 }).then((result) => {
                     if (!result.isConfirmed) return;
@@ -703,7 +708,7 @@
                         },
                         success: function(data) {
                             if (data.status == "error") {
-                                Swal.fire("خطا  در اجرای عملیات", data.message || "",
+                                Swal.fire("{{ __('cart.js.error_general') }}", data.message || "",
                                     "error");
                             } else if (data.status == "success") {
                                 if (data.totals) {
@@ -754,8 +759,8 @@
                                 }
 
                                 Swal.fire({
-                                    title: "عملیات با موفقیت انجام شد.",
-                                    text: "محصول از سبد خرید شما حذف شد.",
+                                    title: "{{ __('cart.js.success_delete') }}",
+                                    text: "{{ __('cart.js.success_delete') }}",
                                     icon: "success",
                                     timer: 2000,
                                     showConfirmButton: false,
@@ -763,7 +768,7 @@
                             }
                         },
                         error: function() {
-                            Swal.fire("خطا", "ارتباط با سرور برقرار نشد.", "error");
+                            Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.js.error_server') }}.", "error");
                         },
                         complete: function() {
                             $('.loader').hide ? $('.loader').hide() : null;
@@ -777,7 +782,7 @@
                 e.preventDefault();
                 var code = $('#code').val().trim();
                 if (!code) {
-                    Swal.fire("خطا", "لطفا ابتدا کد تخفیف را وارد کنید.", "error");
+                    Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.discount.error_empty') }}", "error");
                     $('#code').addClass('is-invalid').focus();
                     return;
                 }
@@ -805,15 +810,15 @@
                                 'data-value', total - data.message);
                             $('#total').text($.number(total - data.message));
                             $('#discount-success').removeClass('d-none');
-                            Swal.fire("عملیات با موفقیت انجام شد.", "کد تخفیف اعمال شد .",
+                            Swal.fire("عملیات با موفقیت انجام شد.", "{{ __('cart.discount.success_message') }}",
                                 "success");
                             $('#code').val('');
                         } else if (data.res == "error") {
-                            Swal.fire("خطا در اجرای عملیات", data.message, "error");
+                            Swal.fire("{{ __('cart.js.error_general') }}", data.message, "error");
                         }
                     },
                     error: function() {
-                        Swal.fire("خطا", "ارتباط با سرور برقرار نشد.", "error");
+                        Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.js.error_server') }}.", "error");
                     }
                 });
             });

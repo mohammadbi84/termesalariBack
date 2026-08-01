@@ -41,4 +41,20 @@ return [
     'expensive' => 'Most Expensive',
     'popular' => 'Most Popular',
 
+
+    'out_of_stock' => 'Out of Stock',
+    'less_than_5' => 'Less than 5 items available.',
+    'sales' => 'Sales',
+    'satisfaction' => 'Satisfaction',
+    'guarantee' => 'Guarantee',
+    'notify_me' => 'Notify Me',
+    'add_to_favorites' => 'Add to Favorites',
+    'compare_tooltip' => 'Click to Compare',
+    'view_product' => 'View Product',
+    'add_to_cart' => 'Add to Cart',
+    'currency' => 'Toman', // or 'IRT' depending on your preference
+
+
+    'comment' => 'comments',
+    'of' => 'of',
 ];

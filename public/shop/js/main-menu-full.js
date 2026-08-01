@@ -14,9 +14,11 @@ if (favorites_dropdown) {
     favorites_dropdown.style.top = "65px";
     favorites_dropdown.style.left = "1rem";
 }
+if (profile_dropdown) {
+    profile_dropdown.style.left = "1rem";
+    profile_dropdown.style.top = "65px";
+}
 cart_dropdown.style.left = "1rem";
-profile_dropdown.style.left = "1rem";
-profile_dropdown.style.top = "65px";
 compare_dropdown.style.left = "1rem";
 compare_dropdown.style.top = "65px";
 cart_dropdown.style.top = "65px";

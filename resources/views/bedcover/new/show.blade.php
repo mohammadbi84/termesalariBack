@@ -1,5 +1,5 @@
 @extends('shop.layouts.master')
-@section('title', $title . ' طرح ' . $bedcover->color_design->design->title . ' رنگ ' .
+@section('title', $title . __('products.design') . $bedcover->color_design->design->title . __('products.color') .
     $bedcover->color_design->color->color)
 @section('head')
     <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
@@ -13,11 +13,11 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/store" class="text-decoration-none text-muted"><i
-                                    class="fas fa-home"></i> خانه</a></li>
+                                    class="fas fa-home"></i> {{ __('products.home') }}</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('bedcover.storeIndex') }}"
-                                class="text-decoration-none text-muted">محصولات رومیزی</a></li>
+                                class="text-decoration-none text-muted">{{ __('products.bedcover_products') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            {{ $bedcover->category->title }} طرح {{ $bedcover->color_design->design->title }} رنگ
+                            {{ $bedcover->category->title }} {{ __('products.design') }} {{ $bedcover->color_design->design->title }} {{ __('products.color') }}
                             {{ $bedcover->color_design->color->color }}
                         </li>
                     </ol>
@@ -116,8 +116,8 @@
                 <!-- left Column - Additional Info -->
                 <div class="col order-lg-3 mb-2">
                     <h1 class="product-title">
-                        {{ $bedcover->category->title }} طرح
-                        {{ $bedcover->color_design->design->title }} رنگ
+                        {{ $bedcover->category->title }} {{ __('products.design') }}
+                        {{ $bedcover->color_design->design->title }} {{ __('products.color') }}
                         {{ $bedcover->color_design->color->color }}
                     </h1>
                     <div class="rating">
@@ -131,32 +131,32 @@
                                 <i class="fa-regular fa-star"></i>
                             @endif
                         @endfor
-                        <span class="text-muted">({{ number_format($score, 1) }} از ۵ - {{ $comments->count() }}
-                            نظر)</span>
+                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} ۵ - {{ $comments->count() }}
+                            {{ __('products.comment') }})</span>
                     </div>
                     <ul class="product-specs ">
-                        <li> کد محصول: {{ $bedcover->code }}</li>
-                        <li> تعداد رنگ بافت ترمه: {{ $bedcover->color_design->design->countOfColor }} رنگ</li>
-                        <li> مشتمل بر: {{ $bedcover->contains }}</li>
-                        <li> رنگ: {{ $bedcover->color_design->color->color }}</li>
+                        <li> {{ __('product.product_code') }}: {{ $bedcover->code }}</li>
+                        <li> {{ __('product.color_count') }} {{ __('products.color') }}: {{ $bedcover->color_design->design->countOfColor }} {{ __('products.color') }}</li>
+                        <li> {{ __('product.contains') }}: {{ $bedcover->contains }}</li>
+                        <li> {{ __('products.color') }}: {{ $bedcover->color_design->color->color }}</li>
                     </ul>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">دسته‌بندی :</h6>
+                        <h6 class="color-title">{{ __('product.category') }} :</h6>
                         <a href="{{ route('bedcover.storeIndex') }}"
                             class="tag">{{ $bedcover->category->title }}</a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="color-title">برچسب ها :</h6>
+                        <h6 class="color-title">{{ __('product.tags') }} :</h6>
                         <span class="tag">{{ $bedcover->color_design->design->title }}</span>
                     </div>
                     <div class="categories-tags">
                         <hr>
                         <div class="price-section text-start">
                             @if ($off > 0)
-                                <span class="original-price">{{ number_format($prices->price) }} تومان</span>
+                                <span class="original-price">{{ number_format($prices->price) }} {{ __('products.currency') }}</span>
                             @endif
-                            <span class="discounted-price">{{ number_format($price) }} تومان</span>
+                            <span class="discounted-price">{{ number_format($price) }} {{ __('products.currency') }}</span>
                         </div>
 
                         <div class="stock-info">
@@ -167,7 +167,7 @@
                             @elseif($bedcover->quantity > 5)
                             <span class="text-success text-bold"> موجود در انبار</span>
                             @endif --}}
-                            <span class="text-bold">{{ $bedcover->quantity }} عدد موجود می باشد .</span>
+                            <span class="text-bold">{{ __('product.available_qty', ['count' => $bedcover->quantity]) }}</span>
                         </div>
 
                         <div class="quantity-control">
@@ -186,8 +186,7 @@
                                 data-color="{{ $bedcover->color_design->color->color ?? '' }}"
                                 data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
-                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">افزودن به سبد
-                                خرید</button>
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}">{{ __('product.add_to_cart') }}</button>
                         </div>
                     </div>
                 </div>
@@ -198,8 +197,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/24hours.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">ضمانت محصولات</h5>
-                            <span class="point-span">و اصالت کالا</span>
+                            <h5 class="m-0">{{ __('product.guarantee_title') }}</h5>
+                            <span class="point-span">{{ __('product.guarantee_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -207,8 +206,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/newest.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">به‌روز ترین محصولات</h5>
-                            <span class="point-span">و بهترین کیفیت</span>
+                            <h5 class="m-0">{{ __('product.newest_title') }}</h5>
+                            <span class="point-span">{{ __('product.newest_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -216,8 +215,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/offBadges.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">حراج های مختلف</h5>
-                            <span class="point-span">تا 50 درصد تخفیف</span>
+                            <h5 class="m-0">{{ __('product.discount_title') }}</h5>
+                            <span class="point-span">{{ __('product.discount_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -225,8 +224,8 @@
                     <div class="d-flex justify-content-start align-items-center gap-3">
                         <img src="{{ asset('shop/assets/svgs/quality.svg') }}" alt="24 hours" width="50">
                         <div class="text-end">
-                            <h5 class="m-0">تضمین بهترین قیمت</h5>
-                            <span class="point-span">و بالاترین کیفیت</span>
+                            <h5 class="m-0">{{ __('product.best_price_title') }}</h5>
+                            <span class="point-span">{{ __('product.best_price_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -237,7 +236,7 @@
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
                             {{-- <i class="fa-solid fa-info info-badge-icon"></i> --}}
                             <i class="fa-solid fa-circle-info info-badge-icon"></i>
-                            <h5 class="m-0">توضیحات</h5>
+                            <h5 class="m-0">{{ __('product.description') }}</h5>
                         </div>
                         <p class="text-justify text-muted">
                             {{ $bedcover->description }}
@@ -246,7 +245,7 @@
                     <div class="bg-white rounded-4 p-4 shadow-sm">
                         <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
                             <i class="fa-regular fa-comments info-badge-icon"></i>
-                            <h5 class="m-0">نظر شما برای ما مهم است</h5>
+                            <h5 class="m-0">{{ __('product.comments_title') }}</h5>
                         </div>
                         <form action="/comment" method="POST" class="">
                             @csrf
@@ -256,7 +255,7 @@
                                 <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
                                     <input type="text" id="searchInputtext" value="{{ old('text') }}"
                                         class="" name="text" oninput="nameinput('text')">
-                                    <label for="searchInputtext">دیدگاه خود را در مورد این محصول بنویسید ...</label>
+                                    <label for="searchInputtext">{{ __('product.comment_placeholder') }}</label>
                                     <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
                                         @if (old('text')) style="display:block !important" @endif>×</span>
                                 </div>
@@ -265,7 +264,7 @@
                                 @enderror
                             </div>
                             <div class="mb-4 d-flex justify-content-between align-items-center">
-                                امتیاز شما به این محصول :
+                                {{ __('product.your_rating') }} :
                                 <!-- ریتینگ ستاره‌ها -->
                                 <div class="rating-stars">
                                     <span class="star" data-value="1">★</span>
@@ -279,10 +278,9 @@
                                 <input type="hidden" name="rating" id="ratingInput" value="{{ old('rating', 0) }}">
                             </div>
                             @if (Auth::check())
-                                <button type="submit" class="btn btn-primary w-25 mb-3">ثبت دیدگاه</button>
+                                <button type="submit" class="btn btn-primary w-25 mb-3">{{ __('product.submit_comment') }}</button>
                             @else
-                                <button type="button" id="comment_btn" class="btn btn-primary w-25 mb-3">ثبت
-                                    دیدگاه</button>
+                                <button type="button" id="comment_btn" class="btn btn-primary w-25 mb-3">{{ __('product.submit_comment') }}</button>
                             @endif
                         </form>
                     </div>
@@ -291,54 +289,54 @@
                     <div class="d-flex justify-content-start align-items-center gap-3 mb-2">
                         {{-- <i class="fa-solid fa-info info-badge-icon"></i> --}}
                         <i class="fa-solid fa-circle-info info-badge-icon"></i>
-                        <h5 class="m-0">جزئیات محصول</h5>
+                        <h5 class="m-0">{{ __('product.details') }}</h5>
                     </div>
                     <ul class="list-group list-group-flush p-0">
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>ابعاد محصول</span>
+                                <span>{{ __('product.dimensions') }}</span>
                                 <span class="point-span">{{ $bedcover->dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>وزن تقریبی</span>
+                                <span>{{ __('product.weight') }}</span>
                                 <span class="point-span">{{ $bedcover->weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>جنس محصول</span>
+                                <span>{{ __('product.material') }}</span>
                                 <span class="point-span">{{ $bedcover->kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>نوع دوخت</span>
+                                <span>{{ __('product.sewing_type') }}</span>
                                 <span class="point-span">{{ $bedcover->sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>آستر</span>
+                                <span>{{ __('product.lining') }}</span>
                                 <span class="point-span">{{ $bedcover->haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>جنس آستر</span>
+                                <span>{{ __('product.lining_material') }}</span>
                                 <span class="point-span">{{ $bedcover->kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>قابلیت شستشو</span>
+                                <span>{{ __('product.washable') }}</span>
                                 <span class="point-span">{{ $bedcover->washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>موارد استفاده</span>
+                                <span>{{ __('product.uses') }}</span>
                                 <span class="point-span">{{ $bedcover->uses }}</span>
                             </div>
                         </li>
@@ -355,9 +353,9 @@
                     </div> --}}
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="محصولات مشابه"
+                            <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="{{ __('product.related_products') }}"
                                 width="30">
-                            <h2 class="title m-0">محصولات مشابه</h2>
+                            <h2 class="title m-0">{{ __('product.related_products') }}</h2>
                         </div>
                         <div class="">
                             <!-- دکمه‌های کنترل جداگانه -->
@@ -404,9 +402,9 @@
                                                 </div>
                                                 <div class="overlay">
                                                     <h3 class="product-title">
-                                                        {{ $bedcover->category->title }} طرح
+                                                        {{ $bedcover->category->title }} {{ __('products.design') }}
                                                         {{ $bedcover->color_design->design->title }}
-                                                        رنگ
+                                                        {{ __('products.color') }}
                                                         {{ $bedcover->color_design->color->color }}</h3>
                                                     <div
                                                         class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
@@ -431,7 +429,7 @@
                                                                   @break
                                                             @endswitch
                                                             "
-                                                                class="buy-button text-decoration-none h-100 px-3 py-1">مشاهده</a>
+                                                                class="buy-button text-decoration-none h-100 px-3 py-1">{{ __('main.view') }}</a>
                                                         </div>
                                                         <div class="d-flex flex-column hot-product-price">
                                                             @if ($prices->offPrice > 0)
@@ -477,7 +475,7 @@
                                                 <div
                                                     class="px-1 pt-2 hot-description border-top d-flex justify-content-between align-items-center">
                                                     <div class="d-flex align-items-center justify-content-center gap-2">
-                                                        <span class="fs-10">28 عدد فروش رفته</span>
+                                                        <span class="fs-10">28 {{ __('main.sell') }}</span>
                                                     </div>
                                                     <div class="d-flex justify-content-between align-items-center gap-2">
                                                         <button
@@ -529,8 +527,8 @@
                     {{-- <i class="fa-solid fa-info info-badge-icon top-0"></i> --}}
                     <i class="fa-regular fa-comments info-badge-icon"></i>
                     <div>
-                        <h5 class="m-0">دیدگاه کاربران</h5>
-                        <span class="point-span">{{ $comments->count() }} دیدگاه برای این محصول ثبت شده است</span>
+                        <h5 class="m-0">{{ __('product.user_comments') }}</h5>
+                        <span class="point-span">{{ __('product.comments_count', ['count' => $comments->count()]) }}</span>
                     </div>
                 </div>
                 @foreach ($comments as $comment)
@@ -569,7 +567,7 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="galleryModalLabel">گالری تصاویر محصول</h5>
+                        <h5 class="modal-title" id="galleryModalLabel">{{ __('product.gallery') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -681,10 +679,10 @@
                             alt="product" class="cart-item-image">
                         <div class="cart-item-content">
                             <div class="cart-item-title">
-                                ${title} طرح ${design} رنگ ${color}
+                                ${title} {{ __('products.design') }} ${design} {{ __('products.color') }} ${color}
                             </div>
                             <div class="cart-item-price">
-                                ${Number(price).toLocaleString()} تومان
+                                ${Number(price).toLocaleString()} {{ __('products.currency') }}
                             </div>
                         </div>
                     </div>
@@ -972,7 +970,7 @@
                 const offType = $btn.data('offType');
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
-                const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
+                const title = `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.color') }} ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
                 const quantity = parseInt($('#item-quantity-product').text()) || 1;
                 const url = `${document.location.origin}/cart/add/${id}/${model}/${quantity}`;
@@ -1070,12 +1068,12 @@
 
                     if (discountAmount > 0) {
                         $priceElement.html(`
-                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} تومان</span>
-                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} {{ __('products.currency') }}</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} {{ __('products.currency') }}</span>
                 `);
                     } else {
                         $priceElement.html(`
-                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} {{ __('products.currency') }}</span>
                 `);
                     }
                 } else {
@@ -1094,7 +1092,7 @@
                     <div class="cart-item-title">${item.title}</div>
 
                     <div class="cart-item-price">
-                        ${Number(item.price * item.quantity).toLocaleString()} تومان
+                        ${Number(item.price * item.quantity).toLocaleString()} {{ __('products.currency') }}
                     </div>
 
                     <div class="quantity-controls">
@@ -1434,10 +1432,10 @@
                         alt="product" class="cart-item-image">
                     <div class="cart-item-content">
                         <div class="cart-item-title">
-                            ${item.title} طرح ${item.design} رنگ ${item.color}
+                            ${item.title} {{ __('products.design') }} ${item.design} {{ __('products.color') }} ${item.color}
                         </div>
                         <div class="cart-item-price">
-                            ${Number(item.price).toLocaleString()} تومان
+                            ${Number(item.price).toLocaleString()} {{ __('products.currency') }}
                         </div>
                         <div
                             class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">

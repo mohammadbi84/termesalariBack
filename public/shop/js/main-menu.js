@@ -52,11 +52,13 @@ function initMainMenu() {
                     favorites_dropdown.style.top = "65px";
                     favorites_dropdown.style.left = "1rem";
                 }
+                if (profile_dropdown) {
+                    profile_dropdown.style.left = "1rem";
+                    profile_dropdown.style.top = "65px";
+                }
                 cart_dropdown.style.left = "1rem";
                 compare_dropdown.style.left = "1rem";
                 compare_dropdown.style.top = "65px";
-                profile_dropdown.style.left = "1rem";
-                profile_dropdown.style.top = "65px";
                 cart_dropdown.style.top = "65px";
                 categoriesMenu.style.top = "65px";
                 categoriesMenu.style.left = "1rem";
@@ -73,12 +75,14 @@ function initMainMenu() {
                     favorites_dropdown.style.top = "75px";
                     favorites_dropdown.style.left = "-10px";
                 }
+                if (profile_dropdown) {
+                    profile_dropdown.style.left = "-10px";
+                    profile_dropdown.style.top = "75px";
+                }
                 cart_dropdown.style.left = "-10px";
                 compare_dropdown.style.left = "-10px";
-                profile_dropdown.style.left = "-10px";
                 cart_dropdown.style.top = "75px";
                 compare_dropdown.style.top = "75px";
-                profile_dropdown.style.top = "75px";
                 categoriesMenu.style.top = "75px";
                 categoriesMenu.style.left = "-10px";
                 categoriesMenu.style.right = "-10px";
@@ -99,7 +103,7 @@ function initMainMenu() {
             Bookmark.classList.remove("expanded");
             Bookmark.classList.add("collapsed");
             Bookmark.style.background = "var(--primary-color)";
-            Bookmark.innerHTML = '';
+            Bookmark.innerHTML = "";
             mainMenu.classList.remove("with-bookmark");
             mainMenu.classList.remove("smallBookmark");
             bookmarkToggle.classList.add("d-none");
