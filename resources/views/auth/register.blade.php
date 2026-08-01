@@ -140,7 +140,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'ورود به سایت ترمه سالاری')
+@section('title', __('auth.pageTitle'))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -154,35 +154,35 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                <h4 class="mb-4">عضویت در فروشگاه ترمه سالاری</h4>
-                <p class="text-justify text-muted mb-5">گام سوم - تکمیل ثبت نام</p>
+                <h4 class="mb-4">{{ __('auth.registerHeading') }}</h4>
+                <p class="text-justify text-muted mb-5">{{ __('auth.registerStep') }}</p>
                 <form action="{{ route('register') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 {{ old('name') ? 'filled' :'' }}" id="autocompleteBoxname">
+                        <div class="autocomplete mb-3 {{ old('name') ? 'filled' : '' }}" id="autocompleteBoxname">
                             <input type="text" id="searchInputname" class="" name="name"
                                 oninput="nameinput('name')" value="{{ old('name') }}">
-                            <label for="searchInputname">نام (الزامی)</label>
+                            <label for="searchInputname">{{ __('auth.nameLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_name" onclick="clearInput('name')">×</span>
                         </div>
                         @error('name')
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
 
-                        <div class="autocomplete mb-3 {{ old('family') ? 'filled' :'' }}" id="autocompleteBoxfamily">
+                        <div class="autocomplete mb-3 {{ old('family') ? 'filled' : '' }}" id="autocompleteBoxfamily">
                             <input type="text" id="searchInputfamily" class="" name="family"
                                 oninput="nameinput('family')" value="{{ old('family') }}">
-                            <label for="searchInputfamily">نام خانوادگی (الزامی)</label>
+                            <label for="searchInputfamily">{{ __('auth.familyLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_family" onclick="clearInput('family')">×</span>
                         </div>
                         @error('family')
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
 
-                        <div class="autocomplete mb-3 {{ old('email') ? 'filled' :'' }}" id="autocompleteBoxemail">
+                        <div class="autocomplete mb-3 {{ old('email') ? 'filled' : '' }}" id="autocompleteBoxemail">
                             <input type="email" id="searchInputemail" class="" name="email"
                                 oninput="nameinput('email')" value="{{ old('email') }}">
-                            <label for="searchInputemail">آدرس پست الکترونیک (اختیاری)</label>
+                            <label for="searchInputemail">{{ __('auth.emailLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_email" onclick="clearInput('email')">×</span>
                         </div>
                         @error('email')
@@ -192,11 +192,10 @@
                         <input id="conditions" name="conditions" type="checkbox" value="1"
                             class="flat-red  @error('conditions') is-invalid @enderror"
                             {{ old('conditions') ? 'checked' : '' }}>
-                        <label for="conditions"><a href="{{ route('terms') }}">شرایط </a>ثبت نام را می
-                            پذیرم.</label>
+                        <label for="conditions"><a href="{{ route('terms') }}">{{ __('auth.termsLink') }} </a>{{ __('auth.acceptTermsRest') }}</label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3">ثبت نام</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('auth.registerButton') }}</button>
                 </form>
             </div>
         </div>

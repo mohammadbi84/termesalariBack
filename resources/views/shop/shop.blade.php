@@ -73,12 +73,12 @@
                                 <path fill-rule="evenodd"
                                     d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
                             </svg>
-                            اطلاعات بیشتر
+                            {{ __('main.moreInfo') }}
                         </a>
                         <!-- 👇 pagination بیاد اینجا -->
                         <div id="popup-pagination-holder"></div>
                         <button class="btn btn-text-link" data-bs-dismiss="modal">
-                            بعدا چک میکنم
+                            {{ __('main.checkLater') }}
                         </button>
 
                     </div>
@@ -540,7 +540,7 @@
                                                                               @break
                                                                         @endswitch
                                                                         "
-                                                                        class="buy-button text-decoration-none">مشاهده</a>
+                                                                        class="buy-button text-decoration-none">{{ __('main.view') }}</a>
                                                                     <span class="fs-10 p-0">
                                                                         @if ($topRequest->orderitemable->quantity == 0)
                                                                             اتمام موجودی در انبار
@@ -683,7 +683,7 @@
                     </div>
                     <div class="">
                         <a href="#" class="btn btn-primary">
-                            مشاهده بیشتر
+                            {{ __('main.viewMore') }}
                         </a>
                     </div>
                 </div>
@@ -740,11 +740,11 @@
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
                                                     <div class="text-center">
                                                         <span class="sell-count d-block">{{ $product->sum }}</span>
-                                                        <span class="sell-text">فروش</span>
+                                                        <span class="sell-text">{{ __("main.sell") }}</span>
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="rate-count d-block">{{ $score }}</span>
-                                                        <span class="rate-text">رضایت</span>
+                                                        <span class="rate-text">{{ __("main.Satisfaction") }}</span>
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="rate-count d-block text-danger">
@@ -768,7 +768,7 @@
                                                                     style="font-size: 18px;"></i>
                                                             </a>
                                                         </span>
-                                                        <span class="rate-text">علاقه‌مندی</span>
+                                                        <span class="rate-text">{{ __("main.intrests") }}</span>
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="sell-count d-block">
@@ -789,7 +789,7 @@
                                                                 data-model="{{ substr($product->orderitemable->category->model, 4) }}"><i
                                                                     class="fa-solid fa-shuffle"></i></a>
                                                         </span>
-                                                        <span class="rate-text">مقایسه</span>
+                                                        <span class="rate-text">{{ __('main.compareWord') }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-column">
@@ -909,7 +909,7 @@
                                                               @case('App\Shoe')
                                                                 {{ route('shoe.show', [$product->orderitemable->id]) }}
                                                                 @break
-                                                        @endswitch">مشاهده
+                                                        @endswitch">{{ __('main.view') }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -1047,7 +1047,7 @@
                                                                   @break
                                                             @endswitch
                                                             "
-                                                            class="buy-button text-decoration-none h-100 px-3 py-1">مشاهده</a>
+                                                            class="buy-button text-decoration-none h-100 px-3 py-1">{{ __('main.view') }}</a>
                                                     </div>
                                                     <div class="d-flex flex-column hot-product-price">
                                                         @if ($prices->offPrice > 0)
@@ -1093,7 +1093,7 @@
                                             <div
                                                 class="px-1 pt-2 hot-description border-top d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
-                                                    <span class="fs-10">{{ $topRequest->sum }} عدد فروش رفته</span>
+                                                    <span class="fs-10">{{ $topRequest->sum }} {{ __("main.sellsCount") }}</span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
                                                     <button class="buy-button shadow-none add-to-cart compare"
@@ -1221,8 +1221,7 @@
                                                 data-bs-target="#mapModal"
                                                 data-location="{{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }} {{ $agent->phone }}"
                                                 data-lat="{{ $agent->latitude }}"
-                                                data-lng="{{ $agent->longitude }}">مشاهده روی
-                                                نقشه</button>
+                                                data-lng="{{ $agent->longitude }}">{{ __('main.viewOnMap') }}</button>
                                         </div>
                                     </div>
                                 </div>

@@ -112,7 +112,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'تغییر رمز عبور')
+@section('title', __("auth.changePasswordTitle"))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -126,7 +126,7 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                <h4 class="mb-4">تغییر رمز عبور</h4>
+                <h4 class="mb-4">{{ __("auth.changePasswordTitle") }}</h4>
                 {{-- <p class="text-justify text-muted mb-5">اطلاعات مربوط به بازیابی رمز عبور به ایمیل/شماره موبایل شما ارسال
                     خواهد شد</p> --}}
                 <form action="{{ route('password.updatePassword') }}" method="post">

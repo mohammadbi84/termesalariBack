@@ -16,4 +16,11 @@ return [
     'logout' => 'خروج',
     'register' => 'ثبت نام',
     'profile' => 'مشاهده پروفایل',
+    'viewCart' => 'مشاهده سبد خرید',
+    'toman' => 'تومان',
+    'amountPayable' => 'مبلغ قابل پرداخت',
+    'pluralPart' => 'جمع جزء',
+    'product' => 'کالا',
+    'OutOfStock' => 'ناموجود',
+    'viewList' => 'مشاهده لیست',
 ];

@@ -51,7 +51,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'ورود به سایت ترمه سالاری')
+@section('title', __('auth.confirmPasswordTitle'))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -73,7 +73,7 @@
                         <div class="autocomplete mb-3 {{ old('password') ? 'filled' :'' }}" id="autocompleteBoxpassword">
                             <input type="password" id="searchInputpassword" class="" name="password"
                                 oninput="nameinput('password')" value="{{ old('password') }}">
-                            <label for="searchInputpassword">رمز فعلی</label>
+                            <label for="searchInputpassword">{{ __('auth.currentPasswordLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                         </div>
                         @error('password')

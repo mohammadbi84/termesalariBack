@@ -20,4 +20,16 @@ return [
     'logout' => 'LogOut',
     'register' => 'signUp',
     'profile' => 'View Profile',
+
+    'checkLater' => 'check later',
+    'moreInfo' => 'more info',
+
+    'view' => 'view',
+    'viewMore' => 'view more',
+    'viewOnMap' => 'view on map',
+    'compareWord' => 'compare',
+    'sell' => 'sells',
+    'Satisfaction' => 'satisfaction',
+    'intrests' => 'favorites',
+    'sellsCount' => 'sold',
 ];

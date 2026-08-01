@@ -144,7 +144,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'تایید شماره تلفن در سایت ترمه سالاری')
+@section('title', __('auth.verifyPageTitle'))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -158,21 +158,23 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                <h4 class="mb-4">عضویت در فروشگاه ترمه سالاری</h4>
-                <p class="text-justify text-muted mb-5">کد فعالسازی به شماره تلفن همراه شما <b>@php
-                    $user = session()->get('authenticationUser');
-                    print $user['mobile'];
-                @endphp</b> پیامک
-                    شد. لطفا آن
-                    را در کادر زیر وارد و دکمه فعالسازی را کلیک کنید.</p>
+                <h4 class="mb-4">{{ __('auth.registerHeading') }}</h4>
+                <p class="text-justify text-muted mb-5">
+                    @php
+                        $user = session()->get('authenticationUser');
+                        $mobile = $user['mobile'] ?? '';
+                    @endphp
+                    {{ __('auth.verifyInfo', ['mobile' => $mobile]) }}
+                </p>
                 <form action="{{ route('register.checkVerifyCode') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 {{ old('active_code') ? 'filled' :'' }}" id="autocompleteBoxactive_code">
+                        <div class="autocomplete mb-3 {{ old('active_code') ? 'filled' : '' }}"
+                            id="autocompleteBoxactive_code">
                             <input type="active_code" id="searchInputactive_code" class="" name="active_code"
                                 oninput="nameinput('active_code')" value="{{ old('active_code') }}" maxlength="11"
                                 pattern="[a-zA-Z0-9]+">
-                            <label for="searchInputactive_code">کد فعالسازی</label>
+                            <label for="searchInputactive_code">{{ __('auth.verifyCodeLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_active_code" onclick="clearInput('active_code')">×</span>
                         </div>
                         @error('active_code')
@@ -180,10 +182,10 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3">ثبت کد تایید</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('auth.verifyButton') }}</button>
 
                     <div class="text-center">
-                        <a href="" class="btn btn-success btn-flat btn-sm" id="resendSMS">ارسال مجدد کد </a>
+                        <a href="" class="btn btn-success btn-flat btn-sm" id="resendSMS">{{ __('auth.resendLink') }}</a>
                     </div>
                 </form>
             </div>
@@ -193,7 +195,6 @@
 @section('script')
     <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     <script>
-
         $("#resendSMS").click(function() {
             event.preventDefault();
             $.ajax({
@@ -211,8 +212,7 @@
                     }
                     swal(title, data.message, data.res);
                 },
-                complete: function() {
-                }
+                complete: function() {}
             });
         });
     </script>

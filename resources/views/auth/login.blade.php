@@ -141,15 +141,15 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                <h4 class="mb-4">ورود به فروشگاه ترمه سالاری</h4>
-                <p class="text-muted mb-5">برای دسترسی به امکانات فروشگاه، ابتدا وارد حساب کاربری شوید.</p>
-                <form action="{{ route('login') }}" method="post">
+                <h4 class="mb-4">{{ __('auth.loginTitle') }}</h4>
+                <p class="text-muted mb-5"></p>
+                <form action="{{ __('auth.loginText') }}" method="post">
                     @csrf
                     <div class="mb-3 mt-4">
                         <div class="autocomplete {{ old('login') ? 'filled' : '' }}" id="autocompleteBoxlogin">
                             <input type="text" id="searchInputlogin" value="{{ old('login') }}" class=""
                                 name="login" oninput="nameinput('login')">
-                            <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                            <label for="searchInputlogin">{{ __('auth.mobileOrEmail') }}</label>
                             <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                 @if (old('login')) style="display:block !important" @endif>×</span>
                         </div>
@@ -161,7 +161,7 @@
                         <div class="autocomplete" id="autocompleteBoxpassword">
                             <input type="password" id="searchInputpassword" class="" name="password"
                                 oninput="nameinput('password')">
-                            <label for="searchInputpassword">رمز عبور</label>
+                            <label for="searchInputpassword">{{ __('auth.password') }}</label>
                             <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                         </div>
                         @error('password')
@@ -171,17 +171,19 @@
                     <div class="mb-3">
                         <input type="checkbox" class="flat-red" name="remember" id="remember"
                             {{ old('remember') ? 'checked' : '' }}>
-                        <label for="remember">من را به خاطر بسپار</label>
+                        <label for="remember">{{ __('auth.rememberMe') }}</label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('auth.login') }}</button>
 
                     <div class="text-center">
                         @if (Route::has('password.request'))
-                            <div class="mb-2"><a href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                            <div class="mb-2"><a
+                                    href="{{ route('password.request') }}">{{ __('auth.forgotPassword') }}</a>
                             </div>
                         @endif
-                        <div class="mb-2">حساب کاربری ندارید؟ <a href="{{ route('register') }}">ثبت نام کنید</a></div>
+                        <div class="mb-2">{{ __('auth.dontHaveAccount') }} <a
+                                href="{{ route('register') }}">{{ __('auth.register') }}</a></div>
                     </div>
                 </form>
             </div>
@@ -191,7 +193,7 @@
 @section('script')
     <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
 
-    
+
     <script>
         $(document).on("input", ".only-number", function() {
             this.value = this.value.replace(/[^0-9]/g, '');

@@ -289,7 +289,7 @@
                 <div class="cart-dropdown">
                     <div class="cart-header">
                         <span class="mb-0">{{ __('menu.cart') }}</span>
-                        <span class="text-muted cart-items-count">{{ $sum ?? 0 }} کالا</span>
+                        <span class="text-muted cart-items-count">{{ $sum ?? 0 }} {{ __('menu.product') }}</span>
                     </div>
 
                     <div class="cart-items" id="navbarCartList">
@@ -382,9 +382,8 @@
                                             <div class="cart-item-price">
                                                 @if ($cartOff > 0)
                                                     <span class="cart-item-old-price">{{ $p->offPrice }}</span>
-                                                @endif <small class="fs-10 text-muted">جمع
-                                                    جزء : </small>
-                                                {{ number_format($cartPrice * $quantity) }} تومان
+                                                @endif <small class="fs-10 text-muted">{{ __('menu.pluralPart') }} : </small>
+                                                {{ number_format($cartPrice * $quantity) }} {{ __('menu.toman') }}
                                             </div>
                                             <div class="quantity-controls">
                                                 <button class="decrease" data-model="{{ $model }}"
@@ -407,14 +406,15 @@
                     <div class="cart-footer">
                         <div class="cart-actions justify-content-between align-items-center">
                             <span class="cart-total-price">
-                                <span class="text-muted fs-10">مبلغ قابل پرداخت</span><br>
+                                <span class="text-muted fs-10">{{ __('menu.amountPayable') }}</span><br>
                                 {{ number_format($price ?? 0) }}
-                                تومان</span>
-                            <a href="{{ route('cart.index') }}" class="btn-checkout">مشاهده سبد خرید</a>
+                                {{ __('menu.toman') }}</span>
+                            <a href="{{ route('cart.index') }}" class="btn-checkout">{{ __('menu.viewCart') }}</a>
                         </div>
                     </div>
                 </div>
                 {{-- منوی پروفایل --}}
+                @if (Auth::check())
                 <div class="profile-dropdown">
                     <div class="profile-items px-4 py-3" id="navbarprofileList">
                         <li class=" list-unstyled mb-3">
@@ -436,15 +436,16 @@
                         </li>
                     </div>
                 </div>
+                @endif
                 {{-- منوی مقایسه ها --}}
                 <div class="compare-dropdown">
                     <div class="favorites-header">
                         <span class="mb-0">{{ __('menu.compare') }}</span>
                         <span class="text-muted compare-items-count" id="compare-items-count">
                             @if (session()->has('compares'))
-                                {{ count(session('compares')['product']) }} کالا
+                                {{ count(session('compares')['product']) }} {{ __('menu.product') }}
                             @else
-                                0 کالا
+                                0 {{ __('menu.product') }}
                             @endif
                         </span>
                     </div>
@@ -477,13 +478,13 @@
                                                             class="favorites-item-old-price">{{ number_format($price->price - $price->price * ($price->offPrice / 100)) }}</span>
                                                     @endif
                                                     {{ number_format($price->price) }}
-                                                    تومان
+                                                    {{ __('menu.toman') }}
                                                 @else
                                                     {{ number_format($price->price) }}
-                                                    تومان
+                                                    {{ __('menu.toman') }}
                                                 @endif
                                             @else
-                                                ناموجود
+                                                {{ __('menu.OutOfStock') }}
                                             @endif
                                         </div>
                                         <div
@@ -500,7 +501,7 @@
 
                     <div class="cart-footer">
                         <div class="cart-actions justify-content-end align-items-center">
-                            <a href="{{ route('compare.index') }}" class="btn-checkout">مشاهده لیست</a>
+                            <a href="{{ route('compare.index') }}" class="btn-checkout">{{ __('menu.viewList') }}</a>
                         </div>
                     </div>
                 </div>
@@ -510,7 +511,7 @@
                         <div class="favorites-header">
                             <span class="mb-0">{{ __('menu.favorites') }}</span>
                             <span class="text-muted favorites-items-count"
-                                id="favorites-items-count">{{ $favorites->count() }} کالا</span>
+                                id="favorites-items-count">{{ $favorites->count() }} {{ __('menu.product') }}</span>
                         </div>
 
                         <div class="favorites-items" id="navbarFavoritesList">
@@ -554,13 +555,13 @@
                                                             class="favorites-item-old-price">{{ number_format($price->price - $price->price * ($price->offPrice / 100)) }}</span>
                                                     @endif
                                                     {{ number_format($price->price) }}
-                                                    تومان
+                                                    {{ __('menu.toman') }}
                                                 @else
                                                     {{ number_format($price->price) }}
-                                                    تومان
+                                                    {{ __('menu.toman') }}
                                                 @endif
                                             @else
-                                                ناموجود
+                                                {{ __('menu.OutOfStock') }}
                                             @endif
                                         </div>
                                         <div
@@ -599,8 +600,7 @@
 
                         <div class="cart-footer">
                             <div class="cart-actions justify-content-end align-items-center">
-                                <a href="{{ route('user.favorites') }}" class="btn-checkout">مشاهده
-                                    لیست</a>
+                                <a href="{{ route('user.favorites') }}" class="btn-checkout">{{ __('menu.viewList') }}</a>
                             </div>
                         </div>
                     </div>

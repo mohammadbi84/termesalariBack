@@ -67,7 +67,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'تغییر رمز عبور')
+@section('title', __('auth.changePasswordTitle'))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -81,9 +81,8 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                <h4 class="mb-4">تغییر رمز عبور</h4>
-                <p class="text-justify text-muted mb-5">اطلاعات مربوط به بازیابی رمز عبور به ایمیل/شماره موبایل شما ارسال
-                    خواهد شد</p>
+                <h4 class="mb-4">{{ __('auth.changePasswordHeading') }}</h4>
+                <p class="text-justify text-muted mb-5">{{ __('auth.changePasswordInfo') }}</p>
                 <form action="{{ route('password.update') }}" method="post">
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}">
@@ -91,7 +90,7 @@
                         <div class="autocomplete mb-3 {{ old('email') ? 'filled' :'' }}" id="autocompleteBoxemail">
                             <input type="email" id="searchInputemail" class="" name="email"
                                 oninput="nameinput('email')" value="{{ $email ?? old('email') }}">
-                            <label for="searchInputemail">ایمیل یا شماره موبایل</label>
+                            <label for="searchInputemail">{{ __('auth.emailOrMobileLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_email" onclick="clearInput('email')">×</span>
                         </div>
                         @error('email')
@@ -101,7 +100,7 @@
                         <div class="autocomplete mb-3 {{ old('password') ? 'filled' :'' }}" id="autocompleteBoxpassword">
                             <input type="password" id="searchInputpassword" class="" name="password"
                                 oninput="nameinput('password')">
-                            <label for="searchInputpassword">{{ __('رمز عبور جدید') }}</label>
+                            <label for="searchInputpassword">{{ __('auth.newPasswordLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                         </div>
                         @error('password')
@@ -112,7 +111,7 @@
                         <div class="autocomplete mb-3 {{ old('password_confirmation') ? 'filled' :'' }}" id="autocompleteBoxpassword_confirmation">
                             <input type="password_confirmation" id="searchInputpassword_confirmation" class="" name="password_confirmation"
                                 oninput="nameinput('password_confirmation')">
-                            <label for="searchInputpassword_confirmation">{{ __('تکرار رمز عبور جدید') }}</label>
+                            <label for="searchInputpassword_confirmation">{{ __('auth.confirmNewPasswordLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_password_confirmation" onclick="clearInput('password_confirmation')">×</span>
                         </div>
                         @error('password_confirmation')
@@ -120,7 +119,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" id="submit" class="btn btn-primary w-100 mb-3">{{ __('Reset Password') }}</button>
+                    <button type="submit" id="submit" class="btn btn-primary w-100 mb-3">{{ __('auth.resetPasswordButton') }}</button>
                 </form>
             </div>
         </div>

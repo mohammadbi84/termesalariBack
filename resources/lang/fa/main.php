@@ -20,4 +20,16 @@ return [
     'logout' => 'خروج',
     'register' => 'ثبت نام',
     'profile' => 'مشاهده پروفایل',
+
+    'checkLater' => 'بعدا چک میکنم',
+    'moreInfo' => 'اطلاعات بیشتر',
+
+    'view' => 'مشاهده',
+    'viewMore' => 'مشاهده بیشتر',
+    'viewOnMap' => 'مشاهده روی نقشه',
+    'compareWord' => 'مقایسه',
+    'sell' => 'فروش',
+    'Satisfaction' => 'رضایت',
+    'intrests' => 'علاقه‌مندی',
+    'sellsCount' => 'عدد فروش رفته',
 ];

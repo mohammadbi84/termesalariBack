@@ -141,7 +141,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'ورود به سایت ترمه سالاری')
+@section('title', __('auth.registerPageTitle'))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -155,16 +155,16 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                <h4 class="mb-4">عضویت در فروشگاه ترمه سالاری</h4>
-                <p class="text-muted mb-5">برای ثبت نام اطلاعات خواسته شده را وارد کنید.</p>
+                <h4 class="mb-4">{{ __('auth.registerHeading') }}</h4>
+                <p class="text-muted mb-5">{{ __('auth.registerInfo') }}</p>
                 <form action="{{ route('register.sendSMS') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
-                        <div class="autocomplete mb-3 {{ old('mobile') ? 'filled' :'' }}" id="autocompleteBoxmobile">
+                        <div class="autocomplete mb-3 {{ old('mobile') ? 'filled' : '' }}" id="autocompleteBoxmobile">
                             <input type="mobile" id="searchInputmobile" class="" name="mobile"
                                 oninput="nameinput('mobile')" value="{{ old('mobile') }}" maxlength="11"
                                 pattern="[a-zA-Z0-9]+">
-                            <label for="searchInputmobile">شماره موبایل</label>
+                            <label for="searchInputmobile">{{ __('auth.mobileLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_mobile" onclick="clearInput('mobile')">×</span>
                         </div>
                         @error('mobile')
@@ -172,23 +172,24 @@
                         @enderror
 
 
-                        <div class="autocomplete mb-3 {{ old('password') ? 'filled' :'' }}" id="autocompleteBoxpassword">
+                        <div class="autocomplete mb-3 {{ old('password') ? 'filled' : '' }}" id="autocompleteBoxpassword">
                             <input type="password" id="searchInputpassword" class="" name="password"
                                 oninput="nameinput('password')" value="{{ old('password') }}" maxlength="11"
                                 pattern="[a-zA-Z0-9]+">
-                            <label for="searchInputpassword">رمز عبور</label>
+                            <label for="searchInputpassword">{{ __('auth.passwordLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                         </div>
                         @error('password')
                             <small class="text-danger mt-2">{{ $message }}</small>
                         @enderror
 
-                        <div class="autocomplete mb-3 {{ old('password_confirmation') ? 'filled' :'' }}"
+                        <div class="autocomplete mb-3 {{ old('password_confirmation') ? 'filled' : '' }}"
                             id="autocompleteBoxpassword_confirmation">
                             <input type="password" id="searchInputpassword_confirmation" class=""
                                 name="password_confirmation" oninput="nameinput('password_confirmation')"
                                 value="{{ old('password_confirmation') }}" maxlength="11" pattern="[a-zA-Z0-9]+">
-                            <label for="searchInputpassword_confirmation">تکرار رمز عبور</label>
+                            <label
+                                for="searchInputpassword_confirmation">{{ __('auth.passwordConfirmationLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_password_confirmation"
                                 onclick="clearInput('password_confirmation')">×</span>
                         </div>
@@ -197,10 +198,11 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3">ثبت نام</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('auth.registerButton') }}</button>
 
                     <div class="text-center">
-                        <div class="mb-2">قبلا ثبت نام کرده اید؟ <a href="{{ route('login') }}">ورود به حساب کاربری</a>
+                        <div class="mb-2">{{ __('auth.alreadyRegistered') }} <a
+                                href="{{ route('login') }}">{{ __('auth.loginLink') }}</a>
                         </div>
                     </div>
                 </form>

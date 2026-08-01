@@ -102,7 +102,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'بازیابی رمز عبور')
+@section('title', __('auth.resetPasswordTitle'))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -116,16 +116,15 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center left-col">
-                <h4 class="mb-4">بازیابی رمز عبور</h4>
-                <p class="text-justify text-muted mb-5">اطلاعات مربوط به بازیابی رمز عبور به ایمیل/شماره موبایل شما ارسال
-                    خواهد شد</p>
+                <h4 class="mb-4">{{ __('auth.resetPasswordHeading') }}</h4>
+                <p class="text-justify text-muted mb-5">{{ __('auth.resetPasswordInfo') }}</p>
                 <form action="{{ route('password.email') }}" method="post">
                     @csrf
                     <div class="mb-5 mt-4">
                         <div class="autocomplete mb-3 {{ old('email') ? 'filled' :'' }}" id="autocompleteBoxemail">
                             <input type="email" id="searchInputemail" class="" name="email"
                                 oninput="nameinput('email')" value="{{ old('email') }}">
-                            <label for="searchInputemail">ایمیل یا شماره موبایل</label>
+                            <label for="searchInputemail">{{ __('auth.emailOrMobileLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_email" onclick="clearInput('email')">×</span>
                         </div>
                         @error('email')
@@ -133,10 +132,10 @@
                         @enderror
                     </div>
 
-                    <button type="submit" id="submit" class="btn btn-primary w-100 mb-3">ارسال</button>
+                    <button type="submit" id="submit" class="btn btn-primary w-100 mb-3">{{ __('auth.sendResetLinkButton') }}</button>
                     <a href="{{ route('login') }}" class="btn btn-flat back-btn">
                         <i class="fa fa-arrow-right ms-1"></i>
-                        بازگشت
+                        {{ __('auth.backToLoginLink') }}
                     </a>
                 </form>
             </div>

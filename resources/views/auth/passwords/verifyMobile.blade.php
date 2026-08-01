@@ -85,7 +85,7 @@
 
 
 @extends('shop.layouts.master')
-@section('title', 'تغییر رمز عبور')
+@section('title', __("auth.changePasswordTitle"))
 @section('head')
     <!-- login styles -->
     <link rel="stylesheet" href="{{ asset('shop/css/login.css') }}">
@@ -99,7 +99,7 @@
             </div>
             <!-- فورم سمت چپ -->
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                <h4 class="mb-4">تغییر رمز عبور</h4>
+                <h4 class="mb-4">{{ __("auth.changePasswordTitle") }}</h4>
                 {{-- <p class="text-justify text-muted mb-5">اطلاعات مربوط به بازیابی رمز عبور به ایمیل/شماره موبایل شما ارسال
                     خواهد شد</p> --}}
                 <form action="{{ route('password.updatePassword') }}" method="post">
@@ -110,7 +110,7 @@
                             id="autocompleteBoxverify_code">
                             <input type="verify_code" id="searchInputverify_code" class="" name="verify_code"
                                 oninput="nameinput('verify_code')">
-                            <label for="searchInputverify_code">کد تائید</label>
+                            <label for="searchInputverify_code">{{ __('auth.verifyCodeLabel') }}</label>
                             <span class="clear-btn" id="clearBtn_verify_code" onclick="clearInput('verify_code')">×</span>
                         </div>
                         @error('verify_code')
@@ -118,11 +118,10 @@
                         @enderror
                     </div>
 
-                    <button type="submit" id="submit" class="btn btn-primary w-100 mb-3">ثبت کد تایید</button>
+                    <button type="submit" id="submit" class="btn btn-primary w-100 mb-3">{{ __('auth.verifyCodeButton') }}</button>
                     <div class="text-center">
-                        <a href="#" class="btn btn-success btn-flat btn-sm" id="resendSMS">ارسال مجدد کد </a>
-                        <a href="{{ route('password.request') }}" class="btn btn-secondary btn-flat btn-sm">بازگشت و
-                            ویرایش</a>
+                        <a href="#" class="btn btn-success btn-flat btn-sm" id="resendSMS">{{ __('auth.resendCodeLink') }} </a>
+                        <a href="{{ route('password.request') }}" class="btn btn-secondary btn-flat btn-sm">{{ __('auth.backAndEditLink') }}</a>
                     </div>
                 </form>
             </div>
