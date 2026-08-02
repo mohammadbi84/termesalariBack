@@ -143,7 +143,7 @@
             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
                 <h4 class="mb-4">{{ __('auth.loginTitle') }}</h4>
                 <p class="text-muted mb-5"></p>
-                <form action="{{ __('auth.loginText') }}" method="post">
+                <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="mb-3 mt-4">
                         <div class="autocomplete {{ old('login') ? 'filled' : '' }}" id="autocompleteBoxlogin">

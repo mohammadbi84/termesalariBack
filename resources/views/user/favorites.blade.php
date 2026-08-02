@@ -4,8 +4,8 @@
 @push('link')
 @endpush
 
-@section('card-title', 'علاقه مندی ها')
-@section('title', 'علاقه مندی ها')
+@section('card-title', __('user.favorites.card_title'))
+@section('title', __('user.favorites.title'))
 
 @section('user-content')
     <div class="row">
@@ -30,45 +30,44 @@
               @endswitch
             ">
                             <h6 class="pb-2" style="color:black; line-height: 2rem;">
-                                {{ $favorite->favoriteable->category->title }} طرح
-                                {{ $favorite->favoriteable->color_design->design->title }} رنگ
+                                {{ $favorite->favoriteable->category->title }} {{ __('user.favorites.design') }}
+                                {{ $favorite->favoriteable->color_design->design->title }} {{ __('user.favorites.color') }}
                                 {{ $favorite->favoriteable->color_design->color->color }}
                             </h6>
                         </a>
                         <p>
                             @if ($favorite->favoriteable->quantity > 0)
-                                @php
-                                    $price = $favorite->favoriteable->prices->where('local', 'تومان')->first();
-                                @endphp
+                                @php $price = $favorite->favoriteable->prices->where('local', 'تومان')->first(); @endphp
                                 @if ($price->offPrice > 0)
                                     <div class="row">
-                                        <div class="col-6">
-                                            <del>{{ number_format($price->price) }}</del>
-                                        </div>
+                                        <div class="col-6"><del>{{ number_format($price->price) }}</del></div>
                                         <div class="col-6">
                                             @if ($price->offType == 'مبلغ')
-                                                <span
-                                                    id="{{ $price->price - $price->offPrice }}">{{ number_format($price->price - $price->offPrice) }}</span>
-                                                تومان
+                                                <span>{{ number_format($price->price - $price->offPrice) }}</span>
+                                                {{ __('user.favorites.product.price_unit') }}
                                             @elseif($price->offType == 'درصد')
-                                                <span
-                                                    id="{{ $price->price - $price->price * ($price->offPrice / 100) }}">{{ $price->price - $price->price * ($price->offPrice / 100) }}</span>
-                                                تومان
+                                                <span>{{ number_format($price->price - $price->price * ($price->offPrice / 100)) }}</span>
+                                                {{ __('user.favorites.product.price_unit') }}
                                             @endif
                                         </div>
                                     </div>
                                 @else
-                                    <span id="{{ $price->price }}">{{ number_format($price->price) }}</span> تومان
+                                    <span>{{ number_format($price->price) }}</span>
+                                    {{ __('user.favorites.product.price_unit') }}
                                 @endif
                             @else
-                                ناموجود
+                                {{ __('user.favorites.product.out_of_stock') }}
                             @endif
                         </p>
                         <div class="row">
-                            <a class="small col-6" href="{{ route('tablecloth.show', [$favorite->favoriteable->id]) }}">مشاهده
-                                محصول <i class="fa fa-chevron-left" style="font-size: 0.7rem;"></i></a>
-                            <a href="" class="small col-6 removeFromFavorites" data-id="{{ $favorite->id }}"><i
-                                    class="far fa-trash-alt" style="font-size: 0.8rem;"></i> حذف از لیست </a>
+                            <a class="small col-6" href="{{ route('tablecloth.show', [$favorite->favoriteable->id]) }}">
+                                {{ __('user.favorites.product.view_product') }} <i class="fa fa-chevron-left"
+                                    style="font-size: 0.7rem;"></i>
+                            </a>
+                            <a href="" class="small col-6 removeFromFavorites" data-id="{{ $favorite->id }}">
+                                <i class="far fa-trash-alt" style="font-size: 0.8rem;"></i>
+                                {{ __('user.favorites.product.remove_from_list') }}
+                            </a>
                         </div>
 
                     </div>
