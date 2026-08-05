@@ -62,9 +62,11 @@
                         @endphp
                         <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}" alt=""
                             class="img-circle img-size-50 mr-2">
-                        {{ $orderitem->orderitemable->category->title }} طرح
-                        {{ $orderitem->orderitemable->color_design->design->title }} رنگ
-                        {{ $orderitem->orderitemable->color_design->color->color }}
+                        {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->category->title : $orderitem->orderitemable->category->e_title }}
+                        {{ __('products.design') }}
+                        {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->color_design->design->title : $orderitem->orderitemable->color_design->design->e_title }}
+                        {{ __('products.color') }}
+                        {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->color_design->color->color : $orderitem->orderitemable->color_design->color->e_color }}
                     </td>
                     <td>{{ $orderitem->count }}</td>
                     <td>{{ number_format($orderitem->price) }} {{ $order->local }}</td>

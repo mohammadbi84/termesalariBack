@@ -25,11 +25,21 @@
                 <h5 class="product-title">
                     @php
                         $name =
-                            $tablecloth->category->title .
-                            ' ' . __('products.design') .
-                            $tablecloth->color_design->design->title .
-                            ' ' . __('products.color') . ' ' .
-                            $tablecloth->color_design->color->color;
+                            (app()->getLocale() == 'fa'
+                                ? $tablecloth->category->title
+                                : $tablecloth->category->e_title) .
+                            ' ' .
+                            __('products.design') .
+                            ' ' .
+                            (app()->getLocale() == 'fa'
+                                ? $tablecloth->color_design->design->title
+                                : $tablecloth->color_design->design->e_title) .
+                            ' ' .
+                            __('products.color') .
+                            ' ' .
+                            (app()->getLocale() == 'fa'
+                                ? $tablecloth->color_design->color->color
+                                : $tablecloth->color_design->color->e_color);
                     @endphp
                     {{ Str::limit($name, 35) }}
                     {{-- {{ $tablecloth->category->title }} طرح
@@ -39,7 +49,7 @@
 
                 <div class="stars text-end">
                     <small class="text-muted ms-2">
-                        {{ $tablecloth->category->title }}
+                        {{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}
                     </small>
                 </div>
                 @php
@@ -208,9 +218,10 @@
                                     title="{{ __('products.add_to_favorites') }}"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                     data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                    data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                    data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                    data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                    data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
+                                    data-price="{{ $prices->price }}"
                                     data-pay="{{ $price }}" data-off="{{ $off }}"
                                     data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                     data-id="{{ $tablecloth->id }}"
@@ -222,9 +233,10 @@
                                     data-bs-placement="top" title="{{ __('products.compare_tooltip') }}"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                     data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                    data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                    data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                    data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                    data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
+                                    data-price="{{ $prices->price }}"
                                     data-pay="{{ $price }}" data-off="{{ $off }}"
                                     data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                     data-id="{{ $tablecloth->id }}"
@@ -239,13 +251,15 @@
                                 </a>
                             </div>
                             <div class="col-3 d-flex justify-content-start align-items-center">
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('products.add_to_cart') }}"
+                                <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="{{ __('products.add_to_cart') }}"
                                     class="buy-button add-to-cart @if ($tablecloth->quantity != 0) addToCart @endif"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                     data-id="{{ $tablecloth->id }}" data-moddel="Tablecloth"
-                                    data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                    data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                    data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                    data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
+                                     data-price="{{ $prices->price }}"
                                     data-pay="{{ $price }}" data-off="{{ $off }}"
                                     data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"><i
                                         class="fa-solid fa-cart-plus"></i></button>

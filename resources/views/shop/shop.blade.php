@@ -343,10 +343,11 @@
                                                         <div
                                                             class="d-flex align-items-center align-content-center justify-content-start mb-2">
                                                             <h5 class="product-title text-end">
-                                                                {{ $topRequest->orderitemable->category->title }} طرح
-                                                                {{ $topRequest->orderitemable->color_design->design->title }}
-                                                                رنگ
-                                                                {{ $topRequest->orderitemable->color_design->color->color }}
+                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}
+                                                                {{ __('products.design') }}
+                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title }}
+                                                                {{ __('products.color') }}
+                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color }}
                                                             </h5>
                                                         </div>
                                                         <div
@@ -458,9 +459,9 @@
                                                     <button class="buy-button shadow-none add-to-cart compare"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
-                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -473,9 +474,9 @@
                                                         class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -498,10 +499,11 @@
                                                         style="flex-direction: column;padding: 0 22px;">
                                                         <div class="text-center">
                                                             <h5 class="product-title text-center mb-4">
-                                                                {{ $topRequest->orderitemable->category->title }} طرح
-                                                                {{ $topRequest->orderitemable->color_design->design->title }}
-                                                                رنگ
-                                                                {{ $topRequest->orderitemable->color_design->color->color }}
+                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}
+                                                                {{ __('products.design') }}
+                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title }}
+                                                                {{ __('products.color') }}
+                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color }}
                                                             </h5>
                                                             <div class="row g-0 w-100">
                                                                 <div class="col-3 ps-2">
@@ -510,9 +512,9 @@
                                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                                         data-price="{{ $prices->price }}"
                                                                         data-pay="{{ $price }}"
                                                                         data-off="{{ $off }}"
@@ -662,7 +664,8 @@
                             <a href="{{ route($category->link) ?? '#' }}" class="text-decoration-none text-reset">
                                 <div class="category-card">
                                     <img src="{{ asset($category->image) }}" alt="تصاویر">
-                                    <div class="title">{{ $category->title }}</div>
+                                    <div class="title">
+                                        {{ app()->getLocale() == 'fa' ? $category->title : $category->e_title }}</div>
                                     <div class="count">{{ $category['productsCount'] }}</div>
                                 </div>
                             </a>
@@ -725,12 +728,15 @@
                                 </div>
                                 <div class="product-body">
                                     <div class="product-info">
-                                        <h3 class="product-title">{{ $product->orderitemable->category->title }} طرح
-                                            {{ $product->orderitemable->color_design->design->title }}
-                                            رنگ
-                                            {{ $product->orderitemable->color_design->color->color }}</h3>
-                                        <p class="product-description m-0">دسته بندی
-                                            {{ $product->orderitemable->category->title }}
+                                        <h3 class="product-title">
+                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}
+                                            {{ __('products.design') }}
+                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title }}
+                                            {{ __('products.color') }}
+                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color }}
+                                        </h3>
+                                        <p class="product-description m-0">{{ __('product.category') }}
+                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}
                                         </p>
                                     </div>
                                     <div class="product-footer">
@@ -740,11 +746,11 @@
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
                                                     <div class="text-center">
                                                         <span class="sell-count d-block">{{ $product->sum }}</span>
-                                                        <span class="sell-text">{{ __("main.sell") }}</span>
+                                                        <span class="sell-text">{{ __('main.sell') }}</span>
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="rate-count d-block">{{ $score }}</span>
-                                                        <span class="rate-text">{{ __("main.Satisfaction") }}</span>
+                                                        <span class="rate-text">{{ __('main.Satisfaction') }}</span>
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="rate-count d-block text-danger">
@@ -752,9 +758,9 @@
                                                                 class="text-decoration-none text-reset favorites-btn @if ($product->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                                 data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
                                                                 data-moddel="{{ substr($product->orderitemable_type, 4) }}"
-                                                                data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
-                                                                data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
-                                                                data-title="{{ $product->orderitemable->title }}"
+                                                                data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
+                                                                data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
+                                                                data-title="{{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
                                                                 data-price="{{ $prices->price }}"
                                                                 data-pay="{{ $price }}"
                                                                 data-off="{{ $off }}"
@@ -768,7 +774,7 @@
                                                                     style="font-size: 18px;"></i>
                                                             </a>
                                                         </span>
-                                                        <span class="rate-text">{{ __("main.intrests") }}</span>
+                                                        <span class="rate-text">{{ __('main.intrests') }}</span>
                                                     </div>
                                                     <div class="text-center">
                                                         <span class="sell-count d-block">
@@ -777,9 +783,9 @@
                                                                 href="#" role="button"
                                                                 data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
                                                                 data-moddel="{{ substr($product->orderitemable->category->model, 4) }}"
-                                                                data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
-                                                                data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
-                                                                data-title="{{ $product->orderitemable->title }}"
+                                                                data-design="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale()=='fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
                                                                 data-price="{{ $prices->price }}"
                                                                 data-pay="{{ $price }}"
                                                                 data-off="{{ $off }}"
@@ -880,9 +886,9 @@
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $product->orderitemable->id }}"
                                                         data-moddel="{{ substr($product->orderitemable_type, 4) }}"
-                                                        data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $product->orderitemable->title }}"
+                                                        data-design="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale()=='fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -953,9 +959,9 @@
         <!-- start video -->
         <section>
             <div class="video-full-container video-full-container-main mb-5 px-0">
-                <video id="fullscreen-video" poster="{{ asset('storage/'.$mainVideo->cover) }}">
+                <video id="fullscreen-video" poster="{{ asset('storage/' . $mainVideo->cover) }}">
                     <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
-                    <source src="{{ asset('storage/'.$mainVideo->video) }}" type="video/mp4">
+                    <source src="{{ asset('storage/' . $mainVideo->video) }}" type="video/mp4">
                     مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
                 </video>
 
@@ -1021,10 +1027,12 @@
                                             </div>
                                             <div class="overlay">
                                                 <h3 class="product-title">
-                                                    {{ $topRequest->orderitemable->category->title }} طرح
-                                                    {{ $topRequest->orderitemable->color_design->design->title }}
-                                                    رنگ
-                                                    {{ $topRequest->orderitemable->color_design->color->color }}</h3>
+                                                    {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}
+                                                    {{ __('products.design') }}
+                                                    {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title }}
+                                                    {{ __('products.color') }}
+                                                    {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color }}
+                                                </h3>
                                                 <div
                                                     class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
                                                     <div class="d-flex align-items-center justify-content-center gap-2">
@@ -1093,15 +1101,16 @@
                                             <div
                                                 class="px-1 pt-2 hot-description border-top d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center justify-content-center gap-2">
-                                                    <span class="fs-10">{{ $topRequest->sum }} {{ __("main.sellsCount") }}</span>
+                                                    <span class="fs-10">{{ $topRequest->sum }}
+                                                        {{ __('main.sellsCount') }}</span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
                                                     <button class="buy-button shadow-none add-to-cart compare"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
-                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-design="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1114,9 +1123,9 @@
                                                         class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-design="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1133,9 +1142,9 @@
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
-                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
-                                                        data-title="{{ $topRequest->orderitemable->title }}"
+                                                        data-design="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1280,7 +1289,8 @@
                 const offType = $btn.data('offType');
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
-                const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
+                const title =
+                    `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.color') }} ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
                 const url = `${document.location.origin}/cart/add/${id}/${model}`;
 
@@ -1308,7 +1318,7 @@
                             if (!$btn.hasClass("favorites")) {
                                 Swal.fire({
                                     icon: "success",
-                                    title: "محصول به سبد خرید اضافه شد!",
+                                    title: "{{ __('js.add_to_cart_success') }}",
                                     timer: 1500,
                                     showConfirmButton: false
                                 });
@@ -1316,16 +1326,16 @@
                         } else {
                             Swal.fire({
                                 icon: "error",
-                                title: "خطا در افزودن محصول!",
-                                text: "لطفاً دوباره تلاش کنید."
+                                title: "{{ __('js.add_to_cart_error') }}",
+                                text: "{{ __('js.add_to_cart_error_text') }}"
                             });
                         }
                     },
                     error: function() {
                         Swal.fire({
                             icon: "error",
-                            title: "خطا در ارتباط با سرور!",
-                            text: "اتصال اینترنت یا سرور بررسی شود."
+                            title: "{{ __('js.server_connection_error') }}",
+                            text: "{{ __('js.server_connection_error_text') }}"
                         });
                     }
                 });
@@ -1471,7 +1481,7 @@
                             title: `
                                 <div class="d-flex align-items-center gap-2">
                                     <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
-                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
                                 </div>`,
                             html: `
                         <form id="loginAjaxForm">
@@ -1480,7 +1490,7 @@
                                     <div class="autocomplete" id="autocompleteBoxlogin">
                                         <input type="text" id="searchInputlogin" class=""
                                             oninput="nameinput('login')">
-                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
                                         <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                             >×</span>
                                     </div>
@@ -1489,17 +1499,17 @@
                                     <div class="autocomplete" id="autocompleteBoxpassword">
                                         <input type="password" id="searchInputpassword" class="" name="password"
                                             oninput="nameinput('password')">
-                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
                                         <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
                                 <div class="text-center">
                                     @if (Route::has('password.request'))
-                                        <div class="mb-2"><a href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
                                         </div>
                                     @endif
-                                    <div class="mb-2">حساب کاربری ندارید؟ <a href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
                                 </div>
                             </div>
                         </form>
@@ -1527,7 +1537,7 @@
 
                                     Swal.fire({
                                         icon: "success",
-                                        title: "ورود موفقیت‌آمیز",
+                                        title: "{{ __('js.login_success') }}",
                                         timer: 1500,
                                         showConfirmButton: false
                                     });
@@ -1537,8 +1547,8 @@
                                 error: function() {
                                     Swal.fire({
                                         icon: "error",
-                                        title: "ورود ناموفق",
-                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                        title: "{{ __('js.login_failed') }}",
+                                        text: "{{ __('js.login_failed_text') }}"
                                     });
                                 }
                             });
@@ -1549,8 +1559,8 @@
 
                     // پیام اصلی
                     var text = (data.res === "error") ?
-                        "خطا در اجرای عملیات" :
-                        "عملیات با موفقیت انجام شد.";
+                        "{{ __('js.operation_error') }}" :
+                        "{{ __('js.operation_success') }}";
 
                     // -----------------------------
                     // 🔥 تغییر حالت آیکون قلب
@@ -1622,9 +1632,9 @@
                     if (xhr.status === 401) {
                         Swal.fire({
                             title: `
-                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                <div class="d-flex align-items-center gap-2">
                                     <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
-                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
                                 </div>`,
                             html: `
                         <form id="loginAjaxForm">
@@ -1633,7 +1643,7 @@
                                     <div class="autocomplete" id="autocompleteBoxlogin">
                                         <input type="text" id="searchInputlogin" class=""
                                             oninput="nameinput('login')">
-                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
                                         <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                             >×</span>
                                     </div>
@@ -1642,21 +1652,21 @@
                                     <div class="autocomplete" id="autocompleteBoxpassword">
                                         <input type="password" id="searchInputpassword" class="" name="password"
                                             oninput="nameinput('password')">
-                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
                                         <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
-                                <div class="text-center" style="font-size: 14px;">
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
+                                <div class="text-center">
                                     @if (Route::has('password.request'))
-                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
                                         </div>
                                     @endif
-                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
                                 </div>
                             </div>
                         </form>
-                            `,
+                        `,
                             showCloseButton: true,
                             showConfirmButton: false,
                             focusConfirm: false,
@@ -1680,7 +1690,7 @@
 
                                     Swal.fire({
                                         icon: "success",
-                                        title: "ورود موفقیت‌آمیز",
+                                        title: "{{ __('js.login_success') }}",
                                         timer: 1500,
                                         showConfirmButton: false
                                     });
@@ -1690,8 +1700,8 @@
                                 error: function() {
                                     Swal.fire({
                                         icon: "error",
-                                        title: "ورود ناموفق",
-                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                        title: "{{ __('js.login_failed') }}",
+                                        text: "{{ __('js.login_failed_text') }}"
                                     });
                                 }
                             });
@@ -1704,7 +1714,7 @@
                     Swal.fire({
                         icon: "error",
                         title: "خطا",
-                        text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
+                        text: "{{ __('js.server_error_text') }}"
                     });
                 }
             });
@@ -1740,7 +1750,7 @@
                         alt="product" class="cart-item-image">
                     <div class="cart-item-content">
                         <div class="cart-item-title">
-                            ${item.title} طرح ${item.design} رنگ ${item.color}
+                            ${item.title} {{ __('products.design') }} ${item.design} {{ __('products.color') }} ${item.color}
                         </div>
                         <div class="cart-item-price">
                             ${Number(item.price).toLocaleString()} تومان
@@ -1830,7 +1840,7 @@
                             alt="product" class="cart-item-image">
                         <div class="cart-item-content">
                             <div class="cart-item-title">
-                                ${title} طرح ${design} رنگ ${color}
+                                ${title} {{ __('products.design') }} ${design} {{ __('products.color') }} ${color}
                             </div>
                             <div class="cart-item-price">
                                 ${Number(price).toLocaleString()} تومان
@@ -1850,7 +1860,7 @@
 
                     Swal.fire({
                         icon: "success",
-                        title: "عملیا با موفقیت انجام شد.",
+                        title: "{{ __('js.operation_success') }}",
                         timer: 1500,
                         showConfirmButton: false
                     });

@@ -338,10 +338,10 @@
                                         // تولید عنوان محصول
                                         $title = $product->title;
                                         if (isset($product->color_design->design->title)) {
-                                            $title .= ' طرح ' . $product->color_design->design->title;
+                                            $title .= (app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title) . ' ' .  __("products.design") . ' ' . (app()->getLocale() == 'fa' ? $product->color_design->design->title : $product->color_design->design->e_title);
                                         }
                                         if (isset($product->color_design->color->color)) {
-                                            $title .= ' رنگ ' . $product->color_design->color->color;
+                                            $title .= (app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title) . ' ' .  __("products.color") . ' ' . (app()->getLocale() == 'fa' ? $product->color_design->color->color : $product->color_design->color->e_color);
                                         }
 
                                         // آدرس تصویر
@@ -460,9 +460,9 @@
                                         alt="product" class="favorites-item-image">
                                     <div class="favorites-item-content">
                                         <div class="favorites-item-title">
-                                            {{ $compare->category->title }} طرح
-                                            {{ $compare->color_design->design->title }} رنگ
-                                            {{ $compare->color_design->color->color }}
+                                            {{ app()->getLocale() == 'fa' ? $compare->category->title : $compare->category->e_title }} {{ __('products.design') }}
+                                            {{ app()->getLocale() == 'fa' ? $compare->color_design->design->title : $compare->color_design->design->e_title }} {{ __('products.color') }}
+                                            {{ app()->getLocale() == 'fa' ? $compare->color_design->color->color : $compare->color_design->color->e_color }}
                                         </div>
                                         <div class="favorites-item-price">
                                             @if ($compare->quantity > 0)
@@ -523,9 +523,9 @@
                                         alt="product" class="favorites-item-image">
                                     <div class="favorites-item-content">
                                         <div class="favorites-item-title">
-                                            {{ $favorite->favoriteable->category->title }} طرح
-                                            {{ $favorite->favoriteable->color_design->design->title }} رنگ
-                                            {{ $favorite->favoriteable->color_design->color->color }}
+                                            {{ app()->getLocale() == 'fa' ? $favorite->favoriteable->category->title : $favorite->favoriteable->category->e_title }} {{ __("products.design") }}
+                                            {{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->design->title : $favorite->favoriteable->color_design->design->e_title }} {{ __("products.color") }}
+                                            {{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->color->color : $favorite->favoriteable->color_design->color->e_color }}
                                         </div>
                                         <div class="favorites-item-price">
                                             @if ($favorite->favoriteable->quantity > 0)
@@ -569,9 +569,9 @@
                                             <button class="buy-button add-to-cart favorites-btn active"
                                                 data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
                                                 data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
-                                                data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
-                                                data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
-                                                data-title="{{ $favorite->favoriteable->title }}"
+                                                data-design="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->design->title : $favorite->favoriteable->color_design->design->e_title ?? '' }}"
+                                                data-color="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->color->color : $favorite->favoriteable->color_design->color->e_color ?? '' }}"
+                                                data-title="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->category->title : $favorite->favoriteable->category->e_title }}"
                                                 data-price="{{ $price->price }}" data-pay="{{ $price }}"
                                                 data-off="{{ $off }}" data-offType="{{ $price->offType }}"
                                                 data-local="{{ $price->local }}"
@@ -582,9 +582,9 @@
                                             <button class="buy-button add-to-cart addToCart favorites"
                                                 data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
                                                 data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
-                                                data-design="{{ $favorite->favoriteable->color_design->design->title ?? '' }}"
-                                                data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
-                                                data-title="{{ $favorite->favoriteable->title }}"
+                                                data-design="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->design->title : $favorite->favoriteable->color_design->design->e_title ?? '' }}"
+                                                data-color="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->color->color : $favorite->favoriteable->color_design->color->e_color ?? '' }}"
+                                                data-title="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->category->title : $favorite->favoriteable->category->e_title }}"
                                                 data-price="{{ $price->price }}" data-pay="{{ $price }}"
                                                 data-off="{{ $off }}" data-offType="{{ $price->offType }}"
                                                 data-local="{{ $price->local }}"
@@ -614,12 +614,12 @@
                                 <div class="col-lg-3 col-md-6 category-column">
                                     @foreach ($chunk as $category)
                                         <a href="{{ route($category->link) ?? '#' }}"
-                                            class="main-categories">{{ $category->title ?? '--' }}</a>
+                                            class="main-categories">{{ app()->getLocale() == 'fa' ? $category->title : $category->e_title ?? '--' }}</a>
                                         @if ($category->childs()->count() > 0)
                                             <ul class="sub-categories">
                                                 @foreach ($category->childs as $cat)
                                                     <li><a
-                                                            href="{{ route($category->link) ?? '#' }}?categories[]={{ $cat->id }}">{{ $cat->title ?? '--' }}</a>
+                                                            href="{{ route($category->link) ?? '#' }}?categories[]={{ $cat->id }}">{{ app()->getLocale() == 'fa' ? $cat->title : $cat->e_title ?? '--' }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -840,7 +840,7 @@
             totalItems += parseInt($(this).text());
         });
         $('.shopping-cart-badge').text(totalItems);
-        $('.cart-items-count').text(totalItems + ' کالا');
+        $('.cart-items-count').text(totalItems + ' {{ __("menu.product") }}');
     }
 
     // ------------------------- جمع کل سبد خرید ------------------------
@@ -873,8 +873,8 @@
         });
 
         // تزریق در HTML
-        $('.cart-total-price').html('<span class="text-muted fs-10">مبلغ قابل پرداخت</span><br>' + totalPayable
-            .toLocaleString() + ' تومان');
+        $('.cart-total-price').html('<span class="text-muted fs-10">{{ __("menu.amountPayable") }}</span><br>' + totalPayable
+            .toLocaleString() + ' {{ __("products.currency") }}');
     }
 
     // مدیریت هاور روی سبد خرید
@@ -1042,7 +1042,7 @@
                     const $badge2 = $("#compare-items-count"); // شمارشگر علاقه‌مندی
                     let count = parseInt($badge.text()) || 0;
                     $badge.text(count > 0 ? count - 1 : 0);
-                    $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
+                    $badge2.html(count > 0 ? count - 1 + ' {{ __("menu.product") }} ' : 0 + ' {{ __("menu.product") }} ');
 
                     return "removed";
                 }

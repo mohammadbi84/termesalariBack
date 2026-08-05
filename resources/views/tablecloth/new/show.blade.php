@@ -21,8 +21,11 @@
                         <li class="breadcrumb-item"><a href="{{ route('tablecloth.storeIndex') }}"
                                 class="text-decoration-none text-muted">{{ __('products.tablecloth_products') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            {{ $tablecloth->category->title }} {{ __('products.design') }} {{ $tablecloth->color_design->design->title }} {{ __('products.color') }}
-                            {{ $tablecloth->color_design->color->color }}
+                            {{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}
+                            {{ __('products.design') }}
+                            {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title }}
+                            {{ __('products.color') }}
+                            {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color }}
                         </li>
                     </ol>
                 </nav>
@@ -81,9 +84,10 @@
                                 title="{{ __('product.compare') }}" class="share-btn telegram"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
+                                data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
                                 data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                 data-id="{{ $tablecloth->id }}"
@@ -95,9 +99,10 @@
                                 class="share-btn telegram  favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
+                                data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
                                 data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                 data-id="{{ $tablecloth->id }}"
@@ -120,9 +125,11 @@
                 <!-- left Column - Additional Info -->
                 <div class="col order-lg-3 mb-2">
                     <h1 class="product-title">
-                        {{ $tablecloth->category->title }} {{ __('products.design') }}
-                        {{ $tablecloth->color_design->design->title }} {{ __('products.color') }}
-                        {{ $tablecloth->color_design->color->color }}
+                        {{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}
+                        {{ __('products.design') }}
+                        {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title }}
+                        {{ __('products.color') }}
+                        {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color }}
                     </h1>
                     <div class="rating">
                         @php
@@ -135,7 +142,8 @@
                                 <i class="fa-regular fa-star"></i>
                             @endif
                         @endfor
-                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} ۵ - {{ $comments->count() }}
+                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} ۵ -
+                            {{ $comments->count() }}
                             {{ __('products.comment') }})</span>
                     </div>
                     <ul class="product-specs ">
@@ -152,7 +160,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.category') }} :</h6>
                         <a href="{{ route('tablecloth.storeIndex') }}"
-                            class="tag">{{ $tablecloth->category->title }}</a>
+                            class="tag">{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}</a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.tags') }} :</h6>
@@ -162,9 +170,11 @@
                         <hr>
                         <div class="price-section text-start">
                             @if ($off > 0)
-                                <span class="original-price">{{ number_format($prices->price) }} {{ __('products.currency') }}</span>
+                                <span class="original-price">{{ number_format($prices->price) }}
+                                    {{ __('products.currency') }}</span>
                             @endif
-                            <span class="discounted-price">{{ number_format($price) }} {{ __('products.currency') }}</span>
+                            <span class="discounted-price">{{ number_format($price) }}
+                                {{ __('products.currency') }}</span>
                         </div>
 
                         <div class="stock-info">
@@ -191,9 +201,10 @@
                                 data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                 data-id="{{ $tablecloth->id }}"
                                 data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                data-title="{{ $tablecloth->title }}" data-price="{{ $prices->price }}"
+                                data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
+                                data-price="{{ $prices->price }}"
                                 data-pay="{{ $price }}" data-off="{{ $off }}"
                                 data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}">{{ __('product.add_to_cart') }}</button>
@@ -290,7 +301,8 @@
                                 <input type="hidden" name="rating" id="ratingInput" value="{{ old('rating', 0) }}">
                             </div>
                             @if (Auth::check())
-                                <button type="submit" class="btn btn-primary w-25 mb-3">{{ __('product.submit_comment') }}</button>
+                                <button type="submit"
+                                    class="btn btn-primary w-25 mb-3">{{ __('product.submit_comment') }}</button>
                             @else
                                 <button type="submit" class="btn btn-primary w-25 mb-3">
                                     {{ __('product.submit_comment') }}
@@ -367,8 +379,8 @@
                     </div> --}}
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}" alt="{{ __('product.related_products') }}"
-                                width="30">
+                            <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}"
+                                alt="{{ __('product.related_products') }}" width="30">
                             <h2 class="title m-0">{{ __('product.related_products') }}</h2>
                         </div>
                         <div class="">
@@ -416,10 +428,12 @@
                                                 </div>
                                                 <div class="overlay">
                                                     <h3 class="product-title">
-                                                        {{ $tablecloth->category->title }} {{ __('products.design') }}
-                                                        {{ $tablecloth->color_design->design->title }}
+                                                        {{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}
+                                                        {{ __('products.design') }}
+                                                        {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title }}
                                                         {{ __('products.color') }}
-                                                        {{ $tablecloth->color_design->color->color }}</h3>
+                                                        {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color }}
+                                                    </h3>
                                                     <div
                                                         class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
                                                         <div
@@ -435,8 +449,8 @@
                                                                 @case('App\Prayermat')
                                                                   {{ route('prayermat.show', [$tablecloth->id]) }}
                                                                   @break
-                                                                @case('App\Bedcover')
-                                                                  {{ route('bedcover.show', [$tablecloth->id]) }}
+                                                                @case('App\tablecloth')
+                                                                  {{ route('tablecloth.show', [$tablecloth->id]) }}
                                                                   @break
                                                                 @case('App\Shoe')
                                                                   {{ route('shoe.show', [$tablecloth->id]) }}
@@ -496,9 +510,9 @@
                                                             class="buy-button shadow-none add-to-cart favorites-btn @if ($tablecloth->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                             data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                                             data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                                            data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                                            data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                                            data-title="{{ $tablecloth->title }}"
+                                                            data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
                                                             data-price="{{ $prices->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
@@ -516,9 +530,9 @@
                                                             data-image="{{ asset('/storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
                                                             data-id="{{ $tablecloth->id }}"
                                                             data-moddel="{{ substr($tablecloth->category->model, 4) }}"
-                                                            data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
-                                                            data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                                            data-title="{{ $tablecloth->title }}"
+                                                            data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
                                                             data-price="{{ $prices->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
@@ -713,7 +727,7 @@
 
                         Swal.fire({
                             icon: "success",
-                            title: "عملیا با موفقیت انجام شد.",
+                            title: "{{ __('js.operation_success') }}",
                             timer: 1500,
                             showConfirmButton: false
                         });
@@ -990,7 +1004,8 @@
                 const offType = $btn.data('offType');
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
-                const title = `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.color') }} ${$btn.data('color')}`;
+                const title =
+                    `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.color') }} ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
                 const quantity = parseInt($('#item-quantity-product').text()) || 1;
                 const url = `${document.location.origin}/cart/add/${id}/${model}/${quantity}`;
@@ -1016,11 +1031,10 @@
                                 off: off,
                                 offType: offType,
                             });
-
                             if (!$btn.hasClass("favorites")) {
                                 Swal.fire({
                                     icon: "success",
-                                    title: "محصول به سبد خرید اضافه شد!",
+                                    title: "{{ __('js.add_to_cart_success') }}",
                                     timer: 1500,
                                     showConfirmButton: false
                                 });
@@ -1028,16 +1042,16 @@
                         } else {
                             Swal.fire({
                                 icon: "error",
-                                title: "خطا در افزودن محصول!",
-                                text: "تعداد کالای درخواستی بیشتر از موجودی انبار است."
+                                title: "{{ __('js.add_to_cart_error') }}",
+                                text: "{{ __('js.add_to_cart_error_text') }}"
                             });
                         }
                     },
                     error: function() {
                         Swal.fire({
                             icon: "error",
-                            title: "خطا در ارتباط با سرور!",
-                            text: "اتصال اینترنت یا سرور بررسی شود."
+                            title: "{{ __('js.server_connection_error') }}",
+                            text: "{{ __('js.server_connection_error_text') }}"
                         });
                     }
                 });
@@ -1059,7 +1073,7 @@
                     // اگر بود، فقط تعداد را افزایش بده
                     const $quantitySpan = existingItem.find('.item-quantity');
                     const currentQuantity = parseInt($quantitySpan.text()) || 0;
-                    newQuantity = currentQuantity +1;
+                    newQuantity = currentQuantity + 1;
                     $quantitySpan.text(currentQuantity + 1);
 
                     const basePrice = existingItem.data('base-price');
@@ -1182,8 +1196,8 @@
                         Swal.fire({
                             title: `
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
-                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                    <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
                                 </div>`,
                             html: `
                         <form id="loginAjaxForm">
@@ -1192,7 +1206,7 @@
                                     <div class="autocomplete" id="autocompleteBoxlogin">
                                         <input type="text" id="searchInputlogin" class=""
                                             oninput="nameinput('login')">
-                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
                                         <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                             >×</span>
                                     </div>
@@ -1201,17 +1215,17 @@
                                     <div class="autocomplete" id="autocompleteBoxpassword">
                                         <input type="password" id="searchInputpassword" class="" name="password"
                                             oninput="nameinput('password')">
-                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
                                         <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
                                 <div class="text-center">
                                     @if (Route::has('password.request'))
-                                        <div class="mb-2"><a href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
                                         </div>
                                     @endif
-                                    <div class="mb-2">حساب کاربری ندارید؟ <a href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
                                 </div>
                             </div>
                         </form>
@@ -1239,7 +1253,7 @@
 
                                     Swal.fire({
                                         icon: "success",
-                                        title: "ورود موفقیت‌آمیز",
+                                        title: "{{ __('js.login_success') }}",
                                         timer: 1500,
                                         showConfirmButton: false
                                     });
@@ -1249,8 +1263,8 @@
                                 error: function() {
                                     Swal.fire({
                                         icon: "error",
-                                        title: "ورود ناموفق",
-                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                        title: "{{ __('js.login_failed') }}",
+                                        text: "{{ __('js.login_failed_text') }}"
                                     });
                                 }
                             });
@@ -1334,9 +1348,9 @@
                     if (xhr.status === 401) {
                         Swal.fire({
                             title: `
-                                <div class="d-flex justify-content-center align-items-center gap-2">
-                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
-                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
                                 </div>`,
                             html: `
                         <form id="loginAjaxForm">
@@ -1345,7 +1359,7 @@
                                     <div class="autocomplete" id="autocompleteBoxlogin">
                                         <input type="text" id="searchInputlogin" class=""
                                             oninput="nameinput('login')">
-                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
                                         <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                             >×</span>
                                     </div>
@@ -1354,21 +1368,21 @@
                                     <div class="autocomplete" id="autocompleteBoxpassword">
                                         <input type="password" id="searchInputpassword" class="" name="password"
                                             oninput="nameinput('password')">
-                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
                                         <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
-                                <div class="text-center" style="font-size: 14px;">
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
+                                <div class="text-center">
                                     @if (Route::has('password.request'))
-                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
                                         </div>
                                     @endif
-                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
                                 </div>
                             </div>
                         </form>
-                            `,
+                        `,
                             showCloseButton: true,
                             showConfirmButton: false,
                             focusConfirm: false,
@@ -1392,7 +1406,7 @@
 
                                     Swal.fire({
                                         icon: "success",
-                                        title: "ورود موفقیت‌آمیز",
+                                        title: "{{ __('js.login_success') }}",
                                         timer: 1500,
                                         showConfirmButton: false
                                     });
@@ -1402,8 +1416,8 @@
                                 error: function() {
                                     Swal.fire({
                                         icon: "error",
-                                        title: "ورود ناموفق",
-                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                        title: "{{ __('js.login_failed') }}",
+                                        text: "{{ __('js.login_failed_text') }}"
                                     });
                                 }
                             });
@@ -1416,7 +1430,7 @@
                     Swal.fire({
                         icon: "error",
                         title: "خطا",
-                        text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
+                        text: "{{ __('js.server_error_text') }}"
                     });
                 }
             });
@@ -1549,9 +1563,9 @@
         document.getElementById("comment_btn")?.addEventListener("click", function() {
             Swal.fire({
                 title: `
-                                <div class="d-flex justify-content-center align-items-center gap-2">
-                                    <img src="{{ asset('/hometemplate/img/logo.png') }}" width="30">
-                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
                                 </div>`,
                 html: `
                         <form id="loginAjaxForm">
@@ -1560,7 +1574,7 @@
                                     <div class="autocomplete" id="autocompleteBoxlogin">
                                         <input type="text" id="searchInputlogin" class=""
                                             oninput="nameinput('login')">
-                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
                                         <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                             >×</span>
                                     </div>
@@ -1569,21 +1583,21 @@
                                     <div class="autocomplete" id="autocompleteBoxpassword">
                                         <input type="password" id="searchInputpassword" class="" name="password"
                                             oninput="nameinput('password')">
-                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
                                         <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
-                                <div class="text-center" style="font-size: 14px;">
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
+                                <div class="text-center">
                                     @if (Route::has('password.request'))
-                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
                                         </div>
                                     @endif
-                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
                                 </div>
                             </div>
                         </form>
-                            `,
+                        `,
                 showCloseButton: true,
                 showConfirmButton: false,
                 focusConfirm: false,
@@ -1607,7 +1621,7 @@
 
                         Swal.fire({
                             icon: "success",
-                            title: "ورود موفقیت‌آمیز",
+                            title: "{{ __('js.login_success') }}",
                             timer: 1500,
                             showConfirmButton: false
                         });
@@ -1617,8 +1631,8 @@
                     error: function() {
                         Swal.fire({
                             icon: "error",
-                            title: "ورود ناموفق",
-                            text: "ایمیل یا رمز عبور اشتباه است"
+                            title: "{{ __('js.login_failed') }}",
+                            text: "{{ __('js.login_failed_text') }}"
                         });
                     }
                 });

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Color extends Model
 {
-    protected $fillable = ['color'];
+    protected $fillable = ['color','e_color'];
     // protected $with = ['designs'];
 
     public function designs(){

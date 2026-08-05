@@ -25,11 +25,19 @@
                 <h5 class="product-title">
                     @php
                         $name =
-                            $bedcover->category->title .
-                            ' طرح ' .
-                            $bedcover->color_design->design->title .
-                            ' رنگ ' .
-                            $bedcover->color_design->color->color;
+                            (app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title) .
+                            ' ' .
+                            __('products.design') .
+                            ' ' .
+                            (app()->getLocale() == 'fa'
+                                ? $bedcover->color_design->design->title
+                                : $bedcover->color_design->design->e_title) .
+                            ' ' .
+                            __('products.color') .
+                            ' ' .
+                            (app()->getLocale() == 'fa'
+                                ? $bedcover->color_design->color->color
+                                : $bedcover->color_design->color->e_color);
                     @endphp
                     {{ Str::limit($name, 35) }}
                     {{-- {{ $bedcover->category->title }} طرح
@@ -39,7 +47,7 @@
 
                 <div class="stars text-end">
                     <small class="text-muted ms-2">
-                        {{ $bedcover->category->title }}
+                        {{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}
                     </small>
                 </div>
                 @php
@@ -208,9 +216,10 @@
                                     title="افزودن به لیست علاقه‌مندی ها"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                     data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                                    data-design="{{ $bedcover->color_design->design->title ?? '' }}"
-                                    data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                                    data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
+                                    data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                    data-price="{{ $prices->price }}"
                                     data-pay="{{ $price }}" data-off="{{ $off }}"
                                     data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                     data-id="{{ $bedcover->id }}"
@@ -222,9 +231,10 @@
                                     data-bs-placement="top" title="برای مقایسه کلیک کنید"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                     data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                                    data-design="{{ $bedcover->color_design->design->title ?? '' }}"
-                                    data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                                    data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
+                                    data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                    data-price="{{ $prices->price }}"
                                     data-pay="{{ $price }}" data-off="{{ $off }}"
                                     data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
                                     data-id="{{ $bedcover->id }}"
@@ -243,9 +253,10 @@
                                     class="buy-button add-to-cart @if ($bedcover->quantity != 0) addToCart @endif"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                     data-id="{{ $bedcover->id }}" data-moddel="Bedcover"
-                                    data-design="{{ $bedcover->color_design->design->title ?? '' }}"
-                                    data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                                    data-title="{{ $bedcover->title }}" data-price="{{ $prices->price }}"
+                                    data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
+                                    data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
+                                    data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                    data-price="{{ $prices->price }}"
                                     data-pay="{{ $price }}" data-off="{{ $off }}"
                                     data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"><i
                                         class="fa-solid fa-cart-plus"></i></button>

@@ -95,9 +95,13 @@
 
                                     <div class="info-product col-md-9">
                                         <div class="col-md-9 float-right">
-                                            <h3>{{ $product->category->title }} {{ __('products.design') }}
-                                                {{ $product->color_design->design->title }} {{ __('products.color') }}
-                                                {{ $product->color_design->color->color }}</h3>
+                                            <h3>
+                                                {{ app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title }}
+                                                {{ __('products.design') }}
+                                                {{ app()->getLocale() == 'fa' ? $product->color_design->design->title : $product->color_design->design->e_title }}
+                                                {{ __('products.color') }}
+                                                {{ app()->getLocale() == 'fa' ? $product->color_design->color->color : $product->color_design->color->e_color }}
+                                            </h3>
                                             <h3>{{ __('products.product_row.code_label') }} {{ $product->code }}</h3>
                                             <h3>{{ __('cart.product_row.quantity_label') ?? 'تعداد :' }}
                                                 {{ $list['quantities'][$key] }}</h3>
@@ -150,7 +154,8 @@
                                 @if (session()->has('discountCardPrice'))
                                     <div class="col-md-2 col-sm-12 text-center">
                                         <small>{{ __('cart.checkout_final.summary.special_discount') }}</small>
-                                        <p>{{ number_format(session('discountCardPrice')) }} {{ __('cart.order_summary.currency') }}</p>
+                                        <p>{{ number_format(session('discountCardPrice')) }}
+                                            {{ __('cart.order_summary.currency') }}</p>
                                     </div>
                                 @endif
                                 <div class="col-md-2 col-sm-12 text-center">

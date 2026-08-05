@@ -167,7 +167,7 @@
                         </div>
                     </div>
 
-                    {{-- طرح --}}
+                    {{-- {{ __('products.design') }} --}}
                     <div id="accordion5" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">
@@ -206,7 +206,7 @@
                         </div>
                     </div>
 
-                    {{-- رنگ --}}
+                    {{-- {{ __('products.design') }} --}}
                     <div id="accordion6" class="mb-3">
                         <div class="card border">
                             <div class="card-header bg-white">
@@ -529,7 +529,7 @@
                 const offType = $btn.data('offType');
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
-                const title = `${$btn.data('title')} طرح ${$btn.data('design')} رنگ ${$btn.data('color')}`;
+                const title = `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.design') }} ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
                 const url = `${document.location.origin}/cart/add/${id}/${model}`;
 
@@ -557,7 +557,7 @@
                             if (!$btn.hasClass("favorites")) {
                                 Swal.fire({
                                     icon: "success",
-                                    title: "محصول به سبد خرید اضافه شد!",
+                                    title: "{{ __('js.add_to_cart_success') }}",
                                     timer: 1500,
                                     showConfirmButton: false
                                 });
@@ -565,16 +565,16 @@
                         } else {
                             Swal.fire({
                                 icon: "error",
-                                title: "خطا در افزودن محصول!",
-                                text: "لطفاً دوباره تلاش کنید."
+                                title: "{{ __('js.add_to_cart_error') }}",
+                                text: "{{ __('js.add_to_cart_error_text') }}"
                             });
                         }
                     },
                     error: function() {
                         Swal.fire({
                             icon: "error",
-                            title: "خطا در ارتباط با سرور!",
-                            text: "اتصال اینترنت یا سرور بررسی شود."
+                            title: "{{ __('js.server_connection_error') }}",
+                            text: "{{ __('js.server_connection_error_text') }}"
                         });
                     }
                 });
@@ -724,7 +724,7 @@
                             title: `
                                 <div class="d-flex align-items-center gap-2">
                                     <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
-                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
                                 </div>`,
                             html: `
                         <form id="loginAjaxForm">
@@ -733,7 +733,7 @@
                                     <div class="autocomplete" id="autocompleteBoxlogin">
                                         <input type="text" id="searchInputlogin" class=""
                                             oninput="nameinput('login')">
-                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
                                         <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                             >×</span>
                                     </div>
@@ -742,17 +742,17 @@
                                     <div class="autocomplete" id="autocompleteBoxpassword">
                                         <input type="password" id="searchInputpassword" class="" name="password"
                                             oninput="nameinput('password')">
-                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
                                         <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
                                 <div class="text-center">
                                     @if (Route::has('password.request'))
-                                        <div class="mb-2"><a href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
                                         </div>
                                     @endif
-                                    <div class="mb-2">حساب کاربری ندارید؟ <a href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
                                 </div>
                             </div>
                         </form>
@@ -780,7 +780,7 @@
 
                                     Swal.fire({
                                         icon: "success",
-                                        title: "ورود موفقیت‌آمیز",
+                                        title: "{{ __('js.login_success') }}",
                                         timer: 1500,
                                         showConfirmButton: false
                                     });
@@ -790,8 +790,8 @@
                                 error: function() {
                                     Swal.fire({
                                         icon: "error",
-                                        title: "ورود ناموفق",
-                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                        title: "{{ __('js.login_failed') }}",
+                                        text: "{{ __('js.login_failed_text') }}"
                                     });
                                 }
                             });
@@ -875,9 +875,9 @@
                     if (xhr.status === 401) {
                         Swal.fire({
                             title: `
-                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                <div class="d-flex align-items-center gap-2">
                                     <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
-                                    <h2 class="title m-0">ورود به حساب کاربری</h2>
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
                                 </div>`,
                             html: `
                         <form id="loginAjaxForm">
@@ -886,7 +886,7 @@
                                     <div class="autocomplete" id="autocompleteBoxlogin">
                                         <input type="text" id="searchInputlogin" class=""
                                             oninput="nameinput('login')">
-                                        <label for="searchInputlogin">شماره موبایل یا آدرس ایمیل</label>
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
                                         <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
                                             >×</span>
                                     </div>
@@ -895,21 +895,21 @@
                                     <div class="autocomplete" id="autocompleteBoxpassword">
                                         <input type="password" id="searchInputpassword" class="" name="password"
                                             oninput="nameinput('password')">
-                                        <label for="searchInputpassword">رمز عبور</label>
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
                                         <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 mb-3">ورود</button>
-                                <div class="text-center" style="font-size: 14px;">
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
+                                <div class="text-center">
                                     @if (Route::has('password.request'))
-                                        <div class="mb-2"><a class="text-decoration-none " href="{{ route('password.request') }}">رمز عبور را فراموش کرده‌اید؟</a>
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
                                         </div>
                                     @endif
-                                    <div class="mb-2">حساب کاربری ندارید؟ <a class="text-decoration-none" href="{{ route('register') }}">ثبت نام کنید</a></div>
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
                                 </div>
                             </div>
                         </form>
-                            `,
+                        `,
                             showCloseButton: true,
                             showConfirmButton: false,
                             focusConfirm: false,
@@ -933,7 +933,7 @@
 
                                     Swal.fire({
                                         icon: "success",
-                                        title: "ورود موفقیت‌آمیز",
+                                        title: "{{ __('js.login_success') }}",
                                         timer: 1500,
                                         showConfirmButton: false
                                     });
@@ -943,8 +943,8 @@
                                 error: function() {
                                     Swal.fire({
                                         icon: "error",
-                                        title: "ورود ناموفق",
-                                        text: "ایمیل یا رمز عبور اشتباه است"
+                                        title: "{{ __('js.login_failed') }}",
+                                        text: "{{ __('js.login_failed_text') }}"
                                     });
                                 }
                             });
@@ -957,7 +957,7 @@
                     Swal.fire({
                         icon: "error",
                         title: "خطا",
-                        text: "متأسفانه مشکلی در ارتباط با سرور رخ داد."
+                        text: "{{ __('js.server_error_text') }}"
                     });
                 }
             });
@@ -992,7 +992,7 @@
                         alt="product" class="cart-item-image">
                     <div class="cart-item-content">
                         <div class="cart-item-title">
-                            ${item.title} طرح ${item.design} رنگ ${item.color}
+                            ${item.title} {{ __('products.design') }} ${item.design} {{ __('products.design') }} ${item.color}
                         </div>
                         <div class="cart-item-price">
                             ${Number(item.price).toLocaleString()} تومان
@@ -1078,7 +1078,7 @@
                             alt="product" class="cart-item-image">
                         <div class="cart-item-content">
                             <div class="cart-item-title">
-                                ${title} طرح ${design} رنگ ${color}
+                                ${title} {{ __('products.design') }} ${design} {{ __('products.design') }} ${color}
                             </div>
                             <div class="cart-item-price">
                                 ${Number(price).toLocaleString()} تومان
@@ -1092,7 +1092,7 @@
 
                     Swal.fire({
                         icon: "success",
-                        title: "عملیا با موفقیت انجام شد.",
+                        title: "{{ __('js.operation_success') }}",
                         timer: 1500,
                         showConfirmButton: false
                     });

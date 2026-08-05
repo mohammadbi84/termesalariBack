@@ -358,15 +358,18 @@
                                     </div>
                                     <div class="col-8 col-md-5">
                                         <h5 class="mb-1">
-                                            {{ $product->title ?? $product->category->title . ' طرح ' . optional($product->color_design->design)->title }}
+                                            {{ $product->title ?? (app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title) . ' ' . __('products.design') . '' . (app()->getLocale() == 'fa' ? optional($product->color_design->design)->title : optional($product->color_design->design)->e_title) }}
                                             <small class="me-1 text-success" style="font-size: 15px;">(
                                                 {{ number_format($cartItemPrice) }} تومان )</small>
                                         </h5>
-                                        <p class="text-muted small mb-2">{{ __("cart.product_row.category_label") }}: {{ $product->category->title ?? '—' }}
+                                        <p class="text-muted small mb-2">{{ __('cart.product_row.category_label') }}:
+                                            {{ app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title ?? '—' }}
                                         </p>
                                         <div class="ml-3 small">
-                                            <div>{{ __("cart.product_row.code_label") }}: <span class="text-muted">{{ $product->code }}</span></div>
-                                            <div class="text-success small">{{ __("cart.product_row.guarantee_text") }}</div>
+                                            <div>{{ __('cart.product_row.code_label') }}: <span
+                                                    class="text-muted">{{ $product->code }}</span></div>
+                                            <div class="text-success small">{{ __('cart.product_row.guarantee_text') }}
+                                            </div>
                                         </div>
                                         <div class="quantity-control d-flex align-items-center">
                                             <button class="quantity-btn btn btn-sm btn-outline-secondary decrease"
@@ -383,17 +386,21 @@
                                     </div>
                                     <div class="col-12 col-md-4 mt-2 mt-md-0 text-start text-md-end">
                                         <div class="price-highlight d-flex justify-content-around align-items-center">
-                                            <small class="text-muted" style="font-size:14px;">{{ __("cart.product_row.subtotal_label") }} : </small>
+                                            <small class="text-muted"
+                                                style="font-size:14px;">{{ __('cart.product_row.subtotal_label') }} :
+                                            </small>
                                             <span
                                                 class="item-price">{{ number_format($cartItemPrice * $list['quantities'][$key]) }}</span>
-                                            <small> {{ __("cart.order_summary.currency") }}</small>
+                                            <small> {{ __('cart.order_summary.currency') }}</small>
                                         </div>
                                         @if ($cartItemOff > 0)
                                             <div class="discount-price"><del><span
                                                         class="original-price">{{ number_format($p->price) }}</span>
-                                                    <small>{{ __("cart.order_summary.currency") }}</small></del></div>
-                                            <div class="text-danger small">{{ __("cart.product_row.discount_label") }}: <span
-                                                    class="item-off">{{ number_format($cartItemOff) }}</span> {{ __("cart.order_summary.currency") }}</div>
+                                                    <small>{{ __('cart.order_summary.currency') }}</small></del></div>
+                                            <div class="text-danger small">{{ __('cart.product_row.discount_label') }}:
+                                                <span class="item-off">{{ number_format($cartItemOff) }}</span>
+                                                {{ __('cart.order_summary.currency') }}
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -456,39 +463,45 @@
                 <!-- بخش جزئیات سفارش -->
                 <div class="order-summary mb-4 p-3 shadow-sm"
                     style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
-                    <h3 class="section-title mb-3">{{ __("cart.order_summary.title") }}</h3>
+                    <h3 class="section-title mb-3">{{ __('cart.order_summary.title') }}</h3>
 
                     <div class="d-flex justify-content-between mb-2">
-                        <span>{{ __("cart.order_summary.items_price_label") }} (<span id="cart_info-quantity">{{ $sum ?? 0 }}</span> {{ __("cart.order_summary.items_unit") }})</span>
+                        <span>{{ __('cart.order_summary.items_price_label') }} (<span
+                                id="cart_info-quantity">{{ $sum ?? 0 }}</span>
+                            {{ __('cart.order_summary.items_unit') }})</span>
                         <span><span id="cart-info-price"
-                                data-value="{{ $price + $off }}">{{ number_format($price + $off) }}</span> {{ __("cart.order_summary.currency") }}</span>
+                                data-value="{{ $price + $off }}">{{ number_format($price + $off) }}</span>
+                            {{ __('cart.order_summary.currency') }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2 text-danger">
-                        <span>{{ __("cart.order_summary.discount_label") }}</span>
-                        <span><span id="cart-info-off">{{ number_format($off) }}</span> {{ __("cart.order_summary.currency") }}</span>
+                        <span>{{ __('cart.order_summary.discount_label') }}</span>
+                        <span><span id="cart-info-off">{{ number_format($off) }}</span>
+                            {{ __('cart.order_summary.currency') }}</span>
                     </div>
                     @if (session()->has('discountCardPrice'))
                         <div class="d-flex justify-content-between mb-2">
-                            <span>{{ __("cart.order_summary.discount_code_label") }}</span>
-                            <span>{{ number_format(session('discountCardPrice')) }} {{ __("cart.order_summary.currency") }}</span>
+                            <span>{{ __('cart.order_summary.discount_code_label') }}</span>
+                            <span>{{ number_format(session('discountCardPrice')) }}
+                                {{ __('cart.order_summary.currency') }}</span>
                         </div>
                     @else
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="text-danger">{{ __("cart.order_summary.discount_code_label") }}</span>
-                            <span class="text-danger"><span id="cart-info-discount-special">0</span> {{ __("cart.order_summary.currency") }}</span>
+                            <span class="text-danger">{{ __('cart.order_summary.discount_code_label') }}</span>
+                            <span class="text-danger"><span id="cart-info-discount-special">0</span>
+                                {{ __('cart.order_summary.currency') }}</span>
                         </div>
                     @endif
 
                     <div class="d-flex justify-content-between mb-2">
-                        <span>{{ __("cart.order_summary.shipping_label") }}</span>
-                        <span class="text-success">{{ __("cart.order_summary.shipping_note") }}</span>
+                        <span>{{ __('cart.order_summary.shipping_label') }}</span>
+                        <span class="text-success">{{ __('cart.order_summary.shipping_note') }}</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between fw-bold">
-                        <span>{{ __("cart.order_summary.total_label") }}</span>
+                        <span>{{ __('cart.order_summary.total_label') }}</span>
                         <span><span id="cart-info-total"
                                 data-value="{{ $price - $discountCardPrice }}">{{ number_format($price - $discountCardPrice) }}</span>
-                            {{ __("cart.order_summary.currency") }}</span>
+                            {{ __('cart.order_summary.currency') }}</span>
                     </div>
                 </div>
 
@@ -496,12 +509,14 @@
                 <div class="payment-section p-3 shadow-sm"
                     style="border:1px solid #f1f1f1;border-radius:6px;background:#fff;">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="fw-bold">{{ __("cart.payment.payable_label") }}:</span>
+                        <span class="fw-bold">{{ __('cart.payment.payable_label') }}:</span>
                         <span class="price-highlight"><span
-                                id="total">{{ number_format($price - $discountCardPrice) }}</span> {{ __("cart.order_summary.currency") }}</span>
+                                id="total">{{ number_format($price - $discountCardPrice) }}</span>
+                            {{ __('cart.order_summary.currency') }}</span>
                     </div>
-                    <a href="{{ route('cart.cartlevel2') }}" class="btn btn-primary w-100 py-2 mb-2">{{ __("cart.payment.continue_button") }}</a>
-                    <a href="/store" class="btn btn-secondary w-100 py-2">{{ __("cart.payment.add_more_button") }}</a>
+                    <a href="{{ route('cart.cartlevel2') }}"
+                        class="btn btn-primary w-100 py-2 mb-2">{{ __('cart.payment.continue_button') }}</a>
+                    <a href="/store" class="btn btn-secondary w-100 py-2">{{ __('cart.payment.add_more_button') }}</a>
                 </div>
             </div>
         </div>
@@ -583,7 +598,8 @@
                     model: model
                 }, function(data) {
                     if (data == "error") {
-                        Swal.fire("{{ __('cart.js.error_general') }}", "{{ __('cart.js.error_stock') }}", "error");
+                        Swal.fire("{{ __('cart.js.error_general') }}",
+                            "{{ __('cart.js.error_stock') }}", "error");
                     } else {
                         if (data == "finish") {
                             $productRow.fadeOut(function() {
@@ -616,7 +632,8 @@
                         calculateTotals();
                     }
                 }).fail(function() {
-                    Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.js.error_server') }}", "error");
+                    Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.js.error_server') }}",
+                        "error");
                 }).always(function() {
                     $('.loader').hide ? $('.loader').hide() : null;
                 });
@@ -708,7 +725,8 @@
                         },
                         success: function(data) {
                             if (data.status == "error") {
-                                Swal.fire("{{ __('cart.js.error_general') }}", data.message || "",
+                                Swal.fire("{{ __('cart.js.error_general') }}", data
+                                    .message || "",
                                     "error");
                             } else if (data.status == "success") {
                                 if (data.totals) {
@@ -768,7 +786,8 @@
                             }
                         },
                         error: function() {
-                            Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.js.error_server') }}.", "error");
+                            Swal.fire("{{ __('cart.js.error') }}",
+                                "{{ __('cart.js.error_server') }}.", "error");
                         },
                         complete: function() {
                             $('.loader').hide ? $('.loader').hide() : null;
@@ -782,7 +801,8 @@
                 e.preventDefault();
                 var code = $('#code').val().trim();
                 if (!code) {
-                    Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.discount.error_empty') }}", "error");
+                    Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.discount.error_empty') }}",
+                        "error");
                     $('#code').addClass('is-invalid').focus();
                     return;
                 }
@@ -810,15 +830,18 @@
                                 'data-value', total - data.message);
                             $('#total').text($.number(total - data.message));
                             $('#discount-success').removeClass('d-none');
-                            Swal.fire("عملیات با موفقیت انجام شد.", "{{ __('cart.discount.success_message') }}",
+                            Swal.fire("عملیات با موفقیت انجام شد.",
+                                "{{ __('cart.discount.success_message') }}",
                                 "success");
                             $('#code').val('');
                         } else if (data.res == "error") {
-                            Swal.fire("{{ __('cart.js.error_general') }}", data.message, "error");
+                            Swal.fire("{{ __('cart.js.error_general') }}", data.message,
+                                "error");
                         }
                     },
                     error: function() {
-                        Swal.fire("{{ __('cart.js.error') }}", "{{ __('cart.js.error_server') }}.", "error");
+                        Swal.fire("{{ __('cart.js.error') }}",
+                            "{{ __('cart.js.error_server') }}.", "error");
                     }
                 });
             });
