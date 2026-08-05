@@ -1,20 +1,20 @@
 @extends('shop.layouts.master')
-@section('title', 'ادامه فرایند خرید - مرحله دوم')
+@section('title', __('cart.checkout_step2.title'))
 @section('head')
-    <link href="{{ asset('/storetemplate/dist/css/cart.css') }}" rel="stylesheet">
+    <link href="{{ asset('storetemplate/dist/css/cart.css') }}" rel="stylesheet">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/iCheck/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/iCheck/all.css') }}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/select2/select2.min.css') }}">
     <style type="text/css">
         #TopMenuCartIcone {
             display: none;
         }
     </style>
-    <link href="{{ asset('/hometemplate/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/dist/css/custom-style.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/dist/css/cart.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/dist/css/termehsalari.css') }}">
+    <link href="{{ asset('hometemplate/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('storetemplate/dist/css/custom-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/dist/css/cart.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/dist/css/termehsalari.css') }}">
 @endsection
 @section('content')
     @php
@@ -26,9 +26,7 @@
     <div class="container my-4 px-3" style="margin-top: 120px !important;">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">
-                    <span>فرایند خرید – مرحله دوم</span>
-                </h4>
+                <h4 class="card-title"><span>{{ __('cart.checkout_step2.card_title') }}</span></h4>
             </div>
             <!-- /.card-header -->
             <div class="card-body product-header-info cart-container row">
@@ -64,7 +62,8 @@
                             <div class="cart-products card-recipients col-md-12"
                                 style="border-bottom: 1px solid rgba(0,0,0,.125);">
                                 <div>
-                                    <p class="text-bold float-right">آدرس تحویل سفارش را انتخاب کنید: </p>
+                                    <p class="text-bold float-right">{{ __('cart.checkout_step2.address.select_label') }}
+                                    </p>
                                     <a href="#" id="closeRecipients"><i class="fa fa-close float-left"></i></a>
                                 </div>
 
@@ -79,7 +78,9 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         {{-- <input type="radio" name="product" class="card-input-element" /> &nbsp --}}
-                                                        <p class="card-title" style="display: inline;"> ارسال به این آدرس</< /p>
+                                                        <p class="card-title" style="display: inline;">
+                                                            {{ __('cart.checkout_step2.address.send_to_this_address') }}
+                                                        </p>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="recipient_id" style="display: none;">
@@ -87,16 +88,20 @@
                                                         </div>
                                                         <div class="recipient_address">
                                                             {{ $recipient->subcity->city->name }}،
-                                                            {{ $recipient->subcity->name }}، {{ $recipient->address }}، پلاک
+                                                            {{ $recipient->subcity->name }}، {{ $recipient->address }}،
+                                                            پلاک
                                                             {{ $recipient->houseId }}
                                                         </div>
                                                         <div class="text-muted">
-                                                            <i class="fa fa-envelope" title="کد پستی"></i>
+                                                            <i class="fa fa-envelope"
+                                                                title="{{ __('cart.checkout_step2.address.postal_code') }}"></i>
                                                             {{ $recipient->zipcode }} <br>
-                                                            <i class="fa fa-phone" aria-hidden="true" title="موبایل"></i>
+                                                            <i class="fa fa-phone" aria-hidden="true"
+                                                                title="{{ __('cart.checkout_step2.address.mobile') }}"></i>
                                                             {{ $recipient->mobile }}
                                                             <br>
-                                                            <i class="fa fa-user" title="نام و نام خانوادگی گیرنده"></i>
+                                                            <i class="fa fa-user"
+                                                                title="{{ __('cart.checkout_step2.address.recipient_name') }}"></i>
                                                             <span class="recipient_name">
                                                                 {{ $recipient->name }} {{ $recipient->family }}
                                                             </span>
@@ -105,7 +110,7 @@
                                                     </div>
                                                     <div class="card-footer">
                                                         <a href="{{ route('recipient.edit', [$recipient]) }}"
-                                                            class="btn btn-outline-primary btn-flat">ویرایش</a>
+                                                            class="btn btn-outline-primary btn-flat">{{ __('cart.checkout_step2.address.edit') }}</a>
                                                         <form class="del-form"
                                                             action="{{ route('recipient.destroy', [$recipient]) }}"
                                                             method="post" style="display: inline;">
@@ -124,7 +129,7 @@
                                             <div class="card-body" style="padding: 5.1rem;overflow: hidden;">
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#formAddRecipient">
                                                     <span style="font-size: 2rem">+</span>
-                                                    <div>افزودن آدرس جدید</div>
+                                                    <div>{{ __('cart.checkout_step2.address.add_new') }}</div>
                                                 </a>
 
                                             </div>
@@ -138,7 +143,7 @@
                                     @if ($recipient->created_at == $date)
                                         <div class="col-md-12 recipientAddress"
                                             style="line-height: 30px;border-bottom: 1px solid rgba(0,0,0,.125);">
-                                            <p class="text-bold">آدرس تحویل سفارش</p>
+                                            <p class="text-bold">{{ __('cart.checkout_step2.address.selected_title') }}</p>
                                             <input type="hidden" name="selectedRecipientId" id="selectedRecipientId"
                                                 value="{{ $recipient->id }}">
                                             <div id="selectedRecipientAddress">
@@ -150,13 +155,14 @@
                                                     id="selectedRecipientName">{{ $recipient->name }}
                                                     {{ $recipient->family }}</span>
                                             </div>
-                                            <a href="#" id="showRecipients" class="small mb-3 d-inline-block">تعییر یا
-                                                ویرایش آدرس <i class="fa fa-chevron-left" style="font-size:0.6rem"></i></a>
+                                            <a href="#" id="showRecipients" class="small mb-3 d-inline-block">
+                                                {{ __('cart.checkout_step2.address.change_address') }} <i
+                                                    class="fa fa-chevron-left" style="font-size:0.6rem"></i></a>
                                         </div>
                                     @endif
                                 @endforeach
                                 <div class="col-md-12 post" style="border-bottom: 1px solid rgba(0,0,0,.125);">
-                                    <p class="text-bold mt-3">انتخاب روش ارسال محصول</p>
+                                    <p class="text-bold mt-3">{{ __('cart.checkout_step2.shipping.select_label') }}</p>
                                     @foreach ($posts as $post)
                                         <div class="">
                                             <label>
@@ -166,23 +172,28 @@
                                                     @if ($posts->count() == 1) checked="checked" @endif>
                                                 {{ $post->title }}
                                             </label>
-                                            <p class="mb-4">هزینه ارسال: @if ($post->price == 0)
-                                                    <span class="text-danger">رایگان</span>
+                                            <p class="mb-4">{{ __('cart.checkout_step2.shipping.cost') }}: @if ($post->price == 0)
+                                                    <span
+                                                        class="text-danger">{{ __('cart.checkout_step2.shipping.free') }}</span>
                                                 @else
-                                                    {{ $post->price }} تومان
-                                                @endif - زمان ارسال حداکثر : {{ $post->delivery_time }}
+                                                    {{ $post->price }}
+                                                    {{ __('cart.order_summary.currency') }}
+                                                @endif -
+                                                {{ __('cart.checkout_step2.shipping.delivery_time') }} :
+                                                {{ $post->delivery_time }}
                                             </p>
                                         </div>
                                     @endforeach
                                 </div>
 
                                 <div class="col-md-12 pay">
-                                    <p class="text-bold mt-3">انتخاب روش پرداخت</p>
+                                    <p class="text-bold mt-3">{{ __('cart.checkout_step2.payment.select_label') }}</p>
                                     @foreach ($payment_methods as $pay)
                                         <div class="">
                                             <label>
                                                 <input type="radio" value="{{ $pay->method }}" class="radio"
-                                                    name="payType" @if ($pay->selection == 1) checked="checked" @endif>
+                                                    name="payType"
+                                                    @if ($pay->selection == 1) checked="checked" @endif>
                                                 {{ $pay->title }}
 
                                             </label>
@@ -190,9 +201,9 @@
                                                 {!! html_entity_decode($pay->description) !!}
 
                                                 <!-- <span>مبلغ را به شماره کارت</span>
-                           <span class="text-danger text-bold"> 4890-4366-3373-6104 </span>
-                           <span>به نام آقای  </span><span class="text-danger text-bold">سید علی سالاری  </span>
-                           <span> واریز و اطلاعات را در مرحله بعد اعلام نمایید.</span> -->
+                                               <span class="text-danger text-bold"> 4890-4366-3373-6104 </span>
+                                               <span>به نام آقای  </span><span class="text-danger text-bold">سید علی سالاری  </span>
+                                               <span> واریز و اطلاعات را در مرحله بعد اعلام نمایید.</span> -->
                                             </p>
                                         </div>
                                     @endforeach
@@ -208,10 +219,10 @@
                                 </div>
 
                                 <div class="col-md-12 mt-5">
-                                    <a href="{{ route('cart.index') }}" class="btn btn-sm btn-flat btn-secondary">بازگشت به
-                                        سبد خرید</a>
+                                    <a href="{{ route('cart.index') }}"
+                                        class="btn btn-sm btn-flat btn-secondary">{{ __('cart.checkout_step2.buttons.back_to_cart') }}</a>
                                     <input type="submit" id="finalbtn" class="btn btn-sm btn-flat btn-primary"
-                                        value="ادامه فرایند خرید - تایید اطلاعات">
+                                        value="{{ __('cart.checkout_step2.buttons.confirm_info') }}">
 
                                 </div>
                             </form>
@@ -223,52 +234,55 @@
                     <div class="cart-info col-md-4 table-responsive p-0">
                         <table class="table">
                             <tr>
-                                <td>قیمت کالا@if (isset($sum) and $sum > 1)
-                                        ها (<span id="cart_info-quantity">{{ $sum }}</span>)
-                                    @endif
+                                <td>{{ __('cart.order_summary.items_price_label') }}
                                 </td>
-                                <td><span id="cart-info-price">{{ number_format($price + $off) }}</span> <small>تومان </small>
+                                <td><span id="cart-info-price">{{ number_format($price + $off) }}</span>
+                                    <small>{{ __('cart.order_summary.currency') }}
+                                    </small>
                                 </td>
                             </tr>
                             <tr>
-                                <td>تخفیف کالا@if (isset($sum) and $sum > 1)
-                                        ها
-                                    @endif
+                                <td>{{ __('cart.order_summary.discount_label') }}
                                 </td>
-                                <td style="color: #ef3a4e;"><span id="cart-info-off">{{ number_format($off) ?? '' }}</span>
-                                    <small>تومان </small>
+                                <td style="color: #ef3a4e;"><span
+                                        id="cart-info-off">{{ number_format($off) ?? '' }}</span>
+                                    <small>{{ __('cart.order_summary.currency') }} </small>
                                 </td>
                             </tr>
                             <tr style="border-top: 1px solid #ef3a4e">
-                                <td>جمع </td>
-                                <td><span id="cart-info-sum">{{ number_format($price) ?? '' }}</span> <small>تومان </small>
+                                <td>{{ __('cart.order_summary.total_label') }} </td>
+                                <td><span id="cart-info-sum">{{ number_format($price) ?? '' }}</span>
+                                    <small>{{ __('cart.order_summary.currency') }}
+                                    </small>
                                 </td>
                             </tr>
                             @if (session()->has('discountCardPrice'))
                                 <tr>
-                                    <td>تخفیف ویژه</td>
-                                    <td>{{ number_format(session('discountCardPrice')) }} <small>تومان </small></td>
+                                    <td>{{ __('cart.order_summary.special_discount_label') }}</td>
+                                    <td>{{ number_format(session('discountCardPrice')) }}
+                                        <small>{{ __('cart.order_summary.currency') }} </small>
+                                    </td>
                                 </tr>
                             @endif
                             <tr>
-                                <td>هزینه ارسال</td>
+                                <td>{{ __('cart.order_summary.shipping_label') }}</td>
                                 <td style="color: #ef3a4e;" id="cart-info-postPrice"> - </td>
                             </tr>
                             <tr>
-                                <td>مبلغ قابل پرداخت</td>
+                                <td>{{ __('cart.payment.payable_label') }}</td>
                                 <td><span id="cart-info-total"
                                         data-price="{{ $price - $discountCardPrice }}">{{ number_format($price - $discountCardPrice) ?? '' }}</span>
-                                    <small>تومان </small>
+                                    <small>{{ __('cart.order_summary.currency') }} </small>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 @else
                     <div style="margin: 0 auto; text-align: center;">
-                        <img src="{{ asset('/storetemplate/dist/img/empty-cart-icon.png') }}">
-                        <p>سبد خرید شما خالی است!</p>
-                        <a href="#" class="btn btn-success">نمایش محصولات <img
-                                src="{{ asset('/storetemplate/dist/img/online-supermarket-cart.png') }}"></a>
+                        <img src="{{ asset('storetemplate/dist/img/empty-cart-icon.png') }}">
+                        <p>{{ __('cart.checkout_step2.cart.empty_title') }}!</p>
+                        <a href="#" class="btn btn-success">{{ __('cart.checkout_step2.cart.empty_button') }} <img
+                                src="{{ asset('storetemplate/dist/img/online-supermarket-cart.png') }}"></a>
                     </div>
 
                 @endif
@@ -285,20 +299,23 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="formAddRecipientLabel">
-                            جزئیات آدرس
+                            {{ __('cart.checkout_step2.add_address_modal.title') }}
                         </h5>
                     </div>
                     <div class="modal-body" {{-- style="height: 800px" --}}>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group @error('city_id') is-invalid @enderror">
-                                    <label for="city_id">استان* </label>
+                                    <label
+                                        for="city_id">{{ __('cart.checkout_step2.add_address_modal.fields.province') }}
+                                    </label>
                                     <select tabindex="1" name="city_id" id="city_id"
                                         class="form-control select2 select2-single select2-hidden-accessible "
                                         style="width: 100%;">
 
-                                        <option value="" selected="selected" style="">. نام استان را انتخاب
-                                            کنید </option>
+                                        <option value="" selected="selected" style="">
+                                            {{ __('cart.checkout_step2.add_address_modal.placeholders.select_province') }}
+                                        </option>
                                         @foreach ($cities as $city)
                                             <option @if ($city->id == old('city')) selected @endif
                                                 value="{{ $city->id }}">{{ $city->name }}</option>
@@ -314,13 +331,13 @@
 
                             <div class="col-6">
                                 <div class="form-group @error('subcity_id') is-invalid @enderror">
-                                    <label for="subcity_id">شهر*</label>
+                                    <label
+                                        for="subcity_id">{{ __('cart.checkout_step2.add_address_modal.fields.city') }}</label>
                                     <select tabindex="2" name="subcity_id" id="subcity_id"
                                         class="form-control select2 select2-hidden-accessible " style="width: 100%;">
-
-                                        <option value="" selected="selected" style=""> . نام شهر را انتخاب
-                                            کنید </option>
-
+                                        <option value="" selected="selected" style="">
+                                            {{ __('cart.checkout_step2.add_address_modal.placeholders.select_city') }}
+                                        </option>
                                     </select>
 
                                     @error('subcity_id')
@@ -331,12 +348,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="address">نشانی پستی* <span class="text-muted small" style="font-size: 96%"> (در
-                                    صورت سکونت در مجتمع آپارتمانی لطفا نام بلوک و شماره واحد را ذکر
-                                    بفرمایید.)</span></label>
+                            <label for="address">{{ __('cart.checkout_step2.add_address_modal.fields.address') }} <span
+                                    class="text-muted small"
+                                    style="font-size: 96%">{{ __('cart.checkout_step2.add_address_modal.fields.address_help') }}</span></label>
                             <input type="text" name="address" id="address"
                                 class="form-control @error('address') is-invalid @enderror"
-                                placeholder="لطفاً نشانی پستی را وارد کنید." value="{{ old('address') }}">
+                                placeholder="{{ __('cart.checkout_step2.add_address_modal.fields.address_placeholder') }}"
+                                value="{{ old('address') }}">
                             @error('address')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -346,10 +364,12 @@
 
                             <div class="col-5">
                                 <div class="form-group">
-                                    <label for="houseId">پلاک*</label>
+                                    <label
+                                        for="houseId">{{ __('cart.checkout_step2.add_address_modal.fields.house_number') }}</label>
                                     <input type="text" name="houseId" id="houseId"
                                         class="form-control @error('houseId') is-invalid @enderror"
-                                        placeholder="لطفاً پلاک را وارد کنید ." value="{{ old('houseId') }}">
+                                        placeholder="{{ __('cart.checkout_step2.add_address_modal.fields.house_placeholder') }}"
+                                        value="{{ old('houseId') }}">
                                     @error('houseId')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -358,12 +378,13 @@
 
                             <div class="col-7">
                                 <div class="form-group">
-                                    <label for="zipcode">کد پستی* <span class="text-muted">(به صورت ده رقمی و بدون خط
-                                            تیره)</span></label>
+                                    <label for="zipcode">{{ __('cart.checkout_step2.add_address_modal.fields.zipcode') }}
+                                        <span class="text-muted">
+                                            {{ __('cart.checkout_step2.add_address_modal.fields.zipcode_help') }}</span></label>
                                     <input type="text" name="zipcode" id="zipcode"
                                         class="form-control @error('zipcode') is-invalid @enderror"
-                                        placeholder="لطفاً  کد پستی را وارد کنید ." value="{{ old('zipcode') }}"
-                                        maxlength="10">
+                                        placeholder="{{ __('cart.checkout_step2.add_address_modal.fields.zipcode_placeholder') }}"
+                                        value="{{ old('zipcode') }}" maxlength="10">
                                     @error('zipcode')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -373,7 +394,8 @@
                             <div class="form-group">
                                 <input type="checkbox" id="recipientIsSelf" name="recipientIsSelf" class=""
                                     data-value = "">
-                                <label for="recipientIsSelf"> گیرنده سفارش خودم هستم.</label>
+                                <label
+                                    for="recipientIsSelf">{{ __('cart.checkout_step2.add_address_modal.fields.recipient_self') }}</label>
                                 @error('code')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -385,10 +407,12 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="name">نام گیرنده*</label>
+                                    <label
+                                        for="name">{{ __('cart.checkout_step2.add_address_modal.fields.recipient_name') }}</label>
                                     <input type="text" name="name" id="name"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        placeholder="لطفاً نام گیرنده را وارد کنید ." value="{{ old('name') }}">
+                                        placeholder="{{ __('cart.checkout_step2.add_address_modal.fields.recipient_name_placeholder') }}"
+                                        value="{{ old('name') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -397,10 +421,11 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="family">نام خانوادگی گیرنده*</label>
+                                    <label
+                                        for="family">{{ __('cart.checkout_step2.add_address_modal.fields.recipient_family') }}</label>
                                     <input type="text" name="family" id="recipientfamily"
                                         class="form-control @error('family') is-invalid @enderror"
-                                        placeholder="لطفاً نام خانوادگی گیرنده را وارد کنید ."
+                                        placeholder="{{ __('cart.checkout_step2.add_address_modal.fields.recipient_family_placeholder') }}"
                                         value="{{ old('family') }}">
                                     @error('family')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -414,12 +439,13 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="nationalCode">کد ملی گیرنده* <span class="text-muted">(بدون خط
-                                            تیره)</span></label>
+                                    <label
+                                        for="nationalCode">{{ __('cart.checkout_step2.add_address_modal.fields.national_code') }}<span
+                                            class="text-muted">{{ __('cart.checkout_step2.add_address_modal.fields.national_code_help') }}</span></label>
                                     <input type="text" name="nationalCode" id="nationalCode"
                                         class="form-control @error('nationalCode') is-invalid @enderror"
-                                        placeholder="لطفاً کدملی را وارد کنید ." value="{{ old('nationalCode') }}"
-                                        maxlength="10">
+                                        placeholder="{{ __('cart.checkout_step2.add_address_modal.fields.national_code_placeholder') }}"
+                                        value="{{ old('nationalCode') }}" maxlength="10">
                                     @error('nationalCode')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -428,12 +454,13 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="mobile">شماره موبایل* <span class="text-muted">(مثلا
-                                            09131568758)</span></label>
+                                    <label
+                                        for="mobile">{{ __('cart.checkout_step2.add_address_modal.fields.mobile') }}<span
+                                            class="text-muted">{{ __('cart.checkout_step2.add_address_modal.fields.mobile_help') }}</span></label>
                                     <input type="text" name="mobile" id="mobile"
                                         class="form-control @error('mobile') is-invalid @enderror"
-                                        placeholder="لطفاً شماره مویابل را وارد کنید ." value="{{ old('mobile') }}"
-                                        maxlength="11">
+                                        placeholder="{{ __('cart.checkout_step2.add_address_modal.fields.mobile_placeholder') }}"
+                                        value="{{ old('mobile') }}" maxlength="11">
                                     @error('mobile')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -444,8 +471,9 @@
                     </div>
                     <div class="modal-footer">
                         <input type="submit" id="saveRecipient" style="font-size: 0.8rem" class="btn btn-primary"
-                            value="ثبت"> &nbsp
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                            value="{{ __('cart.checkout_step2.buttons.save') }}">
+                        <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">{{ __('cart.checkout_step2.buttons.close') }}</button>
 
                     </div>
                 </div>
@@ -455,12 +483,12 @@
 
 @endsection
 @section('script')
-<script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
-<!-- Select2 -->
-    <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('storetemplate/plugins/select2/select2.full.min.js') }}"></script>
 
     <!-- iCheck 1.0.1 -->
-    <script src="{{ asset('/storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
     <script type="text/javascript">
         $(function() {
 
@@ -640,7 +668,8 @@
 
             $("input[name=postType]").on('ifChecked', function() {
                 var postPrice = $(this).data('price');
-                $("#cart-info-postPrice").text($.number(postPrice) + " " + "تومان");
+                $("#cart-info-postPrice").text($.number(postPrice) + " " +
+                    "{{ __('cart.order_summary.currency') }}");
                 var totalPrice = $("#cart-info-total").data("price");
                 totalPrice = parseInt(totalPrice) + parseInt(postPrice);
                 $("#cart-info-total").text($.number(totalPrice));
