@@ -53,6 +53,13 @@
 							    <div class="invalid-feedback">{{$message}}</div>
 							@enderror
 						</div>
+		                <div class="form-group">
+							<label for="e_title">عنوان انگلیسی دسته بندی</label>
+							<input type="text" name="e_title" id="e_title" class="form-control @error('e_title') is-invalid @enderror" placeholder="لطفا عنوان انگلیسی دسته بندی را وارد کنید." value="{{old('e_title',$category->e_title)}}">
+							@error('e_title')
+							    <div class="invalid-feedback">{{$message}}</div>
+							@enderror
+						</div>
 
 						<div class="form-group @error('image') is-invalid @enderror">
 				            <label for="image">انتخاب تصویر </label>
@@ -102,7 +109,7 @@
 		        initialPreviewAsData: true,
 		        initialPreviewShowDelete: false,
 	        	uploadAsync: false,
-	        	initialPreviewFileType: 'image', 
+	        	initialPreviewFileType: 'image',
 		        overwriteInitial: true,
 		        enableResumableUpload: true,
 		    	showCaption: false,

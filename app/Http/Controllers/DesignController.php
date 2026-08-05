@@ -55,6 +55,7 @@ class DesignController extends Controller
     {
         $rules = [
            'title' => 'required|string',
+           'e_title' => 'required|string',
            'countOfColor' => 'required|numeric',
            'active' => 'required|numeric' ,
         ];
@@ -102,6 +103,7 @@ class DesignController extends Controller
     {
         $rules = [
            'title' => 'required|string|unique:designs,title,'. $design->id ,
+           'e_title' => 'required|string|unique:designs,e_title,'. $design->id ,
            'countOfColor' => 'required|numeric',
            'active' => 'required|numeric' ,
         ];
@@ -195,7 +197,7 @@ class DesignController extends Controller
             $result["message"] = "طرح  انتخابی  غیرفعال شد.";
         }
         $design->save();
-        
+
         $result["res"] = "success";
         return $result;
     }
@@ -222,7 +224,7 @@ class DesignController extends Controller
     //         $result["message"] = "رنگ  انتخابی  غیرفعال شد.";
     //     }
     //     $designColor->save();
-        
+
     //     $result["res"] = "success";
     //     return $result;
     // }
@@ -320,5 +322,5 @@ class DesignController extends Controller
         // return $result;
     }
 
-    
+
 }//End

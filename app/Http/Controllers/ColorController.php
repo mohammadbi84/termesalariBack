@@ -46,20 +46,12 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        $colors = $request->color;
-            foreach ($colors as $value) {
-                if(isset($value)){
-                    $count = Color::where('color',$value)
-                        ->get()->count();
-                    if($count < 1){
-                        $color = Color::create(['color' => $value]);
-                        // $student->teachers()->attach(\App\Teacher::create($dataArray)->id); 
-                    }
-                }
-                
-            }
-        return redirect()->route('color.index')
-            ->with('success','عملیات با موفقیت انجام شد.');
+        $color = Color::create([
+            'color'=>$request->color,
+            'e_color'=>$request->e_color,
+        ]);
+
+        return redirect()->route('color.index')->with('success','عملیات با موفقیت انجام شد.');
     }
 
     /**
@@ -96,6 +88,7 @@ class ColorController extends Controller
     {
         $rules = [
            'color' => 'required|string|unique:colors,color,'. $color->id ,
+           'e_color' => 'required|string|unique:colors,e_color,'. $color->id ,
         ];
         $request->validate($rules);
         $color->fill($request->all());
@@ -134,7 +127,7 @@ class ColorController extends Controller
             return $result;
         }
         else if($delFlag == 0)
-        {       
+        {
             $color->delete();
             $result["res"] = "success";
             $result["message"] = "رنگ انتخابی با موفقیت حذف شد.";

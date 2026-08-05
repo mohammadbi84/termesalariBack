@@ -9,7 +9,7 @@
 @section('main-content')
 	<section class="content">
 		<div class="row">
-	        
+
 			<div class="card col-md-12 col-sm-12">
 				<div class="card-header">
 					<div class="card-title">
@@ -24,6 +24,13 @@
 							<label for="title">عنوان طرح</label>
 							<input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" placeholder="لطفا عنوان طرح را وارد کنید." value="{{ old('title',$design->title) }}">
 							@error('title')
+							    <div class="invalid-feedback">{{$message}}</div>
+							@enderror
+						</div>
+		                <div class="form-group">
+							<label for="e_title">عنوان انگلیسی طرح</label>
+							<input type="text" name="e_title" id="e_title" class="form-control @error('e_title') is-invalid @enderror" placeholder="لطفا عنوان انگلیسی طرح را وارد کنید." value="{{ old('e_title',$design->e_title) }}">
+							@error('e_title')
 							    <div class="invalid-feedback">{{$message}}</div>
 							@enderror
 						</div>

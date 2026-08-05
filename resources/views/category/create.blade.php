@@ -23,7 +23,7 @@
 		            </div>
 		      	@endif
 		    </div> --}}
-		
+
 			<div class="card col-md-12 col-sm-12">
 				<div class="card-header">
 					<div class="card-title">
@@ -51,6 +51,13 @@
 							<label for="title">عنوان زیر مجموعه</label>
 							<input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" placeholder="لطفا عنوان زیر محموعه دسته بندی را وارد کنید." value="{{old('title')}}">
 							@error('title')
+							    <div class="invalid-feedback">{{$message}}</div>
+							@enderror
+						</div>
+		                <div class="form-group">
+							<label for="e_title">عنوان انگلیسی زیر مجموعه</label>
+							<input type="text" name="e_title" id="e_title" class="form-control @error('e_title') is-invalid @enderror" placeholder="لطفا عنوان انگلیسی زیر محموعه دسته بندی را وارد کنید." value="{{old('e_title')}}">
+							@error('e_title')
 							    <div class="invalid-feedback">{{$message}}</div>
 							@enderror
 						</div>

@@ -122,7 +122,7 @@ class CategoryController extends Controller
         ];
         $request->validate($rules);
 
-        
+
         if(isset($request->image))
         {
             $file1 = '/public/images/categories/'.$category->image;
@@ -137,13 +137,14 @@ class CategoryController extends Controller
                 ->save('storage/images/categories/thumbnails/'.basename($path));
             $category->image = basename($path);
         }
-        
+
         $parent = Category::find($request->parent_id);
         // $category->fill($request->all());
         $category->parent_id = $parent->id;
         $category->model = $parent->model;
         $category->link = "/store/tablecloths/filter?category[]=";
         $category->title = $request->title;
+        $category->e_title = $request->e_title;
         $category->active = $request->active;
         $category->save();
         return redirect()->back()
@@ -158,7 +159,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-       
+
 
         $count = $category->model::where('category_id',$category->id)
             ->count();
@@ -195,7 +196,7 @@ class CategoryController extends Controller
             $result["message"] = "دسته بندی انتخابی  غیرفعال شد.";
         }
         $category->save();
-        
+
         $result["res"] = "success";
         return $result;
     }
