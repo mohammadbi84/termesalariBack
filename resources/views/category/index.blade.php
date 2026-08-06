@@ -22,7 +22,7 @@
 		            </div>
 		      	@endif
 		    </div>
-		
+
 			<div class="card col-md-12 col-sm-12">
 				<div class="card-header">
 					<a href="{{ route('category.create') }}" class="pr-3 pl-3 pt-2 pb-2 btn btn-flat btn-danger float-left " title="دسته بندی جدید">+</a>
@@ -35,11 +35,12 @@
 						@foreach($data['topCat'] as $key => $topCategory)
 							{{-- @dump($key , $topCategory) --}}
 							<tr style="background-color: lightgray">
-								<th colspan="5" class="text-right">{{ $topCategory->title }}</th>
+								<th colspan="6" class="text-right">{{ $topCategory->title }}</th>
 							</tr>
 							<tr class="text-center">
 								<th>ردیف</th>
 								<th>عنوان</th>
+								<th>عنوان انگلیسی</th>
 								<th>وضعیت</th>
 								<th>ویرایش</th>
 								<th>حذف</th>
@@ -54,8 +55,11 @@
 											{{ $subCategory->title }}
 										</td>
 										<td>
+											{{ $subCategory->e_title }}
+										</td>
+										<td>
 											@if($subCategory->active == 0)
-												<a class="changeActive" href="#" data-id="{{$subCategory->id}}"><i class="fas fa-close danger-color"></i></a> 
+												<a class="changeActive" href="#" data-id="{{$subCategory->id}}"><i class="fas fa-close danger-color"></i></a>
 											@else
 												<a class="changeActive" href="#" data-id="{{$subCategory->id}}"><i class="fas fa-check success-color"></i> </a>
 											@endif
@@ -112,7 +116,7 @@
 				        	$i.removeClass("fa-close danger-color");
 				        	$i.addClass("fa-check success-color");
 				        }
-			
+
 				        if(data.res == "error")
 				        {
 				        	title = "خطا  در اجرای عملیات" ;
@@ -128,8 +132,8 @@
 				});
 			});
 
-			
-	//----------------------------------------------------------------------------	    
+
+	//----------------------------------------------------------------------------
 
 			$(".delete").click(function(){
 				event.preventDefault();
@@ -170,7 +174,7 @@
 			        	});
 					}
 				});
-				
+
 			});
 		});//end
 	</script>

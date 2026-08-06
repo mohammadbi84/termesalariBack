@@ -23,7 +23,7 @@
 		            </div>
 		      	@endif
 		    </div>
-		
+
 			<div class="card col-md-12 col-sm-12">
 				<div class="card-header">
 					<a href="{{ route('design.create') }}" class="pr-3 pl-3 pt-2 pb-2 btn btn-flat btn-danger float-left " title="طرح جدید">+</a>
@@ -36,6 +36,7 @@
 						<thead>
 							<tr>
 								<th>ردیف</th>
+								<th>عنوان</th>
 								<th>عنوان</th>
 								<th>تعداد رنگ بافت</th>
 								<th>وضعیت</th>
@@ -51,17 +52,18 @@
 								<tr>
 									<td>{{ $loop->iteration }}</td>
 									<td>{{ $design->title }}</td>
+									<td>{{ $design->e_title }}</td>
 									<td>{{ $design->countOfColor }}</td>
 									<td>
 										@if($design->active == 0)
-											<a class="changeActive" href="#" data-id="{{$design->id}}" title="غیر فعال است"><i class="fas fa-close text-danger"></i></a> 
+											<a class="changeActive" href="#" data-id="{{$design->id}}" title="غیر فعال است"><i class="fas fa-close text-danger"></i></a>
 										@else
 											<a class="changeActive" href="#" data-id="{{$design->id}}" title="فعال است"><i class="fas fa-check text-success"></i> </a>
 										@endif
 									</td>
 									<td>
 										@foreach($design->colors as $color)
-											{{ $color->color }} /	
+											{{ $color->color }} /
 										@endforeach
 									</td>
 									<td>
@@ -93,14 +95,14 @@
 								<th>حذف</th>
 							</tr>
 						</tfoot>
-						
+
 						{{-- @if($designs->count() > 0)
 							<tr>
 								<td colspan="7" style="text-align: center !important;">{{ $designs->links() }}</td>
 							</tr>
 						@endif --}}
 					</table>
-						
+
 				</div>
 			</div>
 		</div>
@@ -173,7 +175,7 @@
 				        	$i.removeClass("fa-close text-danger");
 				        	$i.addClass("fa-check text-success");
 				        }
-			
+
 				        if(data.res == "error")
 				        {
 				        	title = "خطا  در اجرای عملیات" ;
@@ -188,7 +190,7 @@
 				});
 			});
 
-	//---------------------------------------------------------------------------	    
+	//---------------------------------------------------------------------------
 			$(document).on('click', '.delete', function(event){
 				event.preventDefault();
 				var id = $(this).data("id");
@@ -228,7 +230,7 @@
 			        	});
 					}
 				});
-				
+
 			});
 		});//end
 	</script>

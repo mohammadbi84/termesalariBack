@@ -46,6 +46,7 @@
 		                </th>
 						<th class="no-sort">ردیف</th>
 						<th>رنگ</th>
+						<th>نام انگلیسی</th>
 						<th>طرح ها</th>
 						<th class="no-sort">ویرایش</th>
 						<th class="no-sort">حذف</th>
@@ -62,9 +63,10 @@
 		                	</td>
 							<td>{{$loop->iteration}}</td>
 							<td>{{$color->color}}</td>
+							<td>{{$color->e_color}}</td>
 							<td>
 								@foreach($color->designs as $design)
-									{{ $design->title }} / 
+									{{ $design->title }} /
 								@endforeach
 							</td>
 							<td>
@@ -92,7 +94,7 @@
 	                </tr>
                 </tfoot>
               </table>
-              
+
             </div>
             <!-- /.card-body -->
           </div>
@@ -190,9 +192,9 @@ $(function(){
 	        	});
 			}
 		});
-		
+
 	});
-	
+
 
 
 })//End
