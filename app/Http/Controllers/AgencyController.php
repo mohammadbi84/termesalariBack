@@ -86,7 +86,7 @@ class AgencyController extends Controller
             /* ---------- تصاویر اسلایدر ---------- */
             if ($request->hasFile('slider_images')) {
                 foreach ($request->file('slider_images') as $key => $image) {
-                    $path = $image->store('public/images/');
+                    $path = $image->store('images/');
 
                     $img = new Image;
                     $img->name = basename($path);
@@ -172,7 +172,7 @@ class AgencyController extends Controller
             if ($request->hasFile('slider_images')) {
                 foreach ($request->file('slider_images') as $key => $image) {
 
-                    $path = $image->store('public/images/');
+                    $path = $image->store('images/');
 
                     $img = new Image;
                     $img->name = basename($path);

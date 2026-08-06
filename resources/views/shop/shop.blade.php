@@ -355,7 +355,7 @@
                                                             <div
                                                                 class=" w-50 h-100 text-center d-flex justify-content-center align-items-center">
                                                                 <div class="countdown-timer timer-short justify-content-between"
-                                                                    id="countdown-1" data-end-date="2025-12-30">
+                                                                    id="countdown-1" data-end-date="2025-12-30" style="gap:{{ app()->getLocale() == 'fa' ? '' : '20px; !important' }}">
                                                                     <div class="timer-col">
                                                                         <span class="timer-number days">12
                                                                         </span>
@@ -559,7 +559,7 @@
                                                         <div
                                                             class=" w-50 h-100 text-center d-flex justify-content-center align-items-center">
                                                             <div class="countdown-timer timer-short justify-content-between"
-                                                                id="countdown-1" data-end-date="2025-12-30">
+                                                                id="countdown-1" data-end-date="2025-12-30" style="gap:{{ app()->getLocale() == 'fa' ? '' : '20px; !important' }}">
                                                                 <div class="timer-col">
                                                                     <span class="timer-number days">12
                                                                     </span>
@@ -783,9 +783,9 @@
                                                                 href="#" role="button"
                                                                 data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
                                                                 data-moddel="{{ substr($product->orderitemable->category->model, 4) }}"
-                                                                data-design="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale()=='fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
+                                                                data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
+                                                                data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
+                                                                data-title="{{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
                                                                 data-price="{{ $prices->price }}"
                                                                 data-pay="{{ $price }}"
                                                                 data-off="{{ $off }}"
@@ -886,9 +886,9 @@
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $product->orderitemable->id }}"
                                                         data-moddel="{{ substr($product->orderitemable_type, 4) }}"
-                                                        data-design="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale()=='fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale()=='fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1108,9 +1108,9 @@
                                                     <button class="buy-button shadow-none add-to-cart compare"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
-                                                        data-design="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1123,9 +1123,9 @@
                                                         class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1142,9 +1142,9 @@
                                                         data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale()=='fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1915,5 +1915,94 @@
                 clearBtn2.style.display = "none";
             }
         }
+
+
+
+
+
+
+
+
+
+        function updateCountdown() {
+            $(".countdown-timer").each(function() {
+                // برای هر تایمر شمارش معکوس
+                const endDateStr = $(this).data("end-date"); // تاریخ پایان
+                const endDate = new Date(endDateStr);
+                const now = new Date();
+                const timeLeft = endDate - now;
+                // alert(endDateStr);
+                // alert(endDate);
+                // alert(now);
+
+                if (timeLeft > 0) {
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor(
+                        (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                    );
+                    const minutes = Math.floor(
+                        (timeLeft % (1000 * 60 * 60)) / (1000 * 60),
+                    );
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                    $(this)
+                        .find(".days")
+                        .html(
+                            pad(days) +
+                            '<span class="d-block text-dark timer-label">{{ __('main.day') }}</span>',
+                        );
+                    $(this)
+                        .find(".hours")
+                        .html(
+                            pad(hours) +
+                            '<span class="d-block text-dark timer-label">{{ __('main.hour') }}</span>',
+                        );
+                    $(this)
+                        .find(".minutes")
+                        .html(
+                            pad(minutes) +
+                            '<span class="d-block text-dark timer-label">{{ __('main.minutes') }}</span>',
+                        );
+                    $(this)
+                        .find(".seconds")
+                        .html(
+                            pad(seconds) +
+                            '<span class="d-block text-dark timer-label">{{ __('main.seconds') }}</span>',
+                        );
+                } else {
+                    $(this)
+                        .find(".days")
+                        .html(
+                            0 +
+                            '<span class="d-block text-dark timer-label">{{ __('main.day') }}</span>',
+                        );
+                    $(this)
+                        .find(".hours")
+                        .html(
+                            0 +
+                            '<span class="d-block text-dark timer-label">{{ __('main.hour') }}</span>',
+                        );
+                    $(this)
+                        .find(".minutes")
+                        .html(
+                            0 +
+                            '<span class="d-block text-dark timer-label">{{ __('main.minutes') }}</span>',
+                        );
+                    $(this)
+                        .find(".seconds")
+                        .html(
+                            0 +
+                            '<span class="d-block text-dark timer-label">{{ __('main.seconds') }}</span>',
+                        );
+                }
+            });
+
+            function pad(num) {
+                return num < 10 ? "0" + num : num;
+            }
+        }
+
+        updateCountdown(); // اجرای اولیه
+        setInterval(updateCountdown, 1000); // بروزرسانی هر ثانیه
     </script>
 @endsection

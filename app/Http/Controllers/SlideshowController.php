@@ -48,9 +48,9 @@ class SlideshowController extends Controller
     public function store(SlideshowRequest $request)
     {
         // dd($request->all());
-        $path = $request->image->store('public/images/slideshow/');
+        $path = $request->image->store('images/slideshow/');
         if ($request->video) {
-            $pathVideo = $request->video->store('public/videos/slideshow/');
+            $pathVideo = $request->video->store('videos/slideshow/','public');
         }
         $slideshow = new Slideshow;
         $slideshow->fill($request->all());
@@ -141,9 +141,9 @@ class SlideshowController extends Controller
 
         if (isset($request->image)) {
             // dd($request->image);
-            $file = '/public/images/'.$slideshow->image;
+            $file = 'images/'.$slideshow->image;
             Storage::delete($file);
-            $path = $request->image->store('public/images/slideshow/');
+            $path = $request->image->store('images/slideshow/','public');
             $slideshow->image = "/slideshow/" . basename($path);
 
         }

@@ -32,4 +32,9 @@ return [
     'Satisfaction' => 'satisfaction',
     'intrests' => 'favorites',
     'sellsCount' => 'sold',
+
+    'day' => 'Day',
+    'hour' => 'Hour',
+    'minutes' => 'Minutes',
+    'seconds' => 'Seconds',
 ];

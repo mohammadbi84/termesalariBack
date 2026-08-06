@@ -32,4 +32,11 @@ return [
     'Satisfaction' => 'رضایت',
     'intrests' => 'علاقه‌مندی',
     'sellsCount' => 'عدد فروش رفته',
+
+
+
+    'day' => 'روز',
+    'hour' => 'ساعت',
+    'minutes' => 'دقیقه',
+    'seconds' => 'ثانیه',
 ];
