@@ -341,11 +341,11 @@
                                             <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی">
                                         </div>
                                         <div class="card-info">
-                                            <h3 class="card-title">نمایندگی استان {{ $agent->state->name }} - شهر
+                                            <h3 class="card-title">{{ __('main.state') }} {{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->e_name }} - {{ __('main.city') }}
                                                 {{ $agent->city->name ?? '' }}</h3>
                                             <div class="card-detail">
                                                 <i class="fa fa-map-marker"></i>
-                                                {{ $agent->address_fa }}
+                                                {{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }}
                                             </div>
                                             <div class="card-detail">
                                                 <i class="fa fa-phone"></i>
@@ -536,12 +536,12 @@
     @php
         $mapped = $grouped->map(function ($items, $mapCode) {
             return [
-                'province' => $items->first()->state->name,
+                'province' => app()->getLocale() == 'fa' ? $items->first()->state->name : $items->first()->state->e_name,
                 'offices' => $items
                     ->map(function ($agency) {
                         return [
-                            'manager' => $agency->name_fa,
-                            'address' => $agency->address_fa,
+                            'manager' => app()->getLocale() == 'fa' ? $agency->name_fa : $agency->name_en,
+                            'address' => app()->getLocale() == 'fa' ? $agency->address_fa : $agency->address_en,
                             'phone' => $agency->phone,
                             'city' => $agency->city->name ?? '',
                         ];

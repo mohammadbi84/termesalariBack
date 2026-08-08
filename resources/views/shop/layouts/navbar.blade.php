@@ -172,15 +172,15 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"
-                                href="http://www.termehsalari.com/store#newest">{{ __('menu.newest') }}</a>
+                                href="/store#newest">{{ __('menu.newest') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"
-                                href="http://www.termehsalari.com/store#products">{{ __('menu.bestSeller') }}</a>
+                                href="/store#products">{{ __('menu.bestSeller') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"
-                                href="http://www.termehsalari.com/store#branchs">{{ __('menu.branchs') }}</a>
+                                href="/store#branchs">{{ __('menu.branchs') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('about') }}">{{ __('menu.aboutUs') }}</a>
@@ -673,17 +673,17 @@
             </div>
             <div class="mobile-main-category py-3">
                 <a class="nav-link fw-bold"
-                    href="http://www.termehsalari.com/store#newest">{{ __('menu.newest') }}</a>
+                    href="/store#newest">{{ __('menu.newest') }}</a>
 
             </div>
             <div class="mobile-main-category py-3">
                 <a class="nav-link fw-bold"
-                    href="http://www.termehsalari.com/store#products">{{ __('menu.bestSeller') }}</a>
+                    href="/store#products">{{ __('menu.bestSeller') }}</a>
 
             </div>
             <div class="mobile-main-category py-3">
                 <a class="nav-link fw-bold"
-                    href="http://www.termehsalari.com/store#branchs">{{ __('menu.branchs') }}</a>
+                    href="/store#branchs">{{ __('menu.branchs') }}</a>
             </div>
             <div class="mobile-main-category py-3">
                 <a class="nav-link fw-bold" href="{{ route('about') }}">{{ __('menu.aboutUs') }}</a>

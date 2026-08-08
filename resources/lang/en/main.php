@@ -37,4 +37,8 @@ return [
     'hour' => 'Hour',
     'minutes' => 'Minutes',
     'seconds' => 'Seconds',
+
+
+    'state' => 'State',
+    'city' => 'City',
 ];

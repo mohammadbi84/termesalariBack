@@ -55,7 +55,7 @@ class HomestoreController extends Controller
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
             ->groupBy('orderitemable_id', 'orderitemable_type')
             ->latest()
-            ->take(10)
+            ->take(20)
             ->get();
 
         $newestProducts = $newestProducts->filter(function ($item) {

@@ -14,7 +14,7 @@
                 <ul>
                     <li><a href="#">{{ __('footer.products_sample') }}</a></li>
                     <li><a href="#">{{ __('footer.order_product') }}</a></li>
-                    <li><a href="http://www.termehsalari.com/store">{{ __('footer.enter_store') }}</a></li>
+                    <li><a href="/store">{{ __('footer.enter_store') }}</a></li>
                     <li><a href="{{ route('terms') }}">{{ __('footer.terms') }}</a></li>
                     <li><a href="{{ route('privacy-policy') }}">{{ __('footer.privacy') }}</a></li>
                 </ul>
@@ -109,7 +109,7 @@
                         <ul id="menu-%d9%81%d9%88%d8%aa%d8%b1-%db%b1" class="menu">
                             <li id="menu-item-852"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-837 current_page_item menu-item-852">
-                                <a href="http://www.termehsalari.com/shop" aria-current="page"><span class="menu-item-title">ورود به فروشگاه</span></a>
+                                <a href="/shop" aria-current="page"><span class="menu-item-title">ورود به فروشگاه</span></a>
                             </li>
                             <li id="menu-item-854"
                                 class="menu-item menu-item-type-custom menu-item-object-custom menu-item-854"><a
@@ -264,5 +264,5 @@
 </footer> --}}
 <div class="container-fluid text-light text-center py-4" style="background-color: #030f08;">
     <span class="fs-small">© Copyright <b>termehsalari</b>. All Rights Reserved <br>
-        Designed by <a href="http://www.fazeledu.com/" class="text-success">FazelEdu</a></span>
+        Designed by <a href="http://www.fazeledu.com/" class="text-success fw-bold">FazelEdu</a></span>
 </div>

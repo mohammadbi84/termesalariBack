@@ -144,7 +144,7 @@
                                     <label>شهر</label>
                                     <select name="city_id" id="city-select" class="form-control select2">
                                         <option value="{{ $agency->city_id }}">
-                                            {{ $agency->city->name }}
+                                            {{ $agency->city->name ?? '' }}
                                         </option>
                                     </select>
                                 </div>
