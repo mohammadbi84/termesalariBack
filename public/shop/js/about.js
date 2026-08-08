@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // عنوان استان
         const title = document.createElement("div");
         title.className = "branch-card__title";
-        title.innerText = `نمایندگی ${stateData.province}`;
+        title.innerText = `${stateData.province}`;
 
         // لیست نمایندگی‌ها
         const list = document.createElement("div");
