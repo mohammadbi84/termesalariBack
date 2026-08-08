@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'price','active'];
+    protected $fillable = ['title', 'price', 'active', 'delivery_time'];
 
-    public function orders(){
-    	return $this->hasMany('App\Order');
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
     }
 }

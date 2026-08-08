@@ -1182,7 +1182,7 @@
                                         <span>استان
                                             {{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->name }} -
                                             شهر
-                                            {{ app()->getLocale() == 'fa' ? $agent->city->name : $agent->city->name }}</span>
+                                            {{ app()->getLocale() == 'fa' ? $agent->city->name ?? '--' : $agent->city->name ?? '--' }}</span>
                                     </div>
                                     <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی ترمه سالاری" />
                                 </div>

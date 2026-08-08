@@ -342,7 +342,7 @@
                                         </div>
                                         <div class="card-info">
                                             <h3 class="card-title">نمایندگی استان {{ $agent->state->name }} - شهر
-                                                {{ $agent->city->name }}</h3>
+                                                {{ $agent->city->name ?? '' }}</h3>
                                             <div class="card-detail">
                                                 <i class="fa fa-map-marker"></i>
                                                 {{ $agent->address_fa }}
@@ -543,7 +543,7 @@
                             'manager' => $agency->name_fa,
                             'address' => $agency->address_fa,
                             'phone' => $agency->phone,
-                            'city' => $agency->city->name,
+                            'city' => $agency->city->name ?? '',
                         ];
                     })
                     ->values(),

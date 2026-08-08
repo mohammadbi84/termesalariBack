@@ -363,3 +363,7 @@ Route::resource('client', 'ClientController');
 // video
 Route::get('/video',[MainvideoController::class, 'edit'])->name('video.edit');
 Route::post('/video/update',[MainvideoController::class, 'update'])->name('video.update');
+
+
+// posts
+Route::resource('post', 'PostController');

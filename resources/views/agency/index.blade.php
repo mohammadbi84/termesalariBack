@@ -63,7 +63,7 @@
 								{{ $agency->name_fa }}
 							</td>
 							<td>{{ $agency->state->name }}</td>
-							<td>{{ $agency->city->name }}</td>
+							<td>{{ $agency->city->name ?? '--' }}</td>
 							<td>{{ $agency->sort }}</td>
 							<td>{{ $agency->address_fa }}</td>
 							<td>

@@ -7,79 +7,85 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('post.index', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'price' => 'required|integer|min:0',
+            'delivery_time' => 'required'
+        ],[
+            'title.required'=>'عنوان الزامی است',
+            'price.required'=>'هزینه ارسال الزامی است',
+            'price.integer'=>'هزینه ارسال باید عددی باشد',
+            'delivery_time.required'=>'زمان ارسال الزامی است',
+        ]);
+
+        $post = Post::create([
+            'title' => $request->title,
+            'price' => $request->price,
+            'delivery_time' => $request->delivery_time,
+        ]);
+
+        return redirect()->route('post.index')->with('success', 'شیوه ارسال با موفقیت ذخیره شد');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function show(Post $post)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Post $post)
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'price' => 'required|integer|min:0',
+            'delivery_time' => 'required'
+        ],[
+            'title.required'=>'عنوان الزامی است',
+            'price.required'=>'هزینه ارسال الزامی است',
+            'price.integer'=>'هزینه ارسال باید عددی باشد',
+            'delivery_time.required'=>'زمان ارسال الزامی است',
+        ]);
+
+        $post->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'delivery_time' => $request->delivery_time,
+        ]);
+
+        return redirect()->route('post.index')->with('success', 'شیوه ارسال با موفقیت ویرایش شد');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Post $post)
     {
-        //
+        if (Post::where('active', 1)->where('id', '!=', $post->id)->count()) {
+            $post->delete();
+
+            $result["res"] = "success";
+            $result["message"] = "شیوه ارسال با موفقیت حذف شد.";
+            return $result;
+            return redirect()->route('post.index')->with('success', 'شیوه ارسال با موفقیت حذف شد');
+        } else {
+            $result["res"] = "error";
+            $result["message"] = "حداقل یک شیوه ارسال فعال باید وجود داشته باشد.";
+            return $result;
+            return redirect()->route('post.index')->with('danger', 'حداقل یک شیوه ارسال فعال باید وجود داشته باشد.');
+        }
     }
 }

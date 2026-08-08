@@ -415,6 +415,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
+                                        <a href="{{ route('post.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-envelope"></i>
+                                            <p>شیوه های ارسال</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('popup.index') }}" class="nav-link">
                                             <i class="nav-icon fa fa-envelope"></i>
                                             <p>پاپ آپ ها</p>

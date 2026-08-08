@@ -40,7 +40,7 @@ class AgencyController extends Controller
             'image' => 'nullable|image',
             'address_fa' => 'required',
             'address_en' => 'required',
-            'city_id' => 'required|exists:cities,id',
+            'city_id' => 'nullable',
             'state_id' => 'required|exists:cities,id',
             'slider_images.*' => 'nullable|image',
         ]);
@@ -129,7 +129,7 @@ class AgencyController extends Controller
             'image' => 'nullable|image',
             'address_fa' => 'required',
             'address_en' => 'required',
-            'city_id' => 'required|exists:cities,id',
+            'city_id' => 'nullable',
             'state_id' => 'required|exists:cities,id',
             'slider_images.*' => 'nullable|image',
         ]);
