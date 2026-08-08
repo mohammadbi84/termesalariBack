@@ -666,14 +666,14 @@
                 radioClass: 'iradio_flat-blue'
             });
 
-            $("input[name=postType]").on('ifChecked', function() {
-                var postPrice = $(this).data('price');
-                $("#cart-info-postPrice").text($.number(postPrice) + " " +
-                    "{{ __('cart.order_summary.currency') }}");
-                var totalPrice = $("#cart-info-total").data("price");
-                totalPrice = parseInt(totalPrice) + parseInt(postPrice);
-                $("#cart-info-total").text($.number(totalPrice));
-            })
+            // $("input[name=postType]").on('ifChecked', function() {
+                // var postPrice = $(this).data('price');
+                // $("#cart-info-postPrice").text($.number(postPrice) + " " +
+                    // "{{ __('cart.order_summary.currency') }}");
+                // var totalPrice = $("#cart-info-total").data("price");
+                // totalPrice = parseInt(totalPrice) + parseInt(postPrice);
+                // $("#cart-info-total").text($.number(totalPrice));
+            // })
 
             $("#recipientIsSelf").on('ifChecked', function() {
                 $("#name").val("{{ Auth::user()->name }}");

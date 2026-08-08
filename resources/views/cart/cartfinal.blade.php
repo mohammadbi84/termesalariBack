@@ -102,10 +102,10 @@
                                                 {{ __('products.color') }}
                                                 {{ app()->getLocale() == 'fa' ? $product->color_design->color->color : $product->color_design->color->e_color }}
                                             </h3>
-                                            <h3>{{ __('products.product_row.code_label') }} {{ $product->code }}</h3>
-                                            <h3>{{ __('cart.product_row.quantity_label') ?? 'تعداد :' }}
+                                            <h3>{{ __('cart.product_row.code_label') }} {{ $product->code }}</h3>
+                                            <h3>{{ __('cart.product_row.subtotal_label') ?? 'تعداد :' }}
                                                 {{ $list['quantities'][$key] }}</h3>
-                                            <h4>{{ __('products.product_row.guarantee_text') }}</h4>
+                                            <h4>{{ __('cart.product_row.guarantee_text') }}</h4>
                                         </div>
 
                                         <div class="price-product col-md-3 float-left">
