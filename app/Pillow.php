@@ -66,6 +66,11 @@ class Pillow extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function amazings()
+    {
+        return $this->morphMany('App\Amazing', 'productable');
+    }
+
     // public function scopeVisibility($query)
     // {
     //     return $query->where('visibility', 1);

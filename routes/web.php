@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\AmazingController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BedcoverController;
 use App\Http\Controllers\BookmarkController;
@@ -91,6 +92,14 @@ route::post('/tablecloth/changeVisibilityGroup', 'TableclothController@changeVis
 Route::get('/store/tablecloths/', 'TableclothController@storeIndex')->name('tablecloth.storeIndex');
 Route::get('/store/tablecloths/filter', 'TableclothController@storeFilter')->name('tablecloth.storeFilter');
 Route::get('/ajax/tablecloths', [TableclothController::class, 'ajaxStore'])->name('products.filter');
+
+
+route::get('/amazings/{model}/{id}', 'AmazingController@index')->name('amazing.index');
+route::post('/amazings/{model}/{id}/store', 'AmazingController@store')->name('amazing.store');
+route::get('/amazings/{model}/{id}/{amazing}/edit', 'AmazingController@edit')->name('amazing.edit');
+route::put('/amazings/{model}/{id}/{amazing}/update', 'AmazingController@update')->name('amazing.update');
+route::post('/amazings/changeActive', 'AmazingController@changeActive')->name('amazing.changeActive');
+route::delete('/amazings/{id}/destroy', 'AmazingController@destroy')->name('amazing.destroy');
 
 
 Route::get('/tablecloth/duplicate/{tablecloth}', 'TableclothController@duplicate')->name('tablecloth.duplicate');

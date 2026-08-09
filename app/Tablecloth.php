@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 use App\Filters\ProductFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,17 +10,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tablecloth extends Model
 {
-    Use SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
-        'code','dimensions','weight','kind','contains','sewingType','haveEster','kindOfEster','washable','uses','quantity','description'
+        'code',
+        'dimensions',
+        'weight',
+        'kind',
+        'contains',
+        'sewingType',
+        'haveEster',
+        'kindOfEster',
+        'washable',
+        'uses',
+        'quantity',
+        'description'
     ];
 
-    protected $with = ['color_design','images','grades', 'tags', 'prices','category'];
+    protected $with = ['color_design', 'images', 'grades', 'tags', 'prices', 'category'];
 
     protected $dates = ['deleted_at'];
 
-    public function color_design(){
+    public function color_design()
+    {
         return $this->belongsTo('App\ColorDesign');
     }
     // public function design(){
@@ -55,7 +68,7 @@ class Tablecloth extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
-     public function grades()
+    public function grades()
     {
         return $this->morphMany('App\Grade', 'gradeable');
     }
@@ -70,8 +83,14 @@ class Tablecloth extends Model
         return (new ProductFilter($request))->filter($builder);
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo('App\Category');
+    }
+
+    public function amazings()
+    {
+        return $this->morphMany('App\Amazing', 'productable');
     }
 
     // public function scopeVisibility($query)

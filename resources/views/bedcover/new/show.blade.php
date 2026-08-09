@@ -1,12 +1,15 @@
 @extends('shop.layouts.master')
-@section('title', $title . __('products.design') . (app()->getLocale() == 'fa' ?
-    $bedcover->color_design->design->title : $bedcover->color_design->design->e_title) . __('products.color') .
-    (app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color))
+@section('title', $title . __('products.design') . (app()->getLocale() == 'fa' ? $bedcover->color_design->design->title
+    : $bedcover->color_design->design->e_title) . __('products.color') . (app()->getLocale() == 'fa' ?
+    $bedcover->color_design->color->color : $bedcover->color_design->color->e_color))
 @section('head')
     <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"> --}}
 @endsection
 @section('content')
+    <script>
+        maxQuantity = {{ $bedcover->quantity }};
+    </script>
     <main>
         <div class="container py-4 mb-5" style="padding: 0 2rem !important;margin-top:100px">
             <!-- Breadcrumb -->
@@ -469,26 +472,22 @@
                                                                         {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
                                                                     @endif
                                                                     @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
+                                                                    @else
+                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
+                                                                    @endif
                                                                 </span>
                                                             @else
                                                                 <span class="price">{{ number_format($prices->price) }}
                                                                     @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
+                                                                    @else
+                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
+                                                                    @endif
                                                                 </span>
                                                             @endif
                                                         </div>
@@ -758,7 +757,6 @@
             });
 
             // Quantity Control
-            maxQuantity = {{ $bedcover->quantity }};
             $('.plus-btn').click(function() {
                 var currentVal = parseInt($('#item-quantity-product').text());
                 if (currentVal < maxQuantity) {

@@ -60,6 +60,7 @@
 						<th class="no-sort">امتیاز</th>
 						<th>نمایش</th>
 						<th>کپی</th>
+						<th class="no-sort">شگفت انگیز</th>
 						<th class="no-sort">جزئیات</th>
 						<th class="no-sort">ویرایش</th>
 						<th class="no-sort">نظرات</th>
@@ -133,10 +134,15 @@
 								<a class="changeVisibility" href="#" data-id="{{$prayermat->id}}"><i class="fas fa-check success-color"></i> </a>
 							@endif
 						</td>
+                        
 						<td>
 							{{-- <a href="{{ route('prayermat.duplicate',[$prayermat]) }}"><i class="fas fa-copy text-primary"></i></a> --}}
 							<a href="{{ route('prayermat.duplicate',[$prayermat]) }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-copy"></i> کپی  </a>
 						</td>
+                        <td>
+                                            <a href="{{ route('amazing.index', ['model' => 'Prayermat', 'id' => $prayermat->id]) }}"
+                                                target="blank" class="btn btn-outline-danger btn-sm"> مشاهده </a>
+                                        </td>
 						<td><a href="{{route('prayermat.show',[$prayermat])}}" target="blank" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-info-circle"></i> جزئیات </a></td>
 						<td><a href="{{route('prayermat.edit',[$prayermat])}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-edit"></i> ویرایش </a></td>
 						<td><a href="{{route('comment.product',['Prayermat',$prayermat->id])}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-comment"></i> نظرات </a></td>
@@ -167,6 +173,7 @@
 						<th>امتیاز</th>
 						<th>نمایش</th>
 						<th>کپی</th>
+						<th>شگفت انگیز</th>
 						<th>جزئیات</th>
 						<th>ویرایش</th>
 						<th>نظرات</th>
