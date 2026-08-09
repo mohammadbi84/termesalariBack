@@ -1,8 +1,8 @@
 @extends('shop.layouts.master')
 @section('title', 'لیست مقایسه')
 @section('head')
-    <link href="{{ asset('/hometemplate/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('/hometemplate/lib/owlcarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('hometemplate/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('hometemplate/lib/owlcarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
     <style type="text/css">
         main#main {
             width: 100% !important;
@@ -37,8 +37,8 @@
 
         ul#header-compare {
             /*position: -webkit-sticky;
-                         position: sticky;
-                         top: 92px;*/
+                                     position: sticky;
+                                     top: 92px;*/
             /*overflow-x: auto; */
             /*overflow-y: visible;*/
             background-color: white;
@@ -47,10 +47,10 @@
         }
 
         /*ul#data-compare{
-                           display: flex;
-                           list-style: none;
-                           flex-wrap: nowrap;
-                          }*/
+                                       display: flex;
+                                       list-style: none;
+                                       flex-wrap: nowrap;
+                                      }*/
 
         ul#header-compare,
         ul#data-compare {
@@ -69,8 +69,8 @@
         ul#header-compare>li {
             /*height: 100%;*/
             /*box-sizing: border-box;
-                           text-align: center;
-                           font-size: 0.9rem;*/
+                                       text-align: center;
+                                       font-size: 0.9rem;*/
             /*margin: 0 auto;*/
             padding-top: 35px;
             padding: 35px 5px 5px 5px;
@@ -115,7 +115,8 @@
             align-items: center;
             text-decoration: none;
         }
-        #header-compare .close i{
+
+        #header-compare .close i {
             top: 0;
         }
 
@@ -210,7 +211,7 @@
     <div class="container mb-5" style="margin-top: 120px">
         <div class="row g-0">
             <div class="card-header">
-                <h3 class="card-title"><span id="title">مقایسه کالا</span></h3>
+                <h3 class="card-title"><span id="title">{{ __('compare.title') }}</span></h3>
             </div>
             {{-- <div class="card-body" > --}}
             @if (session()->has('compares') and count(session('compares')['product']) > 0)
@@ -230,12 +231,13 @@
                                 </div>
                                 <div class="info">
                                     <p
-                                        title="{{ $compare->category->title }} طرح {{ $compare->color_design->design->title }} رنگ {{ $compare->color_design->color->color }}">
-                                        {{ Str::limit($compare->category->title . ' طرح ' . $compare->color_design->design->title . ' رنگ ' . $compare->color_design->color->color, 30) }}
+                                        title="{{ $compare->category->title }} {{ __('compare.labels.design') }} {{ $compare->color_design->design->title }} {{ __('compare.labels.color') }} {{ $compare->color_design->color->color }}">
+                                        {{ Str::limit($compare->category->title . ' ' . __('compare.labels.design') . ' ' . $compare->color_design->design->title . ' ' . __('compare.labels.color') . ' ' . $compare->color_design->color->color, 30) }}
                                     </p>
 
                                     <div>
-                                        <small class="text-muted float-right">{{ count($compare->grades) }} نفر</small>
+                                        <small class="text-muted float-right">{{ count($compare->grades) }}
+                                            {{ __('compare.people_count_unit') }}</small>
                                         <div class="br-wrapper br-theme-fontawesome-stars float-left">
                                             {{-- @dump($key) --}}
                                             <select class="showGrade{{ $compare->id }}">
@@ -265,7 +267,7 @@
                                                 $price = $prices->price;
                                             }
                                         @endphp
-                                        {{ number_format($price) }} تومان
+                                        {{ number_format($price) }} {{ __('compare.currency') }}
                                     </div>
                                 </div>
                             </div>
@@ -285,18 +287,16 @@
 			                                @break
 			                          	@endswitch
 		          						"
-                                class="btn btn-flat btn-primary btn-sm mt-2">مشاهده و خرید </a>
+                                class="btn btn-flat btn-primary btn-sm mt-2">{{ __('compare.button_view_buy') }} </a>
                         </li>
                     @endforeach
                 </ul>
-
                 <h5 class="mt-2 mb-4">
-                    <div class="mr-4">اطلاعات کلی</div>
+                    <div class="mr-4">{{ __('compare.info') }}</div>
                 </h5>
-
                 <ul id="data-compare" class="compare-nav">
                     <li class="compare_list_title">
-                        <div>طرح</div>
+                        <div>{{ __('compare.labels.design') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -305,7 +305,7 @@
                     </li>
 
                     <li class="compare_list_title">
-                        <div>رنگ</div>
+                        <div>{{ __('compare.labels.color') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -314,7 +314,7 @@
                     </li>
 
                     <li class="compare_list_title">
-                        <div>تعداد رنگ بافت ترمه</div>
+                        <div>{{ __('compare.labels.colors_count') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -324,7 +324,7 @@
                     </li>
 
                     <li class="compare_list_title">
-                        <div>ابعاد</div>
+                        <div>{{ __('compare.labels.dimensions') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -340,7 +340,7 @@
                     </li>
 
                     <li class="compare_list_title">
-                        <div>وزن</div>
+                        <div>{{ __('compare.labels.weight') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -349,7 +349,7 @@
                     </li>
 
                     <li class="compare_list_title">
-                        <div>مشتمل بر</div>
+                        <div>{{ __('compare.labels.contains') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -358,7 +358,7 @@
                     </li>
 
                     <li class="compare_list_title">
-                        <div>موارد استفاده</div>
+                        <div>{{ __('compare.labels.uses') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -367,7 +367,7 @@
                     </li>
 
                     <li class="compare_list_title">
-                        <div>سایر توضیحات</div>
+                        <div>{{ __('compare.labels.other_description') }}</div>
                     </li>
                     <li class="compare_list_value">
                         @foreach (session('compares')['product'] as $compare)
@@ -376,17 +376,15 @@
                     </li>
 
                 </ul>
-
-
             @endif
         </div>
     </div>
 @endsection
 @section('script')
     <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
-    <script src="{{ asset('/hometemplate/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('hometemplate/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
-    <script src="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
 
     <script>
         $(function() {

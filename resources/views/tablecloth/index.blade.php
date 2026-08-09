@@ -4,13 +4,13 @@
 
 @push('link')
 <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset('../storetemplate/plugins/datatables/dataTables.bootstrap4.css')}}">
+  <link rel="stylesheet" href="{{asset('storetemplate/plugins/datatables/dataTables.bootstrap4.css')}}">
 <!-- iCheck for checkboxes and radio inputs -->
-<link rel="stylesheet" href="{{asset('/storetemplate/plugins/iCheck/all.css')}}">
+<link rel="stylesheet" href="{{asset('storetemplate/plugins/iCheck/all.css')}}">
 {{-- Rating --}}
-<link rel="stylesheet" href="{{asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css')}}">
-<link rel="stylesheet" href="{{asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css')}}">
-<link rel="stylesheet" href="{{asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css')}}">
+<link rel="stylesheet" href="{{asset('storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css')}}">
+<link rel="stylesheet" href="{{asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css')}}">
+<link rel="stylesheet" href="{{asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css')}}">
 @endpush
 
 @section('main-content')
@@ -67,7 +67,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-                	
+
                 @foreach($tablecloths as $key=>$tablecloth)
                 {{-- {{ dd($tablecloth) }} --}}
 	                <tr>
@@ -83,7 +83,7 @@
 							@php
 								$image = $tablecloth->images->first();
 							@endphp
-							
+
 							<img src="{{ asset('storage/images/thumbnails/'. $tablecloth->images->first()->name)}}" alt="" class="img-circle img-size-50 mr-2">
 
 							@endif
@@ -94,8 +94,8 @@
 						<td>
 							@php
 								$prices = $tablecloth->prices->where('local','تومان')->first();
-								$designColor = $tablecloth->color_design->color->color; 
-								print $designColor; 
+								$designColor = $tablecloth->color_design->color->color;
+								print $designColor;
 							 @endphp
 						</td>
 
@@ -103,13 +103,13 @@
 						<td>
 							@if($prices->offPrice > 0)
 								@if($prices->offType == 'مبلغ')
-									{{number_format($prices->offPrice)}} 
+									{{number_format($prices->offPrice)}}
 									<small class="badge badge-danger">{{ round(($prices->offPrice * 100) / $prices->price , 1) }}%</small>
 
 								@elseif($prices->offType == 'درصد')
-									{{ number_format(($prices->offPrice * $prices->price) / 100) }} 
+									{{ number_format(($prices->offPrice * $prices->price) / 100) }}
 									<small class="badge badge-danger">{{ $prices->offPrice }}%</small>
-									  
+
 								@endif
 							@endif
 						</td>
@@ -117,7 +117,7 @@
 						<td>
 							<div class="br-wrapper br-theme-fontawesome-stars float-left">
 								{{-- {{$tablecloth->grades->avg('grade') ?? '0'}} --}}
-								<select class="showGrade{{$key}}" data-value="{{ $tablecloth->grades->avg('grade') ?? '0' }}"> 
+								<select class="showGrade{{$key}}" data-value="{{ $tablecloth->grades->avg('grade') ?? '0' }}">
 								    <option value="1">1</option>
 								    <option value="2">2</option>
 								    <option value="3">3</option>
@@ -128,7 +128,7 @@
 						</td>
 						<td>
 							@if($tablecloth->visibility == 0)
-								<a class="changeVisibility" href="#" data-id="{{$tablecloth->id}}"><i class="fas fa-close danger-color"></i></a> 
+								<a class="changeVisibility" href="#" data-id="{{$tablecloth->id}}"><i class="fas fa-close danger-color"></i></a>
 							@else
 								<a class="changeVisibility" href="#" data-id="{{$tablecloth->id}}"><i class="fas fa-check success-color"></i> </a>
 							@endif
@@ -163,7 +163,7 @@
 						<th>رنگ</th>
 						<th>قیمت (تومان)</th>
 						<th>تخفیف</th>
-						<th>موجودی</th>	
+						<th>موجودی</th>
 						<th>امتیاز</th>
 						<th>نمایش</th>
 						<th>کپی</th>
@@ -191,14 +191,14 @@
 
 @push('js')
 	<!-- DataTables -->
-	<script src="{{asset('/storetemplate/plugins/datatables/jquery.dataTables.js')}}"></script>
+	<script src="{{asset('storetemplate/plugins/datatables/jquery.dataTables.js')}}"></script>
 	{{-- <script src="{{asset('/storetemplate/dist/js/dataTable.js')}}"></script> --}}
-	<script src="{{asset('/storetemplate/plugins/datatables/dataTables.bootstrap4.js')}}"></script>
+	<script src="{{asset('storetemplate/plugins/datatables/dataTables.bootstrap4.js')}}"></script>
 	<!-- iCheck 1.0.1 -->
-	<script src="{{asset('/storetemplate/plugins/iCheck/icheck.min.js')}}"></script>
-	<script src="{{asset('/storetemplate/dist/js/iCheck-custom.js')}}"></script>
+	<script src="{{asset('storetemplate/plugins/iCheck/icheck.min.js')}}"></script>
+	<script src="{{asset('storetemplate/dist/js/iCheck-custom.js')}}"></script>
 	{{-- jqueryBarRating --}}
-	<script src="{{asset('/storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js')}}"></script>
+	<script src="{{asset('storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js')}}"></script>
 	<!-- page script -->
 <script>
 $(function(){
@@ -335,7 +335,7 @@ $(function(){
 		        	$i.removeClass("fa-close danger-color");
 		        	$i.addClass("fa-check success-color");
 		        }
-	
+
 		        if(data.res == "error")
 		        {
 		        	title = "خطا  در اجرای عملیات" ;
@@ -389,7 +389,7 @@ $(function(){
 				        	$thiz.removeClass("fa-close danger-color");
 				        	$thiz.addClass("fa-check success-color");
 				        }
-						
+
 					});
 		        }
 		        swal(title, data.message,data.res);
