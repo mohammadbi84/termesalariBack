@@ -4,13 +4,13 @@
 
 @push('link')
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/datatables/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/datatables/dataTables.bootstrap4.css') }}">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/iCheck/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/iCheck/all.css') }}">
     {{-- Rating --}}
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css') }}">
 @endpush
 
 @section('main-content')
@@ -133,10 +133,12 @@
                                     </td>
                                     <td>
                                         @if ($bedcover->visibility == 0)
-                                            <a class="changeVisibility" href="#" data-id="{{ $bedcover->id }}"><i
+                                            <a class="changeVisibility" href="#"
+                                                data-id="{{ $bedcover->id }}"><i
                                                     class="fas fa-close danger-color"></i></a>
                                         @else
-                                            <a class="changeVisibility" href="#" data-id="{{ $bedcover->id }}"><i
+                                            <a class="changeVisibility" href="#"
+                                                data-id="{{ $bedcover->id }}"><i
                                                     class="fas fa-check success-color"></i> </a>
                                         @endif
                                     </td>
@@ -161,8 +163,8 @@
                                                 class="fas fa-comment"></i> نظرات </a></td>
 
                                     <td>
-                                        <form class="del-form" action="{{ route('bedcover.destroy', [$bedcover]) }}"
-                                            method="post">
+                                        <form class="del-form"
+                                            action="{{ route('bedcover.destroy', [$bedcover]) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <a href="#" data-id="{{ $bedcover->id }}" data-model="Bedcover"
@@ -215,14 +217,14 @@
 
 @push('js')
 <!-- DataTables -->
-<script src="{{ asset('/storetemplate/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/datatables/jquery.dataTables.js') }}"></script>
 {{-- <script src="{{asset('/storetemplate/dist/js/dataTable.js')}}"></script> --}}
-<script src="{{ asset('/storetemplate/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
 <!-- iCheck 1.0.1 -->
-<script src="{{ asset('/storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
-<script src="{{ asset('/storetemplate/dist/js/iCheck-custom.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
+<script src="{{ asset('storetemplate/dist/js/iCheck-custom.js') }}"></script>
 {{-- jqueryBarRating --}}
-<script src="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
 <!-- page script -->
 <script>
     $(function() {

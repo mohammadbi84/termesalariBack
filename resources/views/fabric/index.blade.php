@@ -1,16 +1,16 @@
 @extends('admin-layout')
 
-@section('title', 'پنل مدیریت | محصولات پارچه ترمه')
+@section('title', 'پنل مدیریت | محصولات پارچه')
 
 @push('link')
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/datatables/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/datatables/dataTables.bootstrap4.css') }}">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/iCheck/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/iCheck/all.css') }}">
     {{-- Rating --}}
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css') }}">
 @endpush
 
 @section('main-content')
@@ -36,7 +36,7 @@
                         class="pr-3 pl-3 pt-2 pb-2 btn btn-flat btn-danger float-left " title="محصول جدید">+</a>
                     <h3 class="card-title float-right">
                         <span>
-                            لیست محصولات پارچه ترمه
+                            لیست محصولات پارچه
                         </span>
                     </h3>
                 </div>
@@ -133,15 +133,17 @@
                                     </td>
                                     <td>
                                         @if ($fabric->visibility == 0)
-                                            <a class="changeVisibility" href="#" data-id="{{ $fabric->id }}"><i
+                                            <a class="changeVisibility" href="#"
+                                                data-id="{{ $fabric->id }}"><i
                                                     class="fas fa-close danger-color"></i></a>
                                         @else
-                                            <a class="changeVisibility" href="#" data-id="{{ $fabric->id }}"><i
+                                            <a class="changeVisibility" href="#"
+                                                data-id="{{ $fabric->id }}"><i
                                                     class="fas fa-check success-color"></i> </a>
                                         @endif
                                     </td>
                                     <td>
-
+                                        {{-- <a href="{{ route('fabric.duplicate',[$fabric]) }}"><i class="fas fa-copy text-primary"></i></a> --}}
                                         <a href="{{ route('fabric.duplicate', [$fabric]) }}"
                                             class="btn btn-outline-secondary btn-flat btn-sm"><i
                                                 class="fas fa-copy"></i> کپی </a>
@@ -161,8 +163,8 @@
                                                 class="fas fa-comment"></i> نظرات </a></td>
 
                                     <td>
-                                        <form class="del-form" action="{{ route('fabric.destroy', [$fabric]) }}"
-                                            method="post">
+                                        <form class="del-form"
+                                            action="{{ route('fabric.destroy', [$fabric]) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <a href="#" data-id="{{ $fabric->id }}" data-model="Fabric"
@@ -215,14 +217,14 @@
 
 @push('js')
 <!-- DataTables -->
-<script src="{{ asset('/storetemplate/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/datatables/jquery.dataTables.js') }}"></script>
 {{-- <script src="{{asset('/storetemplate/dist/js/dataTable.js')}}"></script> --}}
-<script src="{{ asset('/storetemplate/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
 <!-- iCheck 1.0.1 -->
-<script src="{{ asset('/storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
-<script src="{{ asset('/storetemplate/dist/js/iCheck-custom.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
+<script src="{{ asset('storetemplate/dist/js/iCheck-custom.js') }}"></script>
 {{-- jqueryBarRating --}}
-<script src="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
 <!-- page script -->
 <script>
     $(function() {
@@ -233,6 +235,10 @@
                     "next": "بعدی",
                     "previous": "قبلی",
                 },
+                // "searchPanes":{
+                // 	"count":'{total} found',
+                // 	"countFiltered": '{shown} ({total})',
+                // },
                 "decimal": ",",
                 "thousands": ".",
                 "search": "جستجو : ",
@@ -276,7 +282,14 @@
             }
 
         });
-
+        //-------------------Show Grade-----------------------------
+        {{-- @foreach ($fabrics as $key => $fabric)
+		$('.showGrade{{$key}}').barrating({
+		 	theme:'fontawesome-stars-o',
+			initialRating: "{{$fabric->grades->avg('grade') ?? '0'}}",
+		 	readonly:true,
+		});
+	@endforeach --}}
         //-------------------Delete Product------------------
         $(document).on('click', '.delete', function(event) {
             event.preventDefault();
@@ -314,9 +327,13 @@
                                 swal(title, data.message, data.res);
                             }
                         });
-
+                        // swal("Poof! Your imaginary file has been deleted!", {
+                        //   icon: "success",
+                        // });
                     }
-
+                    // else {
+                    //   swal("Your imaginary file is safe!");
+                    // }
                 });
         });
         //-----------------------change Statuse---------------------------

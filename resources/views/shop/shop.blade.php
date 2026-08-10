@@ -237,7 +237,7 @@
         </section>
         <!-- end slider -->
         <!-- special offers -->
-        @if (isset($topRequests) and count($topRequests) > 0)
+        @if (isset($amazings) and count($amazings) > 0)
             <section id="specials">
                 <div class="container mb-5 px-0">
                     <div class=" d-flex align-items-center justify-content-between w-100  p-2 offer-header">
@@ -262,9 +262,9 @@
                     <div id="events-slider" class="splide" style="padding: 0 5px !important;">
                         <div class="splide__track fix-shadow-margin py-3">
                             <ul class="splide__list">
-                                @foreach ($topRequests as $key => $topRequest)
+                                @foreach ($amazings as $key => $amazing)
                                     @php
-                                        $prices = $topRequest->orderitemable->prices->where('local', 'تومان')->first();
+                                        $prices = $amazing->productable->prices->where('local', 'تومان')->first();
                                     @endphp
                                     @php
                                         $price = 0;
@@ -287,7 +287,7 @@
                                                 <!-- جلوی کارت -->
                                                 <div class="flip-card-front d-flex flex-column justify-content-between">
                                                     <div class="position-relative image-badge pb-1">
-                                                        <img src="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        <img src="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
                                                             class="card-img-top" alt="event image">
 
                                                         @if ($prices->offPrice > 0)
@@ -317,14 +317,14 @@
                                                                 style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
                                                                 <strong class="" style="font-size: 18px;">
                                                                     <i
-                                                                        class="fa-solid fa-heart @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
+                                                                        class="fa-solid fa-heart @if ($amazing->productable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
                                                                 </strong>
                                                             </span>
                                                         </div> --}}
                                                         <a href="#"
-                                                            class="discount-squer discount-squer-front favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                                            data-id="{{ $topRequest->orderitemable->id }}"
-                                                            data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                            class="discount-squer discount-squer-front favorites-btn @if ($amazing->productable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                            data-id="{{ $amazing->productable->id }}"
+                                                            data-model="{{ substr($amazing->productable, 4) }}"
                                                             style="position: absolute;top: -4px;right: 20px;">
                                                             <img src="{{ asset('shop/assets/svgs/heart-back.svg') }}"
                                                                 width="35" alt="discount"
@@ -333,7 +333,7 @@
                                                                 style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
                                                                 <strong class="" style="font-size: 18px;">
                                                                     <i
-                                                                        class="fa-solid fa-heart @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
+                                                                        class="fa-solid fa-heart @if ($amazing->productable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
                                                                 </strong>
                                                             </span>
                                                         </a>
@@ -343,11 +343,11 @@
                                                         <div
                                                             class="d-flex align-items-center align-content-center justify-content-start mb-2">
                                                             <h5 class="product-title text-end">
-                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}
+                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}
                                                                 {{ __('products.design') }}
-                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title }}
+                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title }}
                                                                 {{ __('products.color') }}
-                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color }}
+                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color }}
                                                             </h5>
                                                         </div>
                                                         <div
@@ -355,7 +355,8 @@
                                                             <div
                                                                 class=" w-50 h-100 text-center d-flex justify-content-center align-items-center">
                                                                 <div class="countdown-timer timer-short justify-content-between"
-                                                                    id="countdown-1" data-end-date="2025-12-30"
+                                                                    id="countdown-1"
+                                                                    data-end-date="{{ $amazing->end_date }}"
                                                                     style="gap:{{ app()->getLocale() == 'fa' ? '' : '20px; !important' }}">
                                                                     <div class="timer-col">
                                                                         <span class="timer-number days">12
@@ -377,12 +378,6 @@
                                                             </div>
                                                             <div class=" w-100 text-start">
                                                                 @if ($prices->offPrice > 0)
-                                                                    @if ($prices->offType == 'مبلغ')
-                                                                        {{ number_format($prices->price - $prices->offPrice) }}
-                                                                    @elseif($prices->offType == 'درصد')
-                                                                        {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                                                    @endif
-
                                                                     <div class="row g-0 ">
                                                                         <div class="col-8 text-primary text-start ps-1">
                                                                             <del
@@ -403,7 +398,7 @@
                                                                             @if ($prices->offType == 'مبلغ')
                                                                                 {{ number_format($prices->price - $prices->offPrice) }}
                                                                             @elseif($prices->offType == 'درصد')
-                                                                                {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
+                                                                                {{ number_format($prices->price - $prices->price * ($prices->offPrice / 100)) }}
                                                                             @endif
                                                                         </div>
                                                                         <div class="col-3 fs-small">
@@ -463,32 +458,32 @@
                                                         </div>
                                                     @endif
                                                     <button class="buy-button shadow-none add-to-cart compare"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
-                                                        data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($amazing->productable->category->model, 4) }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}"
                                                         data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
                                                         data-local="{{ $prices->local }}"
-                                                        data-id="{{ $topRequest->orderitemable->id }}"
-                                                        data-model="{{ substr($topRequest->orderitemable->category->model, 4) }}"
+                                                        data-id="{{ $amazing->productable->id }}"
+                                                        data-model="{{ substr($amazing->productable->category->model, 4) }}"
                                                         style="width: 35px;height: 32px;position: absolute;left: 40px;top: 3px;transform: translateZ(51px);"><i
                                                             class="fa-solid fa-shuffle"></i></button>
                                                     <a href="#"
-                                                        class="discount-squer favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
-                                                        data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        class="discount-squer favorites-btn @if ($amazing->productable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
+                                                        data-image="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
+                                                        data-moddel="{{ substr($amazing->productable, 4) }}"
+                                                        data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
+                                                        data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
+                                                        data-title="{{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}"
                                                         data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
                                                         data-local="{{ $prices->local }}"
-                                                        data-id="{{ $topRequest->orderitemable->id }}"
-                                                        data-model="{{ substr($topRequest->orderitemable_type, 4) }}"
+                                                        data-id="{{ $amazing->productable->id }}"
+                                                        data-model="{{ substr($amazing->productable, 4) }}"
                                                         style="position: absolute;top: 4px;right: 20px;">
                                                         <img src="{{ asset('shop/assets/svgs/heart-back.svg') }}"
                                                             width="35" alt="discount"
@@ -497,7 +492,7 @@
                                                             style="font-size: 12px;font-weight: 800;position: absolute;right: 9px;top: 2px;">
                                                             <strong class="" style="font-size: 18px;">
                                                                 <i
-                                                                    class="fa-solid fa-heart @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
+                                                                    class="fa-solid fa-heart @if ($amazing->productable->favorites->where('user_id', Auth::id())->count() > 0) text-danger @else text-white @endif "></i>
                                                             </strong>
                                                         </span>
                                                     </a>
@@ -505,22 +500,22 @@
                                                         style="flex-direction: column;padding: 0 22px;">
                                                         <div class="text-center">
                                                             <h5 class="product-title text-center mb-4">
-                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}
+                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}
                                                                 {{ __('products.design') }}
-                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title }}
+                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title }}
                                                                 {{ __('products.color') }}
-                                                                {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color }}
+                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color }}
                                                             </h5>
                                                             <div class="row g-0 w-100">
                                                                 <div class="col-3 ps-2">
                                                                     <button
-                                                                        class="buy-button add-to-cart @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
-                                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
-                                                                        data-id="{{ $topRequest->orderitemable->id }}"
-                                                                        data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                                        class="buy-button add-to-cart @if ($amazing->productable->quantity != 0) addToCart @endif"
+                                                                        data-image="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
+                                                                        data-id="{{ $amazing->productable->id }}"
+                                                                        data-moddel="{{ substr($amazing->productable, 4) }}"
+                                                                        data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
+                                                                        data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
+                                                                        data-title="{{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}"
                                                                         data-price="{{ $prices->price }}"
                                                                         data-pay="{{ $price }}"
                                                                         data-off="{{ $off }}"
@@ -530,29 +525,29 @@
                                                                 </div>
                                                                 <div class="col-9 pe-2">
                                                                     <a href="
-                                                                        @switch($topRequest->orderitemable_type)
+                                                                        @switch($amazing->productable_type)
                                                                             @case('App\Tablecloth')
-                                                                              {{ route('tablecloth.show', [$topRequest->orderitemable->id]) }}
+                                                                              {{ route('tablecloth.show', [$amazing->productable->id]) }}
                                                                               @break
                                                                             @case('App\Pillow')
-                                                                              {{ route('pillow.show', [$topRequest->orderitemable->id]) }}
+                                                                              {{ route('pillow.show', [$amazing->productable->id]) }}
                                                                               @break
                                                                             @case('App\Prayermat')
-                                                                              {{ route('prayermat.show', [$topRequest->orderitemable->id]) }}
+                                                                              {{ route('prayermat.show', [$amazing->productable->id]) }}
                                                                               @break
                                                                             @case('App\Bedcover')
-                                                                              {{ route('bedcover.show', [$topRequest->orderitemable->id]) }}
+                                                                              {{ route('bedcover.show', [$amazing->productable->id]) }}
                                                                               @break
                                                                             @case('App\Shoe')
-                                                                              {{ route('shoe.show', [$topRequest->orderitemable->id]) }}
+                                                                              {{ route('shoe.show', [$amazing->productable->id]) }}
                                                                               @break
                                                                         @endswitch
                                                                         "
                                                                         class="buy-button text-decoration-none">{{ __('main.view') }}</a>
                                                                     <span class="fs-10 p-0">
-                                                                        @if ($topRequest->orderitemable->quantity == 0)
+                                                                        @if ($amazing->productable->quantity == 0)
                                                                             اتمام موجودی در انبار
-                                                                        @elseif($topRequest->orderitemable->quantity <= 5)
+                                                                        @elseif($amazing->productable->quantity <= 5)
                                                                             کمتر از 5 عدد موجود می باشد .
                                                                         @endif
                                                                     </span>
@@ -565,7 +560,7 @@
                                                         <div
                                                             class=" w-50 h-100 text-center d-flex justify-content-center align-items-center">
                                                             <div class="countdown-timer timer-short justify-content-between"
-                                                                id="countdown-1" data-end-date="2025-12-30"
+                                                                id="countdown-1" data-end-date="{{ $amazing->end_date }}"
                                                                 style="gap:{{ app()->getLocale() == 'fa' ? '' : '20px; !important' }}">
                                                                 <div class="timer-col">
                                                                     <span class="timer-number days">12
@@ -587,12 +582,6 @@
                                                         </div>
                                                         <div class=" w-100 text-start">
                                                             @if ($prices->offPrice > 0)
-                                                                @if ($prices->offType == 'مبلغ')
-                                                                    {{ number_format($prices->price - $prices->offPrice) }}
-                                                                @elseif($prices->offType == 'درصد')
-                                                                    {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                                                @endif
-
                                                                 <div class="row g-0 ">
                                                                     <div class="col-8 text-primary text-start ps-1">
                                                                         <del
@@ -613,19 +602,19 @@
                                                                         @if ($prices->offType == 'مبلغ')
                                                                             {{ number_format($prices->price - $prices->offPrice) }}
                                                                         @elseif($prices->offType == 'درصد')
-                                                                            {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
+                                                                            {{ number_format($prices->price - $prices->price * ($prices->offPrice / 100)) }}
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-3 fs-small">
                                                                         @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
+                                                                        @else
+                                                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             @else
@@ -635,14 +624,14 @@
                                                                     </div>
                                                                     <div class="col-3 fs-small">
                                                                         @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
+                                                                        @else
+                                                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             @endif
@@ -812,12 +801,6 @@
                                                 </div>
                                                 <div class="d-flex flex-column">
                                                     @if ($prices->offPrice > 0)
-                                                        @if ($prices->offType == 'مبلغ')
-                                                            {{ number_format($prices->price - $prices->offPrice) }}
-                                                        @elseif($prices->offType == 'درصد')
-                                                            {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                                        @endif
-
                                                         <div class="row g-0 ">
                                                             <div class="col-8 text-primary text-start ps-1">
                                                                 <del
@@ -838,61 +821,28 @@
                                                                 @if ($prices->offType == 'مبلغ')
                                                                     {{ number_format($prices->price - $prices->offPrice) }}
                                                                 @elseif($prices->offType == 'درصد')
-                                                                    {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
+                                                                    {{ number_format($prices->price - $prices->price * ($prices->offPrice / 100)) }}
                                                                 @endif
                                                             </div>
                                                             <div class="col-3 fs-small">
                                                                 @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
+                                                                @else
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
+                                                                @endif
                                                             </div>
                                                         </div>
-
-
-                                                        <span
-                                                            class="d-flex align-items-center justify-content-between mb-1"
-                                                            dir="ltr"><del class="old-price">
-                                                                {{ number_format($prices->price) }}
-                                                            </del><span class="badge bg-danger">
-                                                                @if ($prices->offType == 'مبلغ')
-                                                                    {{ round(($prices->offPrice * 100) / $prices->price, 0) }}%
-                                                                @elseif($prices->offType == 'درصد')
-                                                                    {{ $prices->offPrice }}%
-                                                                @endif
-                                                            </span></span>
-                                                        <span class="price">
-                                                            @if ($prices->offType == 'مبلغ')
-                                                                {{ number_format($prices->price - $prices->offPrice) }}
-                                                            @elseif($prices->offType == 'درصد')
-                                                                {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                                            @endif
-                                                            @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
-                                                        </span>
                                                     @else
                                                         <span class="price">{{ number_format($prices->price) }}
                                                             @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
+                                                            @else
+                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
+                                                            @endif
                                                         </span>
                                                     @endif
 
@@ -1096,26 +1046,22 @@
                                                                     {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
                                                                 @endif
                                                                 @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
+                                                                @else
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
+                                                                @endif
                                                             </span>
                                                         @else
                                                             <span class="price">{{ number_format($prices->price) }}
                                                                 @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
+                                                                @else
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
+                                                                @endif
                                                             </span>
                                                         @endif
                                                     </div>

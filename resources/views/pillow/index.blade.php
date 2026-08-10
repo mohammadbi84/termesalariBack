@@ -4,13 +4,13 @@
 
 @push('link')
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/datatables/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/datatables/dataTables.bootstrap4.css') }}">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/iCheck/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/iCheck/all.css') }}">
     {{-- Rating --}}
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
-    <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/css-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css') }}">
 @endpush
 
 @section('main-content')
@@ -71,111 +71,109 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($pillows) > 0)
-                                @foreach ($pillows as $key => $pillow)
-                                    {{-- {{ dd($pillow) }} --}}
-                                    <tr>
-                                        <td>
-                                            <label>
-                                                <input type="checkbox" data-value = "{{ $pillow->id }}"
-                                                    class="flat-red checkbox">
-                                            </label>
-                                        </td>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $pillow->code }}</td>
-                                        <td>
-                                            @if ($pillow->images->first())
-                                                @php
-                                                    $image = $pillow->images->first();
-                                                @endphp
 
-                                                <img src="{{ asset('storage/images/thumbnails/' . $pillow->images->first()->name) }}"
-                                                    alt="" class="img-circle img-size-50 mr-2">
-                                            @endif
-                                            {{ $pillow->title }}
-                                        </td>
-                                        {{-- <td>{{$pillow->category->title}}</td> --}}
-                                        <td>{{ $pillow->color_design->design->title }}</td>
-                                        <td>
+                            @foreach ($pillows as $key => $pillow)
+                                {{-- {{ dd($pillow) }} --}}
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input type="checkbox" data-value = "{{ $pillow->id }}"
+                                                class="flat-red checkbox">
+                                        </label>
+                                    </td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $pillow->code }}</td>
+                                    <td>
+                                        @if ($pillow->images->first())
                                             @php
-                                                $prices = $pillow->prices->where('local', 'تومان')->first();
-                                                $designColor = $pillow->color_design->color->color;
-                                                print $designColor;
+                                                $image = $pillow->images->first();
                                             @endphp
-                                        </td>
 
-                                        <td>{{ number_format($prices->price) }}</td>
-                                        <td>
-                                            @if ($prices->offPrice > 0)
-                                                @if ($prices->offType == 'مبلغ')
-                                                    {{ number_format($prices->offPrice) }}
-                                                    <small
-                                                        class="badge badge-danger">{{ round(($prices->offPrice * 100) / $prices->price, 1) }}%</small>
-                                                @elseif($prices->offType == 'درصد')
-                                                    {{ number_format(($prices->offPrice * $prices->price) / 100) }}
-                                                    <small class="badge badge-danger">{{ $prices->offPrice }}%</small>
-                                                @endif
-                                            @endif
-                                        </td>
-                                        <td>{{ $pillow->quantity }}</td>
-                                        <td>
-                                            <div class="br-wrapper br-theme-fontawesome-stars float-left">
-                                                {{-- {{$pillow->grades->avg('grade') ?? '0'}} --}}
-                                                <select class="showGrade{{ $key }}"
-                                                    data-value="{{ $pillow->grades->avg('grade') ?? '0' }}">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            @if ($pillow->visibility == 0)
-                                                <a class="changeVisibility" href="#"
-                                                    data-id="{{ $pillow->id }}"><i
-                                                        class="fas fa-close danger-color"></i></a>
-                                            @else
-                                                <a class="changeVisibility" href="#"
-                                                    data-id="{{ $pillow->id }}"><i
-                                                        class="fas fa-check success-color"></i> </a>
-                                            @endif
-                                        </td>
-                                        
-                                        <td>
-                                            {{-- <a href="{{ route('pillow.duplicate',[$pillow]) }}"><i class="fas fa-copy text-primary"></i></a> --}}
-                                            <a href="{{ route('pillow.duplicate', [$pillow]) }}"
-                                                class="btn btn-outline-secondary btn-flat btn-sm"><i
-                                                    class="fas fa-copy"></i> کپی </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('amazing.index', ['model' => 'Pillow', 'id' => $pillow->id]) }}"
-                                                target="blank" class="btn btn-outline-danger btn-sm"> مشاهده </a>
-                                        </td>
-                                        <td><a href="{{ route('pillow.show', [$pillow]) }}" target="blank"
-                                                class="btn btn-outline-info btn-flat btn-sm"><i
-                                                    class="fas fa-info-circle"></i> جزئیات </a></td>
-                                        <td><a href="{{ route('pillow.edit', [$pillow]) }}"
-                                                class="btn btn-outline-primary btn-flat btn-sm"><i
-                                                    class="fas fa-edit"></i> ویرایش </a></td>
-                                        <td><a href="{{ route('comment.product', ['Pillow', $pillow->id]) }}"
-                                                class="btn btn-outline-primary btn-flat btn-sm"><i
-                                                    class="fas fa-comment"></i> نظرات </a></td>
+                                            <img src="{{ asset('storage/images/thumbnails/' . $pillow->images->first()->name) }}"
+                                                alt="" class="img-circle img-size-50 mr-2">
+                                        @endif
+                                        {{ $pillow->title }}
+                                    </td>
+                                    {{-- <td>{{$pillow->category->title}}</td> --}}
+                                    <td>{{ $pillow->color_design->design->title }}</td>
+                                    <td>
+                                        @php
+                                            $prices = $pillow->prices->where('local', 'تومان')->first();
+                                            $designColor = $pillow->color_design->color->color;
+                                            print $designColor;
+                                        @endphp
+                                    </td>
 
-                                        <td>
-                                            <form class="del-form" action="{{ route('pillow.destroy', [$pillow]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <a href="#" data-id="{{ $pillow->id }}" data-model="Pillow"
-                                                    class="btn btn-outline-danger btn-flat btn-sm delete"><i
-                                                        class="fas fa-trash-alt"></i> حذف </a>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                                    <td>{{ number_format($prices->price) }}</td>
+                                    <td>
+                                        @if ($prices->offPrice > 0)
+                                            @if ($prices->offType == 'مبلغ')
+                                                {{ number_format($prices->offPrice) }}
+                                                <small
+                                                    class="badge badge-danger">{{ round(($prices->offPrice * 100) / $prices->price, 1) }}%</small>
+                                            @elseif($prices->offType == 'درصد')
+                                                {{ number_format(($prices->offPrice * $prices->price) / 100) }}
+                                                <small class="badge badge-danger">{{ $prices->offPrice }}%</small>
+                                            @endif
+                                        @endif
+                                    </td>
+                                    <td>{{ $pillow->quantity }}</td>
+                                    <td>
+                                        <div class="br-wrapper br-theme-fontawesome-stars float-left">
+                                            {{-- {{$pillow->grades->avg('grade') ?? '0'}} --}}
+                                            <select class="showGrade{{ $key }}"
+                                                data-value="{{ $pillow->grades->avg('grade') ?? '0' }}">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if ($pillow->visibility == 0)
+                                            <a class="changeVisibility" href="#"
+                                                data-id="{{ $pillow->id }}"><i
+                                                    class="fas fa-close danger-color"></i></a>
+                                        @else
+                                            <a class="changeVisibility" href="#"
+                                                data-id="{{ $pillow->id }}"><i
+                                                    class="fas fa-check success-color"></i> </a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{-- <a href="{{ route('pillow.duplicate',[$pillow]) }}"><i class="fas fa-copy text-primary"></i></a> --}}
+                                        <a href="{{ route('pillow.duplicate', [$pillow]) }}"
+                                            class="btn btn-outline-secondary btn-flat btn-sm"><i
+                                                class="fas fa-copy"></i> کپی </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('amazing.index', ['model' => 'Pillow', 'id' => $pillow->id]) }}"
+                                            target="blank" class="btn btn-outline-danger btn-sm"> مشاهده </a>
+                                    </td>
+                                    <td><a href="{{ route('pillow.show', [$pillow]) }}" target="blank"
+                                            class="btn btn-outline-info btn-flat btn-sm"><i
+                                                class="fas fa-info-circle"></i> جزئیات </a></td>
+                                    <td><a href="{{ route('pillow.edit', [$pillow]) }}"
+                                            class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-edit"></i>
+                                            ویرایش </a></td>
+                                    <td><a href="{{ route('comment.product', ['Pillow', $pillow->id]) }}"
+                                            class="btn btn-outline-primary btn-flat btn-sm"><i
+                                                class="fas fa-comment"></i> نظرات </a></td>
+
+                                    <td>
+                                        <form class="del-form"
+                                            action="{{ route('pillow.destroy', [$pillow]) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <a href="#" data-id="{{ $pillow->id }}" data-model="Pillow"
+                                                class="btn btn-outline-danger btn-flat btn-sm delete"><i
+                                                    class="fas fa-trash-alt"></i> حذف </a>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
 
                         <tfoot>
@@ -219,14 +217,14 @@
 
 @push('js')
 <!-- DataTables -->
-<script src="{{ asset('/storetemplate/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/datatables/jquery.dataTables.js') }}"></script>
 {{-- <script src="{{asset('/storetemplate/dist/js/dataTable.js')}}"></script> --}}
-<script src="{{ asset('/storetemplate/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
 <!-- iCheck 1.0.1 -->
-<script src="{{ asset('/storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
-<script src="{{ asset('/storetemplate/dist/js/iCheck-custom.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/iCheck/icheck.min.js') }}"></script>
+<script src="{{ asset('storetemplate/dist/js/iCheck-custom.js') }}"></script>
 {{-- jqueryBarRating --}}
-<script src="{{ asset('/storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
+<script src="{{ asset('storetemplate/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
 <!-- page script -->
 <script>
     $(function() {

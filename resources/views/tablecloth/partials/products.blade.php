@@ -105,12 +105,6 @@
                     <div class="d-flex flex-column border-end border-2 pe-2 price-flex-col">
                         @if ($tablecloth->quantity != 0)
                             @if ($prices->offPrice > 0)
-                                @if ($prices->offType == 'مبلغ')
-                                    {{ number_format($prices->price - $prices->offPrice) }}
-                                @elseif($prices->offType == 'درصد')
-                                    {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                @endif
-
                                 <div class="row g-0 ">
                                     <div class="col-8 text-primary text-start ps-1">
                                         <del class="product-price-off">{{ number_format($prices->price) }}</del>
@@ -134,55 +128,23 @@
                                     </div>
                                     <div class="col-3 fs-small">
                                         @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
+                                                width="20px" height="20px">
+                                        @else
+                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
+                                                width="20px" height="20px">
+                                        @endif
                                     </div>
                                 </div>
-
-
-                                <span class="d-flex align-items-center justify-content-between mb-1" dir="ltr"><del
-                                        class="old-price">
-                                        {{ number_format($prices->price) }}
-                                    </del><span class="badge bg-danger">
-                                        @if ($prices->offType == 'مبلغ')
-                                            {{ round(($prices->offPrice * 100) / $prices->price, 0) }}%
-                                        @elseif($prices->offType == 'درصد')
-                                            {{ $prices->offPrice }}%
-                                        @endif
-                                    </span></span>
-                                <span class="price">
-                                    @if ($prices->offType == 'مبلغ')
-                                        {{ number_format($prices->price - $prices->offPrice) }}
-                                    @elseif($prices->offType == 'درصد')
-                                        {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                    @endif
-                                    @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
-                                </span>
                             @else
                                 <span class="price">{{ number_format($prices->price) }}
                                     @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
+                                            width="20px" height="20px">
+                                    @else
+                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
+                                            width="20px" height="20px">
+                                    @endif
                                 </span>
                             @endif
                         @else
@@ -231,10 +193,9 @@
                                     data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
                                     data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
-                                    data-price="{{ $prices->price }}"
-                                    data-pay="{{ $price }}" data-off="{{ $off }}"
-                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                    data-id="{{ $tablecloth->id }}"
+                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
+                                    data-local="{{ $prices->local }}" data-id="{{ $tablecloth->id }}"
                                     data-model="{{ substr($tablecloth->category->model, 4) }}"><i
                                         class="fa-regular fa-heart text-danger"></i></button>
                             </div>
@@ -246,10 +207,9 @@
                                     data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
                                     data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
-                                    data-price="{{ $prices->price }}"
-                                    data-pay="{{ $price }}" data-off="{{ $off }}"
-                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                    data-id="{{ $tablecloth->id }}"
+                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
+                                    data-local="{{ $prices->local }}" data-id="{{ $tablecloth->id }}"
                                     data-model="{{ substr($tablecloth->category->model, 4) }}"><i
                                         class="fa-solid fa-shuffle"></i></button>
                             </div>
@@ -269,10 +229,9 @@
                                     data-design="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color ?? '' }}"
                                     data-title="{{ app()->getLocale() == 'fa' ? $tablecloth->category->title : $tablecloth->category->e_title }}"
-                                     data-price="{{ $prices->price }}"
-                                    data-pay="{{ $price }}" data-off="{{ $off }}"
-                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"><i
-                                        class="fa-solid fa-cart-plus"></i></button>
+                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
+                                    data-local="{{ $prices->local }}"><i class="fa-solid fa-cart-plus"></i></button>
                             </div>
                         </div>
                     </div>

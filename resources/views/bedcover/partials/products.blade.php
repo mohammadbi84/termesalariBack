@@ -8,7 +8,7 @@
                     <img src="{{ asset('shop/assets/svgs/outofstock.svg') }}" width="100" alt="discount">
                     <span class="d-flex"
                         style="font-size: 12px;font-weight: 800;position: absolute;right: 11px;top: 7px;">
-                        <span class="me-1" style="font-size: 13px;">اتمام موجودی</span>
+                        <span class="me-1" style="font-size: 13px;">{{ __('products.out_of_stock') }}</span>
                     </span>
                 </div>
             @endif
@@ -25,7 +25,9 @@
                 <h5 class="product-title">
                     @php
                         $name =
-                            (app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title) .
+                            (app()->getLocale() == 'fa'
+                                ? $bedcover->category->title
+                                : $bedcover->category->e_title) .
                             ' ' .
                             __('products.design') .
                             ' ' .
@@ -75,16 +77,16 @@
                     @if ($bedcover->quantity == 0)
                         <span class="text-white">ا</span>
                     @elseif($bedcover->quantity <= 5)
-                        کمتر از 5 عدد موجود می باشد .
+                        {{ __('products.less_than_5') }} .
                     @else
                         <span class="text-white">ا</span>
                     @endif
                 </small>
                 <div class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
-                    <div class="d-flex flex-grow-1 align-items-center justify-content-start gap-3">
+                    <div class="d-flex flex-grow-1 align-items-center justify-content-start gap-1">
                         <div class="text-center cell-div">
                             <span class="sell-count d-block">{{ $bedcover->orderitems->sum('count') }}</span>
-                            <span class="sell-text">فروش</span>
+                            <span class="sell-text">{{ __('products.sales') }}</span>
                         </div>
                         <div class="text-center">
                             @php
@@ -93,22 +95,16 @@
                                     ($bedcover->comments()->count() > 0 ? $bedcover->comments()->count() : 1);
                             @endphp
                             <span class="rate-count d-block">{{ ($score * 100) / 5 }}%</span>
-                            <span class="rate-text">رضایت</span>
+                            <span class="rate-text">{{ __('products.satisfaction') }}</span>
                         </div>
                         <div class="text-center">
                             <span class="rate-count d-block text-success">A</span>
-                            <span class="rate-text">ضمانت</span>
+                            <span class="rate-text">{{ __('products.guarantee') }}</span>
                         </div>
                     </div>
                     <div class="d-flex flex-column border-end border-2 pe-2 price-flex-col">
                         @if ($bedcover->quantity != 0)
                             @if ($prices->offPrice > 0)
-                                @if ($prices->offType == 'مبلغ')
-                                    {{ number_format($prices->price - $prices->offPrice) }}
-                                @elseif($prices->offType == 'درصد')
-                                    {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                @endif
-
                                 <div class="row g-0 ">
                                     <div class="col-8 text-primary text-start ps-1">
                                         <del class="product-price-off">{{ number_format($prices->price) }}</del>
@@ -132,59 +128,27 @@
                                     </div>
                                     <div class="col-3 fs-small">
                                         @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
+                                                width="20px" height="20px">
+                                        @else
+                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
+                                                width="20px" height="20px">
+                                        @endif
                                     </div>
                                 </div>
-
-
-                                <span class="d-flex align-items-center justify-content-between mb-1" dir="ltr"><del
-                                        class="old-price">
-                                        {{ number_format($prices->price) }}
-                                    </del><span class="badge bg-danger">
-                                        @if ($prices->offType == 'مبلغ')
-                                            {{ round(($prices->offPrice * 100) / $prices->price, 0) }}%
-                                        @elseif($prices->offType == 'درصد')
-                                            {{ $prices->offPrice }}%
-                                        @endif
-                                    </span></span>
-                                <span class="price">
-                                    @if ($prices->offType == 'مبلغ')
-                                        {{ number_format($prices->price - $prices->offPrice) }}
-                                    @elseif($prices->offType == 'درصد')
-                                        {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
-                                    @endif
-                                    @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
-                                </span>
                             @else
                                 <span class="price">{{ number_format($prices->price) }}
                                     @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
-                                                                            @endif
+                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
+                                            width="20px" height="20px">
+                                    @else
+                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
+                                            width="20px" height="20px">
+                                    @endif
                                 </span>
                             @endif
                         @else
-                            <a href="#" class="btn btn-tell px-3">خبرم کن</a>
+                            <a href="#" class="btn btn-tell px-3">{{ __('products.notify_me') }}</a>
                         @endif
                     </div>
                 </div>
@@ -218,58 +182,56 @@
                 </div> --}}
                 <div class="row footer_row">
                     <div class="col-7 p-0 pe-2 py-2 pb-3 bg-white">
-                        <div class="row g-0 ">
+                        <div class="row g-0">
                             <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button
                                     class="buy-button add-to-cart favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                    title="افزودن به لیست علاقه‌مندی ها"
+                                    title="{{ __('products.add_to_favorites') }}"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                     data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                     data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
                                     data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
-                                    data-price="{{ $prices->price }}"
-                                    data-pay="{{ $price }}" data-off="{{ $off }}"
-                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                    data-id="{{ $bedcover->id }}"
+                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
+                                    data-local="{{ $prices->local }}" data-id="{{ $bedcover->id }}"
                                     data-model="{{ substr($bedcover->category->model, 4) }}"><i
                                         class="fa-regular fa-heart text-danger"></i></button>
                             </div>
                             <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button class="buy-button add-to-cart compare" id="" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="برای مقایسه کلیک کنید"
+                                    data-bs-placement="top" title="{{ __('products.compare_tooltip') }}"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                     data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                     data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
                                     data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
-                                    data-price="{{ $prices->price }}"
-                                    data-pay="{{ $price }}" data-off="{{ $off }}"
-                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
-                                    data-id="{{ $bedcover->id }}"
+                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
+                                    data-local="{{ $prices->local }}" data-id="{{ $bedcover->id }}"
                                     data-model="{{ substr($bedcover->category->model, 4) }}"><i
                                         class="fa-solid fa-shuffle"></i></button>
                             </div>
                             <div class="col-3 d-flex justify-content-start align-items-center">
                                 <a href="{{ route('bedcover.show', [$bedcover->id]) }}" data-bs-toggle="tooltip"
-                                    data-bs-placement="top" title="مشاهده محصول"
+                                    data-bs-placement="top" title="{{ __('products.view_product') }}"
                                     class="buy-button add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
                                     <i class="fa-solid fa-eye" style="top: -1px"></i>
                                 </a>
                             </div>
                             <div class="col-3 d-flex justify-content-start align-items-center">
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به سبد خرید"
+                                <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="{{ __('products.add_to_cart') }}"
                                     class="buy-button add-to-cart @if ($bedcover->quantity != 0) addToCart @endif"
                                     data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
-                                    data-id="{{ $bedcover->id }}" data-moddel="Bedcover"
+                                    data-id="{{ $bedcover->id }}" data-moddel="Tablecloth"
                                     data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
                                     data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
-                                    data-price="{{ $prices->price }}"
-                                    data-pay="{{ $price }}" data-off="{{ $off }}"
-                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"><i
-                                        class="fa-solid fa-cart-plus"></i></button>
+                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
+                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
+                                    data-local="{{ $prices->local }}"><i class="fa-solid fa-cart-plus"></i></button>
                             </div>
                         </div>
                     </div>

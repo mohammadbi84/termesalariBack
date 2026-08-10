@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agency;
+use App\Amazing;
 use App\Bedcover;
 use Illuminate\Http\Request;
 use App\Tablecloth;
@@ -50,6 +51,13 @@ class HomestoreController extends Controller
             } else
                 return true;
         });
+
+
+        $amazings = Amazing::query()->where('active', 1)
+            ->where('start_date', '<=', now())->where('end_date', '>=', now())
+            ->with('productable')->take(10)->get();
+
+            // return $amazings;
 
         $newestProducts = Orderitem::with('orderitemable')
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))
@@ -153,7 +161,8 @@ class HomestoreController extends Controller
             ->with('mainVideo', $mainVideo)
             ->with('popups', $popups)
             ->with('agencies', $agencies)
-            ->with('specials', $specials);
+            ->with('specials', $specials)
+            ->with('amazings', $amazings);
     }
     public function index3()
     {
@@ -188,9 +197,9 @@ class HomestoreController extends Controller
         $certificateSection = CertificateSection::first();
 
         $trusrSection = TrustSection::first();
-        $comments = Comment::orderBy('score', 'desc')->where('status',1)->take(5)->get();
+        $comments = Comment::orderBy('score', 'desc')->where('status', 1)->take(5)->get();
 
         $clients = Client::all();
-        return view('about', compact('agencies', 'grouped', 'generations', 'mission', 'productAuthentication', 'certificateSection', 'trusrSection', 'comments','clients'));
+        return view('about', compact('agencies', 'grouped', 'generations', 'mission', 'productAuthentication', 'certificateSection', 'trusrSection', 'comments', 'clients'));
     }
 }

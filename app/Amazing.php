@@ -8,6 +8,8 @@ class Amazing extends Model
 {
     protected $fillable = [
         'active',
+        'is_passed',
+        'is_applied',
         'productable_type',
         'productable_id',
         'start_date',
@@ -17,7 +19,11 @@ class Amazing extends Model
         'discount',
     ];
 
-    protected $casts = ['active' => 'boolean'];
+    protected $casts = [
+        'active' => 'boolean',
+        'is_passed' => 'boolean',
+        'is_applied' => 'boolean',
+    ];
 
     public function productable()
     {
