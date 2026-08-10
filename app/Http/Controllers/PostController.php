@@ -88,4 +88,22 @@ class PostController extends Controller
             return redirect()->route('post.index')->with('danger', 'حداقل یک شیوه ارسال فعال باید وجود داشته باشد.');
         }
     }
+
+
+    public function changeActive(Request $request)
+    {
+        $post = Post::find($request->id);
+        $result["message"] = "";
+        if ($post->active == 0) {
+            $post->active = 1;
+            $result["message"] = "شیوه ارسال انتخابی  فعال شد.";
+        } else if ($post->active == 1) {
+            $post->active = 0;
+            $result["message"] = "شیوه ارسال انتخابی  غیرفعال شد.";
+        }
+        $post->save();
+
+        $result["res"] = "success";
+        return $result;
+    }
 }

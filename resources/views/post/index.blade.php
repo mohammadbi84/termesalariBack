@@ -50,6 +50,7 @@
                                     <th>عنوان</th>
                                     <th>هزینه ارسال</th>
                                     <th>زمان ارسال</th>
+                                    <th class="no-sort">فعال</th>
                                     <th class="no-sort">ویرایش</th>
                                     <th class="no-sort">حذف</th>
                                 </tr>
@@ -69,6 +70,15 @@
                                         <td>{{ number_format($post->price) }} تومان</td>
                                         <td>{{ $post->delivery_time }}</td>
 
+                                        <td>
+                                            @if ($post->active == 0)
+                                                <a class="changeActive" href="#" data-id="{{ $post->id }}"><i
+                                                        class="fas fa-close danger-color"></i></a>
+                                            @else
+                                                <a class="changeActive" href="#" data-id="{{ $post->id }}"><i
+                                                        class="fas fa-check success-color"></i> </a>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{ route('post.edit', [$post]) }}"
                                                 class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-edit"></i>
@@ -95,6 +105,7 @@
                                     <th>عنوان</th>
                                     <th>هزینه ارسال</th>
                                     <th>زمان ارسال</th>
+                                    <th class="no-sort">فعال</th>
                                     <th class="no-sort">ویرایش</th>
                                     <th class="no-sort">حذف</th>
                                 </tr>
@@ -203,6 +214,49 @@
                     });
 
             });
+
+
+            //-----------------------change Statuse---------------------------
+			$(".changeActive").click(function(event){
+				event.preventDefault();
+				$(".loader").show();
+				var id = $(this).data("id");
+				var url = "{{ route('post.changeActive') }}";
+				var $thiz = $(this);
+				$.ajax({
+				    type: 'POST',
+				    url: url,
+				    data: {
+		              _token: '<?php echo csrf_token() ?>',
+		              id: id,
+		            },
+				    success: function(data){
+				        var $i = $thiz.children("i");
+				        if($i.hasClass("fa-check"))
+				        {
+				        	$i.removeClass("fa-check success-color");
+				        	$i.addClass("fa-close danger-color");
+				        }
+				        else if ($i.hasClass("fa-close"))
+				        {
+				        	$i.removeClass("fa-close danger-color");
+				        	$i.addClass("fa-check success-color");
+				        }
+
+				        if(data.res == "error")
+				        {
+				        	title = "خطا  در اجرای عملیات" ;
+				        }
+				        else if(data.res == "success")
+				        {
+				        	title = "عملیات با موفقیت انجام شد.";
+				        }
+				        swal(title, data.message,data.res);
+				        $(".loader").hide();
+
+				    }
+				});
+			});
 
 
 

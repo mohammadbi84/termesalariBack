@@ -376,3 +376,4 @@ Route::post('/video/update',[MainvideoController::class, 'update'])->name('video
 
 // posts
 Route::resource('post', 'PostController');
+route::post('/post/changeActive', 'PostController@changeActive')->name('post.changeActive');
