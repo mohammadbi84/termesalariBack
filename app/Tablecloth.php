@@ -24,7 +24,17 @@ class Tablecloth extends Model
         'washable',
         'uses',
         'quantity',
-        'description'
+        'description',
+        'e_dimensions',
+        'e_weight',
+        'e_kind',
+        'e_contains',
+        'e_sewingType',
+        'e_haveEster',
+        'e_kindOfEster',
+        'e_washable',
+        'e_description',
+        'e_uses',
     ];
 
     protected $with = ['color_design', 'images', 'grades', 'tags', 'prices', 'category'];

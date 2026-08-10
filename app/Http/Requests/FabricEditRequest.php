@@ -53,6 +53,13 @@ class FabricEditRequest extends FormRequest
 
             'quantity' => 'required|numeric' ,
             'description' => 'nullable|string' ,
+
+
+            'e_dimensions' => 'required' ,
+            'e_weight' => 'required' ,
+            'e_kind' => 'required' ,
+            'e_washable' => 'nullable' ,
+            'e_description' => 'required' ,
         ];
     }
 }

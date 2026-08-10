@@ -29,11 +29,7 @@ class FabricController extends Controller
         $this->middleware('auth')->except('show','storeIndex','storeFilter','ajaxStore');
         // $this->authorizeResource(Fabric::class, 'fabric');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $this->authorize('viewAny', Fabric::class);
@@ -43,11 +39,7 @@ class FabricController extends Controller
              ->with('fabrics',$fabrics);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $this->authorize('create', Fabric::class);
@@ -62,12 +54,7 @@ class FabricController extends Controller
             ->with('designs',$designs);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(FabricRequest $request)
     {
         // dd($request->all());
@@ -118,7 +105,7 @@ class FabricController extends Controller
                     $img->ordering = $order++;
                     $img->save();
                     Thumbnail::make($image->getRealPath())
-                        ->resize(260,260, null,  function ($constraint) {
+                        ->resize(260,260,  function ($constraint) {
                             $constraint->aspectRatio();
                             // $constraint->upsize();
                             })
@@ -136,12 +123,7 @@ class FabricController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Fabric  $fabric
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Fabric $fabric)
     {
         // $this->authorize('view');
@@ -174,12 +156,7 @@ class FabricController extends Controller
             return response(view('errors.404'), 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Fabric  $fabric
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Fabric $fabric)
     {
         $this->authorize('update', $fabric);
@@ -201,13 +178,7 @@ class FabricController extends Controller
             ->with('colors',$colors);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Fabric  $fabric
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(FabricEditRequest $request, Fabric $fabric)
     {
         // dd($request->all());
@@ -223,7 +194,7 @@ class FabricController extends Controller
         $fabric->fill($request->all());
         // $fabric->design_id = $request->design_id;
         $fabric->color_design_id  = $color_design->id;
-        $fabric->prices()->delete($request->price);
+        $fabric->prices()->delete();
         $fabric->category_id = $request->category_id;
 
         if(isset($request->price)){
@@ -270,7 +241,7 @@ class FabricController extends Controller
                 $img->save();
 
                 Thumbnail::make($image->getRealPath())
-                    ->resize(260,260, null,  function ($constraint) {
+                    ->resize(260,260,  function ($constraint) {
                         $constraint->aspectRatio();
                         // $constraint->upsize();
                         })
@@ -286,12 +257,6 @@ class FabricController extends Controller
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Fabric  $fabric
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
         $this->authorize('delete', Fabric::class);

@@ -59,6 +59,17 @@ class PrayermatEditRequest extends FormRequest
             'offPrice.2' => 'required_with:offType.2',
             'quantity' => 'required|numeric' ,
             'description' => 'nullable|string' ,
+
+
+            'e_dimensions' => 'required' ,
+            'e_weight' => 'required' ,
+            'e_kind' => 'required' ,
+            'e_contains' => 'nullable' ,
+            'e_sewingType' => 'required' ,
+            'e_haveEster' => 'required' ,
+            'e_kindOfEster' => 'required' ,
+            'e_description' => 'nullable|string' ,
+            'e_washable' => 'required' ,
         ];
     }
 }

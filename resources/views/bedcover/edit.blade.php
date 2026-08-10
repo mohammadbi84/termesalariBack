@@ -21,8 +21,8 @@
 		}
 
 		.price {
-		    text-align: right !important; 
-		    color: #000000 !important; 
+		    text-align: right !important;
+		    color: #000000 !important;
 		    font-size: 1rem !important;
 		 }
 	</style>
@@ -82,9 +82,9 @@
 
                   	@error('design_id')
 					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror	
+					@enderror
                </div>
- 
+
 				<div class="form-group">
                 	<label for="color_id">رنگ محصول</label>
                     <select name="color_id" id="color_id" class="form-control @error('color_id') is-invalid @enderror">
@@ -105,6 +105,14 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+				<div class="form-group">
+					<label for="e_contains">مشتمل بر ( انگلیسی )</label>
+					<textarea name="e_contains" class="form-control @error('e_contains') is-invalid @enderror" rows="3" placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{old('e_contains',$bedcover->e_contains)}}</textarea>
+
+					@error('e_contains')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 				<div class="form-group">
 					<label for="dimensions">ابعاد محصول</label>
@@ -113,11 +121,25 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+				<div class="form-group">
+					<label for="e_dimensions">ابعاد محصول انگلیسی</label>
+					<textarea name="e_dimensions" class="form-control @error('e_dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('e_dimensions',$bedcover->e_dimensions)}}</textarea>
+					@error('e_dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 				<div class="form-group">
 					<label for="weight">وزن تقریبی</label>
 					<textarea name="weight" class="form-control @error('weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('weight',$bedcover->weight)}}</textarea>
 					@error('weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="e_weight">وزن تقریبی انگلیسی</label>
+					<textarea name="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('e_weight',$bedcover->e_weight)}}</textarea>
+					@error('e_weight')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -133,6 +155,17 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+					<label for="e_kind">جنس محصول انگلیسی</label>
+                    <select name="e_kind" id="e_kind" class="form-control @error('e_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_kind',$bedcover->e_kind) == 'Rayon (viscose rayon)') selected @endif value="Rayon (viscose rayon)">Rayon (viscose rayon)</option>
+						<option  @if (old('e_kind',$bedcover->e_kind) == 'Artificial silk') selected @endif value="Artificial silk">Artificial silk</option>
+                    </select>
+                    @error('e_kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
                 <div class="form-group">
                 	<label for="sewingType">نوع دوخت</label>
@@ -142,6 +175,17 @@
 						<option @if (old('sewingType',$bedcover->sewingType) == 'ساده') selected @endif value="ساده">ساده</option>
                     </select>
                     @error('sewingType')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+                	<label for="e_sewingType">نوع دوخت ( انگلیسی )</label>
+                    <select name="e_sewingType" id="e_sewingType" class="form-control @error('e_sewingType') is-invalid @enderror">
+                    	{{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_sewingType',$bedcover->e_sewingType) == 'Bind') selected @endif value="Bind">Bind</option>
+						<option  @if (old('e_sewingType',$bedcover->e_sewingType) == 'Simple') selected @endif value="Simple">Simple</option>
+                    </select>
+                    @error('e_sewingType')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
@@ -157,11 +201,29 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+                	<label for="e_haveEster">آستر انگلیسی</label>
+                    <select name="e_haveEster" id="e_haveEster" class="form-control @error('e_haveEster') is-invalid @enderror">
+                    	{{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                      	<option @if (old('e_haveEster',$bedcover->e_haveEster) == 'Yes') selected @endif value="Yes">Yes</option>
+						<option @if (old('e_haveEster',$bedcover->e_haveEster) == 'No') selected @endif value="No">No</option>
+                    </select>
+                    @error('e_haveEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
 				<div class="form-group">
 					<label for="kindOfEster">جنس آستر</label>
 					<input disabled="disabled" type="text" name="kindOfEster" id="kindOfEster" class="form-control @error('kindOfEster') is-invalid @enderror" placeholder="مثلاً ساتن مرغوب" value="{{old('kindOfEster',$bedcover->kindOfEster)}}"  >
 					@error('kindOfEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="e_kindOfEster">جنس آستر انگلیسی</label>
+					<input disabled="disabled" type="text" name="e_kindOfEster" id="e_kindOfEster" class="form-control @error('e_kindOfEster') is-invalid @enderror" placeholder="مثلاً ساتن مرغوب" value="{{old('e_kindOfEster',$bedcover->e_kindOfEster)}}"  >
+					@error('e_kindOfEster')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -178,6 +240,18 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+                	<label for="e_washable">قابلیت شستشو انگلیسی</label>
+                    <select name="e_washable" id="e_washable" class="form-control @error('e_washable') is-invalid @enderror">
+                    	<option value="">قابلیت شستشو انگلیسی</option>
+                      	<option @if (old('e_washable',$bedcover->e_washable) == 'By hand')  @endif value="By hand">By hand</option>
+						<option @if (old('e_washable',$bedcover->e_washable) == 'Yes (preferably dry cleaning)') selected @endif value="Yes (preferably dry cleaning)">Yes (preferably dry cleaning)</option>
+						<option @if (old('e_washable',$bedcover->e_washable) == 'No Washing') selected @endif value="No Washing">No Washing</option>
+                    </select>
+                    @error('e_washable')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
 				@foreach($bedcover->prices->sortBy('local') as $key=>$prices)
 					{{-- @dump($key,$prices) --}}
@@ -187,7 +261,7 @@
 								<div class="form-group">
 									<label for="price">قیمت محصول</label>
 									<input type="text" name="price[]"  class="form-control price @error('price.' . $key) is-invalid @enderror" placeholder="تنها شامل اعداد" value="{{old('price.' . $key,$prices->price)}}">
-									
+
 									@error('price.' . $key)
 									    <div class="invalid-feedback">{{ $errors->first('price.' . $key) }}</div>
 									@enderror
@@ -212,11 +286,11 @@
 							<div class="col-md-2" style="text-align: left;margin: auto;">
 								@if($key == 0 or $key == 1)
 									<a href="#" class="btn btn-flat btn-secondary addPrice @if( ($key == 0 and $bedcover->prices->count() > 1) or ($key == 1 and $bedcover->prices->count() > 2) ) d-none @else d-inline-block @endif " style="width: 40px" data-value="prices-{{$key+2}}" >+</a>
-									 
+
 								@endif
-								
+
 									<a href="#" class="btn btn-flat btn-danger delPrice " style="width: 40px" data-value="prices-{{$key+1}}">-</a>
-							</div>	
+							</div>
 
 						</div>
 						<div class="row">
@@ -282,7 +356,7 @@
 							<div class="col-md-2" style="text-align: left;margin: auto;">
 								<a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px" data-value="prices-3">+</a>
 								<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-2">-</a>
-							</div>	
+							</div>
 
 						</div>
 						<div class="row">
@@ -345,7 +419,7 @@
 
 							<div class="col-md-2" style="text-align: left;margin: auto;">
 								<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-3">-</a>
-							</div>	
+							</div>
 
 						</div>
 						<div class="row">
@@ -382,9 +456,9 @@
 					<div class="file-loading">
 					    <input id="images" name="images[]" type="file" multiple>
 					</div>
-					
+
 					<div class="invalid-feedback d-block" style=""></div>
-					
+
                 </div>
 
                 <div class="form-group">
@@ -399,6 +473,13 @@
 					<label for="description">توضیحات بیشتر</label>
 					<textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('description',$bedcover->description)}}</textarea>
 					@error('description')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="e_description">توضیحات بیشتر انگلیسی</label>
+					<textarea name="e_description" class="form-control @error('e_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('e_description',$bedcover->e_description)}}</textarea>
+					@error('e_description')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -434,7 +515,7 @@
 		@php
       		$images = $bedcover->images()->get()->sortby('ordering');
       		$urls = [];
-	    @endphp  	
+	    @endphp
       	@foreach($images as $image)
 	    	var url{{$image['id']}} = "{{asset('storage/images/thumbnails/'.$image['name'])}}"
    		@endforeach
@@ -442,7 +523,7 @@
 	    $("#images").fileinput({
 	        initialPreview:[
 		        @foreach($images as $image)
-		        	url{{$image['id']}} , 
+		        	url{{$image['id']}} ,
 		        @endforeach
 	        ],
 	        initialPreviewAsData: true,
@@ -458,10 +539,10 @@
 		        		extra: {
 		        			'_token' : '{{csrf_token()}}',
                 			'_method' : 'DELETE',
-                			'id': {{ $bedcover->id }}, 
-                			'model':"Bedcover", 
+                			'id': {{ $bedcover->id }},
+                			'model':"Bedcover",
                 		},
-		        	}, 
+		        	},
 		        @endforeach
 	        ],
 	        deleteUrl: "{{ route('image.delOneImage') }}",
@@ -494,7 +575,7 @@
 	            "   {caption}\n" +
 	            "</div>"
 	        },
-	    
+
 		}).on('filebeforedelete', function(event, key, data) {
 	    	// console.log('Key = ' + key);
 	        var aborted = !window.confirm('آیا با حذف این تصویر موافق هستید ؟');
@@ -511,7 +592,7 @@
 					oldIndex: params.oldIndex ,
 					newIndex: params.newIndex,
 					_token: '<?php echo csrf_token() ?>',
-				},				
+				},
 				cache: false,
 				success: function(data)
 				{
@@ -538,7 +619,7 @@
 	    $('.select2').select2({
 	    	dir: "rtl",
 	    });
-		
+
 		$('#color_id').click(function(){
 			// console.log();
 			if($.trim($(this).html())==''){
@@ -615,7 +696,7 @@
 			if($.trim($(this).children(":selected").attr('value'))=='دارد'){
 				$('#kindOfEster').removeAttr('disabled');
 			}
-			
+
 			else
 				$('#kindOfEster').attr('disabled','disabled');
 		});
@@ -660,7 +741,7 @@
 				}
 			}
 		});
-		
+
 
 
 	  });//End

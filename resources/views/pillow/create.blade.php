@@ -21,8 +21,8 @@
 		}
 
 		.price {
-		    text-align: right !important; 
-		    color: #000000 !important; 
+		    text-align: right !important;
+		    color: #000000 !important;
 		    font-size: 1rem !important;
 		 }
 
@@ -81,7 +81,7 @@
 
                   	@error('design_id')
 					    <div class="invalid-feedback d-block">{{$message}}</div>
-					@enderror	
+					@enderror
                 </div>
 
 				<div class="form-group">
@@ -99,11 +99,25 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+				<div class="form-group">
+					<label for="e_dimensions">ابعاد محصول انگلیسی</label>
+					<textarea name="e_dimensions" id="e_dimensions" class="form-control @error('e_dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('e_dimensions')}}</textarea>
+					@error('e_dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 				<div class="form-group">
 					<label for="weight">وزن تقریبی</label>
 					<textarea name="weight" id="weight" class="form-control @error('weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک   200 گرم &#13;&#10; رومیزی بزرگ  500 گرم">{{old('weight')}}</textarea>
 					@error('weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="e_weight">وزن تقریبی انگلیسی</label>
+					<textarea name="e_weight" id="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک   200 گرم &#13;&#10; رومیزی بزرگ  500 گرم">{{old('e_weight')}}</textarea>
+					@error('e_weight')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -116,6 +130,17 @@
 						<option  @if (old('kind') == 'ابریشم مصنوعی') selected @endif value="ابریشم مصنوعی">ابریشم مصنوعی</option>
                     </select>
                     @error('kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+					<label for="e_kind">جنس محصول انگلیسی</label>
+                    <select name="e_kind" id="e_kind" class="form-control @error('e_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_kind') == 'Rayon (viscose rayon)') selected @endif value="Rayon (viscose rayon)">Rayon (viscose rayon)</option>
+						<option  @if (old('e_kind') == 'Artificial silk') selected @endif value="Artificial silk">Artificial silk</option>
+                    </select>
+                    @error('e_kind')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
@@ -162,7 +187,7 @@
 
 						<div class="col-md-2" style="text-align: left;margin: auto;">
 							<a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px" data-value="prices-two" >+</a>
-						</div>	
+						</div>
 
 					</div>
 					<div class="row">
@@ -223,7 +248,7 @@
 						<div class="col-md-2" style="text-align: left;margin: auto;">
 							<a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px" data-value="prices-three">+</a>
 							<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-two">-</a>
-						</div>	
+						</div>
 
 					</div>
 					<div class="row">
@@ -283,7 +308,7 @@
 
 						<div class="col-md-2" style="text-align: left;margin: auto;">
 							<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px"data-value="prices-three">-</a>
-						</div>	
+						</div>
 
 					</div>
 					<div class="row">
@@ -318,7 +343,7 @@
                     <label for="images">انتخاب تصاویر محصول</label>
 					<div class="file-loading">
 					    <input id="images" name="images[]" type="file" multiple data-browse-on-zone-click="true" data-show-upload="true" data-show-caption="true" data-upload-url="#">
-					    
+
 					</div>
 					@error('images')
 						<div class="invalid-feedback d-block">{{$message}}</div>
@@ -337,6 +362,13 @@
 					<label for="description">توضیحات بیشتر</label>
 					<textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('description')}}</textarea>
 					@error('description')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="e_description">توضیحات بیشتر انگلیسی</label>
+					<textarea name="e_description" id="e_description" class="form-control @error('e_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('e_description')}}</textarea>
+					@error('e_description')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -365,7 +397,7 @@
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/sortable.min.js')}}"></script>
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js')}}"></script>
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js')}}"></script>
-<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
+<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js
    3.3.x versions without popper.min.js. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script>
@@ -568,7 +600,7 @@
 			}
 		});
 
-		
+
 
 
 	  });//End

@@ -9,16 +9,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Fabric extends Model
 {
-    Use SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
-        'code','dimensions','weight','kind','washable','quantity','description'
+        'code',
+        'dimensions',
+        'weight',
+        'kind',
+        'washable',
+        'quantity',
+        'description',
+        'e_dimensions',
+        'e_weight',
+        'e_kind',
+        'e_washable',
+        'e_description',
     ];
-    protected $with = ['color_design','images','grades', 'tags', 'prices','category'];
+    protected $with = ['color_design', 'images', 'grades', 'tags', 'prices', 'category'];
 
     protected $dates = ['deleted_at'];
-    
-    public function color_design(){
+
+    public function color_design()
+    {
         return $this->belongsTo('App\ColorDesign');
     }
 
@@ -55,7 +67,7 @@ class Fabric extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
-     public function grades()
+    public function grades()
     {
         return $this->morphMany('App\Grade', 'gradeable');
     }
@@ -70,7 +82,8 @@ class Fabric extends Model
         return (new ProductFilter($request))->filter($builder);
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo('App\Category');
     }
 

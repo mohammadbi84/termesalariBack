@@ -40,7 +40,7 @@ class BedcoverEditRequest extends FormRequest
             // 'uses' => 'nullable|string' ,
 
 
-            
+
 
             'price' => 'required|array' ,
             'price.0' => 'bail|required_without_all:price.1,price.2|sometimes|numeric',
@@ -65,13 +65,24 @@ class BedcoverEditRequest extends FormRequest
             'offPrice.0' => 'required_with:offType.0',
             'offPrice.1' => 'required_with:offType.1',
             'offPrice.2' => 'required_with:offType.2',
-            
+
             // 'offPrice.*' => 'nullable|numeric' ,
 
             'quantity' => 'required|numeric' ,
             // 'images' => 'required|array',
             // 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string' ,
+
+
+            'e_dimensions' => 'required' ,
+            'e_weight' => 'required' ,
+            'e_kind' => 'required' ,
+            'e_contains' => 'nullable' ,
+            'e_sewingType' => 'required' ,
+            'e_haveEster' => 'required' ,
+            'e_kindOfEster' => 'required' ,
+            'e_washable' => 'required' ,
+            'e_description' => 'nullable|string' ,
         ];
     }
 }

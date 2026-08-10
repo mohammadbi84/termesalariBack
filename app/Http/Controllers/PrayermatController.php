@@ -29,11 +29,7 @@ class PrayermatController extends Controller
         $this->middleware('auth')->except('show','storeIndex','storeFilter', 'ajaxStore');
         // $this->authorizeResource(Prayermat::class, 'prayermat');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $this->authorize('viewAny', Prayermat::class);
@@ -43,11 +39,7 @@ class PrayermatController extends Controller
              ->with('prayermats',$prayermats);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $this->authorize('create', Prayermat::class);
@@ -62,12 +54,7 @@ class PrayermatController extends Controller
             ->with('designs',$designs);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(PrayermatRequest $request)
     {
         // dd($request->all());
@@ -118,7 +105,7 @@ class PrayermatController extends Controller
                     $img->ordering = $order++;
                     $img->save();
                     Thumbnail::make($image->getRealPath())
-                        ->resize(260,260, null,  function ($constraint) {
+                        ->resize(260,260,   function ($constraint) {
                             $constraint->aspectRatio();
                             // $constraint->upsize();
                             })
@@ -136,12 +123,7 @@ class PrayermatController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Prayermat  $prayermat
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Prayermat $prayermat)
     {
         // $this->authorize('view');
@@ -174,12 +156,7 @@ class PrayermatController extends Controller
             return response(view('errors.404'), 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Prayermat  $prayermat
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Prayermat $prayermat)
     {
         $this->authorize('update', $prayermat);
@@ -201,13 +178,7 @@ class PrayermatController extends Controller
             ->with('colors',$colors);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Prayermat  $prayermat
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(PrayermatEditRequest $request, Prayermat $prayermat)
     {
         // dd(1);
@@ -219,7 +190,7 @@ class PrayermatController extends Controller
 
         $prayermat->fill($request->all());
         $prayermat->color_design_id  = $color_design->id;
-        $prayermat->prices()->delete($request->price);
+        $prayermat->prices()->delete();
         $prayermat->category_id = $request->category_id;
 
         if(isset($request->price)){
@@ -266,7 +237,7 @@ class PrayermatController extends Controller
                 $img->save();
 
                 Thumbnail::make($image->getRealPath())
-                    ->resize(260,260, null,  function ($constraint) {
+                    ->resize(260,260,   function ($constraint) {
                         $constraint->aspectRatio();
                         })
                     ->save('storage/images/thumbnails/'.basename($path));
@@ -281,12 +252,7 @@ class PrayermatController extends Controller
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Prayermat  $prayermat
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Request $request)
     {
         $this->authorize('delete', Prayermat::class);

@@ -1,10 +1,14 @@
 @extends('shop.layouts.master')
-@section('title', $title . __('products.design') . (app()->getLocale() == 'fa' ? $bedcover->color_design->design->title
-    : $bedcover->color_design->design->e_title) . __('products.color') . (app()->getLocale() == 'fa' ?
-    $bedcover->color_design->color->color : $bedcover->color_design->color->e_color))
+@section('title', $title . __('products.design') . (app()->getLocale() == 'fa' ?
+    $bedcover->color_design->design->title : $bedcover->color_design->design->e_title) . __('products.color') .
+    (app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color))
 @section('head')
-    <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"> --}}
+    @if (app()->getLocale() == 'fa')
+        <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
+    @endif
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
 @section('content')
     <script>
@@ -77,11 +81,11 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center gap-2" style="margin-top: 10px;">
                             <a href="#" id="share-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="اشتراک گذاری" class="share-btn telegram">
+                                title="{{ __('product.share') }}" class="share-btn telegram">
                                 <i class="fa-solid fa-share-nodes"></i>
                             </a>
                             <a href="#" id="compare" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="برای مقایسه کلیک کنید" class="share-btn telegram"
+                                title="{{ __('product.compare') }}" class="share-btn telegram"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
@@ -94,7 +98,7 @@
                                 <i class="fa-solid fa-shuffle"></i>
                             </a>
                             <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="افزودن به لیست علاقه‌مندی ها"
+                                title="{{ __('product.wishlist') }}"
                                 class="share-btn telegram  favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
@@ -145,11 +149,14 @@
                             {{ __('products.comment') }})</span>
                     </div>
                     <ul class="product-specs ">
-                        <li> {{ __('product.product_code') }}: {{ $bedcover->code }}</li>
-                        <li> {{ __('product.color_count') }} {{ __('products.color') }}:
-                            {{ $bedcover->color_design->design->countOfColor }} {{ __('products.color') }}</li>
-                        <li> {{ __('product.contains') }}: {{ $bedcover->contains }}</li>
-                        <li> {{ __('products.color') }}:
+                        <li>{{ __('product.product_code') }}: {{ $bedcover->code }}</li>
+                        <li>
+                            {{ __('product.color_count') }}:
+                            {{ $bedcover->color_design->design->countOfColor }}
+                            {{ __('product.colors') }}
+                        </li>
+                        <li>{{ __('product.contains') }}: {{ app()->getLocale() == 'fa' ? $bedcover->contains : $bedcover->e_contains }}</li>
+                        <li>{{ __('product.color') }}:
                             {{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color }}
                         </li>
                     </ul>
@@ -183,10 +190,10 @@
                             @elseif($bedcover->quantity > 5)
                             <span class="text-success text-bold"> موجود در انبار</span>
                             @endif --}}
-                            <span
-                                class="text-bold">{{ __('product.available_qty', ['count' => $bedcover->quantity]) }}</span>
+                            <span class="text-bold">
+                                {{ __('product.available_qty', ['count' => $bedcover->quantity]) }}
+                            </span>
                         </div>
-
                         <div class="quantity-control">
                             <div class="quantity-controls gap-2">
                                 <button class="minus-btn" data-model="{{ substr($bedcover->category->model, 4) }}"
@@ -197,7 +204,8 @@
                             </div>
                             <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
                                 data-image="{{ asset('/storage/images/thumbnails/' . $bedcover->images->first()->name) }}"
-                                data-id="{{ $bedcover->id }}" data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                                data-id="{{ $bedcover->id }}"
+                                data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
                                 data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
                                 data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
@@ -256,7 +264,7 @@
                             <h5 class="m-0">{{ __('product.description') }}</h5>
                         </div>
                         <p class="text-justify text-muted">
-                            {{ $bedcover->description }}
+                            {{ app()->getLocale() == 'fa' ? $bedcover->description : $bedcover->e_description }}
                         </p>
                     </div>
                     <div class="bg-white rounded-4 p-4 shadow-sm">
@@ -267,12 +275,14 @@
                         <form action="/comment" method="POST" class="">
                             @csrf
                             <input type="hidden" name="product" value="{{ $bedcover->id }}">
-                            <input type="hidden" name="model" value="bedcover">
+                            <input type="hidden" name="model" value="Bedcover">
                             <div class="mb-4">
                                 <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
                                     <input type="text" id="searchInputtext" value="{{ old('text') }}"
                                         class="" name="text" oninput="nameinput('text')">
-                                    <label for="searchInputtext">{{ __('product.comment_placeholder') }}</label>
+                                    <label for="searchInputtext">
+                                        {{ __('product.comment_placeholder') }}
+                                    </label>
                                     <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
                                         @if (old('text')) style="display:block !important" @endif>×</span>
                                 </div>
@@ -298,8 +308,9 @@
                                 <button type="submit"
                                     class="btn btn-primary w-25 mb-3">{{ __('product.submit_comment') }}</button>
                             @else
-                                <button type="button" id="comment_btn"
-                                    class="btn btn-primary w-25 mb-3">{{ __('product.submit_comment') }}</button>
+                                <button type="submit" class="btn btn-primary w-25 mb-3">
+                                    {{ __('product.submit_comment') }}
+                                </button>
                             @endif
                         </form>
                     </div>
@@ -314,49 +325,49 @@
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.dimensions') }}</span>
-                                <span class="point-span">{{ $bedcover->dimensions }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->dimensions : $bedcover->e_dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.weight') }}</span>
-                                <span class="point-span">{{ $bedcover->weight }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->weight : $bedcover->e_weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.material') }}</span>
-                                <span class="point-span">{{ $bedcover->kind }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->kind : $bedcover->e_kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.sewing_type') }}</span>
-                                <span class="point-span">{{ $bedcover->sewingType }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->sewingType : $bedcover->e_sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining') }}</span>
-                                <span class="point-span">{{ $bedcover->haveEster }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->haveEster : $bedcover->e_haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining_material') }}</span>
-                                <span class="point-span">{{ $bedcover->kindOfEster }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->kindOfEster : $bedcover->e_kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.washable') }}</span>
-                                <span class="point-span">{{ $bedcover->washable }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->washable : $bedcover->e_washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.uses') }}</span>
-                                <span class="point-span">{{ $bedcover->uses }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->uses : $bedcover->e_uses }}</span>
                             </div>
                         </li>
                     </ul>
@@ -433,16 +444,16 @@
                                                             class="d-flex align-items-center justify-content-center gap-2">
                                                             <a href="
                                                             @switch($bedcover->category->model)
-                                                                @case('App\bedcover')
+                                                                @case('App\Tablecloth')
                                                                   {{ route('bedcover.show', [$bedcover->id]) }}
                                                                   @break
                                                                 @case('App\Pillow')
-                                                                  {{ route('pillow.show', [$bedcover->id]) }}
+                                                                  {{ route('bedcover.show', [$bedcover->id]) }}
                                                                   @break
                                                                 @case('App\Prayermat')
-                                                                  {{ route('prayermat.show', [$bedcover->id]) }}
+                                                                  {{ route('bedcover.show', [$bedcover->id]) }}
                                                                   @break
-                                                                @case('App\Bedcover')
+                                                                @case('App\bedcover')
                                                                   {{ route('bedcover.show', [$bedcover->id]) }}
                                                                   @break
                                                                 @case('App\Shoe')
@@ -549,8 +560,9 @@
                     <i class="fa-regular fa-comments info-badge-icon"></i>
                     <div>
                         <h5 class="m-0">{{ __('product.user_comments') }}</h5>
-                        <span
-                            class="point-span">{{ __('product.comments_count', ['count' => $comments->count()]) }}</span>
+                        <span class="point-span">
+                            {{ __('product.comments_count', ['count' => $comments->count()]) }}
+                        </span>
                     </div>
                 </div>
                 @foreach ($comments as $comment)
@@ -612,7 +624,7 @@
     </main>
 @endsection
 @section('script')
-    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     @if (app()->getLocale() == 'fa')
         <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @else
@@ -757,6 +769,7 @@
             });
 
             // Quantity Control
+
             $('.plus-btn').click(function() {
                 var currentVal = parseInt($('#item-quantity-product').text());
                 if (currentVal < maxQuantity) {

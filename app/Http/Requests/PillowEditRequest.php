@@ -50,11 +50,17 @@ class PillowEditRequest extends FormRequest
             'offPrice.0' => 'required_with:offType.0',
             'offPrice.1' => 'required_with:offType.1',
             'offPrice.2' => 'required_with:offType.2',
-            
+
             'quantity' => 'required|numeric' ,
             // 'images' => 'required|array',
             // 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string' ,
+
+
+            'e_dimensions' => 'required' ,
+            'e_weight' => 'required' ,
+            'e_kind' => 'required' ,
+            'e_description' => 'nullable|string' ,
         ];
     }
 }

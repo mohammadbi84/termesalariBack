@@ -22,8 +22,8 @@
 		}
 
 		.price {
-		    text-align: right !important; 
-		    color: #000000 !important; 
+		    text-align: right !important;
+		    color: #000000 !important;
 		    font-size: 1rem !important;
 		 }
 
@@ -82,7 +82,7 @@
 
                   	@error('design_id')
 					    <div class="invalid-feedback d-block">{{$message}}</div>
-					@enderror	
+					@enderror
                 </div>
 
 				<div class="form-group">
@@ -101,6 +101,14 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+                <div class="form-group">
+					<label for="e_contains">مشتمل بر ( انگلیسی )</label>
+					<textarea name="e_contains" id="e_contains" class="form-control @error('e_contains') is-invalid @enderror" rows="3" placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{old('e_contains')}}</textarea>
+
+					@error('e_contains')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 				<div class="form-group">
 					<label for="dimensions">ابعاد محصول</label>
@@ -109,11 +117,25 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+                <div class="form-group">
+					<label for="e_dimensions">ابعاد انگلیسی محصول</label>
+					<textarea name="e_dimensions" id="e_dimensions" class="form-control @error('e_dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('e_dimensions')}}</textarea>
+					@error('e_dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 				<div class="form-group">
 					<label for="weight">وزن تقریبی</label>
 					<textarea name="weight" id="weight" class="form-control @error('weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک   200 گرم &#13;&#10; رومیزی بزرگ  500 گرم">{{old('weight')}}</textarea>
 					@error('weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="e_weight">وزن تقریبی انگلیسی</label>
+					<textarea name="e_weight" id="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک   200 گرم &#13;&#10; رومیزی بزرگ  500 گرم">{{old('e_weight')}}</textarea>
+					@error('e_weight')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -129,6 +151,17 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+					<label for="e_kind">جنس محصول انگلیسی</label>
+                    <select name="e_kind" id="e_kind" class="form-control @error('e_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_kind') == 'Rayon (viscose rayon)') selected @endif value="Rayon (viscose rayon)">Rayon (viscose rayon)</option>
+						<option  @if (old('e_kind') == 'Artificial silk') selected @endif value="Artificial silk">Artificial silk</option>
+                    </select>
+                    @error('e_kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
                 <div class="form-group">
                 	<label for="sewingType">نوع دوخت</label>
@@ -138,6 +171,17 @@
 						<option  @if (old('sewingType') == 'ساده') selected @endif value="ساده">ساده</option>
                     </select>
                     @error('sewingType')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+                	<label for="e_sewingType">نوع دوخت ( انگلیسی )</label>
+                    <select name="e_sewingType" id="e_sewingType" class="form-control @error('e_sewingType') is-invalid @enderror">
+                    	{{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_sewingType') == 'Bind') selected @endif value="Bind">Bind</option>
+						<option  @if (old('e_sewingType') == 'Simple') selected @endif value="Simple">Simple</option>
+                    </select>
+                    @error('e_sewingType')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
@@ -153,11 +197,29 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+                	<label for="e_haveEster">آستر انگلیسی</label>
+                    <select name="e_haveEster" id="e_haveEster" class="form-control @error('e_haveEster') is-invalid @enderror">
+                    	{{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                      	<option @if (old('e_haveEster') == 'Yes') selected @endif value="Yes">Yes</option>
+						<option @if (old('e_haveEster') == 'No') selected @endif value="No">No</option>
+                    </select>
+                    @error('e_haveEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
 				<div class="form-group">
 					<label for="kindOfEster">جنس آستر</label>
 					<input disabled="disabled" type="text" name="kindOfEster" id="kindOfEster" class="form-control @error('kindOfEster') is-invalid @enderror" placeholder="مثلاً ساتن مرغوب" value="{{old('kindOfEster', 'ساتن مرغوب')}}"  >
 					@error('kindOfEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="e_kindOfEster">جنس آستر انگلیسی</label>
+					<input disabled="disabled" type="text" name="e_kindOfEster" id="e_kindOfEster" class="form-control @error('e_kindOfEster') is-invalid @enderror" placeholder="مثلاً ساتن مرغوب" value="{{old('e_kindOfEster', 'ساتن مرغوب')}}"  >
+					@error('e_kindOfEster')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -174,12 +236,32 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+                	<label for="e_washable">قابلیت شستشو انگلیسی</label>
+                    <select name="e_washable" id="e_washable" class="form-control @error('e_washable') is-invalid @enderror">
+                    	<option value="">قابلیت شستشو انگلیسی</option>
+                      	<option @if (old('e_washable') == 'By hand')  @endif value="By hand">By hand</option>
+						<option @if (old('e_washable') == 'Yes (preferably dry cleaning)') selected @endif value="Yes (preferably dry cleaning)">Yes (preferably dry cleaning)</option>
+						<option @if (old('e_washable') == 'No Washing') selected @endif value="No Washing">No Washing</option>
+                    </select>
+                    @error('e_washable')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
                 <div class="form-group">
 					<label for="uses">موارد استفاده</label>
 					<textarea name="uses" id="uses" class="form-control @error('uses') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی، روی پشتی، روی تاقچه، سفره زینتی و ...">{{old('uses')}}</textarea>
 
 					@error('uses')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="e_uses">موارد استفاده انگلیسی</label>
+					<textarea name="e_uses" id="e_uses" class="form-control @error('e_uses') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی، روی پشتی، روی تاقچه، سفره زینتی و ...">{{old('e_uses')}}</textarea>
+
+					@error('e_uses')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -213,7 +295,7 @@
 
 						<div class="col-md-2" style="text-align: left;margin: auto;">
 							<a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px" data-value="prices-two" >+</a>
-						</div>	
+						</div>
 
 					</div>
 					<div class="row">
@@ -274,7 +356,7 @@
 						<div class="col-md-2" style="text-align: left;margin: auto;">
 							<a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px" data-value="prices-three">+</a>
 							<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-two">-</a>
-						</div>	
+						</div>
 
 					</div>
 					<div class="row">
@@ -334,7 +416,7 @@
 
 						<div class="col-md-2" style="text-align: left;margin: auto;">
 							<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px"data-value="prices-three">-</a>
-						</div>	
+						</div>
 
 					</div>
 					<div class="row">
@@ -365,8 +447,8 @@
 					</div>
 				</div>
 
-				
-				
+
+
 				{{-- <div class="form-group @error('tags') is-invalid @enderror">
 					<label for="tags">تگ یا برچسب برای استفاده در جستجو ها . لطفا به جای فاصله بین کلمات از زیرخط استفاده نمایید .</label>
 					<select name="tags[]" id="tags" class="form-control" multiple="multiple" data-placeholder="امکان تایپ  و انتخاب برچسب مرتبط وجود دارد . بعنوان مثال رومیزی_گرد " style="width: 100%;text-align: right"></select>
@@ -379,7 +461,7 @@
                     <label for="images">انتخاب تصاویر محصول</label>
 					<div class="file-loading">
 					    <input id="images" name="images[]" type="file" multiple data-browse-on-zone-click="true" data-show-upload="true" data-show-caption="true" data-upload-url="#">
-					    
+
 					</div>
 					@error('images')
 						<div class="invalid-feedback d-block">{{$message}}</div>
@@ -401,6 +483,14 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+                <div class="form-group">
+					<label for="e_description">توضیحات بیشتر انگلیسی</label>
+					<textarea name="e_description" id="e_description" class="form-control @error('e_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('e_description')}}</textarea>
+					@error('e_description')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+
 
 	        <!-- /.card-body -->
 
@@ -427,7 +517,7 @@
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js')}}"></script>
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js')}}"></script>
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js')}}"></script>
-<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
+<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js
    3.3.x versions without popper.min.js. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script>
@@ -628,7 +718,7 @@ $.fn.fileinputBsVersion = "3.3.7";
 			}
 		});
 
-		
+
 
 
 	  });//End

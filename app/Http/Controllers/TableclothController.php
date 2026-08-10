@@ -31,11 +31,6 @@ class TableclothController extends Controller
         $this->middleware('auth')->except('show', 'storeIndex', 'storeFilter', 'ajaxStore');
         // $this->authorizeResource(Tablecloth::class, 'tablecloth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $this->authorize('viewAny', Tablecloth::class);
@@ -45,11 +40,7 @@ class TableclothController extends Controller
             ->with('tablecloths', $tablecloths);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $this->authorize('create', Tablecloth::class);
@@ -64,12 +55,7 @@ class TableclothController extends Controller
             ->with('designs', $designs);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(TableclothRequest $request)
     {
         // dd($request->all());
@@ -117,7 +103,7 @@ class TableclothController extends Controller
                     $img->ordering = $order++;
                     $img->save();
                     Thumbnail::make($image->getRealPath())
-                        ->resize(260, 260, null,  function ($constraint) {
+                        ->resize(260, 260,   function ($constraint) {
                             $constraint->aspectRatio();
                             // $constraint->upsize();
                         })
@@ -146,12 +132,7 @@ class TableclothController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tablecloth  $tablecloth
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Tablecloth $tablecloth)
     {
         // $this->authorize('view');
@@ -183,12 +164,7 @@ class TableclothController extends Controller
             return response(view('errors.404'), 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tablecloth  $tablecloth
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Tablecloth $tablecloth)
     {
         $this->authorize('update', $tablecloth);
@@ -210,13 +186,7 @@ class TableclothController extends Controller
             ->with('colors', $colors);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tablecloth  $tablecloth
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(TableclothEditRequest $request, Tablecloth $tablecloth)
     {
         $design = Design::find($request->design_id);
@@ -226,7 +196,7 @@ class TableclothController extends Controller
 
         $tablecloth->fill($request->all());
         $tablecloth->color_design_id  = $color_design->id;
-        $tablecloth->prices()->delete($request->price);
+        $tablecloth->prices()->delete();
         $tablecloth->category_id = $request->category_id;
 
         if (isset($request->price)) {
@@ -299,7 +269,7 @@ class TableclothController extends Controller
                 $img->save();
                 // Thumbnail::make($image->getRealPath())->resize(260, null)->save('storage/images/thumbnails/'.basename($path));
                 Thumbnail::make($image->getRealPath())
-                    ->resize(260, 260, null,  function ($constraint) {
+                    ->resize(260, 260,   function ($constraint) {
                         $constraint->aspectRatio();
                         // $constraint->upsize();
                     })
@@ -315,12 +285,7 @@ class TableclothController extends Controller
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tablecloth  $tablecloth
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Request $request)
     {
         $this->authorize('delete', Tablecloth::class);

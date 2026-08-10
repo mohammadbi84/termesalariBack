@@ -29,11 +29,6 @@ class PillowController extends Controller
         $this->middleware('auth')->except('show','storeIndex','storeFilter','ajaxStore');
         // $this->authorizeResource(Pillow::class, 'pillow');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //dd(1111);
@@ -44,11 +39,6 @@ class PillowController extends Controller
              ->with('pillows',$pillows);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $this->authorize('create', Pillow::class);
@@ -63,12 +53,6 @@ class PillowController extends Controller
             ->with('designs',$designs);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(PillowRequest $request)
     {
         // dd($request->all());
@@ -119,7 +103,7 @@ class PillowController extends Controller
                     $img->ordering = $order++;
                     $img->save();
                     Thumbnail::make($image->getRealPath())
-                        ->resize(260,260, null,  function ($constraint) {
+                        ->resize(260,260,   function ($constraint) {
                             $constraint->aspectRatio();
                             // $constraint->upsize();
                             })
@@ -137,12 +121,6 @@ class PillowController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Pillow  $pillow
-     * @return \Illuminate\Http\Response
-     */
     public function show(Pillow $pillow)
     {
         // $this->authorize('view');
@@ -175,12 +153,6 @@ class PillowController extends Controller
             return response(view('errors.404'), 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Pillow  $pillow
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Pillow $pillow)
     {
         $this->authorize('update', $pillow);
@@ -202,13 +174,6 @@ class PillowController extends Controller
             ->with('colors',$colors);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pillow  $pillow
-     * @return \Illuminate\Http\Response
-     */
     public function update(PillowEditRequest $request, Pillow $pillow)
     {
         // dd($request->all());
@@ -271,7 +236,7 @@ class PillowController extends Controller
                 $img->save();
 
                 Thumbnail::make($image->getRealPath())
-                    ->resize(260,260, null,  function ($constraint) {
+                    ->resize(260,260,  function ($constraint) {
                         $constraint->aspectRatio();
                         })
                     ->save('storage/images/thumbnails/'.basename($path));
@@ -284,12 +249,6 @@ class PillowController extends Controller
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Pillow  $pillow
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
         $this->authorize('delete', Pillow::class);

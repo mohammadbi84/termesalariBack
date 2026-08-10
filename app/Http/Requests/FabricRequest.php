@@ -54,6 +54,11 @@ class FabricRequest extends FormRequest
             'images.*' => 'required|image|mimes:jpeg,png,jpg',
             'description' => 'nullable|string' ,
 
+            'e_dimensions' => 'required' ,
+            'e_weight' => 'required' ,
+            'e_kind' => 'required' ,
+            'e_washable' => 'nullable' ,
+            'e_description' => 'required' ,
         ];
     }
 }

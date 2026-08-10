@@ -158,7 +158,7 @@
                                                     id="cat{{ $cat->id }}"
                                                     {{ in_array($cat->id, request()->categories ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label"
-                                                    for="cat{{ $cat->id }}">{{ $cat->title }}</label>
+                                                    for="cat{{ $cat->id }}">{{ app()->getLocale() == 'fa' ? $cat->title : $cat->e_title }}</label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -197,7 +197,7 @@
                                                     value="{{ $design->id }}" id="design{{ $design->id }}"
                                                     {{ in_array($design->id, request()->designs ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label"
-                                                    for="design{{ $design->id }}">{{ $design->title }}</label>
+                                                    for="design{{ $design->id }}">{{ app()->getLocale() == 'fa' ? $design->title : $design->e_title }}</label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -236,7 +236,7 @@
                                                     value="{{ $color->id }}" id="color{{ $color->id }}"
                                                     {{ in_array($color->id, request()->colors ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label"
-                                                    for="color{{ $color->id }}">{{ $color->color }}</label>
+                                                    for="color{{ $color->id }}">{{ app()->getLocale() == 'fa' ? $color->color : $color->e_color }}</label>
                                             </div>
                                         @endforeach
                                     </div>

@@ -9,16 +9,37 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bedcover extends Model
 {
-    Use SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
-        'code','dimensions','weight','kind','contains','sewingType','haveEster','kindOfEster','washable','quantity','description'
+        'code',
+        'dimensions',
+        'weight',
+        'kind',
+        'contains',
+        'sewingType',
+        'haveEster',
+        'kindOfEster',
+        'washable',
+        'quantity',
+        'description',
+
+        'e_dimensions',
+        'e_weight',
+        'e_kind',
+        'e_contains',
+        'e_sewingType',
+        'e_haveEster',
+        'e_kindOfEster',
+        'e_washable',
+        'e_description',
     ];
-    protected $with = ['color_design','images','grades', 'tags', 'prices','category'];
+    protected $with = ['color_design', 'images', 'grades', 'tags', 'prices', 'category'];
 
     protected $dates = ['deleted_at'];
-    
-    public function color_design(){
+
+    public function color_design()
+    {
         return $this->belongsTo('App\ColorDesign');
     }
 
@@ -55,7 +76,7 @@ class Bedcover extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
-     public function grades()
+    public function grades()
     {
         return $this->morphMany('App\Grade', 'gradeable');
     }
@@ -70,7 +91,8 @@ class Bedcover extends Model
         return (new ProductFilter($request))->filter($builder);
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo('App\Category');
     }
 
@@ -83,5 +105,5 @@ class Bedcover extends Model
     // {
     //     return $query->where('visibility', 1);
     // }
-    
+
 }

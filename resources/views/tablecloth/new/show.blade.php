@@ -155,7 +155,7 @@
                             {{ $tablecloth->color_design->design->countOfColor }}
                             {{ __('product.colors') }}
                         </li>
-                        <li>{{ __('product.contains') }}: {{ $tablecloth->contains }}</li>
+                        <li>{{ __('product.contains') }}: {{ app()->getLocale() == 'fa' ? $tablecloth->contains : $tablecloth->e_contains }}</li>
                         <li>{{ __('product.color') }}:
                             {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color }}
                         </li>
@@ -264,7 +264,7 @@
                             <h5 class="m-0">{{ __('product.description') }}</h5>
                         </div>
                         <p class="text-justify text-muted">
-                            {{ $tablecloth->description }}
+                            {{ app()->getLocale() == 'fa' ? $tablecloth->description : $tablecloth->e_description }}
                         </p>
                     </div>
                     <div class="bg-white rounded-4 p-4 shadow-sm">
@@ -325,49 +325,49 @@
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.dimensions') }}</span>
-                                <span class="point-span">{{ $tablecloth->dimensions }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->dimensions : $tablecloth->e_dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.weight') }}</span>
-                                <span class="point-span">{{ $tablecloth->weight }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->weight : $tablecloth->e_weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.material') }}</span>
-                                <span class="point-span">{{ $tablecloth->kind }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kind : $tablecloth->e_kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.sewing_type') }}</span>
-                                <span class="point-span">{{ $tablecloth->sewingType }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->sewingType : $tablecloth->e_sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining') }}</span>
-                                <span class="point-span">{{ $tablecloth->haveEster }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->haveEster : $tablecloth->e_haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining_material') }}</span>
-                                <span class="point-span">{{ $tablecloth->kindOfEster }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kindOfEster : $tablecloth->e_kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.washable') }}</span>
-                                <span class="point-span">{{ $tablecloth->washable }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->washable : $tablecloth->e_washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.uses') }}</span>
-                                <span class="point-span">{{ $tablecloth->uses }}</span>
+                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->uses : $tablecloth->e_uses }}</span>
                             </div>
                         </li>
                     </ul>
