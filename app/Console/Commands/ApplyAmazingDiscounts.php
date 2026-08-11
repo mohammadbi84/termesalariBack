@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Amazing;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class ApplyAmazingDiscounts extends Command
 {
@@ -28,6 +29,7 @@ class ApplyAmazingDiscounts extends Command
      */
     public function handle()
     {
+        Log::info('opperation started');
         $now = Carbon::now();
 
         $passed_amazings = Amazing::where('active', true)
@@ -84,6 +86,8 @@ class ApplyAmazingDiscounts extends Command
                 }
             }
         }
+
+        Log::info('opperation ended');
 
         $this->info('Amazing discounts applied successfully.');
     }
