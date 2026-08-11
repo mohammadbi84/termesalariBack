@@ -651,7 +651,7 @@
         <!-- end special offers -->
         <!-- start categories -->
         <section>
-            <div class="container mb-5 px-0">
+            <div class="container mb-5 px-0" id="navbar_container">
                 <div class=" d-flex align-items-center justify-content-between w-100 p-2 mb-3">
                     <div class="d-flex align-items-center gap-2">
                         <img src="{{ asset('shop/assets/svgs/layer-group-solid-full.svg') }}"

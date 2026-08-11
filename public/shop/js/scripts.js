@@ -1,72 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var splide = new Splide("#events-slider", {
-        padding: "15px",
-        direction: "rtl",
-        perPage: 4,
-        gap: "1.2rem",
-        drag: "free",
-        snap: true,
-        arrows: false, // غیرفعال کردن arrows پیشفرض
-        pagination: false, // غیرفعال کردن pagination پیشفرض
-        breakpoints: {
-            1200: {
-                perPage: 4,
+    slider = document.getElementById("#events-slider");
+    if (slider) {
+        var splide = new Splide("#events-slider", {
+            padding: "15px",
+            direction: "rtl",
+            perPage: 4,
+            gap: "1.2rem",
+            drag: "free",
+            snap: true,
+            arrows: false, // غیرفعال کردن arrows پیشفرض
+            pagination: false, // غیرفعال کردن pagination پیشفرض
+            breakpoints: {
+                1200: {
+                    perPage: 4,
+                },
+                900: {
+                    perPage: 3,
+                },
+                600: {
+                    perPage: 1,
+                    focus: "start",
+                    padding: { left: "150px" },
+                },
             },
-            900: {
-                perPage: 3,
-            },
-            600: {
-                perPage: 1,
-                focus: "start",
-                padding: { left: "150px" },
-            },
-        },
-    });
-
-    // mount اسلایدر
-    splide.mount();
-
-    // گرفتن دکمه‌های سفارشی
-    const prevBtn = document.querySelector(".splide-offer-prev-btn");
-    const nextBtn = document.querySelector(".splide-offer-next-btn");
-
-    // اضافه کردن event listener برای دکمه‌ها
-    if (prevBtn) {
-        prevBtn.addEventListener("click", function () {
-            splide.go("<");
         });
-    }
 
-    if (nextBtn) {
-        nextBtn.addEventListener("click", function () {
-            splide.go(">");
-        });
-    }
-    // بعد از mount شدن
-    updateRangeDisplay(splide, "events-range");
+        // mount اسلایدر
+        splide.mount();
+        // گرفتن دکمه‌های سفارشی
+        const prevBtn = document.querySelector(".splide-offer-prev-btn");
+        const nextBtn = document.querySelector(".splide-offer-next-btn");
 
-    // به‌روزرسانی وضعیت دکمه‌ها هنگام تغییر اسلاید
-    splide.on("moved", function () {
-        updateButtonStates();
-        updateRangeDisplay(splide, "events-range");
-    });
-
-    // تابع برای به‌روزرسانی وضعیت دکمه‌ها
-    function updateButtonStates() {
-        const index = splide.index;
-        const length = splide.length;
-
+        // اضافه کردن event listener برای دکمه‌ها
         if (prevBtn) {
-            prevBtn.disabled = index === 0;
+            prevBtn.addEventListener("click", function () {
+                splide.go("<");
+            });
         }
 
         if (nextBtn) {
-            nextBtn.disabled = index >= length - splide.options.perPage;
+            nextBtn.addEventListener("click", function () {
+                splide.go(">");
+            });
         }
+        // بعد از mount شدن
+        updateRangeDisplay(splide, "events-range");
+
+        // به‌روزرسانی وضعیت دکمه‌ها هنگام تغییر اسلاید
+        splide.on("moved", function () {
+            updateButtonStates();
+            updateRangeDisplay(splide, "events-range");
+        });
+
+        // تابع برای به‌روزرسانی وضعیت دکمه‌ها
+        function updateButtonStates() {
+            const index = splide.index;
+            const length = splide.length;
+
+            if (prevBtn) {
+                prevBtn.disabled = index === 0;
+            }
+
+            if (nextBtn) {
+                nextBtn.disabled = index >= length - splide.options.perPage;
+            }
+        }
+
+        // مقداردهی اولیه وضعیت دکمه‌ها
+        updateButtonStates();
     }
 
-    // مقداردهی اولیه وضعیت دکمه‌ها
-    updateButtonStates();
 
     // Hot===========================================================================================
     var HotSplide = new Splide("#hot_slider", {
