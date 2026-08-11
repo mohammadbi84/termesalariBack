@@ -54,10 +54,12 @@ class HomestoreController extends Controller
 
 
         $amazings = Amazing::query()->where('active', 1)
+            ->where('is_passed', 0)
+            ->where('is_applied', 1)
             ->where('start_date', '<=', now())->where('end_date', '>=', now())
             ->with('productable')->take(10)->get();
 
-            // return $amazings;
+        // return $amazings;
 
         $newestProducts = Orderitem::with('orderitemable')
             ->select(DB::raw('sum(count) as sum, orderitemable_id, orderitemable_type'))

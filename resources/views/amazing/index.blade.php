@@ -138,12 +138,16 @@
 										<a href="{{route('amazing.edit',[$amazing])}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-edit"></i> ویرایش </a>
 									</td> --}}
                                     <td>
-											@if($amazing->active == 0)
-												<a class="changeActive" href="#" data-id="{{$amazing->id}}"><i class="fas fa-close danger-color"></i></a>
-											@else
-												<a class="changeActive" href="#" data-id="{{$amazing->id}}"><i class="fas fa-check success-color"></i> </a>
-											@endif
-										</td>
+                                        @if (now() <= $amazing->start_date)
+                                            @if ($amazing->active == 0)
+                                                <a class="changeActive" href="#" data-id="{{ $amazing->id }}"><i
+                                                        class="fas fa-close danger-color"></i></a>
+                                            @else
+                                                <a class="changeActive" href="#" data-id="{{ $amazing->id }}"><i
+                                                        class="fas fa-check success-color"></i> </a>
+                                            @endif
+                                        @endif
+                                    </td>
                                     <td>
                                         @if (now() <= $amazing->start_date)
                                             <form class="del-form" action="{{ route('amazing.destroy', [$amazing]) }}"
@@ -311,46 +315,40 @@
 
 
             //-----------------------change Statuse---------------------------
-			$(".changeActive").click(function(event){
-				event.preventDefault();
-				$(".loader").show();
-				var id = $(this).data("id");
-				var url = "{{ route('amazing.changeActive') }}";
-				var $thiz = $(this);
-				$.ajax({
-				    type: 'POST',
-				    url: url,
-				    data: {
-		              _token: '<?php echo csrf_token() ?>',
-		              id: id,
-		            },
-				    success: function(data){
-				        var $i = $thiz.children("i");
-				        if($i.hasClass("fa-check"))
-				        {
-				        	$i.removeClass("fa-check success-color");
-				        	$i.addClass("fa-close danger-color");
-				        }
-				        else if ($i.hasClass("fa-close"))
-				        {
-				        	$i.removeClass("fa-close danger-color");
-				        	$i.addClass("fa-check success-color");
-				        }
+            $(".changeActive").click(function(event) {
+                event.preventDefault();
+                $(".loader").show();
+                var id = $(this).data("id");
+                var url = "{{ route('amazing.changeActive') }}";
+                var $thiz = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        _token: '<?php echo csrf_token(); ?>',
+                        id: id,
+                    },
+                    success: function(data) {
+                        var $i = $thiz.children("i");
+                        if ($i.hasClass("fa-check")) {
+                            $i.removeClass("fa-check success-color");
+                            $i.addClass("fa-close danger-color");
+                        } else if ($i.hasClass("fa-close")) {
+                            $i.removeClass("fa-close danger-color");
+                            $i.addClass("fa-check success-color");
+                        }
 
-				        if(data.res == "error")
-				        {
-				        	title = "خطا  در اجرای عملیات" ;
-				        }
-				        else if(data.res == "success")
-				        {
-				        	title = "عملیات با موفقیت انجام شد.";
-				        }
-				        swal(title, data.message,data.res);
-				        $(".loader").hide();
+                        if (data.res == "error") {
+                            title = "خطا  در اجرای عملیات";
+                        } else if (data.res == "success") {
+                            title = "عملیات با موفقیت انجام شد.";
+                        }
+                        swal(title, data.message, data.res);
+                        $(".loader").hide();
 
-				    }
-				});
-			});
+                    }
+                });
+            });
         }); //end
     </script>
 @endpush

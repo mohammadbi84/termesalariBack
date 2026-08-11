@@ -109,16 +109,21 @@ class AmazingController extends Controller
     {
         $amazing = Amazing::find($request->id);
         $result["message"] = "";
-        if ($amazing->active == 0) {
-            $amazing->active = 1;
-            $result["message"] = "شگفت انگیز انتخابی  فعال شد.";
-        } else if ($amazing->active == 1) {
-            $amazing->active = 0;
-            $result["message"] = "شگفت انگیز انتخابی  غیرفعال شد.";
-        }
-        $amazing->save();
+        if ($amazing->start_date >= now()) {
+            if ($amazing->active == 0) {
+                $amazing->active = 1;
+                $result["message"] = "شگفت انگیز انتخابی  فعال شد.";
+            } else if ($amazing->active == 1) {
+                $amazing->active = 0;
+                $result["message"] = "شگفت انگیز انتخابی  غیرفعال شد.";
+            }
+            $amazing->save();
 
-        $result["res"] = "success";
+            $result["res"] = "success";
+            return $result;
+        }
+        $result["message"] = "تاریخ شروع شگفت انگیز گذشته.";
+        $result["res"] = "error";
         return $result;
     }
 }

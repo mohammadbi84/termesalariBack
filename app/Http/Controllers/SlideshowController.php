@@ -15,42 +15,29 @@ class SlideshowController extends Controller
         $this->middleware('auth');
         $this->authorizeResource(Slideshow::class, 'slideshow');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $slideshowImages = Slideshow::orderby('position','asc')
-            ->orderby('order','asc')
+        $slideshowImages = Slideshow::orderby('position', 'asc')
+            ->orderby('order', 'asc')
             ->get();
         return view('slideshow.index')
-            ->with('slideshowImages',$slideshowImages);
+            ->with('slideshowImages', $slideshowImages);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('slideshow.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(SlideshowRequest $request)
     {
         // dd($request->all());
         $path = $request->image->store('images/slideshow/');
         if ($request->video) {
-            $pathVideo = $request->video->store('videos/slideshow/','public');
+            $pathVideo = $request->video->store('videos/slideshow/', 'public');
         }
         $slideshow = new Slideshow;
         $slideshow->fill($request->all());
@@ -61,49 +48,33 @@ class SlideshowController extends Controller
         $slideshow->save();
         return redirect()
             ->back()
-            ->with("success","::عملیات با موفقیت انجام شد.::");
+            ->with("success", "::عملیات با موفقیت انجام شد.::");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Slideshow  $slideshow
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Slideshow $slideshow)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Slideshow  $slideshow
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Slideshow $slideshow)
     {
         return view('slideshow.edit')
-            ->with('slideshow',$slideshow);
+            ->with('slideshow', $slideshow);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Slideshow  $slideshow
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Slideshow $slideshow)
     {
         // dd($request->all());
         // dd($slideshow->id);
         $rules = [
-            'position' => 'required|string' ,
-            'title' => 'required|string' ,
-            'description' => 'nullable|string' ,
+            'position' => 'required|string',
+            'title' => 'required|string',
+            'description' => 'nullable|string',
             'image' => 'image|mimes:jpeg,png,jpg',
-            'link' => 'required|string' ,
+            'link' => 'required|string',
             // 'order' => 'required|numeric|'.
             //     Rule::unique('slideshows')->ignore($slideshow->id)->where(function ($query) {
             //         return $query->where('position', $slideshow->position);
@@ -115,14 +86,14 @@ class SlideshowController extends Controller
         // dd($request->all());
 
         $count = Slideshow::where('position', $request->position)
-            ->where('id',"<>",$slideshow->id)
-            ->where('order',$request->order)
+            ->where('id', "<>", $slideshow->id)
+            ->where('order', $request->order)
             ->count();
         // dd($count);
-        if ($count > 0 ) {
+        if ($count > 0) {
             return redirect()
                 ->back()
-                ->with("danger","::ترتیب تصویر در موقعیت انتخابی تکراری می باشد.::");
+                ->with("danger", "::ترتیب تصویر در موقعیت انتخابی تکراری می باشد.::");
         }
 
         if ($slideshow->position != $request->position) {
@@ -133,7 +104,7 @@ class SlideshowController extends Controller
             if ($count == 1) {
                 return redirect()
                     ->back()
-                    ->with("danger","::در موقعیت مورد نظر، حداقل یک تصویر باید موجود باشد.::");
+                    ->with("danger", "::در موقعیت مورد نظر، حداقل یک تصویر باید موجود باشد.::");
             }
         }
 
@@ -141,11 +112,10 @@ class SlideshowController extends Controller
 
         if (isset($request->image)) {
             // dd($request->image);
-            $file = 'images/'.$slideshow->image;
+            $file = 'images/' . $slideshow->image;
             Storage::delete($file);
-            $path = $request->image->store('images/slideshow/','public');
+            $path = $request->image->store('images/slideshow/', 'public');
             $slideshow->image = "/slideshow/" . basename($path);
-
         }
 
         // dd($slideshow);
@@ -155,49 +125,41 @@ class SlideshowController extends Controller
         // $slideshow->link = $request->link;
         // $slideshow->order = $request->order;
         $slideshow->save();
-// dd($slideshow);
+        // dd($slideshow);
         // unlink($file);
         return redirect()
             ->back()
-            ->with("success","::عملیات با موفقیت انجام شد.::");
+            ->with("success", "::عملیات با موفقیت انجام شد.::");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Slideshow  $slideshow
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Slideshow $slideshow)
     {
-        $count = Slideshow::where('position',$slideshow->position)
+        $count = Slideshow::where('position', $slideshow->position)
             ->count();
         // dd($count);
         if ($count == 1) {
             return redirect()
-            ->back()
-            ->with("danger","::در اسلایدشو موقعیت مورد نظر حداقل یک تصویر باید موجود باشد.::");
-        }
-        else{
-            $file = '/public/images/'.$slideshow->image;
+                ->back()
+                ->with("danger", "::در اسلایدشو موقعیت مورد نظر حداقل یک تصویر باید موجود باشد.::");
+        } else {
+            $file = '/public/images/' . $slideshow->image;
             $slideshow->delete();
             Storage::delete($file);
             return redirect()
                 ->back()
-                ->with("success","::عملیات با موفقیت انجام شد.::");
+                ->with("success", "::عملیات با موفقیت انجام شد.::");
         }
-
     }
 
     public function changeVisibility(Request $request)
     {
-        $this->authorize('changeVisibility',Slideshow::class);
+        $this->authorize('changeVisibility', Slideshow::class);
 
         $slideshow = Slideshow::find($request->id);
-        if($slideshow->visibility == 0){
+        if ($slideshow->visibility == 0) {
             $slideshow->visibility = 1;
-        }
-        else if($slideshow->visibility == 1){
+        } else if ($slideshow->visibility == 1) {
             $slideshow->visibility = 0;
         }
         $slideshow->save();
@@ -209,12 +171,12 @@ class SlideshowController extends Controller
 
     public function changeVisibilityGroup(Request $request)
     {
-        $this->authorize('changeVisibilityGroup',Slideshow::class);
+        $this->authorize('changeVisibilityGroup', Slideshow::class);
         $result = [];
-        if(isset($request->items)){
-            foreach($request->items as $id){
+        if (isset($request->items)) {
+            foreach ($request->items as $id) {
                 $slideshow = Slideshow::find($id);
-                if($slideshow->visibility == 0)
+                if ($slideshow->visibility == 0)
                     $slideshow->visibility = 1;
                 else if ($slideshow->visibility == 1)
                     $slideshow->visibility = 0;
@@ -222,9 +184,7 @@ class SlideshowController extends Controller
             }
             $result["res"] = "success";
             $result["message"] = "موارد انتخابی با موفقیت تغییر وضعیت یافت .";
-        }
-        else
-        {
+        } else {
             $result["res"] = "error";
             $result["message"] = "لطفا ابتداسطرهای مورد نظر را انتخاب کنید.";
         }

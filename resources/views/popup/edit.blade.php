@@ -619,8 +619,8 @@
                         <div class="file-thumbnail-footer">
                             <div class="file-caption-name">{caption}</div>
                             <div class="image-extra-fields mt-1">
-                                <input type="number" name="new_images_order[]" placeholder="ترتیب" class="form-control mb-1" style="width: 80px; display:inline-block;">
-                                <input type="number" name="new_images_delay[]" placeholder="زمان (ثانیه)" class="form-control" style="width: 80px; display:inline-block;">
+                                <input type="number" name="new_images_order[]" placeholder="ترتیب" class="form-control mb-1" min="0" style="width: 100px; display:inline-block;">
+                                <input type="number" name="new_images_delay[]" placeholder="زمان (ثانیه)" class="form-control" min="0" style="width: 100px; display:inline-block;">
                             </div>
                         </div>
                     </div>`

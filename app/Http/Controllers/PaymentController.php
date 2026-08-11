@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Amazing;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Http\Requests\CardPaymentRequest;
@@ -33,18 +34,18 @@ class PaymentController extends Controller
     {
         // dd('ok');
         $payments = Payment::with('order')
-            ->orderby('date','desc')
+            ->orderby('date', 'desc')
             ->get();
-        $payments = $payments->filter(function($item){
+        $payments = $payments->filter(function ($item) {
             // dd($item);
             if ($item->order == "") {
                 return false;
             }
-                return true;
+            return true;
         });
         // dd($payments);
         return view('payment.index')
-            ->with('payments',$payments);
+            ->with('payments', $payments);
     }
 
     /**
@@ -55,49 +56,44 @@ class PaymentController extends Controller
     public function create()
     {
         // dd(session()->all());
-        if(session()->has('cart'))
-        {
-            if(session()->has('payType') and session("payType") != "")
-            {
+        if (session()->has('cart')) {
+            if (session()->has('payType') and session("payType") != "") {
                 $cart = session('cart');
 
-                foreach ($cart as $productID => $value)
-                {
-                    foreach ($value as $model=>$data) {
-                        $class="App\\".$model;
+                foreach ($cart as $productID => $value) {
+                    foreach ($value as $model => $data) {
+                        $class = "App\\" . $model;
                         $product = $class::find($productID);
                         // dd($product);
-                        if ($product->quantity < $data['quantity'] ) {
+                        if ($product->quantity < $data['quantity']) {
                             return redirect()->route('cart.index')
-                                ->with("danger","محصول  ". $product->category->title ." طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . " موجودی کافی ندارد. لطفا تعداد  آن را در سبد خرید کاهش دهید و یا با پشتیبانی سایت تماس بگیرید.");
-                        }
-                        elseif($product->visibility == 0){
+                                ->with("danger", "محصول  " . $product->category->title . " طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . " موجودی کافی ندارد. لطفا تعداد  آن را در سبد خرید کاهش دهید و یا با پشتیبانی سایت تماس بگیرید.");
+                        } elseif ($product->visibility == 0) {
                             return redirect()->route('cart.index')
-                                ->with("danger","محصول  ". $product->category->title ." طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . "از حالت انتشار خارج شده است.لطفا آن را از سبد خرید خود حذف کنید و یا با پشتیبانی سایت تماس بگیرید.");
+                                ->with("danger", "محصول  " . $product->category->title . " طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . "از حالت انتشار خارج شده است.لطفا آن را از سبد خرید خود حذف کنید و یا با پشتیبانی سایت تماس بگیرید.");
                         }
                     }
                 }
 
 
                 $payType = session("payType");
-                if($payType == 'card_payments'){
+                if ($payType == 'card_payments') {
                     return view('cardPayment.create');
-                }
-                elseif ($payType == 'behpardakht') {
+                } elseif ($payType == 'behpardakht') {
                     $amount = (int)session("sumPayPrice");
                     // $amount = 100;
                     $invoice = new Invoice;
                     $invoice->amount($amount);
                     $invoice->detail(['user_id' => '8']);
                     // $invoice->detail('detailName','your detail goes here');
-                    return ShetabitPayment::purchase($invoice, function($driver, $transactionId) {
+                    return ShetabitPayment::purchase($invoice, function ($driver, $transactionId) {
                         $date = Carbon::now()->toDateTimeString();
                         Session::put('transactionId', $transactionId);
                         $payment = new Payment;
 
                         $payType = session("payType");
                         $payment_method = session("payType");
-                        $payment_method_id = PaymentMethod::where('method',$payment_method)
+                        $payment_method_id = PaymentMethod::where('method', $payment_method)
                             ->first()->id;
                         $payment->payment_method_id = $payment_method_id;
                         $payment->transaction_id = $transactionId;
@@ -107,7 +103,7 @@ class PaymentController extends Controller
                         $recipient_id = session("recipient");
                         $post_id = session("postType");
                         $post = Post::find($post_id);
-                        
+
                         $user_id = Auth::id();
 
                         $order = new Order;
@@ -116,7 +112,7 @@ class PaymentController extends Controller
                         $order->post_id = $post_id;
                         $locale = config('app.locale');
                         $localePrice = "";
-                        if($locale == 'fa')
+                        if ($locale == 'fa')
                             $localePrice = "تومان";
                         $order->postPrice = $post->price;
                         $order->local = $localePrice;
@@ -125,12 +121,11 @@ class PaymentController extends Controller
                         $count_code = 1;
                         while ($count_code > 0) {
                             $code = Carbon::now()->timestamp;
-                            $count_code = Order::where('code',$code)
-                            ->count();
+                            $count_code = Order::where('code', $code)
+                                ->count();
                         }
                         $order->code = $code;
-                        if(session()->has("discountCardID"))
-                        {
+                        if (session()->has("discountCardID")) {
                             $discountCard = DiscountCard::find(session("discountCardID"));
                             // $discountCard->user_id = $user_id;
                             $discountCard->is_gifted = 1;
@@ -142,38 +137,34 @@ class PaymentController extends Controller
                         $payment->save();
 
                         $cart = session('cart');
-                        foreach ($cart as $productID => $value)
-                        {
+                        foreach ($cart as $productID => $value) {
                             $orderitem = new Orderitem;
-                            foreach ($value as $model=>$data) {
-                                $class="App\\".$model;
+                            foreach ($value as $model => $data) {
+                                $class = "App\\" . $model;
                                 $product = $class::find($productID);
-                                $p = $product->prices->where('local',$localePrice)->first();
+                                $p = $product->prices->where('local', $localePrice)->first();
 
                                 $off = 0;
-                                if($p->offPrice > 0)
-                                {
-                                  if($p->offType == 'مبلغ') 
-                                    $off = $p->offPrice;
-                                  elseif($p->offType == 'درصد')
-                                    $off = $p->price * ($p->offPrice/100);
+                                if ($p->offPrice > 0) {
+                                    if ($p->offType == 'مبلغ')
+                                        $off = $p->offPrice;
+                                    elseif ($p->offType == 'درصد')
+                                        $off = $p->price * ($p->offPrice / 100);
                                 }
                                 $orderitem->order_id = $order->id;
                                 $orderitem->offPrice = $off;
                                 $orderitem->price = $p->price;
                                 $orderitem->count = $data['quantity'];
-                                $orderitem->orderitemable()->associate($product);    
+                                $orderitem->orderitemable()->associate($product);
                             }
                             $orderitem->save();
                         }
-
                     })->pay()->render();
                     //dd($test->purchase());
-                        
+
                 }
             }
-        }
-        else
+        } else
             return redirect()->route('cart.index');
     }
 
@@ -187,18 +178,16 @@ class PaymentController extends Controller
     {
         // dd(session()->all());
         $cart = session('cart');
-        foreach ($cart as $productID => $value)
-        {
-            foreach ($value as $model=>$data) {
-                $class="App\\".$model;
+        foreach ($cart as $productID => $value) {
+            foreach ($value as $model => $data) {
+                $class = "App\\" . $model;
                 $product = $class::find($productID);
-                if ($product->quantity < $data['quantity'] ) {
+                if ($product->quantity < $data['quantity']) {
                     return redirect()->route('cart.index')
-                        ->with("danger","محصول  ". $product->category->title ." طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . " موجودی کافی ندارد. لطفا تعداد  آن را در سبد خرید کاهش دهید و یا با پشتیبانی سایت تماس بگیرید.");
-                }
-                elseif($product->visibility == 0){
+                        ->with("danger", "محصول  " . $product->category->title . " طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . " موجودی کافی ندارد. لطفا تعداد  آن را در سبد خرید کاهش دهید و یا با پشتیبانی سایت تماس بگیرید.");
+                } elseif ($product->visibility == 0) {
                     return redirect()->route('cart.index')
-                        ->with("danger","محصول  ". $product->category->title ." طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . "از حالت انتشار خارج شده است.لطفا آن را از سبد خرید خود حذف کنید و یا با پشتیبانی سایت تماس بگیرید.");
+                        ->with("danger", "محصول  " . $product->category->title . " طرح " . $product->color_design->design->title . " رنگ " . $product->color_design->color->color . " با کد " . $product->code . "از حالت انتشار خارج شده است.لطفا آن را از سبد خرید خود حذف کنید و یا با پشتیبانی سایت تماس بگیرید.");
                 }
             }
         }
@@ -212,21 +201,21 @@ class PaymentController extends Controller
 
         $payType = session("payType");
         $payment_method = session("payType");
-        $payment_method_id = PaymentMethod::where('method',$payment_method)
+        $payment_method_id = PaymentMethod::where('method', $payment_method)
             ->first()->id;
         // if($payType == 'card_payments'){
-            $payment->payment_method_id = $payment_method_id;
-            $payment->tracing_code = $request->tracing_code;
-            $payment->date = $date;
-            $payment->price = $request->price_cardPay;
+        $payment->payment_method_id = $payment_method_id;
+        $payment->tracing_code = $request->tracing_code;
+        $payment->date = $date;
+        $payment->price = $request->price_cardPay;
         // }//Card Payments
 
-        
+
 
         $recipient_id = session("recipient");
         $post_id = session("postType");
         $post = Post::find($post_id);
-        
+
         $user = Auth::user();
 
         $order = new Order;
@@ -236,7 +225,7 @@ class PaymentController extends Controller
         // $order->payment_method_id = $payment_method_id;
         $locale = config('app.locale');
         $localePrice = "";
-        if($locale == 'fa')
+        if ($locale == 'fa')
             $localePrice = "تومان";
         $order->postPrice = $post->price;
         $order->local = $localePrice;
@@ -247,12 +236,11 @@ class PaymentController extends Controller
         $count_code = 1;
         while ($count_code > 0) {
             $code = Carbon::now()->timestamp;
-            $count_code = Order::where('code',$code)
-            ->count();
+            $count_code = Order::where('code', $code)
+                ->count();
         }
         $order->code = $code;
-        if(session()->has("discountCardID"))
-        {
+        if (session()->has("discountCardID")) {
             $discountCard = DiscountCard::find(session("discountCardID"));
             // $discountCard->user_id = $user_id;
             $discountCard->is_gifted = 1;
@@ -265,48 +253,44 @@ class PaymentController extends Controller
         $payment->save();
 
 
-        foreach ($cart as $productID => $value)
-        {
+        foreach ($cart as $productID => $value) {
             $orderitem = new Orderitem;
-            foreach ($value as $model=>$data) {
-                $class="App\\".$model;
+            foreach ($value as $model => $data) {
+                $class = "App\\" . $model;
                 $product = $class::find($productID);
-                $p = $product->prices->where('local',$localePrice)->first();
+                $p = $product->prices->where('local', $localePrice)->first();
 
                 $off = 0;
-                if($p->offPrice > 0)
-                {
-                  if($p->offType == 'مبلغ') 
-                    $off = $p->offPrice;
-                  elseif($p->offType == 'درصد')
-                    $off = $p->price * ($p->offPrice/100);
+                if ($p->offPrice > 0) {
+                    if ($p->offType == 'مبلغ')
+                        $off = $p->offPrice;
+                    elseif ($p->offType == 'درصد')
+                        $off = $p->price * ($p->offPrice / 100);
                 }
                 $orderitem->order_id = $order->id;
                 $orderitem->offPrice = $off;
                 $orderitem->price = $p->price;
                 $orderitem->count = $data['quantity'];
-                $orderitem->orderitemable()->associate($product);    
+                $orderitem->orderitemable()->associate($product);
             }
             $orderitem->save();
 
             $product->quantity = $product->quantity - $data['quantity'];
             $product->save();
-
-
         }
 
-        RayganSms::sendMessage(Auth::user()->mobile, Auth::user()->name . " " . Auth::user()->family . " عزیز، با سپاس از اعتماد و خرید شما از فروشگاه ترمه سالاری،کد فاکتور شما ". $order->code ." میباشد.");
-        RayganSms::sendMessage('09134577500',"فاکتوری با کد " .$order->code." به نام ". Auth::user()->name . " " . Auth::user()->family ." با مبلغ". (int)session("sumPayPrice") . $order->local. " صادر شد.");
+        RayganSms::sendMessage(Auth::user()->mobile, Auth::user()->name . " " . Auth::user()->family . " عزیز، با سپاس از اعتماد و خرید شما از فروشگاه ترمه سالاری،کد فاکتور شما " . $order->code . " میباشد.");
+        RayganSms::sendMessage('09134577500', "فاکتوری با کد " . $order->code . " به نام " . Auth::user()->name . " " . Auth::user()->family . " با مبلغ" . (int)session("sumPayPrice") . $order->local . " صادر شد.");
 
         if (isset(Auth::user()->email) and isset(Auth::user()->email_verified_at)) {
-             Mail::to(Auth::user()->email)
-               ->send(new FactorMail($order));
+            Mail::to(Auth::user()->email)
+                ->send(new FactorMail($order));
         }
-        
+
         session()->forget(['cart']);
         session()->flush();
         Auth::login($user, true);
-        return redirect()->route('cart.factor',[$order]);
+        return redirect()->route('cart.factor', [$order]);
     }
 
     /**
@@ -358,7 +342,7 @@ class PaymentController extends Controller
     {
         // dd('sa');
         // dd("aaaaaaa",$request->all());
-        $payment = Payment::where('transaction_id',$request->RefId)
+        $payment = Payment::where('transaction_id', $request->RefId)
             ->first();
         // dd($payment);
         $transaction_id = $payment->transaction_id;
@@ -378,44 +362,70 @@ class PaymentController extends Controller
             // $ref_id = $receipt->getReferenceId();
             // You can show payment referenceId to the user.
             // echo $receipt->getReferenceId();
-            $orderItems = Orderitem::where('order_id',$payment->order_id)
+            $orderItems = Orderitem::where('order_id', $payment->order_id)
                 ->get();
-            foreach ($orderItems as $orderitem)
-            {
+            foreach ($orderItems as $orderitem) {
                 $product = $orderitem->orderitemable_type::find($orderitem->orderitemable_id);
                 $product->quantity = $product->quantity - $orderitem->count;
                 $product->save();
+
+                $amazing = Amazing::query()->where('active', 1)
+                    ->where('is_applied', 1)
+                    ->where('start_date', '<=', now())->where('end_date', '>=', now())
+                    ->where('productable_id', $product->id)
+                    ->first();
+                if ($amazing) {
+                    $amazing->sold = $amazing->sold + $orderitem->count;
+                    $amazing->save();
+                    if ($amazing->sold >= $amazing->max_sale) {
+                        $prices = $amazing->productable->prices()->where('local', 'تومان')->first();
+                        if ($prices) {
+                            if ($prices->offPrice > 0) {
+                                if ($prices->offType == 'مبلغ') {
+                                    $price = $prices->price * $amazing->discount / 100;
+                                    $off = $prices->offPrice - $price;
+                                } else {
+                                    $off = $prices->offPrice - $amazing->discount;
+                                }
+                                $prices->offPrice = max(0, $off);
+                                $prices->save();
+                                $amazing->is_passed = 1;
+                                $amazing->save();
+                            }
+                        }
+                        $amazing->is_passed = 1;
+                        $amazing->save();
+                    }
+                }
             }
             $payment->save();
 
-            RayganSms::sendMessage($user->mobile, $user->name . " " . $user->family . " عزیز، با سپاس از اعتماد و خرید شما از فروشگاه ترمه سالاری،کد فاکتور شما ". $order->code ." میباشد.");
-            RayganSms::sendMessage('09134577500',"فاکتوری با کد " .$order->code." به نام ". $user->name . " " . $user->family ." با مبلغ". $amount . $order->local. " صادر شد.");
+            RayganSms::sendMessage($user->mobile, $user->name . " " . $user->family . " عزیز، با سپاس از اعتماد و خرید شما از فروشگاه ترمه سالاری،کد فاکتور شما " . $order->code . " میباشد.");
+            RayganSms::sendMessage('09134577500', "فاکتوری با کد " . $order->code . " به نام " . $user->name . " " . $user->family . " با مبلغ" . $amount . $order->local . " صادر شد.");
 
             if (isset($user->email) and isset($user->email_verified_at)) {
                 Mail::to($user->email)
-                  ->send(new FactorMail($order));
+                    ->send(new FactorMail($order));
             }
 
             session()->forget(['cart']);
             session()->flush();
             Auth::login($user, true);
-            return redirect()->route('cart.factor',[$order]);
-
+            return redirect()->route('cart.factor', [$order]);
         } catch (InvalidPaymentException $exception) {
             /**
                 when payment is not verified, it will throw an exception.
                 We can catch the exception to handle invalid payments.
                 getMessage method, returns a suitable message that can be used in user interface.
-            **/
+             **/
             // echo $exception->getMessage();
             $payment->description = $exception->getMessage();
             $error = $exception->getMessage();
             $payment->save();
             Auth::login($user, true);
             return view('payment.payment-error')
-                ->with('error',$error);
-        }//Catch
-        
-    }
+                ->with('error', $error);
+        } //Catch
 
+    }
 }//END CLASS
