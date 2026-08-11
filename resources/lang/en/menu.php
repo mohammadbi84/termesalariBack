@@ -2,7 +2,7 @@
 
 return [
     'categories' => 'Categories',
-    'amazing' => 'Amazings',
+    'amazing' => 'Special Offers',
     'newest' => 'Newest',
     'bestSeller' => 'Best Sellers',
     'branchs' => 'Branchs',

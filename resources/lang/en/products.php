@@ -40,6 +40,7 @@ return [
     'cheapest' => 'Cheapest',
     'expensive' => 'Most Expensive',
     'popular' => 'Most Popular',
+    'topSales' => 'Most Sales',
 
 
     'out_of_stock' => 'Out of Stock',

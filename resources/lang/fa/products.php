@@ -40,6 +40,7 @@ return [
     'cheapest' => 'ارزان‌ترین',
     'expensive' => 'گران‌ترین',
     'popular' => 'محبوب‌ترین',
+    'topSales' => 'پر فروش ترین',
 
 
     'out_of_stock' => 'اتمام موجودی',

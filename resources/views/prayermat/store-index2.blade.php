@@ -273,6 +273,9 @@
                             <span class="sort-item" data-val="popular">
                                 {{ __('products.popular') }}
                             </span>
+                            <span class="sort-item" data-val="topSales">
+                                {{ __('products.topSales') }}
+                            </span>
                         </div>
                     </div>
 

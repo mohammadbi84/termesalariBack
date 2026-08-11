@@ -3,7 +3,7 @@
 return [
     'title' => 'Termeh Salari',
     'categories' => 'Products Categories',
-    'amazing' => 'Amazings',
+    'amazing' => 'Special Offers',
     'newest' => 'Newest',
     'bestSeller' => 'Best Sellers Products',
     'branchs' => 'Our agencies',
