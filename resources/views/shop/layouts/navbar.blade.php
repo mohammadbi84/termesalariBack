@@ -121,11 +121,12 @@
     @endif
     <!-- navbar -->
     <div class="main-menu rounded-3">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg p-0 py-md-2">
             <div class="container p-0 px-3 position-relative">
                 <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
                     <img src="{{ asset('hometemplate/img/logo.png') }}" alt="website logo">
                 </a>
+                <h1 class="m-0 fs-6 d-md-none">فروشگاه ترمه سالاری</h1>
                 <button class="navbar-toggler" type="button" id="mobileMenuToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>

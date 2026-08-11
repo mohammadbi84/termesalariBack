@@ -443,13 +443,23 @@
                                         <div class="row mt-4 mb-4" id="discountCardRow">
                                             <div class="col-12">
                                                 <div class="input-group input-group-md">
-                                                    <input type="text" name="code" id="code"
-                                                        style="border-top-left-radius: 0;border-bottom-left-radius: 0;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
-                                                        placeholder="{{ __('cart.discount.input_placeholder') }}"
-                                                        class="form-control" style="font-size: 0.95rem;">
-                                                    <button type="button border" id="saveDiscountCard"
-                                                        class="btn btn-primary btn-md"
-                                                        style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">{{ __('cart.discount.apply_button') }}</button>
+                                                    @if (app()->getLocale() == 'fa')
+                                                        <input type="text" name="code" id="code"
+                                                            style="border-top-left-radius: 0;border-bottom-left-radius: 0;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
+                                                            placeholder="{{ __('cart.discount.input_placeholder') }}"
+                                                            class="form-control" style="font-size: 0.95rem;">
+                                                        <button type="button border" id="saveDiscountCard"
+                                                            class="btn btn-primary btn-md"
+                                                            style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">{{ __('cart.discount.apply_button') }}</button>
+                                                    @else
+                                                        <input type="text" name="code" id="code"
+                                                            style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;border-top-right-radius: 0;border-bottom-right-radius: 0;"
+                                                            placeholder="{{ __('cart.discount.input_placeholder') }}"
+                                                            class="form-control" style="font-size: 0.95rem;">
+                                                        <button type="button border" id="saveDiscountCard"
+                                                            class="btn btn-primary btn-md"
+                                                            style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 0;border-bottom-left-radius: 0;">{{ __('cart.discount.apply_button') }}</button>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
