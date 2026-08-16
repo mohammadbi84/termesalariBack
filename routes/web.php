@@ -30,6 +30,10 @@ use App\MissionCounter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/filemanager', function () {
+    return view('test');
+})->name('home');
+
 Route::get('/', function () {
     return redirect('/store');
     return view('home');

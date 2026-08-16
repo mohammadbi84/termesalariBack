@@ -280,7 +280,7 @@
                         </div>
                         <div class="form-group">
                             <label for="e_kindOfEster">جنس آستر انگلیسی</label>
-                            <input disabled="disabled" type="text" name="e_kindOfEster" id="e_kindOfEster"
+                            <input type="text" name="e_kindOfEster" id="e_kindOfEster"
                                 class="form-control @error('e_kindOfEster') is-invalid @enderror"
                                 placeholder="مثلاً ساتن مرغوب"
                                 value="{{ old('e_kindOfEster', $tablecloth->e_kindOfEster) }}">

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d354a6eb6f2ca05d91f8c057cb638bd",
+    "content-hash": "b11de879eacaa05b09bd05bc124b4da5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1673,6 +1673,63 @@
                 "laravel"
             ],
             "time": "2020-05-19T17:09:00+00:00"
+        },
+        {
+            "name": "laravel/helpers",
+            "version": "v1.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/helpers.git",
+                "reference": "5915be977c7cc05fe2498d561b8c026ee56567dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/5915be977c7cc05fe2498d561b8c026ee56567dd",
+                "reference": "5915be977c7cc05fe2498d561b8c026ee56567dd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
+                "php": "^7.2.0|^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "email": "dries@laravel.com"
+                }
+            ],
+            "description": "Provides backwards compatibility for helpers in the latest Laravel release.",
+            "keywords": [
+                "helpers",
+                "laravel"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/helpers/tree/v1.8.3"
+            },
+            "time": "2026-03-17T16:40:11+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -5638,6 +5695,84 @@
             "time": "2020-10-02T23:36:20+00:00"
         },
         {
+            "name": "unisharp/laravel-filemanager",
+            "version": "v1.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UniSharp/laravel-filemanager.git",
+                "reference": "aaf2764f26eb8dcc9356bea1e25010333c2e61f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UniSharp/laravel-filemanager/zipball/aaf2764f26eb8dcc9356bea1e25010333c2e61f4",
+                "reference": "aaf2764f26eb8dcc9356bea1e25010333c2e61f4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-exif": "*",
+                "ext-fileinfo": "*",
+                "illuminate/support": ">=4.2.0",
+                "intervention/image": "2.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpspec/phpspec": "~2.1",
+                "phpunit/phpunit": "~4.8"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing."
+            },
+            "bin": [
+                "bin/debug"
+            ],
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": [],
+                    "providers": [
+                        "UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "UniSharp\\LaravelFilemanager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Trevor Sawler",
+                    "email": "trevor.sawler@gmail.com"
+                },
+                {
+                    "name": "UniSharp Ltd.",
+                    "email": "unisharp-service@unisharp.com"
+                }
+            ],
+            "description": "A file upload/editor intended for use with Laravel 5 and CKEditor / TinyMCE",
+            "keywords": [
+                "CKEditor",
+                "file",
+                "filemanager",
+                "image",
+                "laravel",
+                "manager",
+                "tinymce",
+                "upload"
+            ],
+            "support": {
+                "issues": "https://github.com/UniSharp/laravel-filemanager/issues",
+                "source": "https://github.com/UniSharp/laravel-filemanager/tree/v1"
+            },
+            "time": "2018-07-05T11:36:08+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v4.1.5",
             "source": {
@@ -8008,5 +8143,5 @@
         "php": "^7.2.5"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.6.0"
 }

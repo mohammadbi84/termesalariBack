@@ -162,4 +162,14 @@
       'RayganSms' => 'Trez\\RayganSms\\Facades',
     ),
   ),
+  'unisharp/laravel-filemanager' => 
+  array (
+    'aliases' => 
+    array (
+    ),
+    'providers' => 
+    array (
+      0 => 'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider',
+    ),
+  ),
 );
