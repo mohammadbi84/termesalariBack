@@ -28,7 +28,7 @@ class CategoryRequest extends FormRequest
             // 'model' => 'required|string' ,
             'title' => 'required|string' ,
             'e_title' => 'required|string' ,
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'required|string' ,
             // 'link' => 'required|string' ,
             'parent_id' => 'required|numeric',
             'active' => 'required|numeric',

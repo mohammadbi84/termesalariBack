@@ -29,7 +29,7 @@
                 );
 
                 target_preview
-                    .attr("src", "/storage/images/" + path)
+                    .attr("src", "/storage/" + path)
                     .trigger("change");
             };
             return false;

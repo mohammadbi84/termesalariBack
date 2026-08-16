@@ -51,7 +51,7 @@
 									<tr class="text-center">
 										<td>{{ $loop->iteration }}</td>
 										<td>
-											<img src="{{ asset('storage/images/categories/thumbnails/'. $subCategory->image) }}" alt="" class="img-circle img-size-50 mr-2">
+											<img src="{{ asset('storage/'. $subCategory->image) }}" alt="" class="img-circle img-size-50 mr-2">
 											{{ $subCategory->title }}
 										</td>
 										<td>

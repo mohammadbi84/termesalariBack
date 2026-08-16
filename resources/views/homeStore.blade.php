@@ -248,7 +248,7 @@
                 @foreach($allCategories as $category)
                   <div class="" style="width: 290px;height: 290px;">
                     <a href="{{ route($category->link) }}" title="{{ $category->title }}">
-                      <div class="small-box" style='background: url("{{ asset('/storage/images/categories/thumbnails/'.$category->image) }}") center center;'>
+                      <div class="small-box" style='background: url("{{ asset('/storage/'.$category->image) }}") center center;'>
                         <div class="inner" style="height: 150px"></div>
                         <a href="{{ route($category->link) }}" class="small-box-footer">{{ $category->title }}<i class="fa fa-chevron-left" style="font-size: 0.6rem;"></i></a>
                       </div>
@@ -367,7 +367,7 @@
                   <div class="" style="width: auto;">
                     {{-- width: 290px;height: 290px --}}
                     <a href="{{ $category->link . $category->id }}" title="{{ $category->title }}">
-                      <div class="small-box" style='background: url("{{ asset('/storage/images/categories/thumbnails/'.$category->image) }}") no-repeat center center;'>
+                      <div class="small-box" style='background: url("{{ asset('/storage/'.$category->image) }}") no-repeat center center;'>
                         <div class="inner" style="height: 150px"></div>
                         <a href="{{ $category->link . $category->id }}" class="small-box-footer">{{ $category->title }}<i class="fa fa-chevron-left" style="font-size: 0.6rem;"></i></a>
                         {{-- $_SERVER['HTTP_HOST'] .  --}}
