@@ -2,11 +2,11 @@
 
 @push('link')
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/select2/select2.min.css') }}">
     {{-- Bootstrap File Input --}}
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput.min.css') }}"
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/css/fileinput.min.css') }}"
         media="all">
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}"
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}"
         media="all">
 
     <style>
@@ -606,7 +606,7 @@
                             <div class="invalid-feedback d-block" style=""></div> --}}
 
                             @php
-                                $existingImages = $bedcover->images()->orderBy('ordering')->get();
+                                $existingImages = $tablecloth->images()->orderBy('ordering')->get();
                             @endphp
 
                             <div id="image-repeater" class="mb-2">
@@ -692,15 +692,15 @@
 @endsection
 @push('js')
     <!-- Select2 -->
-    <script src="{{ asset('../storetemplate/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/select2/select2.full.min.js') }}"></script>
     {{-- Bootstrap File Input --}}
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/fileinput.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/piexif.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/popper.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/purify.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/sortable.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/plugins/piexif.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/plugins/popper.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/plugins/purify.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/plugins/sortable.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
     <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
 
     <script>

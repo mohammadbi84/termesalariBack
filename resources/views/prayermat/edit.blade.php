@@ -450,7 +450,7 @@
 					<div class="invalid-feedback d-block" style=""></div> --}}
 
                     @php
-                                $existingImages = $bedcover->images()->orderBy('ordering')->get();
+                                $existingImages = $prayermat->images()->orderBy('ordering')->get();
                             @endphp
 
                             <div id="image-repeater" class="mb-2">
