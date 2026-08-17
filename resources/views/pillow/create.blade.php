@@ -340,14 +340,36 @@
 				</div>
 
                 <div class="form-group @error('images') is-invalid @enderror">
-                    <label for="images">انتخاب تصاویر محصول</label>
+                    {{-- <label for="images">انتخاب تصاویر محصول</label>
 					<div class="file-loading">
 					    <input id="images" name="images[]" type="file" multiple data-browse-on-zone-click="true" data-show-upload="true" data-show-caption="true" data-upload-url="#">
 
 					</div>
 					@error('images')
 						<div class="invalid-feedback d-block">{{$message}}</div>
-					@enderror
+					@enderror --}}
+
+                    <div id="image-repeater" class="mb-2">
+                        <div class="image-picker-row mb-2">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <a data-input="thumbnail_1" data-preview="holder_1"
+                                        class="lfm btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                    </a>
+                                </span>
+                                <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
+                                <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                            </div>
+                            <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                        </div>
+                    </div>
+                    <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
+                        <i class="fa fa-plus"></i> افزودن تصویر جدید
+                    </button>
+                    @error('images')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -400,6 +422,56 @@
 <!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js
    3.3.x versions without popper.min.js. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+    <script>
+        $(function() {
+            var imageCounter = 1;
+
+            function initImagePicker(row) {
+                if (!row || !row.length) {
+                    return;
+                }
+
+                row.find('.lfm').filemanager('image');
+
+                row.find('.remove-image-picker').off('click').on('click', function() {
+                    var $rows = $('#image-repeater .image-picker-row');
+                    if ($rows.length > 1) {
+                        $(this).closest('.image-picker-row').remove();
+                    } else {
+                        var $row = $(this).closest('.image-picker-row');
+                        $row.find('input[name="images[]"]').val('');
+                        $row.find('img').attr('src', '');
+                    }
+                });
+            }
+
+            function addImagePicker() {
+                imageCounter++;
+
+                var $row = $(
+                    '<div class="image-picker-row mb-2">' +
+                    '    <div class="input-group">' +
+                    '        <span class="input-group-btn">' +
+                    '            <a data-input="thumbnail_' + imageCounter + '" data-preview="holder_' + imageCounter + '" class="lfm btn btn-primary">' +
+                    '                <i class="fa fa-picture-o"></i> انتخاب تصویر' +
+                    '            </a>' +
+                    '        </span>' +
+                    '        <input id="thumbnail_' + imageCounter + '" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">' +
+                    '        <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>' +
+                    '    </div>' +
+                    '    <img id="holder_' + imageCounter + '" style="margin-top:10px;max-height:100px;display:block;">' +
+                    '</div>'
+                );
+
+                $('#image-repeater').append($row);
+                initImagePicker($row);
+            }
+
+            initImagePicker($('#image-repeater .image-picker-row'));
+            $('#add-image-picker').on('click', addImagePicker);
+        });
+    </script>
 	<script>
 	  $(function () {
 

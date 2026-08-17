@@ -598,13 +598,56 @@
 				</div> --}}
 
                         <div class="form-group @error('images') is-invalid @enderror">
-                            <label for="images">تصاویر محصول</label>
+                            {{-- <label for="images">تصاویر محصول</label>
                             <div class="file-loading">
                                 <input id="images" name="images[]" type="file" multiple>
                             </div>
 
-                            <div class="invalid-feedback d-block" style=""></div>
+                            <div class="invalid-feedback d-block" style=""></div> --}}
 
+                            @php
+                                $existingImages = $bedcover->images()->orderBy('ordering')->get();
+                            @endphp
+
+                            <div id="image-repeater" class="mb-2">
+                                @forelse ($existingImages as $index => $image)
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_{{ $index + 1 }}" data-preview="holder_{{ $index + 1 }}"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_{{ $index + 1 }}" class="form-control" type="text" name="images[]"
+                                                value="{{ $image->name }}" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_{{ $index + 1 }}" src="{{ asset('storage/' . $image->name) }}"
+                                            style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @empty
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_1" data-preview="holder_1"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @endforelse
+                            </div>
+                            <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
+                                <i class="fa fa-plus"></i> افزودن تصویر جدید
+                            </button>
+                            @error('images')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -658,9 +701,55 @@
     <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/sortable.min.js') }}"></script>
     <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
     <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
+    <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
 
     <script>
         $(function() {
+            var imageCounter = {{ $existingImages->count() ?: 1 }};
+
+            function initImagePicker(row) {
+                if (!row || !row.length) {
+                    return;
+                }
+
+                row.find('.lfm').filemanager('image');
+
+                row.find('.remove-image-picker').off('click').on('click', function() {
+                    var $rows = $('#image-repeater .image-picker-row');
+                    if ($rows.length > 1) {
+                        $(this).closest('.image-picker-row').remove();
+                    } else {
+                        var $row = $(this).closest('.image-picker-row');
+                        $row.find('input[name="images[]"]').val('');
+                        $row.find('img').attr('src', '');
+                    }
+                });
+            }
+
+            function addImagePicker() {
+                imageCounter++;
+
+                var $row = $(
+                    '<div class="image-picker-row mb-2">' +
+                    '    <div class="input-group">' +
+                    '        <span class="input-group-btn">' +
+                    '            <a data-input="thumbnail_' + imageCounter + '" data-preview="holder_' + imageCounter + '" class="lfm btn btn-primary">' +
+                    '                <i class="fa fa-picture-o"></i> انتخاب تصویر' +
+                    '            </a>' +
+                    '        </span>' +
+                    '        <input id="thumbnail_' + imageCounter + '" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">' +
+                    '        <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>' +
+                    '    </div>' +
+                    '    <img id="holder_' + imageCounter + '" style="margin-top:10px;max-height:100px;display:block;">' +
+                    '</div>'
+                );
+
+                $('#image-repeater').append($row);
+                initImagePicker($row);
+            }
+
+            initImagePicker($('#image-repeater .image-picker-row'));
+            $('#add-image-picker').on('click', addImagePicker);
 
             @php
                 $images = $tablecloth->images()->get()->sortby('ordering');
@@ -668,7 +757,7 @@
                 $urls = [];
             @endphp
             @foreach ($images as $image)
-                var url{{ $image['id'] }} = "{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                var url{{ $image['id'] }} = "{{ asset('storage/' . $image['name']) }}"
             @endforeach
 
             $("#images").fileinput({

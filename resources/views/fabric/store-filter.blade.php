@@ -1,23 +1,23 @@
 @if(isset($fabrics)  and $fabrics->count() > 0)
   @foreach($fabrics as $key=>$fabric)
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 align-self-center position-relative productItem">
-      <label class="form-check-label position-absolute compareLabel d-none  
+      <label class="form-check-label position-absolute compareLabel d-none
       " for="compare">
         <input type="checkbox" class="checkbox checkboxCompare" name="compare[]" id="compareFabric{{ $fabric->id }}" value="{{ $fabric->id }}" data-model="Fabric"> مقایسه
       </label>
       <div class="box-product-outer">
         <div class="box-product">
           <a href="{{ route('fabric.show',[$fabric]) }}" >
-            <div class="img-wrapper mb-2"> 
-              <img alt="Product" src="{{ asset('/storage/images/thumbnails/'.$fabric->images->sortby('ordering')->first()->name) }}"  class="w-100">
+            <div class="img-wrapper mb-2">
+              <img alt="Product" src="{{ asset('/storage/'.$fabric->images->sortby('ordering')->first()->name) }}"  class="w-100">
             </div>
           </a>
           <h6>
             <a href="{{ route('fabric.show',[$fabric]) }}" class="title">{{ $fabric->category->title }} طرح {{ $fabric->color_design->design->title}} رنگ {{ $fabric->color_design->color->color }}</a>
           </h6>
           <div class="price">
-              @php 
-                $prices = $fabric->prices->where("local","تومان")->first(); 
+              @php
+                $prices = $fabric->prices->where("local","تومان")->first();
               @endphp
               <div>
                 @if($prices->offPrice > 0)
@@ -40,17 +40,17 @@
                 @endif
                 تومان
               </div>
-             
+
                 <span class="price-old">
                 @if($prices->offPrice > 0)
                   {{ number_format($prices->price) }}
                 @endif
                 </span>
-              
+
           </div>
           <small class="text-muted">{{ count($fabric->grades) }} نفر</small>
           <div class="br-wrapper br-theme-fontawesome-stars float-left">
-            <select class="showGrade{{$key}}"> 
+            <select class="showGrade{{$key}}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -63,7 +63,7 @@
             <i class="fas fa-bell" style="color: #ef3a4e"></i>
             @endif
             <small @if($fabric->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-            @if($fabric->quantity == 0) اتمام موجودی در انبار 
+            @if($fabric->quantity == 0) اتمام موجودی در انبار
               @elseif($fabric->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
             @endif
             </small>

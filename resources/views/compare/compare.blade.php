@@ -224,7 +224,7 @@
                                     @foreach ($compare->images as $key => $image)
                                         <div>
                                             <img class="w-100" style=""
-                                                src="{{ asset('storage/images/' . $image['name']) }}"
+                                                src="{{ asset('storage/' . $image['name']) }}"
                                                 alt="{{ $image['name'] }}">
                                         </div>
                                     @endforeach

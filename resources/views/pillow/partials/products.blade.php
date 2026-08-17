@@ -14,7 +14,7 @@
             @endif
             <a href="{{ route('pillow.show', [$pillow]) }}">
                 <div class="product-img-wrapper">
-                    <img src="{{ asset('/storage/images/thumbnails/' . $pillow->images->sortby('ordering')->first()->name) }}"
+                    <img src="{{ asset('/storage/' . $pillow->images->sortby('ordering')->first()->name) }}"
                         alt="">
 
                 </div>
@@ -188,7 +188,7 @@
                                     class="buy-button add-to-cart favorites-btn @if ($pillow->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                     title="{{ __('products.add_to_favorites') }}"
-                                    data-image="{{ asset('/storage/images/thumbnails/' . $pillow->images->first()->name) }}"
+                                    data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                     data-moddel="{{ substr($pillow->category->model, 4) }}"
                                     data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"
@@ -202,7 +202,7 @@
                             <div class="col-3 d-flex justify-content-start align-items-center">
                                 <button class="buy-button add-to-cart compare" id="" data-bs-toggle="tooltip"
                                     data-bs-placement="top" title="{{ __('products.compare_tooltip') }}"
-                                    data-image="{{ asset('/storage/images/thumbnails/' . $pillow->images->first()->name) }}"
+                                    data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                     data-moddel="{{ substr($pillow->category->model, 4) }}"
                                     data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"
@@ -224,7 +224,7 @@
                                 <button data-bs-toggle="tooltip" data-bs-placement="top"
                                     title="{{ __('products.add_to_cart') }}"
                                     class="buy-button add-to-cart @if ($pillow->quantity != 0) addToCart @endif"
-                                    data-image="{{ asset('/storage/images/thumbnails/' . $pillow->images->first()->name) }}"
+                                    data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                     data-id="{{ $pillow->id }}" data-moddel="Tablecloth"
                                     data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
                                     data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"

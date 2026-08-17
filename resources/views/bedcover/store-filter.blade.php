@@ -1,7 +1,7 @@
 @if(isset($bedcovers)  and $bedcovers->count() > 0)
   @foreach($bedcovers as $key=>$bedcover)
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 align-self-center position-relative productItem">
-      <label class="form-check-label position-absolute compareLabel d-none  
+      <label class="form-check-label position-absolute compareLabel d-none
       " for="compare">
         <input type="checkbox" class="checkbox checkboxCompare" name="compare[]" id="compareBedcover{{ $bedcover->id }}" value="{{ $bedcover->id }}" data-model="Bedcover"> مقایسه
       </label>
@@ -9,15 +9,15 @@
         <div class="box-product">
           <a href="{{ route('bedcover.show',[$bedcover]) }}" >
             <div class="img-wrapper mb-2">
-              <img alt="Product" src="{{ asset('/storage/images/thumbnails/'.$bedcover->images->sortby('ordering')->first()->name) }}"  class="w-100">
+              <img alt="Product" src="{{ asset('/storage/'.$bedcover->images->sortby('ordering')->first()->name) }}"  class="w-100">
             </div>
           </a>
           <h6>
             <a href="{{ route('bedcover.show',[$bedcover]) }}" class="title">{{ $bedcover->category->title }} طرح {{ $bedcover->color_design->design->title}} رنگ {{ $bedcover->color_design->color->color }}</a>
           </h6>
           <div class="price">
-              @php 
-                $prices = $bedcover->prices->where("local","تومان")->first(); 
+              @php
+                $prices = $bedcover->prices->where("local","تومان")->first();
               @endphp
               <div>
                 @if($prices->offPrice > 0)
@@ -40,17 +40,17 @@
                 @endif
                 تومان
               </div>
-             
+
                 <span class="price-old">
                 @if($prices->offPrice > 0)
                   {{ number_format($prices->price) }}
                 @endif
                 </span>
-              
+
           </div>
           <small class="text-muted">{{ count($bedcover->grades) }} نفر</small>
           <div class="br-wrapper br-theme-fontawesome-stars float-left">
-            <select class="showGrade{{$key}}"> 
+            <select class="showGrade{{$key}}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -63,7 +63,7 @@
             <i class="fas fa-bell" style="color: #ef3a4e"></i>
             @endif
             <small @if($bedcover->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-            @if($bedcover->quantity == 0) اتمام موجودی در انبار 
+            @if($bedcover->quantity == 0) اتمام موجودی در انبار
               @elseif($bedcover->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
             @endif
             </small>

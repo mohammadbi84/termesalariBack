@@ -231,7 +231,7 @@
                                     <div class="existing-images">
                                         @foreach ($agency->images as $sliderImage)
                                             <div class="image-box" data-id="{{ $sliderImage->id }}" data-type="slider">
-                                                <img src="{{ asset('storage/images/' . $sliderImage->name) }}"
+                                                <img src="{{ asset('storage/' . $sliderImage->name) }}"
                                                     alt="slider image">
                                                 <button type="button" class="delete-image-btn"
                                                     data-image-id="{{ $sliderImage->id }}" data-type="slider">×</button>

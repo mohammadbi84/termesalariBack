@@ -78,7 +78,7 @@
     }
 
     @media (min-width:400px) and (max-width: 500px) {
-      
+
       #main {
         padding: 0px !important;
       }
@@ -124,7 +124,7 @@
         padding-top: 92px !important;
       }
     }
-    
+
   </style>
 </head>
 
@@ -167,7 +167,7 @@
   	            </span>
   	          @endisset
   	        </a>
-	        
+
   	        @isset($cart)
 
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
@@ -176,7 +176,7 @@
                   <div class="float-right">
                     <span class="" id="totalQuantity">@if(isset($cart)){{$sum}} @else 0 @endif</span> کالا
                   </div>
-                  
+
                   {{-- <span class="float-left"> --}}
                     <a class="btn btn-flat btn-sm btn-danger mb-2 float-left" style="border-radius: 5px 0px;" href="{{route('cart.index')}}">مشاهده سبد خرید و پرداخت</a>
                     {{-- <i class="fa fa-arrow-left"></i> --}}
@@ -221,7 +221,7 @@
                       <div class="dropdown-item" data-id="{{$item->id}}" data-moddel="{{ $list['models'][$key] }}">
                         <div class="row">
                           <div class="col-4 m-auto">
-                            <img class="w-100" src="{{asset('storage/images/'.$item->images->first()->name)}}" alt="" style="vertical-align: super;">
+                            <img class="w-100" src="{{asset('storage/'.$item->images->first()->name)}}" alt="" style="vertical-align: super;">
                           </div>
                           <div class="col-8">
                             <p class="text-sm" title="{{ $item->title ." طرح ".$item->color_design->design->title." رنگ ".$item->color_design->color->color }}">
@@ -232,10 +232,10 @@
                                 {{-- @case('Shoe')
                                   {{ route('shoe.show',[$item->id]) }} --}}
                               @endswitch" data-id="{{$item->id}}" data-moddel="{{ $list['models'][$key] }}">
-                              
+
                               {{ Str::limit($item->title ." طرح ".$item->color_design->design->title." رنگ ".$item->color_design->color->color,30)}}
                               </a>
-                              
+
                             </p>
                           </div>
                         </div>
@@ -243,30 +243,30 @@
                           @if($cartOff > 0)
                             <div class="col-6">
                               <span class=" text-muted text-sm">
-                                <del><span class="cartOriginalPrice">{{ number_format(($p->price)) }}</span> {{ $p->local }} 
-                              </span></del> 
+                                <del><span class="cartOriginalPrice">{{ number_format(($p->price)) }}</span> {{ $p->local }}
+                              </span></del>
                             </div>
                             <div class="col-6">
                               <span class="mt-2 text-muted text-sm">
-                                <span class="cartPrice">{{ number_format(($cartPrice)) }}</span> {{ $p->local }} 
-                              </span> 
+                                <span class="cartPrice">{{ number_format(($cartPrice)) }}</span> {{ $p->local }}
+                              </span>
                             </div>
                           @else
                             <div class="col-12">
                               <div class="col-6">
                                 <span class="mt-2 text-muted text-sm">
                                   <span class="cartPrice">{{ number_format(($cartPrice)) }} </span> {{ $p->local }}
-                                </span> 
+                                </span>
                               </div>
                             </div>
                           @endif
                         </div>
-                        
+
                         <div class="row mt-2 text-muted text-sm">
                           <div class="col-6 text-right">
                             <span class="cartQuantity">{{ $list['quantities'][$key] }}</span> عدد
                           </div>
-                        
+
                           <div class="col-6 text-left">
                             <a href="#" class="deleteCartItem" data-id="{{$item->id}}" data-model="{{ $list['models'][$key] }}"><i class="far fa-trash-alt float-left"></i></a>
                           </div>
@@ -309,8 +309,8 @@
 	        @if (Auth::check())
 
 		        <li class="nav-item dropdown">
-		          <a class="nav-link" data-toggle="dropdown" href="#">             
-		            {{Auth::user()->name}} {{Auth::user()->family}}&nbsp;<i class="fa fa-chevron-down" style="font-size: 0.5rem"></i>             
+		          <a class="nav-link" data-toggle="dropdown" href="#">
+		            {{Auth::user()->name}} {{Auth::user()->family}}&nbsp;<i class="fa fa-chevron-down" style="font-size: 0.5rem"></i>
 		          </a>
 		          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="font-size: 0.9rem;">
 		            {{-- <span class="dropdown-item dropdown-header">15 نوتیفیکیشن</span> --}}
@@ -405,7 +405,7 @@
               فروشگاه مرکزی : میدان امیرچقماق<br>
               <strong>تلفن:</strong> 37 06 3626 035<br>
               فروشگاه شماره2 : جنب شیرینی سازی حاج خلیفه رهبر .سرای ترمه <br>
-              <strong>تلفن:</strong> 80 38 3622 035<br>              
+              <strong>تلفن:</strong> 80 38 3622 035<br>
               <strong>ایمیل:</strong> Info@TermehSalari.com<br>
               <i class="far fa-paper-plane"></i> <i class="fab fa-whatsapp"></i>  09134577500
             </p>
@@ -486,7 +486,7 @@
 
       <div class="chat-box-footer">
         <div class="social">
-          <a href="https://www.instagram.com/termehsalari/" title="termehsalari"><i class="fab fa-instagram"></i></a> 
+          <a href="https://www.instagram.com/termehsalari/" title="termehsalari"><i class="fab fa-instagram"></i></a>
           <a href="https://telegram.me/termeh_salari" title="termeh_salari"><i class="fab fa-telegram-plane"></i></a>
           <a href="#" title="09134577500"><i class="fab fa-whatsapp"></i></a>
           <a href="mailto:Info@TermehSalari.com" title="Info@TermehSalari.com"><i class="far fa-envelope"></i></a>
@@ -494,7 +494,7 @@
       </div>
     </div>
   </div>
-  
+
 
   {{-- <div class="message-icon">
     <i class="fa fa-comments"></i>
@@ -502,11 +502,11 @@
 
 
   <div id="message-box">
-    
+
   </div> --}}
   <!-- Uncomment below i you want to use a preloader -->
   <!-- <div id="preloader"></div> -->
-  
+
   <!-- LOADING... -->
   {{-- <div class="loader">
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -515,20 +515,20 @@
         <animateTransform  attributeType="xml"
           attributeName="transform" type="scale"
           values="1,1; 1,3; 1,1"
-          begin="0s" dur="0.6s" repeatCount="indefinite" />       
+          begin="0s" dur="0.6s" repeatCount="indefinite" />
       </rect>
 
       <rect x="10" y="0" width="4" height="7" fill="#333">
         <animateTransform  attributeType="xml"
           attributeName="transform" type="scale"
           values="1,1; 1,3; 1,1"
-          begin="0.2s" dur="0.6s" repeatCount="indefinite" />       
+          begin="0.2s" dur="0.6s" repeatCount="indefinite" />
       </rect>
       <rect x="20" y="0" width="4" height="7" fill="#333">
         <animateTransform  attributeType="xml"
           attributeName="transform" type="scale"
           values="1,1; 1,3; 1,1"
-          begin="0.4s" dur="0.6s" repeatCount="indefinite" />       
+          begin="0.4s" dur="0.6s" repeatCount="indefinite" />
       </rect>
     </svg>
   </div> --}}
@@ -548,7 +548,7 @@
   <script src="{{asset('/hometemplate/lib/lightbox/js/lightbox.min.js')}}"></script>
   <script src="{{asset('/hometemplate/lib/touchSwipe/jquery.touchSwipe.min.js')}}"></script>
   <!-- Contact Form JavaScript File -->
-  <script src="{{asset('/hometemplate/contactform/contactform.js')}}"></script> 
+  <script src="{{asset('/hometemplate/contactform/contactform.js')}}"></script>
   <!-- sweetalert -->
   <script src="{{asset('/storetemplate/plugins/sweetalert/sweetalert.min.js')}}"></script>
   <!-- Template Main Javascript File -->
@@ -589,9 +589,9 @@
           $(".ui-chat-container .btn_chat_lancher .close_me").addClass("active");
           $("#chat-box").fadeIn("slow");
         }
-        
+
       })
-      
+
     	$("#tableclothsCarousel").owlCarousel({
         dots: false,
         nav:true,
@@ -600,7 +600,7 @@
         items: 3,
         autoplay: true,
         autoplayTimeout: 3000,
-        smartSpeed:450, 
+        smartSpeed:450,
         // navText:['<svg width="100%" height="100%" viewBox="0 0 11 20"><path style="fill: none;stroke-width: 1px;stroke: #d7d7d7;" d="M9.554,1.001l-8.607,8.607l8.607,8.606"/></svg>','<svg width="100%" height="100%" viewBox="0 0 11 20" version="1.1"><path style="fill:none;stroke-width: 1px;stroke: #d7d7d7;" d="M1.054,18.214l8.606,-8.606l-8.606,-8.607"/></svg>'],
         navText:['<i class="fa fa-chevron-right"></i>','<i class="fa fa-chevron-left"></i>'],
         //navText:['<a class="owl-prev" href="#introCarousel" role="button" data-slide="prev"><span class="carousel-control-prev-icon ion-chevron-left" aria-hidden="true"></span><span class="sr-only">قبلی</span></a>','<a class="owl-next" href="#introCarousel" role="button" data-slide="next"><span class="carousel-control-next-icon ion-chevron-right" aria-hidden="true"></span><span class="sr-only">بعدی</span></a>'],
@@ -655,7 +655,7 @@
           }
         });
       })
-      
+
 
       {{-- @if(session()->has('status-join'))
         swal(".شما با موفقیت عضو خبرنامه شدید", ".از حالا منتظر خبرهای جذاب ما باشید" ,"success");

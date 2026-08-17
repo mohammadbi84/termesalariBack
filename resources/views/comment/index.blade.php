@@ -39,7 +39,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-                	
+
                 @foreach($comments as $key=>$comment)
 	                <tr>
 	                	<td>
@@ -47,7 +47,7 @@
 	                	</td>
 						<td>{{$loop->iteration}}</td>
 						<td>
-							<img src="{{asset('storage/images/thumbnails/'. $comment->commentable->images->first()->name)}}" alt="" class="img-circle img-size-50 mr-2">
+							<img src="{{asset('storage/'. $comment->commentable->images->first()->name)}}" alt="" class="img-circle img-size-50 mr-2">
 							{{$comment->commentable->category->title}} طرح {{$comment->commentable->color_design->design->title}} رنگ {{$comment->commentable->color_design->color->color}}</td>
 						<td>{{$comment->user->name}}  {{$comment->user->family}}</td>
 						<th>{{ Verta($comment->created_at)->format('%d %B %Y') }}</th>
@@ -92,7 +92,7 @@
 						</td>
 						<td>
 							@if($comment->status == 0)
-								<a class="changeStatuse" href="#" data-id="{{$comment->id}}"><i class="fas fa-close danger-color"></i></a> 
+								<a class="changeStatuse" href="#" data-id="{{$comment->id}}"><i class="fas fa-close danger-color"></i></a>
 							@else
 								<a class="changeStatuse" href="#" data-id="{{$comment->id}}"><i class="fas fa-check success-color"></i> </a>
 							@endif
@@ -211,7 +211,7 @@
 			        	$i.removeClass("fa-close danger-color");
 			        	$i.addClass("fa-check success-color");
 			        }
-		
+
 			        if(data.res == "error")
 			        {
 			        	title = "خطا  در اجرای عملیات" ;
@@ -267,7 +267,7 @@
 					        	$thiz.removeClass("fa-close danger-color");
 					        	$thiz.addClass("fa-check success-color");
 					        }
-							
+
 						});
 
 			        }
@@ -275,7 +275,7 @@
 	            }
 	        });
 		});
-	    
+
 	  });
 	</script>
 @endpush

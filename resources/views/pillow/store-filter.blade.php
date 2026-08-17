@@ -1,7 +1,7 @@
 @if(isset($pillows)  and $pillows->count() > 0)
   @foreach($pillows as $key=>$pillow)
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 align-self-center position-relative productItem">
-      <label class="form-check-label position-absolute compareLabel d-none  
+      <label class="form-check-label position-absolute compareLabel d-none
       " for="compare">
         <input type="checkbox" class="checkbox checkboxCompare" name="compare[]" id="comparePillow{{ $pillow->id }}" value="{{ $pillow->id }}" data-model="Pillow"> مقایسه
       </label>
@@ -9,15 +9,15 @@
         <div class="box-product">
           <a href="{{ route('pillow.show',[$pillow]) }}" >
             <div class="img-wrapper mb-2">
-              <img alt="Product" src="{{ asset('/storage/images/thumbnails/'.$pillow->images->sortby('ordering')->first()->name) }}"  class="w-100">
+              <img alt="Product" src="{{ asset('/storage/'.$pillow->images->sortby('ordering')->first()->name) }}"  class="w-100">
             </div>
           </a>
           <h6>
             <a href="{{ route('pillow.show',[$pillow]) }}" class="title">{{ $pillow->category->title }} طرح {{ $pillow->color_design->design->title}} رنگ {{ $pillow->color_design->color->color }}</a>
           </h6>
           <div class="price">
-              @php 
-                $prices = $pillow->prices->where("local","تومان")->first(); 
+              @php
+                $prices = $pillow->prices->where("local","تومان")->first();
               @endphp
               <div>
                 @if($prices->offPrice > 0)
@@ -40,17 +40,17 @@
                 @endif
                 تومان
               </div>
-             
+
                 <span class="price-old">
                 @if($prices->offPrice > 0)
                   {{ number_format($prices->price) }}
                 @endif
                 </span>
-              
+
           </div>
           <small class="text-muted">{{ count($pillow->grades) }} نفر</small>
           <div class="br-wrapper br-theme-fontawesome-stars float-left">
-            <select class="showGrade{{$key}}"> 
+            <select class="showGrade{{$key}}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -63,7 +63,7 @@
             <i class="fas fa-bell" style="color: #ef3a4e"></i>
             @endif
             <small @if($pillow->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-            @if($pillow->quantity == 0) اتمام موجودی در انبار 
+            @if($pillow->quantity == 0) اتمام موجودی در انبار
               @elseif($pillow->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
             @endif
             </small>

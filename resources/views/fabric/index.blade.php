@@ -89,7 +89,7 @@
                                                 $image = $fabric->images->first();
                                             @endphp
 
-                                            <img src="{{ asset('storage/images/thumbnails/' . $fabric->images->first()->name) }}"
+                                            <img src="{{ asset('storage/' . $fabric->images->first()->name) }}"
                                                 alt="" class="img-circle img-size-50 mr-2">
                                         @endif
                                         {{ $fabric->title }}

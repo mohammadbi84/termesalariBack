@@ -14,12 +14,12 @@
   <!-- ion slider Nice -->
   <!-- <link rel="stylesheet" href="{{asset('/storetemplate/plugins/ionslider/ion.rangeSlider.skinNice.css')}}"> -->
   <link rel="stylesheet" href="{{asset('/storetemplate/plugins/ion.rangeSlider-master/css/ion.rangeSlider.min.css')}}">
-  
+
   <link rel="stylesheet" href="{{asset('/storetemplate/plugins/CSS-Checkbox-Library-master/dist/css/checkboxes.min.css')}}">
 
   <style type="text/css" media="screen">
 
-    
+
     .compareLabel{
       top: -8px;
       right: 10px;
@@ -124,9 +124,9 @@
             {{-- <input class="btn btn-flat btn-primary" type="submit" id="applyPriceFilter" name="applyPriceFilter" value="اعمال محدوده قیمت"> --}}
             <a href="" id="applyPriceFilter" class="btn btn-flat btn-primary btn-sm mt-4"><i class="fa fa-filter"></i> اعمال محدوده قیمت</a>
           </form>
-          
+
         </div>
-        
+
       </section>
       <!-- Section: Price -->
 
@@ -141,7 +141,7 @@
               <label for="quantityFilter"></label>
             </div>
           {{-- </form> --}}
-              
+
             {{--<div class="ckbx-style-8">
                 <span style="font-size: 1rem"> فقط کالاهای موجود  </span><input type="checkbox" id="ckbx-style-8-1" value="0" name="ckbx-style-8">
                 <label for="ckbx-style-8-1"></label>
@@ -150,9 +150,9 @@
                 <input type="checkbox" id="ckbx-style-5-1" value="0" name="ckbx-style-5">
                 <label for="ckbx-style-5-1"></label>
             </div> --}}
-          
+
         </div>
-        
+
       </section>
       <!-- Section: Quantity -->
 
@@ -167,7 +167,7 @@
               <label for="offPriceFilter"></label>
             </div>
           {{-- </form> --}}
-              
+
             {{-- <div class="ckbx-style-8">
                 <input type="checkbox" id="ckbx-style-8-1" value="0" name="ckbx-style-8">
                 <label for="ckbx-style-8-1"></label>
@@ -176,9 +176,9 @@
                 <input type="checkbox" id="ckbx-style-5-1" value="0" name="ckbx-style-5">
                 <label for="ckbx-style-5-1"></label>
             </div> --}}
-          
+
         </div>
-        
+
       </section>
       <!-- Section: OffPrice -->
 
@@ -202,7 +202,7 @@
               @foreach($designs as $design)
                 <option  @if ($design->id == old('design_id')) selected @endif value="{{$design->id}}">{{$design->title}}
                    {{ $design->title }}
-                  
+
                 </option>
               @endforeach
 
@@ -211,7 +211,7 @@
             <input type="Search" class="form-control mb-4 searchInput" id="searchInput" name="searchInput" placeholder="جستجو.." style="display: inline-block;">
             <i class="fa fa-times searchclear"></i>
           </div>
-          
+
           <div id="design_id" class="filter" style="overflow: auto; height: 230px;" >
             @foreach($designs as $key=>$design)
               <div class="form-check pl-0 mb-3 filter-item">
@@ -230,9 +230,9 @@
               </a>
             @endif --}}
           </div>
-          
 
-        </div>  
+
+        </div>
       </section>
       <!-- Section: Design -->
 
@@ -255,7 +255,7 @@
             <input type="Search" class="form-control mb-4 searchInput" id="searchInput" name="searchInput" placeholder="جستجو.." style="display: inline-block;">
             <i class="fa fa-times searchclear"></i>
           </div>
-          
+
           <div id="category" class="filter" style="overflow: auto; height: 230px;" >
 
             @foreach($categories as $key=>$category)
@@ -269,9 +269,9 @@
             @endforeach
 
           </div>
-          
 
-        </div>  
+
+        </div>
       </section>
       <!-- Section: Type -->
 
@@ -289,12 +289,12 @@
         </div>
 
         <div class="card-body ">
-          
+
           <div style="position: relative;">
             <input type="Search" class="form-control mb-4 searchInput" id="searchInput" name="searchInput" placeholder="جستجو.." style="display: inline-block;">
             <i class="fa fa-times searchclear"></i>
           </div>
-          
+
           <div id="design_color_id" class="filter" style="overflow: auto; height: 230px;" >
             @foreach($colors as $key=>$color)
               <div class="form-check pl-0 mb-3 filter-item">
@@ -304,11 +304,11 @@
               </div>
             @endforeach
           </div>
-          
 
-        </div>  
+
+        </div>
       </section>
-      
+
     </aside>
 
 
@@ -319,7 +319,7 @@
           <div class="card-header position-relative">
             <div class="card-title">
               <span><a href="{{ route('homeStore.index') }}">صفحه اصلی فروشگاه</a> / محصولات پشتی و کوسن {{-- ( {{ $pillows->count() }} کالا) --}}</span>
-            
+
               {{-- {{ dd(count(session('compares'))) }} --}}
                 <a href="{{ route("compare.index") }}" class="btn btn-flat btn-danger position-fixed
                   @if(session()->has('compares') and count(session('compares')["product"]) > 0 )
@@ -336,7 +336,7 @@
           </div>
 
           <div class="col-12 p-4">
-            مرتب سازی بر اساس: 
+            مرتب سازی بر اساس:
 
             <a href="#" class="btn btn-flat btn-outline-danger btn-sm sort mr-2 mb-2" data-value="topSales">پرفروش ترین</a>
 
@@ -350,7 +350,7 @@
 
             <a href="#" class="btn btn-flat btn-outline-danger btn-sm sort mr-2 mb-2" data-value="topRate">محبوب ترین</a>
           </div>
-           
+
           <div id="" class="col-12">
 
             <div id="special" class="row align-items-center justify-content-center">
@@ -365,9 +365,9 @@
                       <a href="{{ route('pillow.show',[$pillow]) }}" >
                         <div class="img-wrapper mb-2">
                           @if(count($pillow->images) > 0)
-                            <img alt="Product" src="{{ asset('/storage/images/thumbnails/'.$pillow->images->sortby('ordering')->first()->name) }}" class="w-100">
+                            <img alt="Product" src="{{ asset('/storage/'.$pillow->images->sortby('ordering')->first()->name) }}" class="w-100">
                           @else
-                            <img alt="Product" src="{{ asset('/storage/images/thumbnails/no-image.jpg') }}" class="w-100">
+                            <img alt="Product" src="{{ asset('/storage/no-image.jpg') }}" class="w-100">
                           @endif
 
                         </div>
@@ -376,8 +376,8 @@
                         <a href="{{ route('pillow.show',[$pillow]) }}" class="title">{{ $pillow->category->title }} طرح {{ $pillow->color_design->design->title}} رنگ {{ $pillow->color_design->color->color }}</a>
                       </h6>
                       <div class="price">
-                          @php 
-                            $prices = $pillow->prices->where("local","تومان")->first(); 
+                          @php
+                            $prices = $pillow->prices->where("local","تومان")->first();
                           @endphp
                           <div>
                             @if($prices->offPrice > 0)
@@ -400,17 +400,17 @@
                             @endif
                             تومان
                           </div>
-                         
+
                             <span class="price-old">
                             @if($prices->offPrice > 0)
                               {{ number_format($prices->price) }}
                             @endif
                             </span>
-                          
+
                       </div>
                       <small class="text-muted">{{ count($pillow->grades) }} نفر</small>
                       <div class="br-wrapper br-theme-fontawesome-stars float-left">
-                        <select class="showGrade{{$key}}"> 
+                        <select class="showGrade{{$key}}">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -423,7 +423,7 @@
                         <i class="fas fa-bell" style="color: #ef3a4e"></i>
                         @endif
                         <small @if($pillow->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-                        @if($pillow->quantity == 0) اتمام موجودی در انبار 
+                        @if($pillow->quantity == 0) اتمام موجودی در انبار
                           @elseif($pillow->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
                         @endif
                         </small>
@@ -434,7 +434,7 @@
                 </div>
               @endforeach
             </div>
-         
+
         </div>
 
         @if($pillows->count() > 15)
@@ -443,13 +443,13 @@
       </div>
 
     </div>
-    
+
   </div>
 
 
 
 
-  
+
 
 @endsection
 
@@ -492,7 +492,7 @@
 //-------------------iCheck---------------------
       /* ION SLIDER */
     $('#priceRange').ionRangeSlider({
-    
+
       min     : 0 ,
       max     : {{ $maxPrices }},
       from    : 0,
@@ -505,10 +505,10 @@
       prettify: function (num) {
         n = num.toLocaleString('en-US', {minimumFractionDigits: 0});
         persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-    
+
         n = n.replace(/\d/g, function(match) {
             return persian[match]; // [0] is the entire matched text, which is one digit
-        }); 
+        });
         return n;
       }
     });

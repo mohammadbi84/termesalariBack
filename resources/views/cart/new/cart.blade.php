@@ -349,7 +349,7 @@
                                     </div>
                                     <div class="col-3 col-md-2">
                                         @if ($product->images->first())
-                                            <img src="{{ asset('storage/images/thumbnails/' . $product->images->first()->name) }}"
+                                            <img src="{{ asset('storage/' . $product->images->first()->name) }}"
                                                 alt="{{ $product->title }}" class="product-image img-fluid rounded">
                                         @else
                                             <img src="/mnt/data/26810264-030e-4f38-bdcf-3f7e1e5f9184.jpg" alt="محصول"

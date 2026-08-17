@@ -2,7 +2,7 @@
 {{-- @dd($tablecloths) --}}
   @foreach($tablecloths as $key=>$tablecloth)
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 align-self-center position-relative productItem">
-      <label class="form-check-label position-absolute compareLabel d-none  
+      <label class="form-check-label position-absolute compareLabel d-none
       " for="compare">
         <input type="checkbox" class="checkbox checkboxCompare" name="compare[]" id="compareTablecloth{{ $tablecloth->id }}" value="{{ $tablecloth->id }}" data-model="Tablecloth"> مقایسه
       </label>
@@ -10,15 +10,15 @@
         <div class="box-product">
           <a href="{{ route('tablecloth.show',[$tablecloth]) }}" >
             <div class="img-wrapper mb-2">
-              <img alt="Product" src="{{ asset('/storage/images/thumbnails/'.$tablecloth->images->sortby('ordering')->first()->name) }}"  class="w-100">
+              <img alt="Product" src="{{ asset('/storage/'.$tablecloth->images->sortby('ordering')->first()->name) }}"  class="w-100">
             </div>
           </a>
           <h6>
             <a href="{{ route('tablecloth.show',[$tablecloth]) }}" class="title">{{ $tablecloth->category->title }} طرح {{ $tablecloth->color_design->design->title}} رنگ {{ $tablecloth->color_design->color->color }}</a>
           </h6>
           <div class="price">
-              @php 
-                $prices = $tablecloth->prices->where("local","تومان")->first(); 
+              @php
+                $prices = $tablecloth->prices->where("local","تومان")->first();
               @endphp
               <div>
                 @if($prices->offPrice > 0)
@@ -41,17 +41,17 @@
                 @endif
                 تومان
               </div>
-             
+
                 <span class="price-old">
                 @if($prices->offPrice > 0)
                   {{ number_format($prices->price) }}
                 @endif
                 </span>
-              
+
           </div>
           <small class="text-muted">{{ count($tablecloth->grades) }} نفر</small>
           <div class="br-wrapper br-theme-fontawesome-stars float-left">
-            <select class="showGrade{{$key}}"> 
+            <select class="showGrade{{$key}}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -64,7 +64,7 @@
             <i class="fas fa-bell" style="color: #ef3a4e"></i>
             @endif
             <small @if($tablecloth->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-            @if($tablecloth->quantity == 0) اتمام موجودی در انبار 
+            @if($tablecloth->quantity == 0) اتمام موجودی در انبار
               @elseif($tablecloth->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
             @endif
             </small>

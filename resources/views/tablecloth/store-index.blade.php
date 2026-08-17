@@ -403,9 +403,9 @@
                       <a href="{{ route('tablecloth.show',[$tablecloth]) }}" >
                         <div class="img-wrapper mb-2">
                             @if(count($tablecloth->images) > 0)
-                              <img alt="Product" src="{{ asset('/storage/images/thumbnails/'.$tablecloth->images->sortby('ordering')->first()->name) }}" class="w-100">
+                              <img alt="Product" src="{{ asset('/storage/'.$tablecloth->images->sortby('ordering')->first()->name) }}" class="w-100">
                             @else
-                              <img alt="Product" src="{{ asset('/storage/images/thumbnails/no-image.jpg') }}" class="w-100">
+                              <img alt="Product" src="{{ asset('/storage/no-image.jpg') }}" class="w-100">
                             @endif
                         </div>
                       </a>

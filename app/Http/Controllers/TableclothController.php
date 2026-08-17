@@ -95,19 +95,19 @@ class TableclothController extends Controller
             if (isset($request->images)) {
                 $path = '';
                 foreach ($request->images as $order => $image) {
-                    $path = $image->store('public/images/');
+                    // $path = $image->store('public/images/');
                     // dd(basename($path));
                     $img = new Image;
-                    $img->name = basename($path);
+                    $img->name = $image;
                     $img->imageable()->associate($tablecloth);
                     $img->ordering = $order++;
                     $img->save();
-                    Thumbnail::make($image->getRealPath())
-                        ->resize(260, 260,   function ($constraint) {
-                            $constraint->aspectRatio();
-                            // $constraint->upsize();
-                        })
-                        ->save('storage/images/thumbnails/' . basename($path));
+                    // Thumbnail::make($image->getRealPath())
+                    //     ->resize(260, 260,   function ($constraint) {
+                    //         $constraint->aspectRatio();
+                    //         // $constraint->upsize();
+                    //     })
+                    //     ->save('storage/' . basename($path));
                 }
             }
 
@@ -261,19 +261,19 @@ class TableclothController extends Controller
             foreach ($request->images as $image) {
                 // $ordering = $lastOrdering++;
                 $lastOrdering++;
-                $path = $image->store('public/images/');
+                // $path = $image->store('public/images/');
                 $img = new Image();
-                $img->name = basename($path);
+                $img->name = $image;
                 $img->imageable()->associate($tablecloth);
                 $img->ordering = $lastOrdering;
                 $img->save();
-                // Thumbnail::make($image->getRealPath())->resize(260, null)->save('storage/images/thumbnails/'.basename($path));
-                Thumbnail::make($image->getRealPath())
-                    ->resize(260, 260,   function ($constraint) {
-                        $constraint->aspectRatio();
-                        // $constraint->upsize();
-                    })
-                    ->save('storage/images/thumbnails/' . basename($path));
+                // Thumbnail::make($image->getRealPath())->resize(260, null)->save('storage/'.basename($path));
+                // Thumbnail::make($image->getRealPath())
+                //     ->resize(260, 260,   function ($constraint) {
+                //         $constraint->aspectRatio();
+                //         // $constraint->upsize();
+                //     })
+                //     ->save('storage/' . basename($path));
             }
         }
 

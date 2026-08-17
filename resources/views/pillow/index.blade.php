@@ -89,7 +89,7 @@
                                                 $image = $pillow->images->first();
                                             @endphp
 
-                                            <img src="{{ asset('storage/images/thumbnails/' . $pillow->images->first()->name) }}"
+                                            <img src="{{ asset('storage/' . $pillow->images->first()->name) }}"
                                                 alt="" class="img-circle img-size-50 mr-2">
                                         @endif
                                         {{ $pillow->title }}

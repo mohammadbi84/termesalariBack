@@ -89,7 +89,7 @@
                                                 $image = $tablecloth->images->first();
                                             @endphp
 
-                                            <img src="{{ asset('storage/images/thumbnails/' . $tablecloth->images->first()->name) }}"
+                                            <img src="{{ asset('storage/' . $tablecloth->images->first()->name) }}"
                                                 alt="" class="img-circle img-size-50 mr-2">
                                         @endif
                                         {{ $tablecloth->title }}

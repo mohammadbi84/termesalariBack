@@ -3,7 +3,7 @@
 @section('title','داشبورد')
 
 @push('link')
-	
+
 @endpush
 
 @section('main-content')
@@ -115,7 +115,7 @@
 			                    </p>
 
 	                    		<div class="progress-group">
-	                      			محصولات اضافه شده 
+	                      			محصولات اضافه شده
 		                      		<span class="float-left"><b>{{ $countProducts }}</b>/۲۰۰</span>
 		                      		<div class="progress progress-sm">
 		                        		<div class="progress-bar bg-primary" style="width: 80%"></div>
@@ -215,7 +215,7 @@
         </div>
 
         <div class="row">
-        	
+
         	<div class="col-md-6 col-sm-12">
         		<!-- USERS LIST -->
                 <div class="card">
@@ -233,7 +233,7 @@
 	                    <ul class="users-list clearfix">
 	                    	@foreach($lastUsers as $lastUser)
 		                      	<li title="{{ $lastUser->name }} {{ $lastUser->family }}">
-		                        	
+
 		                        	<a class="users-list-name " href="{{ route('user.show',[$lastUser]) }}">
 		                        		<img src="{{ asset('storetemplate/dist/img/' . $lastUser->image) }}" class="w-50" alt="User Image">
 		                        		<div class="mt-2">{{ $lastUser->name }} {{ $lastUser->family }}</div>
@@ -302,10 +302,10 @@
 											<td>
 												@if($lastOrder->status == 0)
 													<span class="badge badge-secondary">بررسی نشده</span>
-													 
+
 												@elseif($lastOrder->status == 1 and $lastOrder->post_code == "")
 													<span class="badge badge-warning">تائید شد</span>
-													
+
 												@elseif($lastOrder->status == 2)
 													<span class="badge badge-danger">رد شد</span>
 
@@ -366,7 +366,7 @@
 											<td>{{ $topRequest->orderitemable->code }}</td>
 											<td class="text-right">
 												<a href="{{ route('tablecloth.show',[$topRequest->orderitemable->id]) }}" style="color:black;">
-													<img src="{{asset('storage/images/thumbnails/'. $topRequest->orderitemable->images->first()->name)}}" alt="" class="img-circle img-size-50 mr-2">
+													<img src="{{asset('storage/'. $topRequest->orderitemable->images->first()->name)}}" alt="" class="img-circle img-size-50 mr-2">
 													{{ $topRequest->orderitemable->category->title }} طرح {{ $topRequest->orderitemable->color_design->design->title }} رنگ {{ $topRequest->orderitemable->color_design->color->color }}
 												</a>
 											</td>
@@ -425,7 +425,7 @@
 		                  	</span>
 		                </div>
 	              	</div>
-	            </div> 
+	            </div>
 	            <!-- /.card -->
           	</div> --}}
 

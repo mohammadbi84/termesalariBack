@@ -89,7 +89,7 @@
                                                 $image = $prayermat->images->first();
                                             @endphp
 
-                                            <img src="{{ asset('storage/images/thumbnails/' . $prayermat->images->first()->name) }}"
+                                            <img src="{{ asset('storage/' . $prayermat->images->first()->name) }}"
                                                 alt="" class="img-circle img-size-50 mr-2">
                                         @endif
                                         {{ $prayermat->title }}

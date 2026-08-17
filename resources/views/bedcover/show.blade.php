@@ -116,9 +116,9 @@
                     <div style="" class="col-md-7 m-auto">
                         <div class="owl-carousel owl-theme" id="slideshow" style=" width:100%;">
                             @foreach ($images as $key => $image)
-                                <a href="{{ asset('storage/images/' . $image['name']) }}">
+                                <a href="{{ asset('storage/' . $image['name']) }}">
                                     <img class="w-100 zoom" style=""
-                                        src="{{ asset('storage/images/' . $image['name']) }}" alt="{{ $image['name'] }}">
+                                        src="{{ asset('storage/' . $image['name']) }}" alt="{{ $image['name'] }}">
                                 </a>
                             @endforeach
                         </div>
@@ -454,7 +454,7 @@
                                         <a href="{{ route('bedcover.show', [$likeBedcover->id]) }}">
                                             <div class="img-wrapper mb-2">
                                                 <img alt="Product"
-                                                    src="{{ asset('/storage/images/thumbnails/' . $likeBedcover->images->sortby('ordering')->first()->name) }}"
+                                                    src="{{ asset('/storage/' . $likeBedcover->images->sortby('ordering')->first()->name) }}"
                                                     class="w-100">
                                             </div>
                                         </a>

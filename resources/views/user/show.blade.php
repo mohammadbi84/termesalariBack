@@ -178,7 +178,7 @@
 
                                                         <h3 class="timeline-header"><a href="#">
                                                                 <img class="img-circle ml-2" style="width: 8%;height: 8%;"
-                                                                    src="{{ asset('storage/images/thumbnails/' . $comment->commentable->images->first()->name) }}"
+                                                                    src="{{ asset('storage/' . $comment->commentable->images->first()->name) }}"
                                                                     alt="User Image">{{ $comment->commentable->category->title }}
                                                                 طرح
                                                                 {{ $comment->commentable->color_design->design->title }}
@@ -323,7 +323,7 @@
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>
                                                                 @php $image = $orderitem->orderitemable->images->first(); @endphp
-                                                                <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                                                <img src="{{ asset('storage/' . $image['name']) }}"
                                                                     alt="" class="img-circle img-size-50 mr-2">
                                                                 {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->category->title : $orderitem->orderitemable->category->e_title }}
                                                                 {{ __('products.design') }}

@@ -347,7 +347,7 @@
 
                                         // آدرس تصویر
                                         $image = $product->images->first()
-                                            ? asset('storage/images/' . $product->images->first()->name)
+                                            ? asset('storage/' . $product->images->first()->name)
                                             : '/images/no-image.png';
 
                                         // لینک محصول
@@ -457,7 +457,7 @@
                                 <div class="compare-item" data-id="{{ $compare->id }}"
                                     data-model="{{ substr($compare->category->model, 4) }}">
                                     @php $image = $compare->images->first(); @endphp
-                                    <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                    <img src="{{ asset('storage/' . $image['name']) }}"
                                         alt="product" class="favorites-item-image">
                                     <div class="favorites-item-content">
                                         <div class="favorites-item-title">
@@ -520,7 +520,7 @@
                                 <div class="favorites-item" data-id="{{ $favorite->favoriteable->id }}"
                                     data-model="{{ substr($favorite->favoriteable_type, 4) }}">
                                     @php $image = $favorite->favoriteable->images->first(); @endphp
-                                    <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                    <img src="{{ asset('storage/' . $image['name']) }}"
                                         alt="product" class="favorites-item-image">
                                     <div class="favorites-item-content">
                                         <div class="favorites-item-title">
@@ -568,7 +568,7 @@
                                         <div
                                             class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
                                             <button class="buy-button add-to-cart favorites-btn active"
-                                                data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
+                                                data-image="{{ asset('/storage/' . $favorite->favoriteable->images->first()->name) }}"
                                                 data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
                                                 data-design="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->design->title : $favorite->favoriteable->color_design->design->e_title ?? '' }}"
                                                 data-color="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->color->color : $favorite->favoriteable->color_design->color->e_color ?? '' }}"
@@ -581,7 +581,7 @@
                                                 style="width: 30px;height:30px"><i
                                                     class="fa-solid fa-heart text-danger fa-lg"></i></button>
                                             <button class="buy-button add-to-cart addToCart favorites"
-                                                data-image="{{ asset('/storage/images/thumbnails/' . $favorite->favoriteable->images->first()->name) }}"
+                                                data-image="{{ asset('/storage/' . $favorite->favoriteable->images->first()->name) }}"
                                                 data-moddel="{{ substr($favorite->favoriteable_type, 4) }}"
                                                 data-design="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->design->title : $favorite->favoriteable->color_design->design->e_title ?? '' }}"
                                                 data-color="{{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->color->color : $favorite->favoriteable->color_design->color->e_color ?? '' }}"

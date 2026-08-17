@@ -200,7 +200,7 @@
                                     @if ($slideshow->video)
                                         <div class="video-full-container video-full-container-slider mb-5 px-0">
                                             <video class="slider-video"
-                                                poster="{{ asset('storage/images/' . $slideshow->image) }}" preload="none">
+                                                poster="{{ asset('storage/' . $slideshow->image) }}" preload="none">
                                                 <!-- منبع ویدیو - میتوانید آدرس ویدیوی خود را جایگزین کنید -->
                                                 <source src="{{ asset('storage/videos/' . $slideshow->video) }}"
                                                     type="video/mp4">
@@ -214,7 +214,7 @@
                                             </div>
                                         </div>
                                     @else
-                                        <img src="{{ asset('storage/images/' . $slideshow->image) }}"
+                                        <img src="{{ asset('storage/' . $slideshow->image) }}"
                                             class="img-fluid w-100 h-100" style="object-fit: cover;"
                                             alt="{{ $slideshow->title }}">
                                     @endif
@@ -287,7 +287,7 @@
                                                 <!-- جلوی کارت -->
                                                 <div class="flip-card-front d-flex flex-column justify-content-between">
                                                     <div class="position-relative image-badge pb-1">
-                                                        <img src="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
+                                                        <img src="{{ asset('/storage/' . $amazing->productable->images->first()->name) }}"
                                                             class="card-img-top" alt="event image">
 
                                                         @if ($prices->offPrice > 0)
@@ -458,7 +458,7 @@
                                                         </div>
                                                     @endif
                                                     <button class="buy-button shadow-none add-to-cart compare"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
+                                                        data-image="{{ asset('/storage/' . $amazing->productable->images->first()->name) }}"
                                                         data-moddel="{{ substr($amazing->productable->category->model, 4) }}"
                                                         data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
                                                         data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
@@ -473,7 +473,7 @@
                                                             class="fa-solid fa-shuffle"></i></button>
                                                     <a href="#"
                                                         class="discount-squer favorites-btn @if ($amazing->productable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
+                                                        data-image="{{ asset('/storage/' . $amazing->productable->images->first()->name) }}"
                                                         data-moddel="{{ substr($amazing->productable, 4) }}"
                                                         data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
                                                         data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
@@ -510,7 +510,7 @@
                                                                 <div class="col-3 ps-2">
                                                                     <button
                                                                         class="buy-button add-to-cart @if ($amazing->productable->quantity != 0) addToCart @endif"
-                                                                        data-image="{{ asset('/storage/images/thumbnails/' . $amazing->productable->images->first()->name) }}"
+                                                                        data-image="{{ asset('/storage/' . $amazing->productable->images->first()->name) }}"
                                                                         data-id="{{ $amazing->productable->id }}"
                                                                         data-moddel="{{ substr($amazing->productable, 4) }}"
                                                                         data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
@@ -724,7 +724,7 @@
                             <div class="product-card">
                                 {{-- <div class="discount-badge">20% تخفیف</div> --}}
                                 <div class="product-image">
-                                    <img src="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                    <img src="{{ asset('/storage/' . $product->orderitemable->images->first()->name) }}"
                                         alt="{{ $product->orderitemable->category->title }}">
                                 </div>
                                 <div class="product-body">
@@ -757,7 +757,7 @@
                                                         <span class="rate-count d-block text-danger">
                                                             <a href="#"
                                                                 class="text-decoration-none text-reset favorites-btn @if ($product->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                                                data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                                                data-image="{{ asset('/storage/' . $product->orderitemable->images->first()->name) }}"
                                                                 data-moddel="{{ substr($product->orderitemable_type, 4) }}"
                                                                 data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
                                                                 data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
@@ -782,7 +782,7 @@
                                                             <a name="" id=""
                                                                 class="text-decoration-none text-reset compare"
                                                                 href="#" role="button"
-                                                                data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                                                data-image="{{ asset('/storage/' . $product->orderitemable->images->first()->name) }}"
                                                                 data-moddel="{{ substr($product->orderitemable->category->model, 4) }}"
                                                                 data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
                                                                 data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
@@ -852,7 +852,7 @@
                                                 <div class="col-3 ps-2">
                                                     <button
                                                         class="buy-button add-to-cart @if ($product->orderitemable->quantity != 0) addToCart @endif"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $product->orderitemable->images->first()->name) }}"
+                                                        data-image="{{ asset('/storage/' . $product->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $product->orderitemable->id }}"
                                                         data-moddel="{{ substr($product->orderitemable_type, 4) }}"
                                                         data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
@@ -990,7 +990,7 @@
                                     <div class="product-div p-2">
                                         <div class="hot-product-card">
                                             <div class="hot-image-container">
-                                                <img src="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                <img src="{{ asset('/storage/' . $topRequest->orderitemable->images->first()->name) }}"
                                                     alt="{{ $topRequest->orderitemable->category->title }}"
                                                     class="hot-product-image">
                                             </div>
@@ -1075,7 +1075,7 @@
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center gap-2">
                                                     <button class="buy-button shadow-none add-to-cart compare"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-image="{{ asset('/storage/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
                                                         data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
                                                         data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
@@ -1090,7 +1090,7 @@
                                                             class="fa-solid fa-shuffle"></i></button>
                                                     <button
                                                         class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-image="{{ asset('/storage/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
                                                         data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
@@ -1108,7 +1108,7 @@
                                                     <button
                                                         class="buy-button shadow-none add-to-cart @if ($topRequest->orderitemable->quantity != 0) addToCart @endif"
                                                         style="width:30px;height:30px"
-                                                        data-image="{{ asset('/storage/images/thumbnails/' . $topRequest->orderitemable->images->first()->name) }}"
+                                                        data-image="{{ asset('/storage/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
                                                         data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
@@ -1176,7 +1176,7 @@
                                             <div class="swiper-wrapper">
                                                 @foreach ($agent->images as $image)
                                                     <div class="swiper-slide">
-                                                        <img src="{{ asset('storage/images/' . $image->name) }}"
+                                                        <img src="{{ asset('storage/' . $image->name) }}"
                                                             alt="نمایندگی ترمه سالاری" />
                                                     </div>
                                                 @endforeach

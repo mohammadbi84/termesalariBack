@@ -88,7 +88,7 @@
                                     <div class="image-box col-md-2">
 
                                         <img class="image-product w-100"
-                                            src="{{ asset('storage/images/thumbnails/' . $product->images->first()->name) }}"
+                                            src="{{ asset('storage/' . $product->images->first()->name) }}"
                                             alt="{{ $product->title }}">
 
                                     </div>
@@ -282,7 +282,7 @@
                                 <div class="image-box col-md-2">
 
                                     <img class="image-product w-100"
-                                        src="{{ asset('storage/images/thumbnails/' . $product->images->first()->name) }}"
+                                        src="{{ asset('storage/' . $product->images->first()->name) }}"
                                         alt="{{ $product->title }}">
 
                                 </div>

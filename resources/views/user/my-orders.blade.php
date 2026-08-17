@@ -138,7 +138,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 @php $image = $orderitem->orderitemable->images->first(); @endphp
-                                                <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                                <img src="{{ asset('storage/' . $image['name']) }}"
                                                     alt="" class="img-circle img-size-50 mr-2">
                                                 {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->category->title : $orderitem->orderitemable->category->e_title }}
                                                 {{ __('products.design') }}
@@ -389,7 +389,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 @php $image = $orderitem->orderitemable->images->first(); @endphp
-                                                <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                                <img src="{{ asset('storage/' . $image['name']) }}"
                                                     alt="" class="img-circle img-size-50 mr-2">
                                                 {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->category->title : $orderitem->orderitemable->category->e_title }}
                                                 {{ __('products.design') }}
@@ -580,7 +580,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 @php $image = $orderitem->orderitemable->images->first(); @endphp
-                                                <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                                <img src="{{ asset('storage/' . $image['name']) }}"
                                                     alt="" class="img-circle img-size-50 mr-2">
                                                 {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->category->title : $orderitem->orderitemable->category->e_title }}
                                                 {{ __('products.design') }}
@@ -773,7 +773,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
                                             @php $image = $orderitem->orderitemable->images->first(); @endphp
-                                            <img src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                            <img src="{{ asset('storage/' . $image['name']) }}"
                                                 alt="" class="img-circle img-size-50 mr-2">
                                             {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->category->title : $orderitem->orderitemable->category->e_title }}
                                             {{ __('products.design') }}

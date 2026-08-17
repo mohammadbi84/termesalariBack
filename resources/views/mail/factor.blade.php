@@ -42,7 +42,7 @@
 										@php
 		      								$image = $orderitem->orderitemable->images->first();
 		      							@endphp
-		      							<img src="{{asset('storage/images/thumbnails/'. $image['name'])}}" alt="" style="width: 10%;margin-left: 10px;border-radius: 50%;vertical-align: middle;">
+		      							<img src="{{asset('storage/'. $image['name'])}}" alt="" style="width: 10%;margin-left: 10px;border-radius: 50%;vertical-align: middle;">
 					      				{{ $orderitem->orderitemable->category->title }} طرح {{ $orderitem->orderitemable->color_design->design->title }} رنگ {{ $orderitem->orderitemable->color_design->color->color }}
 									</td>
 									<td>{{ $orderitem->count }}</td>
@@ -97,12 +97,12 @@
       					<div style="text-align: center;float: right;width: 25%">
       						<b>تخفیف ویژه </b>
       						<p>
-      							@php  
+      							@php
   									if ($order->discountCard->type == "price")
   										print number_format($order->discountCard->amount);
   									elseif($order->discountCard->type == "percent")
   										print number_format( ($order->discountCard->amount * $sumPrice)/100 );
-  									
+
   								@endphp
       							{{ $order->local }}
       						</p>
@@ -161,7 +161,7 @@
 					</td>
 				</tr>
 			@endisset
-			
+
 			<tr style="height: 40px !important;">
 				<td style="font-weight: bold;background-color: #f6f5f5;height: 50px;direction: rtl;text-align: right;">
 					اطلاعات ارسال سفارش
@@ -180,7 +180,7 @@
 					</div>
 				</td>
 			</tr>
-			
+
 			<tr style="height: 40px !important;">
 				<td>
 					<p style="margin-top: 70px;direction: rtl; text-align: justify;">
@@ -216,7 +216,7 @@
 					</div>
 				</td>
 			</tr>
-			
+
 		</table>
 	{{-- </div> --}}
 

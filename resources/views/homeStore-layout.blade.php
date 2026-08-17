@@ -292,7 +292,7 @@
                                                 <div class="row">
                                                     <div class="col-4 m-auto">
                                                         <img class="w-100"
-                                                            src="{{ asset('storage/images/' . $item->images->first()->name) }}"
+                                                            src="{{ asset('storage/' . $item->images->first()->name) }}"
                                                             alt="" style="vertical-align: super;">
                                                     </div>
                                                     <div class="col-8">
@@ -457,7 +457,7 @@
                         @foreach ($slideshows as $key => $slideshow)
                             <div class="carousel-item @if ($key == 0) active @endif">
                                 <div class="carousel-background">
-                                    <img src="{{ asset('storage/images/' . $slideshow->image) }}" alt="">
+                                    <img src="{{ asset('storage/' . $slideshow->image) }}" alt="">
                                 </div>
                                 <div class="carousel-container">
                                     <div class="carousel-content">

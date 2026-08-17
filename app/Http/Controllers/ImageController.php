@@ -99,7 +99,7 @@ class ImageController extends Controller
         $order = $image->ordering;
 
         $file[0] = '/public/images/'.$image->name;
-        $file[1] = '/public/images/thumbnails/'.$image->name;
+        $file[1] = '/public/'.$image->name;
         // dd($file);
         Storage::delete($file);
         $image->delete();
@@ -133,7 +133,7 @@ class ImageController extends Controller
                 ->where('id','<>',$image1->id)
                 ->where('ordering','<=',$newIndex)
                 ->where('ordering','>=',$oldIndex)
-                ->get(); 
+                ->get();
             // dd($otherImages);
             foreach ($otherImages as $image) {
                 $image->ordering = $image->ordering - 1;
@@ -157,5 +157,5 @@ class ImageController extends Controller
         $image1->save();
     }
 
-    
+
 }

@@ -4,7 +4,7 @@
 
 @push('link')
 <link href="{{asset('/hometemplate/lib/font-awesome/css/all.min.css')}}" rel="stylesheet">
-<link href="{{asset('/hometemplate/lib/animate/animate.min.css')}}" rel="stylesheet"> 
+<link href="{{asset('/hometemplate/lib/animate/animate.min.css')}}" rel="stylesheet">
 <link href="{{asset('/hometemplate/lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
 <link href="{{asset('/hometemplate/lib/ionicons/css/ionicons.min.css')}}" rel="stylesheet">
 <link href="{{asset('/storetemplate/dist/css/termehsalari.css')}}" rel="stylesheet">
@@ -108,8 +108,8 @@
           		<div style="" class="col-md-7 m-auto">
           			<div class="owl-carousel owl-theme" id="slideshow" style=" width:100%;">
           				@foreach($images as $key=>$image)
-          					<a href="{{asset('storage/images/'.$image['name'])}}">
- 							 	<img class="w-100 zoom" style="" src="{{asset('storage/images/'.$image['name'])}}" alt="{{$image['name']}}">
+          					<a href="{{asset('storage/'.$image['name'])}}">
+ 							 	<img class="w-100 zoom" style="" src="{{asset('storage/'.$image['name'])}}" alt="{{$image['name']}}">
 							</a>
 						@endforeach
           			</div>
@@ -157,7 +157,7 @@
 	                		@endphp
 
 	                		<div class="row">
-		                		
+
 	                			@if($off > 0)
 			                		<div class="col off" style="border-right: 1px solid #ef3a4e; color: black" >
 			                			<div class="row ">
@@ -172,19 +172,19 @@
 		                				</div>
 			                		</div>
 		                		@endif
-		                		<div class="col price text-center"> 	
+		                		<div class="col price text-center">
                 					<span id="{{ $price }}">{{ number_format($price) }}</span> تومان
 		                		</div>
 		                	</div>
 
-		                	<p>	
+		                	<p>
 		                	<div class="row">
 		                		<input @if($prayermat->quantity > 0) id="addToCart" @endif type="submit" value="افزودن به سبد خرید" class="btn btn-block btn-danger btn-lg @if($prayermat->quantity==0) disabled @endif" data-id = "{{$prayermat->id}}" data-moddel = "Prayermat" data-design="{{ $prayermat->color_design->design->title }}" data-color="{{ $prayermat->color_design->color->color }}" data-title="{{ $prayermat->title }}" data-price="{{ $prices->price }}" data-pay="{{ $price }}" data-off="{{ $off }}" data-local="{{ $prices->local }}" >
 		                	</div>
 		                	</p>
 
 							<div class="br-wrapper br-theme-fontawesome-stars">
-	                				امتیاز : 
+	                				امتیاز :
 							  <select id="showGrade" data-model="Prayermat" data-current-rating="4"> <!-- now hidden -->
 							    <option value="1">1</option>
 							    <option value="2">2</option>
@@ -198,20 +198,20 @@
 							<a href="#" id="addToFavorite" data-id="{{ $prayermat->id }}" data-model="Prayermat" class="float-left mt-1" title="افزودن به لیست علاقه مندی ها" style="font-size: 1.5rem"><i class="@if($prayermat->favorites->where('user_id',Auth::id())->count() > 0 ) fa fa-heart @else far fa-heart @endif"></i></a>
 
 							<a href="" id="compare" title="افزودن به لیست مقایسه" class="float-left ml-2 mt-2" data-id="{{ $prayermat->id }}" data-model="Prayermat" style="vertical-align: middle;"><img src="{{ asset('/storetemplate/dist/img/compare.png') }}"></a>
-								
+
 							{{-- <i class="fas fa-shipping-fast"></i> --}}
 		              	</div>
 		              <!-- /.card-body -->
 
 		              <div>
-		              	
+
 		              </div>
 
 		            </div>
           		</div><!-- /.card-col-md-4 -->
 
           	{{-- </div>row --}}
-            
+
           </div>
           <!-- /.card-body -->
         </div>
@@ -230,7 +230,7 @@
                 <ul class="nav nav-pills ml-auto">
                   <li class="nav-item" id="details"><a class="nav-link active " href="#tab_1" data-toggle="tab"><span>مشخصات فنی محصول</span></a></li>
                    <li class="nav-item" id="comment"><a class="nav-link " href="#tab_2" data-toggle="tab"><span>نظرات کاربران</span></a></li>
-                  
+
                 </ul>
               </div>
               <div class="card-body">
@@ -303,13 +303,13 @@
 	                    		<td>تخفیف</td>
 	                    		<td>
 	                    			@if($prices->offType == 'مبلغ')
-										{{number_format($prices->offPrice)}} 
+										{{number_format($prices->offPrice)}}
 										<small class="badge badge-danger">{{ round(($prices->offPrice * 100) / $prices->price , 1) }}%</small>
 
 									@elseif($prices->offType == 'درصد')
-										{{ number_format(($prices->offPrice * $prices->price) / 100) }} 
+										{{ number_format(($prices->offPrice * $prices->price) / 100) }}
 										<small class="badge badge-danger">{{ $prices->offPrice }}%</small>
-										  
+
 									@endif
 	                    		</td>
 	                  		</tr>
@@ -325,7 +325,7 @@
 	                    		<td>توضیحات بیشتر</td>
 	                    		<td class="multi-line">{{$prayermat->description}}</td>
 	                  		</tr>
-	                  
+
 	                	</table>
                   	</div>
 
@@ -334,14 +334,14 @@
                   	<div class="tab-pane" id="tab_2">
                   		<!-- Box Comment -->
 			            {{-- <div class="card card-widget"> --}}
-			              
+
 			              {{-- <div class="card-body"> --}}
 			                <!-- post text -->
 			                <p>مجموعه ترمه سالاری آماده پذیرش نظرات و پیشنهادات شما مشتریان عزیز می باشد.لطفا تجربیات خود را در استفاده از محصولات ما برای دیگران به اشتراک بگذارید.</p>
 			                <br><br>
 
 			                <div class="br-wrapper br-theme-fontawesome-stars" style="margin-bottom: 20px;">
-	                				شما به این محصول چه امتیازی می دهید:    
+	                				شما به این محصول چه امتیازی می دهید:
 							  <select id="setGrade" data-model="Prayermat" data-id="{{ $prayermat->id }}"> <!-- now hidden -->
 							    <option value="1">1</option>
 							    <option value="2">2</option>
@@ -349,9 +349,9 @@
 							    <option value="4">4</option>
 							    <option value="5">5</option>
 							  </select>
-							 
-							</div>	
-			                
+
+							</div>
+
 				            {{-- </div> --}}
 				            <!-- /.card-body -->
 				            <div class="card-footer card-comments">
@@ -416,12 +416,12 @@
 	              	<div class="">
 	              		<div class="owl-carousel owl-theme listCarousel carousel-fade card-body" id="carouselItems">
 				          	@foreach($likePrayermats as $key=>$likePrayermat)
-				          		
+
 				          		<div class="box-product-outer">
 						            <div class="box-product">
 						                <div class="img-wrapper mb-2">
 						                  	<a href="{{ route('prayermat.show',[$likePrayermat->id]) }}">
-						                      	<img alt="Product" src="{{asset('/storage/images/thumbnails/'.$likePrayermat->images->first()->name)}}" style="width: 100%;height: 100%">
+						                      	<img alt="Product" src="{{asset('/storage/'.$likePrayermat->images->first()->name)}}" style="width: 100%;height: 100%">
 						                  	</a>
 						                </div>
 						                <h6>
@@ -456,7 +456,7 @@
 						                </div>
 						                <small class="text-muted">{{ count($likePrayermat->grades) }} نفر</small>
 						                <div class="br-wrapper br-theme-fontawesome-stars float-left">
-						                  <select class="showGradeLikePrayermat{{$key}}"> 
+						                  <select class="showGradeLikePrayermat{{$key}}">
 						                      <option value="1">1</option>
 						                      <option value="2">2</option>
 						                      <option value="3">3</option>
@@ -469,7 +469,7 @@
 						                  <i class="fas fa-bell" style="color: #ef3a4e"></i>
 						                  @endif
 						                  <small @if($likePrayermat->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-						                  @if($likePrayermat->quantity == 0) اتمام موجودی در انبار 
+						                  @if($likePrayermat->quantity == 0) اتمام موجودی در انبار
 						                    @elseif($likePrayermat->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
 						                  @endif
 						                  </small>
@@ -480,12 +480,12 @@
 
 				          	@endforeach
 				        </div>
-	              	</div>	
+	              	</div>
 	              <!-- /.card-body -->
 	            </div>
 
           	</div>
-          	@endif		
+          	@endif
         </div>
         <!-- /.row -->
         <!-- END CUSTOM TABS -->
@@ -503,10 +503,10 @@
 	<script src="{{asset('/storetemplate/dist/js/grade.js')}}"></script>
 	<script src="{{asset('/storetemplate/dist/js/cart.js')}}"></script>
 	<script src="{{asset('/storetemplate/plugins/magnify-master/dist/js/jquery.magnify.js')}}"></script>
-	<script src="{{asset('/storetemplate/plugins/magnify-master/dist/js/jquery.magnify-mobile.js')}}"></script>	
+	<script src="{{asset('/storetemplate/plugins/magnify-master/dist/js/jquery.magnify-mobile.js')}}"></script>
 	<script>
 	$(function(){
-		
+
 		@foreach($likePrayermats as $key=>$likePrayermat)
 	        $('.showGradeLikePrayermat{{$key}}').barrating({
 	          theme:'fontawesome-stars-o',
@@ -526,6 +526,6 @@
 
 	});//END
 
-		
+
 	</script>
 @endpush

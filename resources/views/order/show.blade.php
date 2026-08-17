@@ -16,16 +16,16 @@
 	    		<div class="card">
 					<div class="card-header">
 						<div class="card-title"><span>جزئیات سفارش</span></div>
-					</div>	
+					</div>
 
 	      			<div class="row m-4" style="font-weight: bold;">
 	      				<div class="col-md-6 col-sm-12 text-right">
-	      					کد  فاکتور : 
+	      					کد  فاکتور :
 	      					{{ $order->code }}
 	      				</div>
 
 	      				<div class="col-md-6 col-sm-12 text-left">
-	      					تاریخ  : 
+	      					تاریخ  :
 	      					{{ Verta($order->created_at)->format('%d %B %Y') }} - {{ $order->created_at->toTimeString() }}
 	      				</div>
 	      			</div>
@@ -38,7 +38,7 @@
 		      					<th>مبلغ</th>
 		      					<th>تخفیف</th>
 		      					<th>قابل پرداخت</th>
-		      					
+
 		      				</tr>
 		      				@foreach($order->orderitems as $orderitem)
 		      					<tr>
@@ -47,7 +47,7 @@
 		      							@php
 		      								$image = $orderitem->orderitemable->images->first();
 		      							@endphp
-		      							<img src="{{asset('storage/images/thumbnails/'. $image['name'])}}" alt="" class="img-circle img-size-50 mr-2">
+		      							<img src="{{asset('storage/'. $image['name'])}}" alt="" class="img-circle img-size-50 mr-2">
 		      							{{ $orderitem->orderitemable->category->title }} طرح {{ $orderitem->orderitemable->color_design->design->title }} رنگ {{ $orderitem->orderitemable->color_design->color->color }}
 		      						</td>
 		      						<td>{{ $orderitem->count }}</td>
@@ -93,12 +93,12 @@
 		      					<div class="col-sm-12 col-md-3 mb-4 text-center">
 	      							<b>تخفیف ویژه </b>
 	      							<p>
-	      								@php  
+	      								@php
 	      									if ($order->discountCard->type == "price")
 	      										print number_format($order->discountCard->amount);
 	      									elseif($order->discountCard->type == "percent")
 	      										print number_format( ($order->discountCard->amount * $sumPrice)/100 );
-	      									
+
 	      								@endphp
 	      								{{ $order->local }}
 	      							</p>
@@ -128,7 +128,7 @@
 									<b>شماره موبایل : </b> {{ $order->recipient->mobile }}
 								</div>
 							</div>
-							
+
 							<div class="row">
 								<div class="col-md-9 col-sm-12 mb-4">
 									<b>آدرس   : </b> {{ $order->recipient->city->name }} - {{ $order->recipient->subcity->name }} - {{ $order->recipient->address }} - پلاک {{ $order->recipient->houseId }}
@@ -173,7 +173,7 @@
 						</div>
 						@php
 							$payment = $order->payments->filter(function($pay){
-					            
+
 					                if ($pay->tracing_code <> '' or $pay->res_code == 0) {
 					                    return true;
 					                }

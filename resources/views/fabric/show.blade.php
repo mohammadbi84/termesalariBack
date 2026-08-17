@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="{{asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css')}}">
 <link rel="stylesheet" href="{{asset('/storetemplate/plugins/jquery-bar-rating/dist/themes/fontawesome-stars-o.css')}}">
 <style type="text/css">
-	
+
 /*.owl-item:hover {
     -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
     box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
@@ -119,8 +119,8 @@
           		<div style="" class="col-md-7 m-auto">
           			<div class="owl-carousel owl-theme" id="slideshow" style=" width:100%;">
           				@foreach($images as $key=>$image)
-          					<a href="{{asset('storage/images/'.$image['name'])}}">
- 							 	<img class="w-100 zoom" style="" src="{{asset('storage/images/'.$image['name'])}}" alt="{{$image['name']}}">
+          					<a href="{{asset('storage/'.$image['name'])}}">
+ 							 	<img class="w-100 zoom" style="" src="{{asset('storage/'.$image['name'])}}" alt="{{$image['name']}}">
  							</a>
 						@endforeach
           			</div>
@@ -168,7 +168,7 @@
 	                		@endphp
 
 	                		<div class="row">
-		                		
+
 	                			@if($off > 0)
 			                		<div class="col off" style="border-right: 1px solid #ef3a4e; color: black" >
 			                			<div class="row ">
@@ -183,19 +183,19 @@
 		                				</div>
 			                		</div>
 		                		@endif
-		                		<div class="col price text-center"> 	
+		                		<div class="col price text-center">
                 					<span id="{{ $price }}">{{ number_format($price) }}</span> تومان
 		                		</div>
 		                	</div>
 
-		                	<p>	
+		                	<p>
 		                	<div class="row">
 		                		<input @if($fabric->quantity > 0) id="addToCart" @endif type="submit" value="افزودن به سبد خرید" class="btn btn-block btn-danger btn-lg @if($fabric->quantity==0) disabled @endif" data-id = "{{$fabric->id}}" data-moddel = "Fabric" data-design="{{ $fabric->color_design->design->title }}" data-color="{{ $fabric->color_design->color->color }}" data-title="{{ $fabric->title }}" data-price="{{ $prices->price }}" data-pay="{{ $price }}" data-off="{{ $off }}" data-local="{{ $prices->local }}" >
 		                	</div>
 		                	</p>
 
 							<div class="br-wrapper br-theme-fontawesome-stars">
-	                				امتیاز : 
+	                				امتیاز :
 							  <select id="showGrade" data-model="Fabric" data-current-rating="4"> <!-- now hidden -->
 							    <option value="1">1</option>
 							    <option value="2">2</option>
@@ -209,20 +209,20 @@
 							<a href="#" id="addToFavorite" data-id="{{ $fabric->id }}" data-model="Fabric" class="float-left mt-1" title="افزودن به لیست علاقه مندی ها" style="font-size: 1.5rem"><i class="@if($fabric->favorites->where('user_id',Auth::id())->count() > 0 ) fa fa-heart @else far fa-heart @endif"></i></a>
 
 							<a href="" id="compare" title="افزودن به لیست مقایسه" class="float-left ml-2 mt-2" data-id="{{ $fabric->id }}" data-model="Fabric" style="vertical-align: middle;"><img src="{{ asset('/storetemplate/dist/img/compare.png') }}"></a>
-								
+
 							{{-- <i class="fas fa-shipping-fast"></i> --}}
 		              	</div>
 		              <!-- /.card-body -->
 
 		              <div>
-		              	
+
 		              </div>
 
 		            </div>
           		</div><!-- /.card-col-md-4 -->
 
           	{{-- </div>row --}}
-            
+
           </div>
           <!-- /.card-body -->
         </div>
@@ -241,7 +241,7 @@
                 <ul class="nav nav-pills ml-auto">
                   <li class="nav-item" id="details"><a class="nav-link active " href="#tab_1" data-toggle="tab"><span>مشخصات فنی محصول</span></a></li>
                    <li class="nav-item" id="comment"><a class="nav-link " href="#tab_2" data-toggle="tab"><span>نظرات کاربران</span></a></li>
-                  
+
                 </ul>
               </div>
               <div class="card-body">
@@ -276,7 +276,7 @@
 	                    		<td>رنگ محصول</td>
 	                    		<td>{{ $fabric->color_design->color->color }}</td>
 	                  		</tr>
-	                  		
+
 	                  		<tr>
 	                    		<td>ابعاد محصول</td>
 	                    		<td class="multi-line">{{$fabric->dimensions}}</td>
@@ -288,7 +288,7 @@
 	                  		<tr>
 	                    		<td>جنس محصول</td>
 	                    		<td>{{$fabric->kind}}</td>
-	                  		</tr>	                  		
+	                  		</tr>
 	                  		<tr>
 	                    		<td>قابلیت شستشو</td>
 	                    		<td>{{$fabric->washable}}</td>
@@ -302,13 +302,13 @@
 	                    		<td>تخفیف</td>
 	                    		<td>
 	                    			@if($prices->offType == 'مبلغ')
-										{{number_format($prices->offPrice)}} 
+										{{number_format($prices->offPrice)}}
 										<small class="badge badge-danger">{{ round(($prices->offPrice * 100) / $prices->price , 1) }}%</small>
 
 									@elseif($prices->offType == 'درصد')
-										{{ number_format(($prices->offPrice * $prices->price) / 100) }} 
+										{{ number_format(($prices->offPrice * $prices->price) / 100) }}
 										<small class="badge badge-danger">{{ $prices->offPrice }}%</small>
-										  
+
 									@endif
 	                    		</td>
 	                  		</tr>
@@ -324,7 +324,7 @@
 	                    		<td>توضیحات بیشتر</td>
 	                    		<td class="multi-line">{{$fabric->description}}</td>
 	                  		</tr>
-	                  
+
 	                	</table>
                   	</div>
 
@@ -337,7 +337,7 @@
 			                <br><br>
 
 			                <div class="br-wrapper br-theme-fontawesome-stars" style="margin-bottom: 20px;">
-	                				شما به این محصول چه امتیازی می دهید:    
+	                				شما به این محصول چه امتیازی می دهید:
 							  <select id="setGrade" data-model="Fabric" data-id="{{ $fabric->id }}"> <!-- now hidden -->
 							    <option value="1">1</option>
 							    <option value="2">2</option>
@@ -345,9 +345,9 @@
 							    <option value="4">4</option>
 							    <option value="5">5</option>
 							  </select>
-							 
-							</div>	
-			                
+
+							</div>
+
 				            {{-- </div> --}}
 				            <!-- /.card-body -->
 				            <div class="card-footer card-comments">
@@ -411,12 +411,12 @@
 	              	<div class="">
 	              		<div class="owl-carousel owl-theme listCarousel carousel-fade card-body" id="carouselItems">
 				          	@foreach($likeFabrics as $key=>$likeFabric)
-				          		
+
 				          		<div class="box-product-outer">
 						            <div class="box-product">
 						                <a href="{{ route('fabric.show',[$likeFabric->id]) }}">
 						                	<div class="img-wrapper mb-2">
-						                      	<img alt="Product" src="{{asset('/storage/images/thumbnails/'.$likeFabric->images->sortby('ordering')->first()->name)}}" class="w-100">
+						                      	<img alt="Product" src="{{asset('/storage/'.$likeFabric->images->sortby('ordering')->first()->name)}}" class="w-100">
 						                	</div>
 						                </a>
 						                <h6>
@@ -451,7 +451,7 @@
 						                </div>
 						                <small class="text-muted">{{ count($likeFabric->grades) }} نفر</small>
 						                <div class="br-wrapper br-theme-fontawesome-stars float-left">
-						                  <select class="showGradeLikeFabric{{$key}}"> 
+						                  <select class="showGradeLikeFabric{{$key}}">
 						                      <option value="1">1</option>
 						                      <option value="2">2</option>
 						                      <option value="3">3</option>
@@ -464,7 +464,7 @@
 						                  <i class="fas fa-bell" style="color: #ef3a4e"></i>
 						                  @endif
 						                  <small @if($likeFabric->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-						                  @if($likeFabric->quantity == 0) اتمام موجودی در انبار 
+						                  @if($likeFabric->quantity == 0) اتمام موجودی در انبار
 						                    @elseif($likeFabric->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
 						                  @endif
 						                  </small>
@@ -475,12 +475,12 @@
 
 				          	@endforeach
 				        </div>
-	              	</div>	
+	              	</div>
 	              <!-- /.card-body -->
 	            </div>
 
           	</div>
-          	@endif		
+          	@endif
         </div>
         <!-- /.row -->
         <!-- END CUSTOM TABS -->
@@ -500,7 +500,7 @@
 	<script src="{{asset('/storetemplate/plugins/magnify-master/dist/js/jquery.magnify-mobile.js')}}"></script>
 	<script>
 	$(function(){
-		
+
 		@foreach($likeFabrics as $key=>$likeFabric)
 	        $('.showGradeLikeFabric{{$key}}').barrating({
 	          theme:'fontawesome-stars-o',
@@ -519,6 +519,6 @@
 
 	});//END
 
-		
+
 	</script>
 @endpush

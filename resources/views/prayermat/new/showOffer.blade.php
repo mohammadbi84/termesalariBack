@@ -103,9 +103,9 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/images/' . $image['name']) }}"
+                                        <img src="{{ asset('storage/' . $image['name']) }}"
                                             alt="{{ $image['name'] }}" class="product-image-show"
-                                            data-zoom-src="{{ asset('storage/images/' . $image['name']) }}">
+                                            data-zoom-src="{{ asset('storage/' . $image['name']) }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -178,7 +178,7 @@
                     <div class="categories-tags">
                         <div class="action-buttons">
                             <a href="#" id="compare" class="d-block mb-1 compare-btn"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $prayermat->images->first()->name) }}"
+                                data-image="{{ asset('/storage/' . $prayermat->images->first()->name) }}"
                                 data-moddel="{{ substr($prayermat->category->model, 4) }}"
                                 data-design="{{ $prayermat->color_design->design->title ?? '' }}"
                                 data-color="{{ $prayermat->color_design->color->color ?? '' }}"
@@ -192,7 +192,7 @@
                             </a>
                             <a href="#"
                                 class="d-block wishlist-btn favorites-btn @if ($prayermat->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $prayermat->images->first()->name) }}"
+                                data-image="{{ asset('/storage/' . $prayermat->images->first()->name) }}"
                                 data-moddel="{{ substr($prayermat->category->model, 4) }}"
                                 data-design="{{ $prayermat->color_design->design->title ?? '' }}"
                                 data-color="{{ $prayermat->color_design->color->color ?? '' }}"
@@ -239,7 +239,7 @@
                                     data-id="{{ $prayermat->id }}">+</button>
                             </div>
                             <button class="btn btn-primary @if ($prayermat->quantity != 0) addToCart @endif"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $prayermat->images->first()->name) }}"
+                                data-image="{{ asset('/storage/' . $prayermat->images->first()->name) }}"
                                 data-id="{{ $prayermat->id }}"
                                 data-moddel="{{ substr($prayermat->category->model, 4) }}"
                                 data-design="{{ $prayermat->color_design->design->title ?? '' }}"
@@ -442,7 +442,7 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/images/' . $image['name']) }}"
+                                        <img src="{{ asset('storage/' . $image['name']) }}"
                                             alt="{{ $image['name'] }}" class="product-image-show">
                                     </div>
                                 @endforeach

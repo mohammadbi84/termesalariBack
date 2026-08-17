@@ -6,7 +6,7 @@
         <ul class="splide__list h-100">
             @foreach ($slideshowImagesB as $slider)
                 <li class="splide__slide position-relative">
-                    <img src="{{ asset('storage/images/' . $slider->image) }}" class="h-100"
+                    <img src="{{ asset('storage/' . $slider->image) }}" class="h-100"
                         style="object-fit: cover;width: 100%;height: 100%;">
                     <div class="slide-caption">{{ $slider->title }}</div>
                 </li>

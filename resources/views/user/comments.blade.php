@@ -23,7 +23,7 @@
                                 {{-- -{{ $com[0]->commentable_type }} --}}
                                 <div class="text-center" style="height: 150px">
                                     @php $image = $com[0]->commentable->images->first(); @endphp
-                                    <img class=" img-fluid" src="{{ asset('storage/images/thumbnails/' . $image['name']) }}"
+                                    <img class=" img-fluid" src="{{ asset('storage/' . $image['name']) }}"
                                         alt="{{ $image['name'] }}">
                                 </div>
 

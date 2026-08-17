@@ -65,10 +65,10 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/images/' . $image['name']) }}"
+                                        <img src="{{ asset('storage/' . $image['name']) }}"
                                             style="border-radius: 10px;" alt="{{ $image['name'] }}"
                                             class="product-image-show"
-                                            data-zoom-src="{{ asset('storage/images/' . $image['name']) }}">
+                                            data-zoom-src="{{ asset('storage/' . $image['name']) }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -86,7 +86,7 @@
                             </a>
                             <a href="#" id="compare" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="{{ __('product.compare') }}" class="share-btn telegram"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $fabric->images->first()->name) }}"
+                                data-image="{{ asset('/storage/' . $fabric->images->first()->name) }}"
                                 data-moddel="{{ substr($fabric->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $fabric->color_design->design->title : $fabric->color_design->design->e_title ?? '' }}"
                                 data-color="{{ app()->getLocale() == 'fa' ? $fabric->color_design->color->color : $fabric->color_design->color->e_color ?? '' }}"
@@ -100,7 +100,7 @@
                             <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="{{ __('product.wishlist') }}"
                                 class="share-btn telegram  favorites-btn @if ($fabric->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $fabric->images->first()->name) }}"
+                                data-image="{{ asset('/storage/' . $fabric->images->first()->name) }}"
                                 data-moddel="{{ substr($fabric->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $fabric->color_design->design->title : $fabric->color_design->design->e_title ?? '' }}"
                                 data-color="{{ app()->getLocale() == 'fa' ? $fabric->color_design->color->color : $fabric->color_design->color->e_color ?? '' }}"
@@ -203,7 +203,7 @@
                                     data-id="{{ $fabric->id }}">+</button>
                             </div>
                             <button class="btn btn-primary @if ($fabric->quantity != 0) addToCart @endif"
-                                data-image="{{ asset('/storage/images/thumbnails/' . $fabric->images->first()->name) }}"
+                                data-image="{{ asset('/storage/' . $fabric->images->first()->name) }}"
                                 data-id="{{ $fabric->id }}"
                                 data-moddel="{{ substr($fabric->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $fabric->color_design->design->title : $fabric->color_design->design->e_title ?? '' }}"
@@ -426,7 +426,7 @@
                                         <div class="product-div p-2">
                                             <div class="hot-product-card">
                                                 <div class="hot-image-container">
-                                                    <img src="{{ asset('/storage/images/thumbnails/' . $fabric->images->first()->name) }}"
+                                                    <img src="{{ asset('/storage/' . $fabric->images->first()->name) }}"
                                                         alt="{{ $fabric->category->title }}"
                                                         class="hot-product-image">
                                                 </div>
@@ -512,7 +512,7 @@
                                                     <div class="d-flex justify-content-between align-items-center gap-2">
                                                         <button
                                                             class="buy-button shadow-none add-to-cart favorites-btn @if ($fabric->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
-                                                            data-image="{{ asset('/storage/images/thumbnails/' . $fabric->images->first()->name) }}"
+                                                            data-image="{{ asset('/storage/' . $fabric->images->first()->name) }}"
                                                             data-moddel="{{ substr($fabric->category->model, 4) }}"
                                                             data-design="{{ app()->getLocale() == 'fa' ? $fabric->color_design->design->title : $fabric->color_design->design->e_title ?? '' }}"
                                                             data-color="{{ app()->getLocale() == 'fa' ? $fabric->color_design->color->color : $fabric->color_design->color->e_color ?? '' }}"
@@ -531,7 +531,7 @@
                                                         <button
                                                             class="buy-button shadow-none add-to-cart @if ($fabric->quantity != 0) addToCart @endif"
                                                             style="width:30px;height:30px"
-                                                            data-image="{{ asset('/storage/images/thumbnails/' . $fabric->images->first()->name) }}"
+                                                            data-image="{{ asset('/storage/' . $fabric->images->first()->name) }}"
                                                             data-id="{{ $fabric->id }}"
                                                             data-moddel="{{ substr($fabric->category->model, 4) }}"
                                                             data-design="{{ app()->getLocale() == 'fa' ? $fabric->color_design->design->title : $fabric->color_design->design->e_title ?? '' }}"
@@ -609,7 +609,7 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/images/' . $image['name']) }}"
+                                        <img src="{{ asset('storage/' . $image['name']) }}"
                                             alt="{{ $image['name'] }}" class="product-image-show">
                                     </div>
                                 @endforeach

@@ -15,7 +15,7 @@
                     @php $image = $favorite->favoriteable->images->first(); @endphp
                     <a href="{{ route('tablecloth.show', [$favorite->favoriteable->id]) }}">
                         <img class="media-left pl-3" style="width: 200px" alt="Image"
-                            src="{{ asset('storage/images/thumbnails/' . $image['name']) }}">
+                            src="{{ asset('storage/' . $image['name']) }}">
                     </a>
                     <div class="media-body">
                         <a

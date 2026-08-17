@@ -215,7 +215,7 @@
 		          						<div class="images owl-carousel owl-theme m-auto" style="width: 100px; height: 100px;" id="slideshow{{ $compare->id }}">
 		          							@foreach($compare->images as $key=>$image)
 												<div>
-					 							 	<img class="w-100" style="" src="{{asset('storage/images/'.$image['name'])}}" alt="{{$image['name']}}">
+					 							 	<img class="w-100" style="" src="{{asset('storage/'.$image['name'])}}" alt="{{$image['name']}}">
 												</div>
 											@endforeach
 		          						</div>
