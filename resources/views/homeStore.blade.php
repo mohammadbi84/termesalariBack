@@ -15,7 +15,7 @@
   }
 
   .small-box>.small-box-footer:hover{
-    background: rgba(0,0,0,.6) !important; 
+    background: rgba(0,0,0,.6) !important;
   }
 
   .ui-chat-container .btn_chat_lancher span.open_me{
@@ -63,7 +63,7 @@
     }
 
     @media (min-width:400px) and (max-width: 500px) {
-      
+
       #main {
         padding: 0px !important;
       }
@@ -154,7 +154,7 @@
                 </form>
               </div>
 
-              
+
 
               {{-- <div class="col-12 position-relative" style="min-height: 49%; background: #4dd871 url('{{ asset('/storetemplate/dist/img/newsletter.jpg') }}') no-repeat center top; background-size: 80%;">
                 <form method="post" action="{{ route('newsletter.store') }}" class="w-100">
@@ -173,7 +173,7 @@
               </div> --}}
               {{-- <div class="col-12 mt-2" style="min-height: 49%; background: #0dbbd3 url('{{ asset('/storetemplate/dist/img/join-us.jpg') }}') no-repeat right center; background-size: 100%;">
               </div> --}}
-              
+
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@
               <div class="card-title">
                 <span>محصولات</span>
                 {{-- @php dd($_SERVER['HTTP_HOST']) @endphp --}}
-              </div> 
+              </div>
             </div>
             <div class="card-body">
               <div class="row justify-content-center">
@@ -241,7 +241,7 @@
             <div class="card-header">
               <div class="card-title">
                 <span>محصولات</span>
-              </div> 
+              </div>
             </div>
             <div class="card-body">
               <div id="tableclothsCategories" class="owl-carousel owl-theme listCarousel carousel-fade">
@@ -263,7 +263,7 @@
               <div class="card-header">
                 <div class="card-title">
                   <span>سرمه دوزی</span>
-                </div> 
+                </div>
               </div>
               <!-- <div class="container carousel"> -->
               <div id="topRequests" class="owl-carousel owl-theme listCarousel carousel-fade card-body" data-ride="carousel">
@@ -291,7 +291,7 @@
                                   @break
                             @endswitch
                           ">
-                              <img alt="Product" src="{{asset('/storage/images/thumbnails/'.$sermehProduct->images->first()->name)}}">
+                              <img alt="Product" src="{{asset('storage/'.$sermehProduct->images->first()->name)}}">
                           </a>
                         </div>
                         <h6>
@@ -299,7 +299,7 @@
                         </h6>
                         <div class="price">
                             @php
-                              $prices = $sermehProduct->prices->where("local","تومان")->first();  
+                              $prices = $sermehProduct->prices->where("local","تومان")->first();
                             @endphp
                             <div>
                               @if($prices->offPrice > 0)
@@ -326,7 +326,7 @@
                         </div>
                         <small class="text-muted">{{ count($sermehProduct->grades) }} نفر</small>
                         <div class="br-wrapper br-theme-fontawesome-stars float-left">
-                          <select class="showGrade{{$key}}"> 
+                          <select class="showGrade{{$key}}">
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -339,7 +339,7 @@
                           <i class="fas fa-bell" style="color: #ef3a4e"></i>
                           @endif
                           <small @if($sermehProduct->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-                          @if($sermehProduct->quantity == 0) اتمام موجودی در انبار 
+                          @if($sermehProduct->quantity == 0) اتمام موجودی در انبار
                             @elseif($sermehProduct->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
                           @endif
                           </small>
@@ -347,7 +347,7 @@
 
                       </div>
                   </div>
-                
+
                 @endforeach
               </div>
             </div>
@@ -359,7 +359,7 @@
               <div class="card-title">
                 <span>محصولات رومیزی</span>
                 {{-- @php dd($_SERVER['HTTP_HOST']) @endphp --}}
-              </div> 
+              </div>
             </div>
             <div class="card-body">
               <div id="tableclothsCategories" class="owl-carousel owl-theme listCarousel carousel-fade">
@@ -378,18 +378,18 @@
               </div>
             </div>
           </div>
-        
+
           @if(isset($topRequests) and count($topRequests) > 0)
             <div class="col-12">
               <div class="card-header">
                 <div class="card-title">
                   <span>پرفروش ترین ها</span>
-                </div> 
+                </div>
               </div>
               <!-- <div class="container carousel"> -->
               <div class="card-body">
                 <div id="topRequests" class="owl-carousel owl-theme listCarousel carousel-fade" data-ride="carousel">
-                
+
                   @foreach($topRequests as $key=>$topRequest)
                     <div class="box-product-outer">
                         <div class="box-product">
@@ -413,7 +413,7 @@
                                     @break
                               @endswitch
                             ">
-                                <img alt="Product" src="{{asset('/storage/images/thumbnails/'.$topRequest->orderitemable->images->first()->name)}}">
+                                <img alt="Product" src="{{asset('storage/'.$topRequest->orderitemable->images->first()->name)}}">
                             </a>
                           </div>
                           <h6>
@@ -421,7 +421,7 @@
                           </h6>
                           <div class="price">
                               @php
-                                $prices = $topRequest->orderitemable->prices->where("local","تومان")->first();  
+                                $prices = $topRequest->orderitemable->prices->where("local","تومان")->first();
                               @endphp
                               <div>
                                 @if($prices->offPrice > 0)
@@ -448,7 +448,7 @@
                           </div>
                           <small class="text-muted">{{ count($topRequest->orderitemable->grades) }} نفر</small>
                           <div class="br-wrapper br-theme-fontawesome-stars float-left">
-                            <select class="showGrade{{$key}}"> 
+                            <select class="showGrade{{$key}}">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -461,7 +461,7 @@
                             <i class="fas fa-bell" style="color: #ef3a4e"></i>
                             @endif
                             <small @if($topRequest->orderitemable->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-                            @if($topRequest->orderitemable->quantity == 0) اتمام موجودی در انبار 
+                            @if($topRequest->orderitemable->quantity == 0) اتمام موجودی در انبار
                               @elseif($topRequest->orderitemable->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
                             @endif
                             </small>
@@ -469,10 +469,10 @@
 
                         </div>
                     </div>
-                  
+
                   @endforeach
                 </div>
-                
+
               </div>
             </div>
           @endif
@@ -482,7 +482,7 @@
               <div class="card-header">
                 <div class="card-title">
                   <span>پیشنهاد ویژه</span>
-                </div> 
+                </div>
               </div>
               <!-- <div class="container carousel"> -->
               <div id="specials" class="owl-carousel owl-theme listCarousel carousel-fade  card-body" data-ride="carousel">
@@ -509,7 +509,7 @@
                                 @break
                           @endswitch
                         ">
-                            <img alt="Product" src="{{asset('/storage/images/thumbnails/'.$special->priceable->images->first()->name)}}">
+                            <img alt="Product" src="{{asset('storage/'.$special->priceable->images->first()->name)}}">
                         </a>
                       </div>
                       <h6>
@@ -550,7 +550,7 @@
                       </div>
                       <small class="text-muted">{{ count($special->priceable->grades) }} نفر</small>
                       <div class="br-wrapper br-theme-fontawesome-stars float-left">
-                        <select class="showGradeSpecial{{$key}}"> 
+                        <select class="showGradeSpecial{{$key}}">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -563,7 +563,7 @@
                         <i class="fas fa-bell" style="color: #ef3a4e"></i>
                         @endif
                         <small @if($special->priceable->quantity > 5) style="color: #000" @else style="color: #ef3a4e" @endif>
-                        @if($special->priceable->quantity == 0) اتمام موجودی در انبار 
+                        @if($special->priceable->quantity == 0) اتمام موجودی در انبار
                           @elseif($special->priceable->quantity <= 5)کمتر از 5 عدد موجود می باشد  .
                         @endif
                         </small>
@@ -581,7 +581,7 @@
 <!--   </div>
 </div> -->
 @endsection
- 
+
  @push('js')
   <script>
     $(function () {
@@ -602,7 +602,7 @@
           initialRating: "{{$special->priceable->grades->avg('grade') ?? '0'}}",
           readonly:true,
         });
-      @endforeach   
+      @endforeach
 //--------------------------------------------Carousel-------------------------------------
     	var owl = $("#tableclothsCategories, #like, #topRequests, #specials").owlCarousel({
         dots: true,
@@ -615,7 +615,7 @@
         autoplayHoverPause:true,
         // lazyLoad: true,
         margin: 30,
-        smartSpeed:450, 
+        smartSpeed:450,
         // navText:['<i class="fa fa-chevron-left"></i>','<i class="fa fa-chevron-right"></i>'],
         responsiveClass:true,
         autoplayHoverPause: true, // Stops autoplay
@@ -639,7 +639,7 @@
           1500:{
               items:3,
           }
-        } 
+        }
       });
 
       // var block = false;
@@ -674,7 +674,7 @@
         smartSpeed:450,
       });
 
-      
+
 
     })//end
   </script>
