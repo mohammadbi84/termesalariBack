@@ -746,7 +746,7 @@
                                     {{ $order->created_at->toTimeString() }}
                                 </div>
                                 <div class="col-md-4 col-sm-12 mb-4">
-                                    {{ __('user.orders.header.payment') }} : {{ number_format($sumPay) }}
+                                    {{ __('user.orders.header.payment') }} : {{ number_format($sumPay ?? 0) }}
                                     {{ $order->local }}
                                 </div>
                                 <div class="col-md-1 col-sm-12 mb-4 collapse-icon text-danger">
@@ -796,11 +796,11 @@
 
                                 <div class="col-sm-12 col-md-3 mb-4 text-center">
                                     <span class="text-bold mb-4">{{ __('user.orders.summary.total') }}</span>
-                                    <p>{{ number_format($sumPrice) }} {{ $order->local }}</p>
+                                    <p>{{ number_format($sumPrice ?? 0) }} {{ $order->local }}</p>
                                 </div>
                                 <div class="col-sm-12 col-md-3 mb-4 text-center">
                                     <span class="text-bold mb-4">{{ __('user.orders.summary.total_discount') }}</span>
-                                    <p>{{ number_format($sumOff) }} {{ $order->local }}</p>
+                                    <p>{{ number_format($sumOff ?? 0) }} {{ $order->local }}</p>
                                 </div>
                                 @if ($order->discount_card_id != '')
                                     <div class="col-sm-12 col-md-2 mb-4 text-center">
@@ -811,7 +811,7 @@
                                 <div class="col-sm-12 col-md-4 mb-4 text-center">
                                     <span
                                         class="text-bold mb-4">{{ __('user.orders.summary.total_payable_with_shipping') }}</span>
-                                    <p>{{ number_format($sumPay) }} {{ $order->local }}</p>
+                                    <p>{{ number_format($sumPay ?? 0) }} {{ $order->local }}</p>
                                 </div>
                             </div>
 
