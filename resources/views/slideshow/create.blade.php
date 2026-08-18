@@ -61,14 +61,28 @@
 						</div>
 
 						<div class="form-group @error('image') is-invalid @enderror">
-				            <label for="image">انتخاب تصویر </label>
+				            {{-- <label for="image">انتخاب تصویر </label>
                             <small class="text-danger">در صورت اپلود ویدیو، این فیلد به عنوان کاور انتخاب میشود.</small>
 							<div class="file-loading">
 							    <input id="image" name="image" type="file" multiple data-browse-on-zone-click="true" data-show-upload="true" data-show-caption="true" data-upload-url="#">
 							</div>
 							@error('image')
 								<div class="invalid-feedback d-block">{{$message}}</div>
-							@enderror
+							@enderror --}}
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                    </a>
+                                </span>
+                                <input id="thumbnail" class="form-control" type="text" name="image"
+                                    value="{{ old('image') }}">
+                            </div>
+                            <small class="text-danger">در صورت اپلود ویدیو، این فیلد به عنوان کاور انتخاب میشود.</small>
+                            @error('image')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                            <img id="holder" style="margin-top:15px;max-height:100px;" src="{{ old('image') ? asset('storage/' . old('image')) : '' }}">
 				        </div>
 						<div class="form-group @error('video') is-invalid @enderror">
 				            <label for="video">ویدیو </label>
@@ -124,6 +138,10 @@
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js')}}"></script>
 	<!-- Select2 -->
 	<script src="{{asset('../storetemplate/plugins/select2/select2.full.min.js')}}"></script>
+    <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+    <script>
+        $('#lfm').filemanager('image');
+    </script>
 	<script>
 	$(function () {
 

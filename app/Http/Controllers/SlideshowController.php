@@ -35,13 +35,13 @@ class SlideshowController extends Controller
     public function store(SlideshowRequest $request)
     {
         // dd($request->all());
-        $path = $request->image->store('images/slideshow/');
+        // $path = $request->image->store('images/slideshow/');
         if ($request->video) {
             $pathVideo = $request->video->store('videos/slideshow/', 'public');
         }
         $slideshow = new Slideshow;
         $slideshow->fill($request->all());
-        $slideshow->image = "/slideshow/" . basename($path);
+        $slideshow->image = $request->image;
         if ($request->video) {
             $slideshow->video = "/slideshow/" . basename($pathVideo);
         }
@@ -73,7 +73,7 @@ class SlideshowController extends Controller
             'position' => 'required|string',
             'title' => 'required|string',
             'description' => 'nullable|string',
-            'image' => 'image|mimes:jpeg,png,jpg',
+            'image' => 'nullable',
             'link' => 'required|string',
             // 'order' => 'required|numeric|'.
             //     Rule::unique('slideshows')->ignore($slideshow->id)->where(function ($query) {
@@ -114,8 +114,8 @@ class SlideshowController extends Controller
             // dd($request->image);
             $file = 'images/' . $slideshow->image;
             Storage::delete($file);
-            $path = $request->image->store('images/slideshow/', 'public');
-            $slideshow->image = "/slideshow/" . basename($path);
+            // $path = $request->image->store('images/slideshow/', 'public');
+            $slideshow->image = $request->image;
         }
 
         // dd($slideshow);

@@ -27,7 +27,7 @@ class SlideshowRequest extends FormRequest
             'position' => 'required|string' ,
             'title' => 'required|string' ,
             'description' => 'nullable|string' ,
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'required',
             'video' => 'nullable',
             'link' => 'required|string' ,
             'duration' =>'required|integer',

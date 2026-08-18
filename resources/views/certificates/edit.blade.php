@@ -95,9 +95,32 @@
                             {{-- ================= آپلود جدید ================= --}}
                             <div class="form-group">
                                 <label>افزودن گواهی جدید</label>
-                                <div class="file-loading">
+                                {{-- <div class="file-loading">
                                     <input id="certificates" name="certificates[]" type="file" multiple>
+                                </div> --}}
+                                <div id="image-repeater" class="mb-2">
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_1" data-preview="holder_1"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_1" class="form-control" type="text"
+                                                name="certificates[]" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker"
+                                                aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
                                 </div>
+                                <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
+                                    <i class="fa fa-plus"></i> افزودن تصویر جدید
+                                </button>
+                                @error('certificates')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -117,7 +140,59 @@
     <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
     <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
+    <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+    <script>
+        $(function() {
+            var imageCounter = 1;
 
+            function initImagePicker(row) {
+                if (!row || !row.length) {
+                    return;
+                }
+
+                row.find('.lfm').filemanager('image');
+
+                row.find('.remove-image-picker').off('click').on('click', function() {
+                    var $rows = $('#image-repeater .image-picker-row');
+                    if ($rows.length > 1) {
+                        $(this).closest('.image-picker-row').remove();
+                    } else {
+                        var $row = $(this).closest('.image-picker-row');
+                        $row.find('input[name="certificates[]"]').val('');
+                        $row.find('img').attr('src', '');
+                    }
+                });
+            }
+
+            function addImagePicker() {
+                imageCounter++;
+
+                var $row = $(
+                    '<div class="image-picker-row mb-2">' +
+                    '    <div class="input-group">' +
+                    '        <span class="input-group-btn">' +
+                    '            <a data-input="thumbnail_' + imageCounter + '" data-preview="holder_' +
+                    imageCounter + '" class="lfm btn btn-primary">' +
+                    '                <i class="fa fa-picture-o"></i> انتخاب تصویر' +
+                    '            </a>' +
+                    '        </span>' +
+                    '        <input id="thumbnail_' + imageCounter +
+                    '" class="form-control" type="text" name="certificates[]" placeholder="مسیر تصویر را انتخاب کنید">' +
+                    '        <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>' +
+                    '    </div>' +
+                    '    <img id="holder_' + imageCounter +
+                    '" style="margin-top:10px;max-height:100px;display:block;">' +
+                    '</div>'
+                );
+
+                $('#image-repeater').append($row);
+                initImagePicker($row);
+            }
+
+            initImagePicker($('#image-repeater .image-picker-row'));
+            $('#add-image-picker').on('click', addImagePicker);
+        });
+    </script>
     <script>
         $("#certificates").fileinput({
             theme: "fas",

@@ -23,7 +23,7 @@ class CertificateSectionController extends Controller
             'title_en' => 'nullable|string|max:255',
             'description_fa' => 'nullable|string',
             'description_en' => 'nullable|string',
-            'certificates.*' => 'nullable|image|max:4096',
+            'certificates.*' => 'nullable|string',
         ]);
 
         DB::beginTransaction();
@@ -40,15 +40,15 @@ class CertificateSectionController extends Controller
             $section->save();
 
             // اگر تصاویر جدید آپلود شد
-            if ($request->hasFile('certificates')) {
+            if ($request->certificates) {
 
-                foreach ($request->file('certificates') as $index => $file) {
+                foreach ($request->certificates as $index => $file) {
 
-                    $path = $file->store('certificates', 'public');
+                    // $path = $file->store('certificates', 'public');
 
                     Certificate::create([
                         'certificate_section_id' => $section->id,
-                        'image' => $path,
+                        'image' => $file,
                         'order' => $index,
                     ]);
                 }

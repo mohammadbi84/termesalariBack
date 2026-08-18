@@ -7,6 +7,7 @@ use App\City;
 use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class AgencyController extends Controller
@@ -37,12 +38,12 @@ class AgencyController extends Controller
         $request->validate([
             'name_fa' => 'required|string',
             'name_en' => 'required|string',
-            'image' => 'nullable|image',
+            'image' => 'nullable',
             'address_fa' => 'required',
             'address_en' => 'required',
             'city_id' => 'nullable',
             'state_id' => 'required|exists:cities,id',
-            'slider_images.*' => 'nullable|image',
+            'slider_images.*' => 'nullable|',
         ]);
 
         DB::beginTransaction();
@@ -50,10 +51,10 @@ class AgencyController extends Controller
         try {
 
             /* ---------- عکس اصلی ---------- */
-            $imagePath = null;
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('agencies', 'public');
-            }
+            // $imagePath = null;
+            // if ($request->hasFile('image')) {
+            //     $imagePath = $request->file('image')->store('agencies', 'public');
+            // }
 
 
             $socialLinks = [];
@@ -71,7 +72,7 @@ class AgencyController extends Controller
             $agency = Agency::create([
                 'name_fa' => $request->name_fa,
                 'name_en' => $request->name_en,
-                'image' => $imagePath,
+                'image' => $request->image,
                 'address_fa' => $request->address_fa,
                 'address_en' => $request->address_en,
                 'latitude' => $request->latitude,
@@ -84,12 +85,12 @@ class AgencyController extends Controller
             ]);
 
             /* ---------- تصاویر اسلایدر ---------- */
-            if ($request->hasFile('slider_images')) {
-                foreach ($request->file('slider_images') as $key => $image) {
-                    $path = $image->store('images/');
+            if ($request->slider_images) {
+                foreach ($request->slider_images as $key => $image) {
+                    // $path = $image->store('images/');
 
                     $img = new Image;
-                    $img->name = basename($path);
+                    $img->name = $image;
                     $img->imageable()->associate($agency);
                     $img->ordering = $key++;
                     $img->save();
@@ -126,12 +127,12 @@ class AgencyController extends Controller
         $request->validate([
             'name_fa' => 'required|string',
             'name_en' => 'required|string',
-            'image' => 'nullable|image',
+            'image' => 'nullable',
             'address_fa' => 'required',
             'address_en' => 'required',
             'city_id' => 'nullable',
             'state_id' => 'required|exists:cities,id',
-            'slider_images.*' => 'nullable|image',
+            'slider_images.*' => 'nullable|array',
         ]);
 
         DB::beginTransaction();
@@ -139,20 +140,20 @@ class AgencyController extends Controller
         try {
 
             /* ---------- عکس اصلی ---------- */
-            if ($request->hasFile('image')) {
+            // if ($request->image) {
 
-                if ($agency->image) {
-                    Storage::disk('public')->delete($agency->image);
-                }
+                // if ($agency->image) {
+                //     Storage::disk('public')->delete($agency->image);
+                // }
 
-                $agency->image = $request->file('image')
-                    ->store('agencies', 'public');
-            }
+                // $agency->image = $request->image;
+            // }
 
             /* ---------- آپدیت اطلاعات ---------- */
             $agency->update([
                 'name_fa' => $request->name_fa,
                 'name_en' => $request->name_en,
+                'image' => $request->image,
                 'address_fa' => $request->address_fa,
                 'address_en' => $request->address_en,
                 'latitude' => $request->latitude,
@@ -169,13 +170,13 @@ class AgencyController extends Controller
             ]);
 
             /* ---------- افزودن تصاویر جدید ---------- */
-            if ($request->hasFile('slider_images')) {
-                foreach ($request->file('slider_images') as $key => $image) {
+            if ($request->slider_images) {
+                foreach ($request->slider_images as $key => $image) {
 
-                    $path = $image->store('images/');
+                    // $path = $image->store('images/');
 
                     $img = new Image;
-                    $img->name = basename($path);
+                    $img->name = $image;
                     $img->imageable()->associate($agency);
                     $img->ordering = $key++;
                     $img->save();
@@ -188,7 +189,7 @@ class AgencyController extends Controller
                 ->route('agency.index')
                 ->with('success', 'نمایندگی با موفقیت بروزرسانی شد');
         } catch (\Exception $e) {
-
+            Log::error($e->getMessage());
             DB::rollBack();
             return back()->withErrors('خطا در بروزرسانی اطلاعات');
         }

@@ -64,7 +64,7 @@
 								@if($slideshow->position == 'homeStore-B') صفحه ورود @elseif ($slideshow->position == 'homeStore-A') صفحه اصلی - موقعیت اول  @endif
 							</td>
 							<td>
-								<img src="{{asset('storage/images'. $slideshow->image)}}" class="img-circle img-size-50 mr-2">
+								<img src="{{asset('storage/'. $slideshow->image)}}" class="img-circle img-size-50 mr-2">
 								{{ $slideshow->title }}
 							</td>
 							<td>{{ $slideshow->link }}</td>

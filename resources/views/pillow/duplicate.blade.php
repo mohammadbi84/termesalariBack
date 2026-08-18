@@ -21,8 +21,8 @@
 		}
 
 		.price {
-		    text-align: right !important; 
-		    color: #000000 !important; 
+		    text-align: right !important;
+		    color: #000000 !important;
 		    font-size: 1rem !important;
 		 }
 	</style>
@@ -80,7 +80,7 @@
 
                   	@error('design_id')
 					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror	
+					@enderror
                 </div>
 
 				<div class="form-group">
@@ -144,7 +144,7 @@
 								<div class="form-group">
 									<label for="price">قیمت محصول</label>
 									<input type="text" name="price[]"  class="form-control price @error('price.' . $key) is-invalid @enderror" placeholder="تنها شامل اعداد" value="{{old('price.' . $key,$prices->price)}}">
-									
+
 									@error('price.' . $key)
 									    <div class="invalid-feedback">{{ $errors->first('price.' . $key) }}</div>
 									@enderror
@@ -169,11 +169,11 @@
 							<div class="col-md-2" style="text-align: left;margin: auto;">
 								@if($key == 0 or $key == 1)
 									<a href="#" class="btn btn-flat btn-secondary addPrice @if( ($key == 0 and $pillow->prices->count() > 1) or ($key == 1 and $pillow->prices->count() > 2) ) d-none @else d-inline-block @endif " style="width: 40px" data-value="prices-{{$key+2}}" >+</a>
-									 
+
 								@endif
-								
+
 									<a href="#" class="btn btn-flat btn-danger delPrice " style="width: 40px" data-value="prices-{{$key+1}}">-</a>
-							</div>	
+							</div>
 
 						</div>
 						<div class="row">
@@ -239,7 +239,7 @@
 							<div class="col-md-2" style="text-align: left;margin: auto;">
 								<a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px" data-value="prices-3">+</a>
 								<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-2">-</a>
-							</div>	
+							</div>
 
 						</div>
 						<div class="row">
@@ -302,7 +302,7 @@
 
 							<div class="col-md-2" style="text-align: left;margin: auto;">
 								<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-3">-</a>
-							</div>	
+							</div>
 
 						</div>
 						<div class="row">
@@ -335,13 +335,34 @@
 				@endif
 
                 <div class="form-group @error('images') is-invalid @enderror">
-                    <label for="images">تصاویر محصول</label>
+                    {{-- <label for="images">تصاویر محصول</label>
 					<div class="file-loading">
 					    <input id="images" name="images[]" type="file" multiple>
 					</div>
-					
-					<div class="invalid-feedback d-block" style=""></div>
-					
+
+					<div class="invalid-feedback d-block" style=""></div> --}}
+
+                    <div id="image-repeater" class="mb-2">
+                        <div class="image-picker-row mb-2">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <a data-input="thumbnail_1" data-preview="holder_1"
+                                        class="lfm btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                    </a>
+                                </span>
+                                <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
+                                <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                            </div>
+                            <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                        </div>
+                    </div>
+                    <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
+                        <i class="fa fa-plus"></i> افزودن تصویر جدید
+                    </button>
+                    @error('images')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -385,7 +406,56 @@
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/js/plugins/sortable.min.js')}}"></script>
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js')}}"></script>
 	<script src="{{asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js')}}"></script>
+<script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+    <script>
+        $(function() {
+            var imageCounter = 1;
 
+            function initImagePicker(row) {
+                if (!row || !row.length) {
+                    return;
+                }
+
+                row.find('.lfm').filemanager('image');
+
+                row.find('.remove-image-picker').off('click').on('click', function() {
+                    var $rows = $('#image-repeater .image-picker-row');
+                    if ($rows.length > 1) {
+                        $(this).closest('.image-picker-row').remove();
+                    } else {
+                        var $row = $(this).closest('.image-picker-row');
+                        $row.find('input[name="images[]"]').val('');
+                        $row.find('img').attr('src', '');
+                    }
+                });
+            }
+
+            function addImagePicker() {
+                imageCounter++;
+
+                var $row = $(
+                    '<div class="image-picker-row mb-2">' +
+                    '    <div class="input-group">' +
+                    '        <span class="input-group-btn">' +
+                    '            <a data-input="thumbnail_' + imageCounter + '" data-preview="holder_' + imageCounter + '" class="lfm btn btn-primary">' +
+                    '                <i class="fa fa-picture-o"></i> انتخاب تصویر' +
+                    '            </a>' +
+                    '        </span>' +
+                    '        <input id="thumbnail_' + imageCounter + '" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">' +
+                    '        <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>' +
+                    '    </div>' +
+                    '    <img id="holder_' + imageCounter + '" style="margin-top:10px;max-height:100px;display:block;">' +
+                    '</div>'
+                );
+
+                $('#image-repeater').append($row);
+                initImagePicker($row);
+            }
+
+            initImagePicker($('#image-repeater .image-picker-row'));
+            $('#add-image-picker').on('click', addImagePicker);
+        });
+    </script>
 	<script>
 	  $(function () {
 
@@ -430,7 +500,7 @@
 	    $('.select2').select2({
 	    	dir: "rtl",
 	    });
-		
+
 
 		$('#design_color_id').click(function(){
 			// console.log();
@@ -509,7 +579,7 @@
 			if($.trim($(this).children(":selected").attr('value'))=='دارد'){
 				$('#kindOfEster').removeAttr('disabled');
 			}
-			
+
 			else
 				$('#kindOfEster').attr('disabled','disabled');
 		});
@@ -555,7 +625,7 @@
 				}
 			}
 		});
-		
+
 
 
 	  });//End
