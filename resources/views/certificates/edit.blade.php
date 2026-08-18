@@ -3,9 +3,9 @@
 @section('title', 'تنظیمات گواهی‌های ثبت شده')
 
 @push('link')
-    <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/css/fileinput.min.css') }}">
     <link rel="stylesheet"
-        href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}">
+        href="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}">
 @endpush
 
 @section('main-content')
@@ -137,9 +137,9 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/fileinput.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
-    <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
+    <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
     <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
     <script>
         $(function() {
