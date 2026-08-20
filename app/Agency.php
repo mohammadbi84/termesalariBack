@@ -42,4 +42,31 @@ class Agency extends Model
     {
         return $this->morphMany('App\Image', 'imageable');
     }
+
+    public function getNameAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->name_en;
+
+            case 'ar':
+                return $this->name_ar;
+
+            default:
+                return $this->name_fa;
+        }
+    }
+    public function getAddressAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->address_en;
+
+            case 'ar':
+                return $this->address_ar;
+
+            default:
+                return $this->address_fa;
+        }
+    }
 }

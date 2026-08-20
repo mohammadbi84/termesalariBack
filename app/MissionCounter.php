@@ -18,4 +18,18 @@ class MissionCounter extends Model
     {
         return $this->belongsTo(MissionSection::class);
     }
+
+    public function getTitleAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->title_en;
+
+            case 'ar':
+                return $this->title_ar;
+
+            default:
+                return $this->title_fa;
+        }
+    }
 }

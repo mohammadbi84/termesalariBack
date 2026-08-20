@@ -311,8 +311,8 @@ class PopupController extends Controller
         return response()->json([
             'active' => true,
             'popup' => [
-                'title' => app()->getLocale() == 'fa' ? $popup->title_fa : $popup->title_en,
-                'description' => app()->getLocale() == 'fa' ? $popup->description_fa : $popup->description_en,
+                'title' => $popup->title,
+                'description' => $popup->description,
                 'link' => $popup->link,
                 'images' => $popup->images->map(function ($image) {
                     return [

@@ -158,7 +158,7 @@
                                                     id="cat{{ $cat->id }}"
                                                     {{ in_array($cat->id, request()->categories ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label"
-                                                    for="cat{{ $cat->id }}">{{ app()->getLocale() == 'fa' ? $cat->title : $cat->e_title }}</label>
+                                                    for="cat{{ $cat->id }}">{{ $cat->title }}</label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -197,7 +197,7 @@
                                                     value="{{ $design->id }}" id="design{{ $design->id }}"
                                                     {{ in_array($design->id, request()->designs ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label"
-                                                    for="design{{ $design->id }}">{{ app()->getLocale() == 'fa' ? $design->title : $design->e_title }}</label>
+                                                    for="design{{ $design->id }}">{{ $design->title }}</label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -236,7 +236,7 @@
                                                     value="{{ $color->id }}" id="color{{ $color->id }}"
                                                     {{ in_array($color->id, request()->colors ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label"
-                                                    for="color{{ $color->id }}">{{ app()->getLocale() == 'fa' ? $color->color : $color->e_color }}</label>
+                                                    for="color{{ $color->id }}">{{ $color->color }}</label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -628,12 +628,12 @@
 
                     if (discountAmount > 0) {
                         $priceElement.html(`
-                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} تومان</span>
-                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-old-price">${priceBeforeDiscount.toLocaleString()} {{ __('products.currency') }}</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} {{ __('products.currency') }}</span>
                 `);
                     } else {
                         $priceElement.html(`
-                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} تومان</span>
+                    <span class="cart-item-new-price">${priceAfterDiscount.toLocaleString()} {{ __('products.currency') }}</span>
                 `);
                     }
                 } else {
@@ -652,7 +652,7 @@
                     <div class="cart-item-title">${item.title}</div>
 
                     <div class="cart-item-price">
-                        ${Number(item.price).toLocaleString()} تومان
+                        ${Number(item.price).toLocaleString()} {{ __('products.currency') }}
                     </div>
 
                     <div class="quantity-controls">
@@ -997,7 +997,7 @@
                             ${item.title} {{ __('products.design') }} ${item.design} {{ __('products.color') }} ${item.color}
                         </div>
                         <div class="cart-item-price">
-                            ${Number(item.price).toLocaleString()} تومان
+                            ${Number(item.price).toLocaleString()} {{ __('products.currency') }}
                         </div>
                         <div
                             class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
@@ -1086,7 +1086,7 @@
                                 ${title} {{ __('products.design') }} ${design} {{ __('products.color') }} ${color}
                             </div>
                             <div class="cart-item-price">
-                                ${Number(price).toLocaleString()} تومان
+                                ${Number(price).toLocaleString()} {{ __('products.currency') }}
                             </div>
                         </div>
                     </div>

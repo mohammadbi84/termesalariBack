@@ -25,7 +25,7 @@
                         <li class="breadcrumb-item"><a href="{{ route('bedcover.storeIndex') }}"
                                 class="text-decoration-none text-muted">{{ __('products.bedcover_products') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            {{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}
+                            {{ $bedcover->category->title }}
                             {{ __('products.design') }}
                             {{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title }}
                             {{ __('products.color') }}
@@ -90,7 +90,7 @@
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
                                 data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
-                                data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                data-title="{{ $bedcover->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}" data-id="{{ $bedcover->id }}"
@@ -104,7 +104,7 @@
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
                                 data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
-                                data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                data-title="{{ $bedcover->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}" data-id="{{ $bedcover->id }}"
@@ -127,7 +127,7 @@
                 <!-- left Column - Additional Info -->
                 <div class="col order-lg-3 mb-2">
                     <h1 class="product-title">
-                        {{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}
+                        {{ $bedcover->category->title }}
                         {{ __('products.design') }}
                         {{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title }}
                         {{ __('products.color') }}
@@ -164,7 +164,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.category') }} :</h6>
                         <a href="{{ route('bedcover.storeIndex') }}"
-                            class="tag">{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}</a>
+                            class="tag">{{ $bedcover->category->title }}</a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.tags') }} :</h6>
@@ -208,7 +208,7 @@
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
                                 data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
-                                data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                data-title="{{ $bedcover->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}">{{ __('product.add_to_cart') }}</button>
@@ -453,7 +453,7 @@
                                                 </div>
                                                 <div class="overlay">
                                                     <h3 class="product-title">
-                                                        {{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}
+                                                        {{ $bedcover->category->title }}
                                                         {{ __('products.design') }}
                                                         {{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title }}
                                                         {{ __('products.color') }}

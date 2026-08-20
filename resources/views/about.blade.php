@@ -64,14 +64,14 @@
                             <img src="{{ asset('storage/' . $generation->image) }}" alt="founder" class="builder-image">
                             <div class="flex-grow-1 d-flex justify-content-between align-items-center mb-2 px-3 ps-4">
                                 <span class="builder-title">
-                                    {{ app()->getLocale() == 'fa' ? $generation->name_fa : $generation->name_en }} <br>
-                                    <small>{{ app()->getLocale() == 'fa' ? $generation->pretext_fa : $generation->pretext_en }}</small>
+                                    {{ $generation->name }} <br>
+                                    <small>{{ $generation->pretext }}</small>
                                 </span>
                                 <img src="{{ asset('hometemplate/img/logo.png') }}" alt="logo" width="40">
                             </div>
                         </div>
                         <div class="pb-4 px-4 pt-5 builder-text">
-                            {{ app()->getLocale() == 'fa' ? $generation->description_fa : $generation->description_en }}
+                            {{ $generation->description }}
                         </div>
                     </div>
                 </div>
@@ -100,11 +100,11 @@
             <div class="col">
 
                 <header class="section-header">
-                    <h3>{{ app()->getLocale() == 'fa' ? $mission->title_fa : $mission->title_en }}</h3>
+                    <h3>{{ $mission->title }}</h3>
                 </header>
 
                 <p class="mission-text mb-4">
-                    {{ app()->getLocale() == 'fa' ? $mission->description_fa : $mission->description_en }}
+                    {{ $mission->description }}
                 </p>
 
                 <div class="row mission-row p-0 bg-white rounded-4 shadow-sm mx-3">
@@ -112,7 +112,7 @@
                         <div class="col">
                             <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                                 <span class="mission-number" data-target="{{ $counter->number }}">0</span>
-                                <span>{{ app()->getLocale() == 'fa' ? $counter->title_fa : $counter->title_en }}</span>
+                                <span>{{ $counter->title }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -126,9 +126,9 @@
             style="background: url({{ asset('storage/' . $productAuthentication->background_image) }}) center top no-repeat fixed;z-index: 1;">
             <div class="container">
                 <header class="section-header">
-                    <h3>{{ app()->getLocale() == 'fa' ? $productAuthentication->title_fa : $productAuthentication->title_en }}
+                    <h3>{{ $productAuthentication->title }}
                     </h3>
-                    <p>{{ app()->getLocale() == 'fa' ? $productAuthentication->description_fa : $productAuthentication->description_en }}
+                    <p>{{ $productAuthentication->description }}
                     </p>
                     <img src="{{ asset('storage/' . $productAuthentication->image) }}" alt="originality seal">
                 </header>
@@ -141,8 +141,8 @@
 
                 <div class="col-md-6 px-4">
                     @php
-                        $highlight = app()->getLocale() == 'fa' ? 'اعتماد' : 'trust';
-                        $text = app()->getLocale() == 'fa' ? $trusrSection->title_fa : $trusrSection->title_en;
+                        $highlight = app()->getLocale() == 'en' ? 'trust' : 'اعتماد';
+                        $text = $trusrSection->title;
                         $parts = explode($highlight, $text);
                     @endphp
                     <h1 class="comment-title">
@@ -156,7 +156,7 @@
                     </h1>
 
                     <p class="commetn-text">
-                        {{ app()->getLocale() == 'fa' ? $trusrSection->description_fa : $trusrSection->description_en }}
+                        {{ $trusrSection->description }}
                     </p>
 
                     <div class="row mission-row p-0 g-0 bg-white rounded-4 shadow-sm" style="margin-top: 28px;">
@@ -164,7 +164,7 @@
                             <div class="col">
                                 <div class="d-flex flex-column justify-content-center align-items-center p-1 py-2">
                                     <span class="mission-number" data-target="{{ $counter->number }}">0</span>
-                                    <span>{{ app()->getLocale() == 'fa' ? $counter->title_fa : $counter->title_en }}</span>
+                                    <span>{{ $counter->title }}</span>
                                 </div>
                             </div>
                         @endforeach
@@ -218,13 +218,13 @@
             <div class="container">
                 <div class="container mb-5 px-0">
                     <header class="section-header">
-                        <h3>{{ app()->getLocale() == 'fa' ? $certificateSection->title_fa : $certificateSection->title_en }}
+                        <h3>{{ $certificateSection->title }}
                         </h3>
                     </header>
 
                     <div class="d-flex align-items-center justify-content-between w-100 p-2">
                         <div>
-                            <span>{{ app()->getLocale() == 'fa' ? $certificateSection->description_fa : $certificateSection->description_en }}</span>
+                            <span>{{ $certificateSection->description }}</span>
                         </div>
 
                         <div>
@@ -341,11 +341,11 @@
                                             <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی">
                                         </div>
                                         <div class="card-info">
-                                            <h3 class="card-title">{{ __('main.state') }} {{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->e_name }} - {{ __('main.city') }}
+                                            <h3 class="card-title">{{ __('main.state') }} {{ $agent->state->name }} - {{ __('main.city') }}
                                                 {{ $agent->city->name ?? '' }}</h3>
                                             <div class="card-detail">
                                                 <i class="fa fa-map-marker"></i>
-                                                {{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }}
+                                                {{ $agent->address }}
                                             </div>
                                             <div class="card-detail">
                                                 <i class="fa fa-phone"></i>
@@ -536,12 +536,12 @@
     @php
         $mapped = $grouped->map(function ($items, $mapCode) {
             return [
-                'province' => app()->getLocale() == 'fa' ? $items->first()->state->name : $items->first()->state->e_name,
+                'province' => $items->first()->state->name,
                 'offices' => $items
                     ->map(function ($agency) {
                         return [
-                            'manager' => app()->getLocale() == 'fa' ? $agency->name_fa : $agency->name_en,
-                            'address' => app()->getLocale() == 'fa' ? $agency->address_fa : $agency->address_en,
+                            'manager' => $agency->name,
+                            'address' => $agency->address,
                             'phone' => $agency->phone,
                             'city' => $agency->city->name ?? '',
                         ];

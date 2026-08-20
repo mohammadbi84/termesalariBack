@@ -61,4 +61,18 @@ class Category extends Model
     {
         return $this->hasMany('App\Etc');
     }
+
+    public function getTitleAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->e_title;
+
+            case 'ar':
+                return $this->ar_title;
+
+            default:
+                return $this->attributes['title'];
+        }
+    }
 }

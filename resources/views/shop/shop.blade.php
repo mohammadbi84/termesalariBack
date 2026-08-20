@@ -51,13 +51,11 @@
                                         {{-- CONTENT --}}
                                         <div class="p-4 px-5 pb-0">
                                             <h2 class="fw-bold text-center">
-                                                {{ app()->getLocale() == 'fa' ? $popup->title_fa : $popup->title_en }}
+                                                {{ $popup->title }}
                                             </h2>
-
                                             <p class="text-muted text-center mb-4">
-                                                {{ app()->getLocale() == 'fa' ? $popup->description_fa : $popup->description_en }}
+                                                {{ $popup->description }}
                                             </p>
-
                                         </div>
 
                                     </li>
@@ -343,11 +341,11 @@
                                                         <div
                                                             class="d-flex align-items-center align-content-center justify-content-start mb-2">
                                                             <h5 class="product-title text-end">
-                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}
+                                                                {{ $amazing->productable->category->title }}
                                                                 {{ __('products.design') }}
-                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title }}
+                                                                {{ $amazing->productable->color_design->design->title }}
                                                                 {{ __('products.color') }}
-                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color }}
+                                                                {{ $amazing->productable->color_design->color->color }}
                                                             </h5>
                                                         </div>
                                                         <div
@@ -357,7 +355,7 @@
                                                                 <div class="countdown-timer timer-short justify-content-between"
                                                                     id="countdown-1"
                                                                     data-end-date="{{ $amazing->end_date }}"
-                                                                    style="gap:{{ app()->getLocale() == 'fa' ? '' : '20px; !important' }}">
+                                                                    style="gap:{{ app()->getLocale() == 'en' ? '20px; !important' : '' }}">
                                                                     <div class="timer-col">
                                                                         <span class="timer-number days">12
                                                                         </span>
@@ -460,9 +458,9 @@
                                                     <button class="buy-button shadow-none add-to-cart compare"
                                                         data-image="{{ asset('/storage/' . $amazing->productable->images->first()->name) }}"
                                                         data-moddel="{{ substr($amazing->productable->category->model, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}"
+                                                        data-design="{{ $amazing->productable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $amazing->productable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $amazing->productable->category->title }}"
                                                         data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -475,9 +473,9 @@
                                                         class="discount-squer favorites-btn @if ($amazing->productable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/' . $amazing->productable->images->first()->name) }}"
                                                         data-moddel="{{ substr($amazing->productable, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}"
+                                                        data-design="{{ $amazing->productable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $amazing->productable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $amazing->productable->category->title }}"
                                                         data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                                         data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -500,11 +498,11 @@
                                                         style="flex-direction: column;padding: 0 22px;">
                                                         <div class="text-center">
                                                             <h5 class="product-title text-center mb-4">
-                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}
+                                                                {{ $amazing->productable->category->title }}
                                                                 {{ __('products.design') }}
-                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title }}
+                                                                {{ $amazing->productable->color_design->design->title }}
                                                                 {{ __('products.color') }}
-                                                                {{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color }}
+                                                                {{ $amazing->productable->color_design->color->color }}
                                                             </h5>
                                                             <div class="row g-0 w-100">
                                                                 <div class="col-3 ps-2">
@@ -513,9 +511,9 @@
                                                                         data-image="{{ asset('/storage/' . $amazing->productable->images->first()->name) }}"
                                                                         data-id="{{ $amazing->productable->id }}"
                                                                         data-moddel="{{ substr($amazing->productable, 4) }}"
-                                                                        data-design="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->design->title : $amazing->productable->color_design->design->e_title ?? '' }}"
-                                                                        data-color="{{ app()->getLocale() == 'fa' ? $amazing->productable->color_design->color->color : $amazing->productable->color_design->color->e_color ?? '' }}"
-                                                                        data-title="{{ app()->getLocale() == 'fa' ? $amazing->productable->category->title : $amazing->productable->category->e_title }}"
+                                                                        data-design="{{ $amazing->productable->color_design->design->title ?? '' }}"
+                                                                        data-color="{{ $amazing->productable->color_design->color->color ?? '' }}"
+                                                                        data-title="{{ $amazing->productable->category->title }}"
                                                                         data-price="{{ $prices->price }}"
                                                                         data-pay="{{ $price }}"
                                                                         data-off="{{ $off }}"
@@ -561,7 +559,7 @@
                                                             class=" w-50 h-100 text-center d-flex justify-content-center align-items-center">
                                                             <div class="countdown-timer timer-short justify-content-between"
                                                                 id="countdown-1" data-end-date="{{ $amazing->end_date }}"
-                                                                style="gap:{{ app()->getLocale() == 'fa' ? '' : '20px; !important' }}">
+                                                                style="gap:{{ app()->getLocale() == 'en' ? '20px; !important' : '' }}">
                                                                 <div class="timer-col">
                                                                     <span class="timer-number days">12
                                                                     </span>
@@ -666,7 +664,7 @@
                                 <div class="category-card">
                                     <img src="{{ asset($category->image) }}" alt="تصاویر">
                                     <div class="title">
-                                        {{ app()->getLocale() == 'fa' ? $category->title : $category->e_title }}</div>
+                                        {{ $category->title }}</div>
                                     <div class="count">{{ $category['productsCount'] }}</div>
                                 </div>
                             </a>
@@ -730,14 +728,14 @@
                                 <div class="product-body">
                                     <div class="product-info">
                                         <h3 class="product-title">
-                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}
+                                            {{ $product->orderitemable->category->title }}
                                             {{ __('products.design') }}
-                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title }}
+                                            {{ $product->orderitemable->color_design->design->title }}
                                             {{ __('products.color') }}
-                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color }}
+                                            {{ $product->orderitemable->color_design->color->color }}
                                         </h3>
                                         <p class="product-description m-0">{{ __('product.category') }}
-                                            {{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}
+                                            {{ $product->orderitemable->category->title }}
                                         </p>
                                     </div>
                                     <div class="product-footer">
@@ -759,9 +757,9 @@
                                                                 class="text-decoration-none text-reset favorites-btn @if ($product->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                                 data-image="{{ asset('/storage/' . $product->orderitemable->images->first()->name) }}"
                                                                 data-moddel="{{ substr($product->orderitemable_type, 4) }}"
-                                                                data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
-                                                                data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
-                                                                data-title="{{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
+                                                                data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
+                                                                data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
+                                                                data-title="{{ $product->orderitemable->category->title }}"
                                                                 data-price="{{ $prices->price }}"
                                                                 data-pay="{{ $price }}"
                                                                 data-off="{{ $off }}"
@@ -784,9 +782,9 @@
                                                                 href="#" role="button"
                                                                 data-image="{{ asset('/storage/' . $product->orderitemable->images->first()->name) }}"
                                                                 data-moddel="{{ substr($product->orderitemable->category->model, 4) }}"
-                                                                data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
-                                                                data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
-                                                                data-title="{{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
+                                                                data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
+                                                                data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
+                                                                data-title="{{ $product->orderitemable->category->title }}"
                                                                 data-price="{{ $prices->price }}"
                                                                 data-pay="{{ $price }}"
                                                                 data-off="{{ $off }}"
@@ -855,9 +853,9 @@
                                                         data-image="{{ asset('/storage/' . $product->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $product->orderitemable->id }}"
                                                         data-moddel="{{ substr($product->orderitemable_type, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->design->title : $product->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $product->orderitemable->color_design->color->color : $product->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $product->orderitemable->category->title : $product->orderitemable->category->e_title }}"
+                                                        data-design="{{ $product->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $product->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $product->orderitemable->category->title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -996,11 +994,11 @@
                                             </div>
                                             <div class="overlay">
                                                 <h3 class="product-title">
-                                                    {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}
+                                                    {{ $topRequest->orderitemable->category->title }}
                                                     {{ __('products.design') }}
-                                                    {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title }}
+                                                    {{ $topRequest->orderitemable->color_design->design->title }}
                                                     {{ __('products.color') }}
-                                                    {{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color }}
+                                                    {{ $topRequest->orderitemable->color_design->color->color }}
                                                 </h3>
                                                 <div
                                                     class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
@@ -1077,9 +1075,9 @@
                                                     <button class="buy-button shadow-none add-to-cart compare"
                                                         data-image="{{ asset('/storage/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable->category->model, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->category->title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1092,9 +1090,9 @@
                                                         class="buy-button shadow-none add-to-cart favorites-btn @if ($topRequest->orderitemable->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                         data-image="{{ asset('/storage/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->category->title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1111,9 +1109,9 @@
                                                         data-image="{{ asset('/storage/' . $topRequest->orderitemable->images->first()->name) }}"
                                                         data-id="{{ $topRequest->orderitemable->id }}"
                                                         data-moddel="{{ substr($topRequest->orderitemable_type, 4) }}"
-                                                        data-design="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->design->title : $topRequest->orderitemable->color_design->design->e_title ?? '' }}"
-                                                        data-color="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->color_design->color->color : $topRequest->orderitemable->color_design->color->e_color ?? '' }}"
-                                                        data-title="{{ app()->getLocale() == 'fa' ? $topRequest->orderitemable->category->title : $topRequest->orderitemable->category->e_title }}"
+                                                        data-design="{{ $topRequest->orderitemable->color_design->design->title ?? '' }}"
+                                                        data-color="{{ $topRequest->orderitemable->color_design->color->color ?? '' }}"
+                                                        data-title="{{ $topRequest->orderitemable->category->title }}"
                                                         data-price="{{ $prices->price }}"
                                                         data-pay="{{ $price }}" data-off="{{ $off }}"
                                                         data-offType="{{ $prices->offType }}"
@@ -1146,13 +1144,13 @@
                         <div class="swiper-wrapper">
                             @foreach ($agencies as $agent)
                                 <div class="swiper-slide">
-                                    <div class="{{ app()->getLocale() == 'fa' ? 'text-end' : 'text-start' }} w-100">
-                                        <h6>{{ app()->getLocale() == 'fa' ? $agent->name_fa : $agent->name_en }}</h6>
+                                    <div class="{{ app()->getLocale() == 'en' ? 'text-start' : 'text-end' }} w-100">
+                                        <h6>{{ $agent->name }}</h6>
                                         <span>{{ __('main.state') }}
-                                            {{ app()->getLocale() == 'fa' ? $agent->state->name : $agent->state->e_name }}
+                                            {{ $agent->state->name }}
                                             -
                                             {{ __('main.city') }}
-                                            {{ app()->getLocale() == 'fa' ? $agent->city->name ?? '' : $agent->city->name ?? '' }}</span>
+                                            {{ $agent->state->name ?? '' }}</span>
                                     </div>
                                     <img src="{{ asset('storage/' . $agent->image) }}" alt="نمایندگی ترمه سالاری" />
                                 </div>
@@ -1191,14 +1189,14 @@
                                     </div>
                                     <div class="info d-flex justify-content-between align-items-center">
                                         <p class="flex-grow-1">
-                                            {{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }}
+                                            {{ $agent->address }}
                                             <br>
                                             <i class="bi bi-telephone ms-1"></i> {{ $agent->phone }}
                                         </p>
                                         <div class="text-start">
                                             <button data-bs-toggle="modal" class="btn btn-primary"
                                                 data-bs-target="#mapModal"
-                                                data-location="{{ app()->getLocale() == 'fa' ? $agent->address_fa : $agent->address_en }} {{ $agent->phone }}"
+                                                data-location="{{ $agent->address }} {{ $agent->phone }}"
                                                 data-lat="{{ $agent->latitude }}"
                                                 data-lng="{{ $agent->longitude }}">{{ __('main.viewOnMap') }}</button>
                                         </div>

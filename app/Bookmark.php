@@ -28,4 +28,31 @@ class Bookmark extends Model
                 $q->whereNull('end_at')->orWhere('end_at', '>=', now());
             });
     }
+
+    public function getTitleAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->title_en;
+
+            case 'ar':
+                return $this->title_ar;
+
+            default:
+                return $this->title_fa;
+        }
+    }
+    public function getBodyAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->body_en;
+
+            case 'ar':
+                return $this->body_ar;
+
+            default:
+                return $this->body_fa;
+        }
+    }
 }

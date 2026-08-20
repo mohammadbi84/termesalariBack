@@ -44,7 +44,7 @@ class Popup extends Model
     }
     public function article()
     {
-        return $this->belongsTo(Article::class,'link');
+        return $this->belongsTo(Article::class, 'link');
     }
 
     /**
@@ -55,6 +55,34 @@ class Popup extends Model
         return $this->is_active &&
             ($this->start_at === null || $this->start_at <= now()) &&
             ($this->end_at === null || $this->end_at >= now());
+    }
+
+    public function getTitleAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->title_en;
+
+            case 'ar':
+                return $this->title_ar;
+
+            default:
+                return $this->title_fa;
+        }
+    }
+
+    public function getDescriptionAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'en':
+                return $this->description_en;
+
+            case 'ar':
+                return $this->description_ar;
+
+            default:
+                return $this->description_fa;
+        }
     }
 
     /**
