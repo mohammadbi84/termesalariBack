@@ -20,7 +20,8 @@
                 );
 
                 var path = file_path.replace("/storage/", "");
-                var path = path.replace("/laravel-filemanager/images/", "");
+                var path = path.replace("/laravel-filemanager/", "");
+                // var path = path.replace("/laravel-filemanager/images/", "");
 
                 target_input.val(path).trigger("change");
 

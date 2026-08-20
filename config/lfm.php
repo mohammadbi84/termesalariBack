@@ -43,9 +43,11 @@ return [
 
     // Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on.
     // You should create routes to serve images if it is not set to public.
-    'base_directory' => 'public',
+    'base_directory' => '../storage',
+    // 'base_directory' => 'public',
 
     'images_folder_name' => 'storage',
+    // 'images_folder_name' => 'storage',
     'files_folder_name'  => 'files',
 
     'shared_folder_name' => '',
@@ -111,7 +113,7 @@ return [
 
     // permissions to be set on file upload.
     'create_file_mode' => 0644,
-    
+
     // If true, it will attempt to chmod the file after upload
     'should_change_file_mode' => true,
 
