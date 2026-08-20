@@ -65,9 +65,8 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image['name']) }}"
-                                            style="border-radius: 10px;" alt="{{ $image['name'] }}"
-                                            class="product-image-show"
+                                        <img src="{{ asset('storage/' . $image['name']) }}" style="border-radius: 10px;"
+                                            alt="{{ $image['name'] }}" class="product-image-show"
                                             data-zoom-src="{{ asset('storage/' . $image['name']) }}">
                                     </div>
                                 @endforeach
@@ -155,7 +154,8 @@
                             {{ $tablecloth->color_design->design->countOfColor }}
                             {{ __('product.colors') }}
                         </li>
-                        <li>{{ __('product.contains') }}: {{ app()->getLocale() == 'fa' ? $tablecloth->contains : $tablecloth->e_contains }}</li>
+                        <li>{{ __('product.contains') }}:
+                            {{ app()->getLocale() == 'fa' ? $tablecloth->contains : $tablecloth->e_contains }}</li>
                         <li>{{ __('product.color') }}:
                             {{ app()->getLocale() == 'fa' ? $tablecloth->color_design->color->color : $tablecloth->color_design->color->e_color }}
                         </li>
@@ -325,49 +325,57 @@
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.dimensions') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->dimensions : $tablecloth->e_dimensions }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->dimensions : $tablecloth->e_dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.weight') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->weight : $tablecloth->e_weight }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->weight : $tablecloth->e_weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.material') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kind : $tablecloth->e_kind }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kind : $tablecloth->e_kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.sewing_type') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->sewingType : $tablecloth->e_sewingType }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->sewingType : $tablecloth->e_sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->haveEster : $tablecloth->e_haveEster }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->haveEster : $tablecloth->e_haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining_material') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kindOfEster : $tablecloth->e_kindOfEster }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kindOfEster : $tablecloth->e_kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.washable') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->washable : $tablecloth->e_washable }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->washable : $tablecloth->e_washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.uses') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->uses : $tablecloth->e_uses }}</span>
+                                <span
+                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->uses : $tablecloth->e_uses }}</span>
                             </div>
                         </li>
                     </ul>
@@ -426,9 +434,30 @@
                                         <div class="product-div p-2">
                                             <div class="hot-product-card">
                                                 <div class="hot-image-container">
-                                                    <img src="{{ asset('/storage/' . $tablecloth->images->first()->name) }}"
-                                                        alt="{{ $tablecloth->category->title }}"
-                                                        class="hot-product-image">
+                                                    <a
+                                                        href="
+                                                        @switch($tablecloth->category->model)
+                                                                @case('App\Tablecloth')
+                                                                  {{ route('tablecloth.show', [$tablecloth->id]) }}
+                                                                  @break
+                                                                @case('App\Pillow')
+                                                                  {{ route('pillow.show', [$tablecloth->id]) }}
+                                                                  @break
+                                                                @case('App\Prayermat')
+                                                                  {{ route('prayermat.show', [$tablecloth->id]) }}
+                                                                  @break
+                                                                @case('App\tablecloth')
+                                                                  {{ route('tablecloth.show', [$tablecloth->id]) }}
+                                                                  @break
+                                                                @case('App\Shoe')
+                                                                  {{ route('shoe.show', [$tablecloth->id]) }}
+                                                                  @break
+                                                            @endswitch
+                                                    ">
+                                                        <img src="{{ asset('/storage/' . $tablecloth->images->first()->name) }}"
+                                                            alt="{{ $tablecloth->category->title }}"
+                                                            class="hot-product-image">
+                                                    </a>
                                                 </div>
                                                 <div class="overlay">
                                                     <h3 class="product-title">
@@ -609,8 +638,8 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image['name']) }}"
-                                            alt="{{ $image['name'] }}" class="product-image-show">
+                                        <img src="{{ asset('storage/' . $image['name']) }}" alt="{{ $image['name'] }}"
+                                            class="product-image-show">
                                     </div>
                                 @endforeach
                             </div>
@@ -704,7 +733,7 @@
                     success: function(data) {
                         document.querySelector(".compare-badge").textContent = data;
                         document.querySelector(".compare-items-count").textContent = data +
-                            " کالا";
+                            " {{ __('products.products') }}";
                         const $compList = $("#navbarCompareList"); // لیست داخل منو
                         const exists = $compList.find(
                             `.compare-item[data-id="${id}"][data-model="${model}"]`);
@@ -1452,7 +1481,8 @@
                 // بروزرسانی تعداد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count > 0 ? count - 1 : 0);
-                $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
+                $badge2.html(count > 0 ? count - 1 + ' {{ __('products.products') }} ' : 0 +
+                    ' {{ __('products.products') }} ');
 
                 return "removed";
             }
@@ -1460,7 +1490,7 @@
                 // افزایش عدد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
-                $badge2.html(count + 1 + ' کالا ');
+                $badge2.html(count + 1 + ' {{ __('products.products') }} ');
 
                 const newItem = `
                 <div class="favorites-item"

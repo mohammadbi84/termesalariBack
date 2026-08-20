@@ -1702,7 +1702,7 @@
                 // بروزرسانی تعداد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count > 0 ? count - 1 : 0);
-                $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
+                $badge2.html(count > 0 ? count - 1 + " {{__('products.products')}} " : 0 + " {{__('products.products')}} ");
 
                 return "removed";
             }
@@ -1710,7 +1710,7 @@
                 // افزایش عدد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
-                $badge2.html(count + 1 + ' کالا ');
+                $badge2.html(count + 1 + " {{__('products.products')}} ");
 
                 const newItem = `
                 <div class="favorites-item"
@@ -1797,7 +1797,7 @@
                 success: function(data) {
                     document.querySelector(".compare-badge").textContent = data;
                     document.querySelector(".compare-items-count").textContent = data +
-                        " کالا";
+                        " {{__('products.products')}}";
                     const $compList = $("#navbarCompareList"); // لیست داخل منو
                     const exists = $compList.find(
                         `.compare-item[data-id="${id}"][data-model="${model}"]`);
