@@ -1,10 +1,10 @@
 @extends('shop.layouts.master')
 @section('title', 'فروشگاه ترمه سالاری')
 @section('head')
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
+    @if (app()->getLocale() == 'en')
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
     @endif
     <script src="{{ asset('shop/js/scripts.js') }}"></script>
 
@@ -400,14 +400,14 @@
                                                                             @endif
                                                                         </div>
                                                                         <div class="col-3 fs-small">
-                                                                            @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
+                                                                            @if (app()->getLocale() == 'en')
+                                                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
                                                                             @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
+                                                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
                                                                             @endif
                                                                         </div>
                                                                     </div>
@@ -417,14 +417,14 @@
                                                                             {{ number_format($prices->price) }}
                                                                         </div>
                                                                         <div class="col-3 fs-small">
-                                                                            @if (app()->getLocale() == 'fa')
-                                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
+                                                                            @if (app()->getLocale() == 'en')
+                                                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
                                                                             @else
-                                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                    alt="Price" width="20px"
-                                                                                    height="20px">
+                                                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                                alt="Price" width="20px"
+                                                                                height="20px">
                                                                             @endif
                                                                         </div>
                                                                     </div>
@@ -604,14 +604,14 @@
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-3 fs-small">
-                                                                        @if (app()->getLocale() == 'fa')
-                                                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                alt="Price" width="20px"
-                                                                                height="20px">
+                                                                        @if (app()->getLocale() == 'en')
+                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                            alt="Price" width="20px"
+                                                                            height="20px">
                                                                         @else
-                                                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                alt="Price" width="20px"
-                                                                                height="20px">
+                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                            alt="Price" width="20px"
+                                                                            height="20px">
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -621,14 +621,14 @@
                                                                         {{ number_format($prices->price) }}
                                                                     </div>
                                                                     <div class="col-3 fs-small">
-                                                                        @if (app()->getLocale() == 'fa')
-                                                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                                alt="Price" width="20px"
-                                                                                height="20px">
+                                                                        @if (app()->getLocale() == 'en')
+                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                            alt="Price" width="20px"
+                                                                            height="20px">
                                                                         @else
-                                                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                                alt="Price" width="20px"
-                                                                                height="20px">
+                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                            alt="Price" width="20px"
+                                                                            height="20px">
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -823,23 +823,23 @@
                                                                 @endif
                                                             </div>
                                                             <div class="col-3 fs-small">
-                                                                @if (app()->getLocale() == 'fa')
-                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                @if (app()->getLocale() == 'en')
+                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
                                                                 @else
-                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
                                                                 @endif
                                                             </div>
                                                         </div>
                                                     @else
                                                         <span class="price">{{ number_format($prices->price) }}
-                                                            @if (app()->getLocale() == 'fa')
-                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                    alt="Price" width="20px" height="20px">
+                                                            @if (app()->getLocale() == 'en')
+                                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                alt="Price" width="20px" height="20px">
                                                             @else
-                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                    alt="Price" width="20px" height="20px">
+                                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                alt="Price" width="20px" height="20px">
                                                             @endif
                                                         </span>
                                                     @endif
@@ -1043,22 +1043,22 @@
                                                                 @elseif($prices->offType == 'درصد')
                                                                     {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
                                                                 @endif
-                                                                @if (app()->getLocale() == 'fa')
-                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                @if (app()->getLocale() == 'en')
+                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
                                                                 @else
-                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
                                                                 @endif
                                                             </span>
                                                         @else
                                                             <span class="price">{{ number_format($prices->price) }}
-                                                                @if (app()->getLocale() == 'fa')
-                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                @if (app()->getLocale() == 'en')
+                                                                <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
                                                                 @else
-                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
                                                                 @endif
                                                             </span>
                                                         @endif

@@ -30,9 +30,9 @@
                                 {{-- <h3 class="profile-username text-center">فاطمه برهمند</h3> --}}
 
                                 <p class="text-muted text-center pt-2" style="line-height: 1.7rem;height: 4rem;">
-                                    {{ app()->getLocale() == 'fa' ? $com[0]->commentable->category->title : $com[0]->commentable->category->e_title }} {{ __('user.comments.design') }}
-                                    {{ app()->getLocale() == 'fa' ? $com[0]->commentable->color_design->design->title : $com[0]->commentable->color_design->design->e_title }} {{ __('user.comments.color') }}
-                                    {{ app()->getLocale() == 'fa' ? $com[0]->commentable->color_design->color->color : $com[0]->commentable->color_design->color->e_color }}
+                                    {{ $com[0]->commentable->category->title }} {{ __('user.comments.design') }}
+                                    {{ $com[0]->commentable->color_design->design->title }} {{ __('user.comments.color') }}
+                                    {{ $com[0]->commentable->color_design->color->color }}
                                 </p>
 
                                 <ul class="list-group list-group-unbordered mb-3">
@@ -73,11 +73,11 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h6 class="modal-title" id="commentTextLabel">
-                                                    {{ app()->getLocale() == 'fa' ? $com[0]->commentable->category->title : $com[0]->commentable->category->e_title }}
+                                                    {{ $com[0]->commentable->category->title }}
                                                     {{ __('user.comments.design') }}
-                                                    {{ app()->getLocale() == 'fa' ? $com[0]->commentable->color_design->design->title : $com[0]->commentable->color_design->design->e_title }}
+                                                    {{ $com[0]->commentable->color_design->design->title }}
                                                     {{ __('user.comments.color') }}
-                                                    {{ app()->getLocale() == 'fa' ? $com[0]->commentable->color_design->color->color : $com[0]->commentable->color_design->color->e_color }}
+                                                    {{ $com[0]->commentable->color_design->color->color }}
                                                 </h6>
                                             </div>
                                             <div class="modal-body">

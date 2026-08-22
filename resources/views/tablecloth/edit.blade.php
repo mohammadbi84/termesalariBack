@@ -62,34 +62,6 @@
                             @enderror
                         </div>
 
-                        {{-- <div class="form-group">
-					<label for="title">عنوان  محصول</label>
-					<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="مثلاً ست رومیزی سه تکه" value="{{old('title',$tablecloth->title)}}">
-					@error('title')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div> --}}
-
-                        {{-- <div class="form-group @error('type') is-invalid @enderror">
-					<label for="type">نوع محصول</label>
-                  	<select  name="type" id="type" class="form-control select2 select2-hidden-accessible " style="width: 100%;">
-	                    <option value="" selected="selected" style="">نوع محصول را انتخاب کنید  </option>
-	                  	<option value="رومیزی گرد" @if (old('type', $tablecloth->type) == 'رومیزی گرد') selected @endif >رومیزی گرد</option>
-	                  	<option value="رومیزی مربع" @if (old('type', $tablecloth->type) == 'رومیزی مربع') selected @endif >رومیزی مربع</option>
-	                  	<option value="رانر" @if (old('type', $tablecloth->type) == 'رانر') selected @endif >رانر</option>
-	                  	<option value="رومیزی عسلی" @if (old('type', $tablecloth->type) == 'رومیزی عسلی') selected @endif >رومیزی عسلی</option>
-	                  	<option value="سرمه دوزی" @if (old('type', $tablecloth->type) == 'سرمه دوزی') selected @endif >سرمه دوزی</option>
-	                  	<option value="ست کامل" @if (old('type', $tablecloth->type) == 'ست کامل') selected @endif >ست کامل</option>
-                  	</select>
-
-                  	@error('type')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-                </div> --}}
-
-                        {{-- @foreach ($categories as $category)
-                	@dump( $category->id , old('category_id') , $tablecloth->category->id)
-                @endforeach --}}
                         <div class="form-group @error('category_id') is-invalid @enderror">
                             <label for="category_id">دسته بندی محصول</label>
                             <select name="category_id" id="category_id"
@@ -156,6 +128,15 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_contains">مشتمل بر ( عربی )</label>
+                            <textarea name="ar_contains" class="form-control @error('ar_contains') is-invalid @enderror" rows="3"
+                                placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{ old('ar_contains', $tablecloth->ar_contains) }}</textarea>
+
+                            @error('ar_contains')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="dimensions">ابعاد محصول</label>
@@ -173,6 +154,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_dimensions">ابعاد محصول عربی</label>
+                            <textarea name="ar_dimensions" class="form-control @error('ar_dimensions') is-invalid @enderror" rows="3"
+                                placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{ old('ar_dimensions', $tablecloth->ar_dimensions) }}</textarea>
+                            @error('ar_dimensions')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="weight">وزن تقریبی</label>
@@ -187,6 +176,14 @@
                             <textarea name="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3"
                                 placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{ old('e_weight', $tablecloth->e_weight) }}</textarea>
                             @error('e_weight')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_weight">وزن تقریبی عربی</label>
+                            <textarea name="ar_weight" class="form-control @error('ar_weight') is-invalid @enderror" rows="3"
+                                placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{ old('ar_weight', $tablecloth->ar_weight) }}</textarea>
+                            @error('ar_weight')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -218,6 +215,20 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_kind">جنس محصول عربی</label>
+                            <select name="ar_kind" id="ar_kind"
+                                class="form-control @error('ar_kind') is-invalid @enderror">
+                                {{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                                <option @if (old('ar_kind', $tablecloth->ar_kind) == 'ابریشم بلدی (ویسکوز ریون)') selected @endif value="ابریشم بلدی (ویسکوز ریون)">
+                                    ابریشم بلدی (ویسکوز ریون)</option>
+                                <option @if (old('ar_kind', $tablecloth->ar_kind) == 'الحرير الصناعي') selected @endif value="الحرير الصناعي">
+                                    الحرير الصناعي</option>
+                            </select>
+                            @error('ar_kind')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="sewingType">نوع دوخت</label>
@@ -240,6 +251,18 @@
                                 <option @if (old('e_sewingType', $tablecloth->e_sewingType) == 'Simple') selected @endif value="Simple">Simple</option>
                             </select>
                             @error('e_sewingType')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_sewingType">نوع دوخت ( عربی )</label>
+                            <select name="ar_sewingType" id="ar_sewingType"
+                                class="form-control @error('ar_sewingType') is-invalid @enderror">
+                                {{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                                <option @if (old('ar_sewingType', $tablecloth->ar_sewingType) == 'دماغ مطرز') selected @endif value="دماغ مطرز">دماغ مطرز</option>
+                                <option @if (old('ar_sewingType', $tablecloth->ar_sewingType) == 'بسيط') selected @endif value="بسيط">بسيط</option>
+                            </select>
+                            @error('ar_sewingType')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -268,12 +291,25 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_haveEster">آستر عربی</label>
+                            <select name="ar_haveEster" id="ar_haveEster"
+                                class="form-control @error('ar_haveEster') is-invalid @enderror">
+                                {{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                                <option @if (old('ar_haveEster', $tablecloth->ar_haveEster) == 'نعم') selected @endif value="نعم">نعم</option>
+                                <option @if (old('ar_haveEster', $tablecloth->ar_haveEster) == 'لا') selected @endif value="لا">لا</option>
+                            </select>
+                            @error('ar_haveEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="kindOfEster">جنس آستر</label>
                             <input disabled="disabled" type="text" name="kindOfEster" id="kindOfEster"
                                 class="form-control @error('kindOfEster') is-invalid @enderror"
-                                placeholder="مثلاً ساتن مرغوب" value="{{ old('kindOfEster', $tablecloth->kindOfEster) }}">
+                                placeholder="مثلاً ساتن مرغوب"
+                                value="{{ old('kindOfEster', $tablecloth->kindOfEster) }}">
                             @error('kindOfEster')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -285,6 +321,16 @@
                                 placeholder="مثلاً ساتن مرغوب"
                                 value="{{ old('e_kindOfEster', $tablecloth->e_kindOfEster) }}">
                             @error('e_kindOfEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_kindOfEster">جنس آستر عربی</label>
+                            <input type="text" name="ar_kindOfEster" id="ar_kindOfEster"
+                                class="form-control @error('ar_kindOfEster') is-invalid @enderror"
+                                placeholder="مثلاً ساتن مرغوب"
+                                value="{{ old('ar_kindOfEster', $tablecloth->ar_kindOfEster) }}">
+                            @error('ar_kindOfEster')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -318,6 +364,21 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_washable">قابلیت شستشو عربی</label>
+                            <select name="ar_washable" id="ar_washable"
+                                class="form-control @error('ar_washable') is-invalid @enderror">
+                                <option value="">قابلیت شستشو عربی</option>
+                                <option @if (old('ar_washable', $tablecloth->ar_washable) == 'باليد')  @endif value="باليد">باليد</option>
+                                <option @if (old('ar_washable', $tablecloth->ar_washable) == 'نعم (ويفضل التنظيف الجاف)') selected @endif
+                                    value="نعم (ويفضل التنظيف الجاف)">نعم (ويفضل التنظيف الجاف)</option>
+                                <option @if (old('ar_washable', $tablecloth->ar_washable) == 'لا') selected @endif value="لا">لا
+                                </option>
+                            </select>
+                            @error('ar_washable')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="uses">موارد استفاده</label>
@@ -334,6 +395,15 @@
                                 placeholder="مثلاً رومیزی، روی پشتی، روی تاقچه، سفره زینتی و ...">{{ old('e_uses', $tablecloth->e_uses) }}</textarea>
 
                             @error('e_uses')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_uses">موارد استفاده عربی</label>
+                            <textarea name="ar_uses" class="form-control @error('ar_uses') is-invalid @enderror" rows="3"
+                                placeholder="مثلاً رومیزی، روی پشتی، روی تاقچه، سفره زینتی و ...">{{ old('ar_uses', $tablecloth->ar_uses) }}</textarea>
+
+                            @error('ar_uses')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -585,18 +655,6 @@
                             </div>
                         @endif
 
-                        {{-- <div class="form-group @error('tags') is-invalid @enderror">
-					<label for="tags">تگ یا برچسب برای استفاده در جستجو ها . لطفا به جای فاصله بین کلمات از زیرخط استفاده نمایید .</label>
-					<select name="tags[]" id="tags" class="form-control" multiple="multiple" data-placeholder="امکان تایپ  و انتخاب برچسب مرتبط وجود دارد . بعنوان مثال رومیزی_گرد " style="width: 100%;text-align: right">
-						@foreach ($tablecloth->tags as $tag)
-							<option value="{{ $tag->id }}" selected>{{ $tag->name }}</option>
-						@endforeach
-					</select>
-					@error('tags')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div> --}}
-
                         <div class="form-group @error('images') is-invalid @enderror">
                             {{-- <label for="images">تصاویر محصول</label>
                             <div class="file-loading">
@@ -614,16 +672,20 @@
                                     <div class="image-picker-row mb-2">
                                         <div class="input-group">
                                             <span class="input-group-btn">
-                                                <a data-input="thumbnail_{{ $index + 1 }}" data-preview="holder_{{ $index + 1 }}"
+                                                <a data-input="thumbnail_{{ $index + 1 }}"
+                                                    data-preview="holder_{{ $index + 1 }}"
                                                     class="lfm btn btn-primary">
                                                     <i class="fa fa-picture-o"></i> انتخاب تصویر
                                                 </a>
                                             </span>
-                                            <input id="thumbnail_{{ $index + 1 }}" class="form-control" type="text" name="images[]"
-                                                value="{{ $image->name }}" placeholder="مسیر تصویر را انتخاب کنید">
-                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                            <input id="thumbnail_{{ $index + 1 }}" class="form-control"
+                                                type="text" name="images[]" value="{{ $image->name }}"
+                                                placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker"
+                                                aria-label="حذف این تصویر">-</button>
                                         </div>
-                                        <img id="holder_{{ $index + 1 }}" src="{{ asset('storage/' . $image->name) }}"
+                                        <img id="holder_{{ $index + 1 }}"
+                                            src="{{ asset('storage/' . $image->name) }}"
                                             style="margin-top:10px;max-height:100px;display:block;">
                                     </div>
                                 @empty
@@ -635,8 +697,10 @@
                                                     <i class="fa fa-picture-o"></i> انتخاب تصویر
                                                 </a>
                                             </span>
-                                            <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
-                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                            <input id="thumbnail_1" class="form-control" type="text" name="images[]"
+                                                placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker"
+                                                aria-label="حذف این تصویر">-</button>
                                         </div>
                                         <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
                                     </div>
@@ -676,6 +740,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_description">توضیحات بیشتر عربی</label>
+                            <textarea name="ar_description" class="form-control @error('ar_description') is-invalid @enderror" rows="3"
+                                placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{ old('ar_description', $tablecloth->ar_description) }}</textarea>
+                            @error('ar_description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <!-- /.card-body -->
 
@@ -683,6 +755,7 @@
                             <button type="submit" id="store" class="btn btn-flat btn-primary">ثبت</button>
                             <a href="{{ route('tablecloth.index') }}" class="btn btn-flat btn-secondary">بازگشت</a>
                         </div>
+                    </div>
                 </form>
             </div>
             <!-- /.card -->
@@ -733,14 +806,17 @@
                     '<div class="image-picker-row mb-2">' +
                     '    <div class="input-group">' +
                     '        <span class="input-group-btn">' +
-                    '            <a data-input="thumbnail_' + imageCounter + '" data-preview="holder_' + imageCounter + '" class="lfm btn btn-primary">' +
+                    '            <a data-input="thumbnail_' + imageCounter + '" data-preview="holder_' +
+                    imageCounter + '" class="lfm btn btn-primary">' +
                     '                <i class="fa fa-picture-o"></i> انتخاب تصویر' +
                     '            </a>' +
                     '        </span>' +
-                    '        <input id="thumbnail_' + imageCounter + '" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">' +
+                    '        <input id="thumbnail_' + imageCounter +
+                    '" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">' +
                     '        <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>' +
                     '    </div>' +
-                    '    <img id="holder_' + imageCounter + '" style="margin-top:10px;max-height:100px;display:block;">' +
+                    '    <img id="holder_' + imageCounter +
+                    '" style="margin-top:10px;max-height:100px;display:block;">' +
                     '</div>'
                 );
 
@@ -855,37 +931,37 @@
             });
 
             /*.on('filepredelete', function(event, key, jqXHR, data) {
-    	    	console.log('key = ' + key);
-    	    	var image = key;
-    	    	var model = "Tablecloth";
-    	    	{{-- var id = "{{$tablecloth->id}}";
+        	    	console.log('key = ' + key);
+        	    	var image = key;
+        	    	var model = "Tablecloth";
+        	    	{{-- var id = "{{$tablecloth->id}}";
 	    		    		    		    		    	var url = "{{route('image.delOneImage')}}"; --}}
 
-    	    	$.ajax({
-    				type: 'POST',
-    			    url:  url,
-    			    dataType: 'json',
-    			    data: { 'id':id, 'model':model, 'image':image,'_token':'{{ csrf_token() }}','_method' : 'DELETE' },
-    				cache: false,
-    				success: function(data)
-    				{
-    					console.log(data);
-    					if(data == "{}"){
-    						window.alert('تصویر با موفقیت حذف شد .');
-    					}
-    					else
-    						window.alert('خطایی در انجام عملیات حذف رخ داده است  .');
-    				}
-    			});
-    			event.preventDefault();
+        	    	$.ajax({
+        				type: 'POST',
+        			    url:  url,
+        			    dataType: 'json',
+        			    data: { 'id':id, 'model':model, 'image':image,'_token':'{{ csrf_token() }}','_method' : 'DELETE' },
+        				cache: false,
+        				success: function(data)
+        				{
+        					console.log(data);
+        					if(data == "{}"){
+        						window.alert('تصویر با موفقیت حذف شد .');
+        					}
+        					else
+        						window.alert('خطایی در انجام عملیات حذف رخ داده است  .');
+        				}
+        			});
+        			event.preventDefault();
 
-    		}).on('filedeleted', function(event, key, jqXHR, data) {
-    	    	console.log('Key = ' + key + 'data = ' + data);
-    	        setTimeout(function() {
-    	            window.alert('File deletion was successful! ');
-    	        }, 900);
-    	    });
-    	    */
+        		}).on('filedeleted', function(event, key, jqXHR, data) {
+        	    	console.log('Key = ' + key + 'data = ' + data);
+        	        setTimeout(function() {
+        	            window.alert('File deletion was successful! ');
+        	        }, 900);
+        	    });
+        	    */
 
             // The following are the most likely reasons why this error is received.
 
@@ -966,7 +1042,8 @@
                             });
                         } else {
                             alert(
-                                "این طرح فاقد اطلاعات رنگ بندی می باشد .بنابراین امکان استفاده از این طرح وجود ندارد .");
+                                "این طرح فاقد اطلاعات رنگ بندی می باشد .بنابراین امکان استفاده از این طرح وجود ندارد ."
+                                );
                         }
                     }
                 });
@@ -993,7 +1070,8 @@
                                 });
                             } else {
                                 alert(
-                                    "این طرح فاقد اطلاعات رنگ بندی می باشد .بنابراین امکان استفاده از این طرح وجود ندارد .");
+                                    "این طرح فاقد اطلاعات رنگ بندی می باشد .بنابراین امکان استفاده از این طرح وجود ندارد ."
+                                    );
                             }
                         }
                     });

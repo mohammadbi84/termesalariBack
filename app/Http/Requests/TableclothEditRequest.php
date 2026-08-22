@@ -86,6 +86,17 @@ class TableclothEditRequest extends FormRequest
             'e_washable' => 'required' ,
             'e_uses' => 'nullable|string' ,
 
+            'ar_dimensions' => 'required' ,
+            'ar_weight' => 'required' ,
+            'ar_kind' => 'required' ,
+            'ar_contains' => 'nullable' ,
+            'ar_sewingType' => 'required' ,
+            'ar_haveEster' => 'required' ,
+            'ar_kindOfEster' => 'required' ,
+            'ar_description' => 'nullable|string' ,
+            'ar_washable' => 'required' ,
+            'ar_uses' => 'nullable|string' ,
+
         ];
     }
 }

@@ -1,12 +1,11 @@
 @extends('shop.layouts.master')
-@section('title', $title . __('products.design') . (app()->getLocale() == 'fa' ?
-    $bedcover->color_design->design->title : $bedcover->color_design->design->e_title) . __('products.color') .
-    (app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color))
+@section('title', $title . __('products.design') . ($bedcover->color_design->design->title) . __('products.color') .
+    ($bedcover->color_design->color->color))
 @section('head')
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    @if (app()->getLocale() == 'en')
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
     @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
@@ -27,9 +26,9 @@
                         <li class="breadcrumb-item active" aria-current="page">
                             {{ $bedcover->category->title }}
                             {{ __('products.design') }}
-                            {{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title }}
+                            {{ $bedcover->color_design->design->title }}
                             {{ __('products.color') }}
-                            {{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color }}
+                            {{ $bedcover->color_design->color->color }}
                         </li>
                     </ol>
                 </nav>
@@ -65,9 +64,8 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image['name']) }}"
-                                            style="border-radius: 10px;" alt="{{ $image['name'] }}"
-                                            class="product-image-show"
+                                        <img src="{{ asset('storage/' . $image['name']) }}" style="border-radius: 10px;"
+                                            alt="{{ $image['name'] }}" class="product-image-show"
                                             data-zoom-src="{{ asset('storage/' . $image['name']) }}">
                                     </div>
                                 @endforeach
@@ -88,8 +86,8 @@
                                 title="{{ __('product.compare') }}" class="share-btn telegram"
                                 data-image="{{ asset('/storage/' . $bedcover->images->first()->name) }}"
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                                data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
-                                data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
                                 data-title="{{ $bedcover->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
@@ -102,8 +100,8 @@
                                 class="share-btn telegram  favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/' . $bedcover->images->first()->name) }}"
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                                data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
-                                data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
                                 data-title="{{ $bedcover->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
@@ -129,9 +127,9 @@
                     <h1 class="product-title">
                         {{ $bedcover->category->title }}
                         {{ __('products.design') }}
-                        {{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title }}
+                        {{ $bedcover->color_design->design->title }}
                         {{ __('products.color') }}
-                        {{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color }}
+                        {{ $bedcover->color_design->color->color }}
                     </h1>
                     <div class="rating">
                         @php
@@ -144,7 +142,7 @@
                                 <i class="fa-regular fa-star"></i>
                             @endif
                         @endfor
-                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} ۵ -
+                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} 5 -
                             {{ $comments->count() }}
                             {{ __('products.comment') }})</span>
                     </div>
@@ -155,9 +153,10 @@
                             {{ $bedcover->color_design->design->countOfColor }}
                             {{ __('product.colors') }}
                         </li>
-                        <li>{{ __('product.contains') }}: {{ app()->getLocale() == 'fa' ? $bedcover->contains : $bedcover->e_contains }}</li>
+                        <li>{{ __('product.contains') }}:
+                            {{ $bedcover->contains }}</li>
                         <li>{{ __('product.color') }}:
-                            {{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color }}
+                            {{ $bedcover->color_design->color->color }}
                         </li>
                     </ul>
                     <hr>
@@ -169,7 +168,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.tags') }} :</h6>
                         <span
-                            class="tag">{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title }}</span>
+                            class="tag">{{ $bedcover->color_design->design->title }}</span>
                     </div>
                     <div class="categories-tags">
                         <hr>
@@ -206,8 +205,8 @@
                                 data-image="{{ asset('/storage/' . $bedcover->images->first()->name) }}"
                                 data-id="{{ $bedcover->id }}"
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                                data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
-                                data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
+                                data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                data-color="{{ $bedcover->color_design->color->color ?? '' }}"
                                 data-title="{{ $bedcover->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
@@ -264,7 +263,7 @@
                             <h5 class="m-0">{{ __('product.description') }}</h5>
                         </div>
                         <p class="text-justify text-muted">
-                            {{ app()->getLocale() == 'fa' ? $bedcover->description : $bedcover->e_description }}
+                            {{ $bedcover->description }}
                         </p>
                     </div>
                     <div class="bg-white rounded-4 p-4 shadow-sm">
@@ -325,49 +324,57 @@
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.dimensions') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->dimensions : $bedcover->e_dimensions }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.weight') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->weight : $bedcover->e_weight }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.material') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->kind : $bedcover->e_kind }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.sewing_type') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->sewingType : $bedcover->e_sewingType }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->haveEster : $bedcover->e_haveEster }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining_material') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->kindOfEster : $bedcover->e_kindOfEster }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.washable') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->washable : $bedcover->e_washable }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.uses') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $bedcover->uses : $bedcover->e_uses }}</span>
+                                <span
+                                    class="point-span">{{ $bedcover->uses }}</span>
                             </div>
                         </li>
                     </ul>
@@ -455,9 +462,9 @@
                                                     <h3 class="product-title">
                                                         {{ $bedcover->category->title }}
                                                         {{ __('products.design') }}
-                                                        {{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title }}
+                                                        {{ $bedcover->color_design->design->title }}
                                                         {{ __('products.color') }}
-                                                        {{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color }}
+                                                        {{ $bedcover->color_design->color->color }}
                                                     </h3>
                                                     <div
                                                         class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
@@ -466,15 +473,15 @@
                                                             <a href="
                                                             @switch($bedcover->category->model)
                                                                 @case('App\Tablecloth')
-                                                                  {{ route('bedcover.show', [$bedcover->id]) }}
+                                                                  {{ route('tablecloth.show', [$bedcover->id]) }}
                                                                   @break
-                                                                @case('App\Pillow')
+                                                                @case('App\Bedcover')
                                                                   {{ route('bedcover.show', [$bedcover->id]) }}
                                                                   @break
                                                                 @case('App\Prayermat')
-                                                                  {{ route('bedcover.show', [$bedcover->id]) }}
+                                                                  {{ route('prayermat.show', [$bedcover->id]) }}
                                                                   @break
-                                                                @case('App\bedcover')
+                                                                @case('App\Bedcover')
                                                                   {{ route('bedcover.show', [$bedcover->id]) }}
                                                                   @break
                                                                 @case('App\Shoe')
@@ -503,22 +510,22 @@
                                                                     @elseif($prices->offType == 'درصد')
                                                                         {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
                                                                     @endif
-                                                                    @if (app()->getLocale() == 'fa')
-                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    @if (app()->getLocale() == 'en')
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @else
                                                                 <span class="price">{{ number_format($prices->price) }}
-                                                                    @if (app()->getLocale() == 'fa')
-                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    @if (app()->getLocale() == 'en')
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @endif
@@ -535,9 +542,9 @@
                                                             class="buy-button shadow-none add-to-cart favorites-btn @if ($bedcover->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                             data-image="{{ asset('/storage/' . $bedcover->images->first()->name) }}"
                                                             data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                                                            data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
-                                                            data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
-                                                            data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                                            data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                                            data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                                                            data-title="{{ $bedcover->category->title }}"
                                                             data-price="{{ $prices->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
@@ -555,9 +562,9 @@
                                                             data-image="{{ asset('/storage/' . $bedcover->images->first()->name) }}"
                                                             data-id="{{ $bedcover->id }}"
                                                             data-moddel="{{ substr($bedcover->category->model, 4) }}"
-                                                            data-design="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->design->title : $bedcover->color_design->design->e_title ?? '' }}"
-                                                            data-color="{{ app()->getLocale() == 'fa' ? $bedcover->color_design->color->color : $bedcover->color_design->color->e_color ?? '' }}"
-                                                            data-title="{{ app()->getLocale() == 'fa' ? $bedcover->category->title : $bedcover->category->e_title }}"
+                                                            data-design="{{ $bedcover->color_design->design->title ?? '' }}"
+                                                            data-color="{{ $bedcover->color_design->color->color ?? '' }}"
+                                                            data-title="{{ $bedcover->category->title }}"
                                                             data-price="{{ $prices->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
@@ -630,8 +637,8 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image['name']) }}"
-                                            alt="{{ $image['name'] }}" class="product-image-show">
+                                        <img src="{{ asset('storage/' . $image['name']) }}" alt="{{ $image['name'] }}"
+                                            class="product-image-show">
                                     </div>
                                 @endforeach
                             </div>
@@ -646,10 +653,10 @@
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    @if (app()->getLocale() == 'fa')
-        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'en')
+    <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
     @else
-        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -725,7 +732,7 @@
                     success: function(data) {
                         document.querySelector(".compare-badge").textContent = data;
                         document.querySelector(".compare-items-count").textContent = data +
-                            " {{__('products.products')}}";
+                            " {{ __('products.products') }}";
                         const $compList = $("#navbarCompareList"); // لیست داخل منو
                         const exists = $compList.find(
                             `.compare-item[data-id="${id}"][data-model="${model}"]`);
@@ -1473,7 +1480,8 @@
                 // بروزرسانی تعداد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count > 0 ? count - 1 : 0);
-                $badge2.html(count > 0 ? count - 1 + ' {{__('products.products')}} ' : 0 + ' {{__('products.products')}} ');
+                $badge2.html(count > 0 ? count - 1 + ' {{ __('products.products') }} ' : 0 +
+                    ' {{ __('products.products') }} ');
 
                 return "removed";
             }
@@ -1481,7 +1489,7 @@
                 // افزایش عدد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
-                $badge2.html(count + 1 + ' {{__('products.products')}} ');
+                $badge2.html(count + 1 + ' {{ __('products.products') }} ');
 
                 const newItem = `
                 <div class="favorites-item"

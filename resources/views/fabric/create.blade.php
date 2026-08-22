@@ -106,6 +106,13 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+				<div class="form-group">
+					<label for="ar_dimensions">اندازه عرض پارچه عربی</label>
+					<textarea name="ar_dimensions" id="ar_dimensions" class="form-control @error('ar_dimensions') is-invalid @enderror" rows="3" placeholder="">{{old('ar_dimensions','120 سانتیمتر')}}</textarea>
+					@error('ar_dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 				<div class="form-group">
 					<label for="weight">وزن تقریبی هر متر</label>
@@ -118,6 +125,13 @@
 					<label for="e_weight">وزن تقریبی هر متر انگلیسی</label>
 					<textarea name="e_weight" id="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3" placeholder="مثلاً  1500 گرم">{{old('e_weight')}}</textarea>
 					@error('e_weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="ar_weight">وزن تقریبی هر متر عربی</label>
+					<textarea name="ar_weight" id="ar_weight" class="form-control @error('ar_weight') is-invalid @enderror" rows="3" placeholder="مثلاً  1500 گرم">{{old('ar_weight')}}</textarea>
+					@error('ar_weight')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -144,6 +158,17 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+					<label for="ar_kind">جنس محصول عربی</label>
+                    <select name="ar_kind" id="ar_kind" class="form-control @error('ar_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('ar_kind') == 'ابریشم بلدی (ویسکوز ریون)') selected @endif value="ابریشم بلدی (ویسکوز ریون)">ابریشم بلدی (ویسکوز ریون)</option>
+						<option  @if (old('ar_kind') == 'الحرير الصناعي') selected @endif value="الحرير الصناعي">الحرير الصناعي</option>
+                    </select>
+                    @error('ar_kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
 				<div class="form-group">
                 	<label for="washable">قابلیت شستشو</label>
@@ -166,6 +191,18 @@
 						<option @if (old('e_washable') == 'No Washing') selected @endif value="No Washing">No Washing</option>
                     </select>
                     @error('e_washable')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+                	<label for="ar_washable">قابلیت شستشو عربی</label>
+                    <select name="ar_washable" id="ar_washable" class="form-control @error('ar_washable') is-invalid @enderror">
+                    	<option value="">قابلیت شستشو عربی</option>
+                      	<option @if (old('ar_washable') == 'باليد')  @endif value="باليد">باليد</option>
+						<option @if (old('ar_washable') == 'نعم (ويفضل التنظيف الجاف)') selected @endif value="نعم (ويفضل التنظيف الجاف)">نعم (ويفضل التنظيف الجاف)</option>
+						<option @if (old('ar_washable') == 'لا') selected @endif value="لا">لا</option>
+                    </select>
+                    @error('ar_washable')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
@@ -400,9 +437,9 @@
 					@enderror
 				</div>
 				<div class="form-group">
-					<label for="e_description">توضیحات بیشتر انگلیسی</label>
-					<textarea name="e_description" id="e_description" class="form-control @error('e_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('e_description')}}</textarea>
-					@error('e_description')
+					<label for="ar_description">توضیحات بیشتر عربی</label>
+					<textarea name="ar_description" id="ar_description" class="form-control @error('ar_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('ar_description')}}</textarea>
+					@error('ar_description')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>

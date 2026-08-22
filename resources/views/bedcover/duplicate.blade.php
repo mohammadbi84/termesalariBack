@@ -45,389 +45,657 @@
 	      	@csrf
 	        <div class="card-body">
 
-	        	<div class="form-group">
-                	<label for="code">کد محصول</label>
-					<input type="text" name="code" class="form-control @error('code') is-invalid @enderror" placeholder="کد محصول را وارد کنید ." value="{{old('code',$bedcover->code)}}" autofocus="autofocus">
-					@error('code')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div>
+                        <div class="form-group">
+                            <label for="code">کد محصول</label>
+                            <input type="text" name="code" class="form-control @error('code') is-invalid @enderror"
+                                placeholder="کد محصول را وارد کنید ." value="{{ old('code', $bedcover->code) }}"
+                                autofocus="autofocus">
+                            @error('code')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				<div class="form-group @error('category_id') is-invalid @enderror">
-					<label for="category_id">دسته بندی محصول</label>
-                  	<select name="category_id" id="category_id" class="form-control select2 select2-hidden-accessible " style="width: 100%;">
-                  		<option value="">نوع محصول را انتخاب کنید  </option>
-                  		@foreach($categories as $category)
-                  			<option value="{{ $category->id }}" @if($category->id == old('category_id',$bedcover->category->id)) selected @endif >{{ $category->title }}</option>
-                  		@endforeach
-                  	</select>
+                        <div class="form-group @error('category_id') is-invalid @enderror">
+                            <label for="category_id">دسته بندی محصول</label>
+                            <select name="category_id" id="category_id"
+                                class="form-control select2 select2-hidden-accessible " style="width: 100%;">
+                                <option value="">نوع محصول را انتخاب کنید </option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" @if ($category->id == old('category_id', $bedcover->category->id)) selected @endif>
+                                        {{ $category->title }}</option>
+                                @endforeach
+                            </select>
 
-					@error('category_id')
-					    <div class="invalid-feedback d-block">{{$message}}</div>
-					@enderror
-                </div>
+                            @error('category_id')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				<div class="form-group @error('design_id') is-invalid @enderror">
-					<label for="design_id">عنوان  طرح</label>
-                  	<select  name="design_id" id="design_id" class="form-control select2 select2-hidden-accessible " style="width: 100%;" >
+                        <div class="form-group @error('design_id') is-invalid @enderror">
+                            <label for="design_id">عنوان طرح</label>
+                            <select name="design_id" id="design_id" class="form-control select2 select2-hidden-accessible "
+                                style="width: 100%;">
 
-	                    <option value="">نام طرح را انتخاب کنید  </option>
-	                    @foreach($designs as $design)
-	                    	<option @if (old('design_id', $bedcover->color_design->design->id) == $design->id ) selected @endif value="{{$design->id}}">{{$design->title}}</option>
-	                    @endforeach
+                                <option value="">نام طرح را انتخاب کنید </option>
+                                @foreach ($designs as $design)
+                                    <option @if (old('design_id', $bedcover->color_design->design->id) == $design->id) selected @endif value="{{ $design->id }}">
+                                        {{ $design->title }}</option>
+                                @endforeach
 
-                  	</select>
+                            </select>
 
-                  	@error('design_id')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-                </div>
+                            @error('design_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				<div class="form-group">
-                	<label for="color_id">رنگ محصول</label>
-                    <select name="color_id" id="color_id" class="form-control @error('color_id') is-invalid @enderror">
-                    	@foreach($colors as $color)
-                    		<option @if (old('color_id', $bedcover->color_design->color->id) == $color->id ) selected @endif value="{{ $color->id }}">{{ $color->color }}</option>
-                    	@endforeach
-                    </select>
-                    @error('color_id')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-                </div>
+                        <div class="form-group">
+                            <label for="color_id">رنگ محصول</label>
+                            <select name="color_id" id="color_id"
+                                class="form-control @error('color_id') is-invalid @enderror">
+                                @foreach ($colors as $color)
+                                    <option @if (old('color_id', $bedcover->color_design->color->id) == $color->id) selected @endif value="{{ $color->id }}">
+                                        {{ $color->color }}</option>
+                                @endforeach
+                            </select>
+                            @error('color_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				<div class="form-group">
-					<label for="contains">مشتمل بر</label>
-					<textarea name="contains" class="form-control @error('contains') is-invalid @enderror" rows="3" placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{old('contains',$bedcover->contains)}}</textarea>
+                        <div class="form-group">
+                            <label for="contains">مشتمل بر</label>
+                            <textarea name="contains" class="form-control @error('contains') is-invalid @enderror" rows="3"
+                                placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{ old('contains', $bedcover->contains) }}</textarea>
 
-					@error('contains')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div>
+                            @error('contains')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_contains">مشتمل بر ( انگلیسی )</label>
+                            <textarea name="e_contains" class="form-control @error('e_contains') is-invalid @enderror" rows="3"
+                                placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{ old('e_contains', $bedcover->e_contains) }}</textarea>
 
-				<div class="form-group">
-					<label for="dimensions">ابعاد محصول</label>
-					<textarea name="dimensions" class="form-control @error('dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('dimensions',$bedcover->dimensions)}}</textarea>
-					@error('dimensions')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div>
+                            @error('e_contains')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_contains">مشتمل بر ( عربی )</label>
+                            <textarea name="ar_contains" class="form-control @error('ar_contains') is-invalid @enderror" rows="3"
+                                placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{ old('ar_contains', $bedcover->ar_contains) }}</textarea>
 
-				<div class="form-group">
-					<label for="weight">وزن تقریبی</label>
-					<textarea name="weight" class="form-control @error('weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('weight',$bedcover->weight)}}</textarea>
-					@error('weight')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div>
+                            @error('ar_contains')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				<div class="form-group">
-					<label for="kind">جنس محصول</label>
-                    <select name="kind" class="form-control @error('kind') is-invalid @enderror">
-                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
-                      	<option  @if (old('kind',$bedcover->kind) == 'ابریشم مصنوعی (ویسکوز ریون)') selected @endif value="ابریشم مصنوعی (ویسکوز ریون)">ابریشم مصنوعی (ویسکوز ریون)</option>
-						<option  @if (old('kind',$bedcover->kind) == 'ابریشم مصنوعی') selected @endif value="ابریشم مصنوعی">ابریشم مصنوعی</option>
-                    </select>
-                    @error('kind')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-                </div>
+                        <div class="form-group">
+                            <label for="dimensions">ابعاد محصول</label>
+                            <textarea name="dimensions" class="form-control @error('dimensions') is-invalid @enderror" rows="3"
+                                placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{ old('dimensions', $bedcover->dimensions) }}</textarea>
+                            @error('dimensions')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_dimensions">ابعاد محصول انگلیسی</label>
+                            <textarea name="e_dimensions" class="form-control @error('e_dimensions') is-invalid @enderror" rows="3"
+                                placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{ old('e_dimensions', $bedcover->e_dimensions) }}</textarea>
+                            @error('e_dimensions')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_dimensions">ابعاد محصول عربی</label>
+                            <textarea name="ar_dimensions" class="form-control @error('ar_dimensions') is-invalid @enderror" rows="3"
+                                placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{ old('ar_dimensions', $bedcover->ar_dimensions) }}</textarea>
+                            @error('ar_dimensions')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                <div class="form-group">
-                	<label for="sewingType">نوع دوخت</label>
-                    <select name="sewingType" class="form-control @error('sewingType') is-invalid @enderror">
-                    	{{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
-                      	<option @if (old('sewingType',$bedcover->sewingType) == 'مغزی دوزی') selected @endif value="مغزی دوزی">مغزی دوزی</option>
-						<option @if (old('sewingType',$bedcover->sewingType) == 'ساده') selected @endif value="ساده">ساده</option>
-                    </select>
-                    @error('sewingType')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-                </div>
+                        <div class="form-group">
+                            <label for="weight">وزن تقریبی</label>
+                            <textarea name="weight" class="form-control @error('weight') is-invalid @enderror" rows="3"
+                                placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{ old('weight', $bedcover->weight) }}</textarea>
+                            @error('weight')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_weight">وزن تقریبی انگلیسی</label>
+                            <textarea name="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3"
+                                placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{ old('e_weight', $bedcover->e_weight) }}</textarea>
+                            @error('e_weight')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_weight">وزن تقریبی عربی</label>
+                            <textarea name="ar_weight" class="form-control @error('ar_weight') is-invalid @enderror" rows="3"
+                                placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{ old('ar_weight', $bedcover->ar_weight) }}</textarea>
+                            @error('ar_weight')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                <div class="form-group">
-                	<label for="haveEster">آستر</label>
-                    <select name="haveEster" id="haveEster" class="form-control @error('haveEster') is-invalid @enderror">
-                    	{{-- <option value="">آنتخاب ویژگی آستر</option> --}}
-                      	<option @if (old('haveEster',$bedcover->haveEster) == 'دارد') selected @endif value="دارد">دارد</option>
-						<option @if (old('haveEster',$bedcover->haveEster) == 'ندارد') selected @endif value="ندارد">ندارد</option>
-                    </select>
-                    @error('haveEster')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-                </div>
+                        <div class="form-group">
+                            <label for="kind">جنس محصول</label>
+                            <select name="kind" class="form-control @error('kind') is-invalid @enderror">
+                                {{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                                <option @if (old('kind', $bedcover->kind) == 'ابریشم مصنوعی (ویسکوز ریون)') selected @endif
+                                    value="ابریشم مصنوعی (ویسکوز ریون)">ابریشم مصنوعی (ویسکوز ریون)</option>
+                                <option @if (old('kind', $bedcover->kind) == 'ابریشم مصنوعی') selected @endif value="ابریشم مصنوعی">ابریشم
+                                    مصنوعی</option>
+                            </select>
+                            @error('kind')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_kind">جنس محصول انگلیسی</label>
+                            <select name="e_kind" id="e_kind"
+                                class="form-control @error('e_kind') is-invalid @enderror">
+                                {{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                                <option @if (old('e_kind', $bedcover->e_kind) == 'Rayon (viscose rayon)') selected @endif value="Rayon (viscose rayon)">
+                                    Rayon (viscose rayon)</option>
+                                <option @if (old('e_kind', $bedcover->e_kind) == 'Artificial silk') selected @endif value="Artificial silk">
+                                    Artificial silk</option>
+                            </select>
+                            @error('e_kind')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_kind">جنس محصول عربی</label>
+                            <select name="ar_kind" id="ar_kind"
+                                class="form-control @error('ar_kind') is-invalid @enderror">
+                                {{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                                <option @if (old('ar_kind', $bedcover->ar_kind) == 'ابریشم بلدی (ویسکوز ریون)') selected @endif value="ابریشم بلدی (ویسکوز ریون)">
+                                    ابریشم بلدی (ویسکوز ریون)</option>
+                                <option @if (old('ar_kind', $bedcover->ar_kind) == 'الحرير الصناعي') selected @endif value="الحرير الصناعي">
+                                    الحرير الصناعي</option>
+                            </select>
+                            @error('ar_kind')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				<div class="form-group">
-					<label for="kindOfEster">جنس آستر</label>
-					<input disabled="disabled" type="text" name="kindOfEster" id="kindOfEster" class="form-control @error('kindOfEster') is-invalid @enderror" placeholder="مثلاً ساتن مرغوب" value="{{old('kindOfEster',$bedcover->kindOfEster)}}"  >
-					@error('kindOfEster')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div>
+                        <div class="form-group">
+                            <label for="sewingType">نوع دوخت</label>
+                            <select name="sewingType" class="form-control @error('sewingType') is-invalid @enderror">
+                                {{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                                <option @if (old('sewingType', $bedcover->sewingType) == 'مغزی دوزی') selected @endif value="مغزی دوزی">مغزی دوزی
+                                </option>
+                                <option @if (old('sewingType', $bedcover->sewingType) == 'ساده') selected @endif value="ساده">ساده</option>
+                            </select>
+                            @error('sewingType')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_sewingType">نوع دوخت ( انگلیسی )</label>
+                            <select name="e_sewingType" id="e_sewingType"
+                                class="form-control @error('e_sewingType') is-invalid @enderror">
+                                {{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                                <option @if (old('e_sewingType', $bedcover->e_sewingType) == 'Bind') selected @endif value="Bind">Bind</option>
+                                <option @if (old('e_sewingType', $bedcover->e_sewingType) == 'Simple') selected @endif value="Simple">Simple</option>
+                            </select>
+                            @error('e_sewingType')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_sewingType">نوع دوخت ( عربی )</label>
+                            <select name="ar_sewingType" id="ar_sewingType"
+                                class="form-control @error('ar_sewingType') is-invalid @enderror">
+                                {{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                                <option @if (old('ar_sewingType', $bedcover->ar_sewingType) == 'دماغ مطرز') selected @endif value="دماغ مطرز">دماغ مطرز</option>
+                                <option @if (old('ar_sewingType', $bedcover->ar_sewingType) == 'بسيط') selected @endif value="بسيط">بسيط</option>
+                            </select>
+                            @error('ar_sewingType')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				<div class="form-group">
-                	<label for="washable">قابلیت شستشو</label>
-                    <select name="washable" class="form-control @error('washable') is-invalid @enderror">
-                    	<option value="">قابلیت شستشو</option>
-                      	<option @if (old('washable',$bedcover->washable) == 'توسط دست') selected @endif value="توسط دست">توسط دست</option>
-						<option @if (old('washable',$bedcover->washable) == 'دارد ( ترجیحا خشکشویی)') selected @endif value="دارد ( ترجیحا خشکشویی)">دارد ( ترجیحا خشکشویی)</option>
-						<option @if (old('washable',$bedcover->washable) == 'ندارد') selected @endif value="ندارد">ندارد</option>
-                    </select>
-                    @error('washable')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-                </div>
+                        <div class="form-group">
+                            <label for="haveEster">آستر</label>
+                            <select name="haveEster" id="haveEster"
+                                class="form-control @error('haveEster') is-invalid @enderror">
+                                {{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                                <option @if (old('haveEster', $bedcover->haveEster) == 'دارد') selected @endif value="دارد">دارد</option>
+                                <option @if (old('haveEster', $bedcover->haveEster) == 'ندارد') selected @endif value="ندارد">ندارد</option>
+                            </select>
+                            @error('haveEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_haveEster">آستر انگلیسی</label>
+                            <select name="e_haveEster" id="e_haveEster"
+                                class="form-control @error('e_haveEster') is-invalid @enderror">
+                                {{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                                <option @if (old('e_haveEster', $bedcover->e_haveEster) == 'Yes') selected @endif value="Yes">Yes</option>
+                                <option @if (old('e_haveEster', $bedcover->e_haveEster) == 'No') selected @endif value="No">No</option>
+                            </select>
+                            @error('e_haveEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_haveEster">آستر عربی</label>
+                            <select name="ar_haveEster" id="ar_haveEster"
+                                class="form-control @error('ar_haveEster') is-invalid @enderror">
+                                {{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                                <option @if (old('ar_haveEster', $bedcover->ar_haveEster) == 'نعم') selected @endif value="نعم">نعم</option>
+                                <option @if (old('ar_haveEster', $bedcover->ar_haveEster) == 'لا') selected @endif value="لا">لا</option>
+                            </select>
+                            @error('ar_haveEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-				@foreach($bedcover->prices->sortBy('local') as $key=>$prices)
-{{-- @dump(session()->all()) --}}
-					<div class="prices-{{ $key + 1 }} @if($key == 1 or $key == 2) mt-4 pt-4 @endif " @if($key == 1 or $key == 2) style="border-top: 1px solid lightgray; @if(old('price.' . $key,$prices->price)!="") display: block; @else  display: none; @endif" @endif>
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-									<label for="price">قیمت محصول</label>
-									<input type="text" name="price[]"  class="form-control price @error('price.' . $key) is-invalid @enderror" placeholder="تنها شامل اعداد" value="{{old('price.' . $key,$prices->price)}}">
+                        <div class="form-group">
+                            <label for="kindOfEster">جنس آستر</label>
+                            <input disabled="disabled" type="text" name="kindOfEster" id="kindOfEster"
+                                class="form-control @error('kindOfEster') is-invalid @enderror"
+                                placeholder="مثلاً ساتن مرغوب" value="{{ old('kindOfEster', $bedcover->kindOfEster) }}">
+                            @error('kindOfEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_kindOfEster">جنس آستر انگلیسی</label>
+                            <input disabled="disabled" type="text" name="e_kindOfEster" id="e_kindOfEster"
+                                class="form-control @error('e_kindOfEster') is-invalid @enderror"
+                                placeholder="مثلاً ساتن مرغوب"
+                                value="{{ old('e_kindOfEster', $bedcover->e_kindOfEster) }}">
+                            @error('e_kindOfEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_kindOfEster">جنس آستر عربی</label>
+                            <input disabled="disabled" type="text" name="ar_kindOfEster" id="ar_kindOfEster"
+                                class="form-control @error('ar_kindOfEster') is-invalid @enderror"
+                                placeholder="مثلاً ساتن مرغوب"
+                                value="{{ old('ar_kindOfEster', $bedcover->ar_kindOfEster) }}">
+                            @error('ar_kindOfEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-									@error('price.' . $key)
-									    <div class="invalid-feedback">{{ $errors->first('price.' . $key) }}</div>
-									@enderror
-								</div>
-							</div>
+                        <div class="form-group">
+                            <label for="washable">قابلیت شستشو</label>
+                            <select name="washable" class="form-control @error('washable') is-invalid @enderror">
+                                <option value="">قابلیت شستشو</option>
+                                <option @if (old('washable', $bedcover->washable) == 'توسط دست') selected @endif value="توسط دست">توسط دست
+                                </option>
+                                <option @if (old('washable', $bedcover->washable) == 'دارد ( ترجیحا خشکشویی)') selected @endif value="دارد ( ترجیحا خشکشویی)">
+                                    دارد ( ترجیحا خشکشویی)</option>
+                                <option @if (old('washable', $bedcover->washable) == 'ندارد') selected @endif value="ندارد">ندارد</option>
+                            </select>
+                            @error('washable')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_washable">قابلیت شستشو انگلیسی</label>
+                            <select name="e_washable" id="e_washable"
+                                class="form-control @error('e_washable') is-invalid @enderror">
+                                <option value="">قابلیت شستشو انگلیسی</option>
+                                <option @if (old('e_washable', $bedcover->e_washable) == 'By hand')  @endif value="By hand">By hand</option>
+                                <option @if (old('e_washable', $bedcover->e_washable) == 'Yes (preferably dry cleaning)') selected @endif
+                                    value="Yes (preferably dry cleaning)">Yes (preferably dry cleaning)</option>
+                                <option @if (old('e_washable', $bedcover->e_washable) == 'No Washing') selected @endif value="No Washing">No Washing
+                                </option>
+                            </select>
+                            @error('e_washable')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_washable">قابلیت شستشو عربی</label>
+                            <select name="ar_washable" id="ar_washable"
+                                class="form-control @error('ar_washable') is-invalid @enderror">
+                                <option value="">قابلیت شستشو عربی</option>
+                                <option @if (old('ar_washable', $bedcover->ar_washable) == 'باليد')  @endif value="باليد">باليد</option>
+                                <option @if (old('ar_washable', $bedcover->ar_washable) == 'نعم (ويفضل التنظيف الجاف)') selected @endif
+                                    value="نعم (ويفضل التنظيف الجاف)">نعم (ويفضل التنظيف الجاف)</option>
+                                <option @if (old('ar_washable', $bedcover->ar_washable) == 'لا') selected @endif value="لا">لا
+                                </option>
+                            </select>
+                            @error('ar_washable')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-							<div class="col-md-5">
-								<div class="form-group">
-				                	<label for="local">واحد</label>
-				                    <select name="local[]"  class="form-control local @error('local.' . $key) is-invalid @enderror">
-				                    	<option value="">واحد پول را انتخاب کنید .</option>
-				                      	<option @if (old('local.' . $key ,$prices->local) == 'تومان') selected @endif value="تومان">تومان</option>
-										<option @if (old('local.' . $key,$prices->local) == '$') selected @endif value="$">$</option>
-										<option @if (old('local.' . $key,$prices->local) == '&euro;') selected @endif value="&euro;">&euro;</option>
-				                    </select>
-				                    @error('local.' . $key)
-									    <div class="invalid-feedback">{{  $errors->first('local.' . $key) }}</div>
-									@enderror
-				                </div>
-							</div>
+                        @foreach ($bedcover->prices->sortBy('local') as $key => $prices)
+                            {{-- @dump($key,$prices) --}}
+                            <div class="prices-{{ $key + 1 }} @if ($key == 1 or $key == 2) mt-4 pt-4 @endif "
+                                @if ($key == 1 or $key == 2) style="border-top: 1px solid lightgray; @if (old('price.' . $key, $prices->price) != '') display: block; @else  display: none; @endif"
+                                @endif>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="price">قیمت محصول</label>
+                                            <input type="text" name="price[]"
+                                                class="form-control price @error('price.' . $key) is-invalid @enderror"
+                                                placeholder="تنها شامل اعداد"
+                                                value="{{ old('price.' . $key, $prices->price) }}">
 
-							<div class="col-md-2" style="text-align: left;margin: auto;">
-								@if($key == 0 or $key == 1)
-									<a href="#" class="btn btn-flat btn-secondary addPrice @if( ($key == 0 and $bedcover->prices->count() > 1) or ($key == 1 and $bedcover->prices->count() > 2) ) d-none @else d-inline-block @endif " style="width: 40px" data-value="prices-{{$key+2}}" >+</a>
+                                            @error('price.' . $key)
+                                                <div class="invalid-feedback">{{ $errors->first('price.' . $key) }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-								@endif
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="local">واحد</label>
+                                            <select name="local[]"
+                                                class="form-control local @error('local.' . $key) is-invalid @enderror">
+                                                <option value="">واحد پول را انتخاب کنید .</option>
+                                                <option @if (old('local.' . $key, $prices->local) == 'تومان') selected @endif value="تومان">
+                                                    تومان</option>
+                                                <option @if (old('local.' . $key, $prices->local) == '$') selected @endif value="$">
+                                                    $</option>
+                                                <option @if (old('local.' . $key, $prices->local) == '&euro;') selected @endif value="&euro;">
+                                                    &euro;</option>
+                                            </select>
+                                            @error('local.' . $key)
+                                                <div class="invalid-feedback">{{ $errors->first('local.' . $key) }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-									<a href="#" class="btn btn-flat btn-danger delPrice " style="width: 40px" data-value="prices-{{$key+1}}">-</a>
-							</div>
+                                    <div class="col-md-2" style="text-align: left;margin: auto;">
+                                        @if ($key == 0 or $key == 1)
+                                            <a href="#"
+                                                class="btn btn-flat btn-secondary addPrice @if ($key == 0 and $bedcover->prices->count() > 1 or $key == 1 and $bedcover->prices->count() > 2) d-none @else d-inline-block @endif "
+                                                style="width: 40px" data-value="prices-{{ $key + 2 }}">+</a>
 
-						</div>
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-				                	<label for="offType">نوع تخفیف</label>
-				                    <select name="offType[]"  class="form-control offType @error('offType.' . $key) is-invalid @enderror">
-				                    	<option value="">نوع تخفیف را انتخاب کنید .</option>
-				                      	<option @if (old('offType.' . $key,$prices->offType) == 'درصد') selected @endif value="درصد">درصدی</option>
-										<option @if (old('offType.' . $key,$prices->offType) == 'مبلغ') selected @endif value="مبلغ">مبلغ</option>
-				                    </select>
-				                    @error('offType.' . $key)
-									    <div class="invalid-feedback">{{  $errors->first('offType.' . $key) }}</div>
-									@enderror
-				                </div>
-							</div>
+                                        @endif
 
-							<div class="col-md-5">
-								<div class="form-group">
-									<label for="offPrice">میزان تخفیف</label>
-									<input type="text" name="offPrice[]"  class="form-control offPrice @error('offPrice.' . $key) is-invalid @enderror" placeholder="مثلاً 30 یا 100000" value="{{old('offPrice.' .$key ,$prices->offPrice)}}"  {{-- @if(old('offPrice.' . $key , $prices->offPrice)=="" and old('offType.' . $key) == "") disabled @else enabled @endif --}}>
+                                        <a href="#" class="btn btn-flat btn-danger delPrice " style="width: 40px"
+                                            data-value="prices-{{ $key + 1 }}">-</a>
+                                    </div>
 
-									@error('offPrice.' . $key)
-									    <div class="invalid-feedback">{{  $errors->first('offPrice.' . $key) }}</div>
-									@enderror
-								</div>
-							</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="offType">نوع تخفیف</label>
+                                            <select name="offType[]"
+                                                class="form-control offType @error('offType.' . $key) is-invalid @enderror">
+                                                <option value="">نوع تخفیف را انتخاب کنید .</option>
+                                                <option @if (old('offType.' . $key, $prices->offType) == 'درصد') selected @endif value="درصد">
+                                                    درصدی</option>
+                                                <option @if (old('offType.' . $key, $prices->offType) == 'مبلغ') selected @endif value="مبلغ">
+                                                    مبلغ</option>
+                                            </select>
+                                            @error('offType.' . $key)
+                                                <div class="invalid-feedback">{{ $errors->first('offType.' . $key) }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-						</div>
-					</div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="offPrice">میزان تخفیف</label>
+                                            <input type="text" name="offPrice[]"
+                                                class="form-control offPrice @error('offPrice.' . $key) is-invalid @enderror"
+                                                placeholder="مثلاً 30 یا 100000"
+                                                value="{{ old('offPrice.' . $key, $prices->offPrice) ?? '0' }}">
 
-				@endforeach
+                                            @error('offPrice.' . $key)
+                                                <div class="invalid-feedback">{{ $errors->first('offPrice.' . $key) }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-				@if($bedcover->prices->count() == 1)
-
-					<div class="prices-2 mt-4 pt-4" style="border-top: 1px solid lightgray; @if(old("price.1")!="") display: block; @else  display: none; @endif"  >
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-									<label for="price">قیمت محصول</label>
-									<input type="text" name="price[]"  class="form-control price @error('price.1') is-invalid @enderror" placeholder="تنها شامل اعداد" value="{{old('price.1')}}">
-									@error('price.1')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-								</div>
-							</div>
-
-							<div class="col-md-5">
-								<div class="form-group">
-				                	<label for="local">واحد</label>
-				                    <select name="local[]"  class="form-control local @error('local.1') is-invalid @enderror">
-				                    	<option value="">واحد پول را انتخاب کنید .</option>
-				                      	<option @if (old('local.1') == 'تومان') selected @endif value="تومان">تومان</option>
-										<option @if (old('local.1') == '$') selected @endif value="$">$</option>
-										<option @if (old('local.1') == '&euro;') selected @endif value="&euro;">&euro;</option>
-				                    </select>
-				                    @error('local.1')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-				                </div>
-							</div>
-
-							<div class="col-md-2" style="text-align: left;margin: auto;">
-								<a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px" data-value="prices-3">+</a>
-								<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-2">-</a>
-							</div>
-
-						</div>
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-				                	<label for="offType">نوع تخفیف</label>
-				                    <select name="offType[]"  class="form-control offType @error('offType.1') is-invalid @enderror">
-				                    	<option value="">نوع تخفیف را انتخاب کنید .</option>
-				                      	<option @if (old('offType.1') == 'درصد') selected @endif value="درصد">درصدی</option>
-										<option @if (old('offType.1') == 'مبلغ') selected @endif value="مبلغ">مبلغ</option>
-				                    </select>
-				                    @error('offType.1')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-				                </div>
-							</div>
-
-							<div class="col-md-5">
-								<div class="form-group">
-									<label for="offPrice">میزان تخفیف</label>
-									<input type="text" name="offPrice[]"  class="form-control offPrice @error('offPrice.1') is-invalid @enderror" placeholder="مثلاً 30 یا 100000" value="{{old('offPrice.1')}}" @if(old('offPrice.1')=="") disabled @else enable @endif>
-									@error('offPrice.1')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-				@endif
-
-				@if($bedcover->prices->count() < 3)
-					<div class="prices-3 mt-4 pt-4" style="border-top: 1px solid lightgray; @if(old("price.2")!="") display: block; @else  display: none; @endif" >
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-									<label for="price">قیمت محصول</label>
-									<input type="text" name="price[]"  class="form-control price @error('price.2') is-invalid @enderror" placeholder="تنها شامل اعداد" value="{{old('price.2')}}">
-									@error('price.2')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-								</div>
-							</div>
-
-							<div class="col-md-5">
-								<div class="form-group">
-				                	<label for="local">واحد</label>
-				                    <select name="local[]"  class="form-control local @error('local.2') is-invalid @enderror">
-				                    	<option value="">واحد پول را انتخاب کنید .</option>
-				                      	<option @if (old('local.2') == 'تومان') selected @endif value="تومان">تومان</option>
-										<option @if (old('local.2') == '$') selected @endif value="$">$</option>
-										<option @if (old('local.2') == '&euro;') selected @endif value="&euro;">&euro;</option>
-				                    </select>
-				                    @error('local.2')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-				                </div>
-							</div>
-
-							<div class="col-md-2" style="text-align: left;margin: auto;">
-								<a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px" data-value="prices-3">-</a>
-							</div>
-
-						</div>
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-				                	<label for="offType">نوع تخفیف</label>
-				                    <select name="offType[]"  class="form-control offType @error('offType.2') is-invalid @enderror">
-				                    	<option value="">نوع تخفیف را انتخاب کنید .</option>
-				                      	<option @if (old('offType.2') == 'درصد') selected @endif value="درصد">درصدی</option>
-										<option @if (old('offType.2') == 'مبلغ') selected @endif value="مبلغ">مبلغ</option>
-				                    </select>
-				                    @error('offType.2')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-				                </div>
-							</div>
-
-							<div class="col-md-5">
-								<div class="form-group">
-									<label for="offPrice">میزان تخفیف</label>
-									<input type="text" name="offPrice[]"  class="form-control offPrice @error('offPrice.2') is-invalid @enderror" placeholder="مثلاً 30 یا 100000" value="{{old('offPrice.2')}}" @if(old('offPrice.2')=="") disabled @else enable @endif>
-									@error('offPrice.2')
-									    <div class="invalid-feedback">{{$message}}</div>
-									@enderror
-								</div>
-							</div>
-
-						</div>
-					</div>
-				@endif
-
-                <div class="form-group @error('images') is-invalid @enderror">
-                    {{-- <label for="images">تصاویر محصول</label>
-					<div class="file-loading">
-					    <input id="images" name="images[]" type="file" multiple>
-					</div>
-
-					<div class="invalid-feedback d-block" style=""></div> --}}
-
-                    <div id="image-repeater" class="mb-2">
-                        <div class="image-picker-row mb-2">
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <a data-input="thumbnail_1" data-preview="holder_1"
-                                        class="lfm btn btn-primary">
-                                        <i class="fa fa-picture-o"></i> انتخاب تصویر
-                                    </a>
-                                </span>
-                                <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
-                                <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                </div>
                             </div>
-                            <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                        @endforeach
+
+                        @if ($bedcover->prices->count() == 1)
+
+                            <div class="prices-2 mt-4 pt-4"
+                                style="border-top: 1px solid lightgray; @if (old('price.1') != '') display: block; @else  display: none; @endif">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="price">قیمت محصول</label>
+                                            <input type="text" name="price[]"
+                                                class="form-control price @error('price.1') is-invalid @enderror"
+                                                placeholder="تنها شامل اعداد" value="{{ old('price.1') }}">
+                                            @error('price.1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="local">واحد</label>
+                                            <select name="local[]"
+                                                class="form-control local @error('local.1') is-invalid @enderror">
+                                                <option value="">واحد پول را انتخاب کنید .</option>
+                                                <option @if (old('local.1') == 'تومان') selected @endif value="تومان">
+                                                    تومان</option>
+                                                <option @if (old('local.1') == '$') selected @endif value="$">
+                                                    $</option>
+                                                <option @if (old('local.1') == '&euro;') selected @endif value="&euro;">
+                                                    &euro;</option>
+                                            </select>
+                                            @error('local.1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2" style="text-align: left;margin: auto;">
+                                        <a href="#" class="btn btn-flat btn-secondary addPrice" style="width: 40px"
+                                            data-value="prices-3">+</a>
+                                        <a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px"
+                                            data-value="prices-2">-</a>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="offType">نوع تخفیف</label>
+                                            <select name="offType[]"
+                                                class="form-control offType @error('offType.1') is-invalid @enderror">
+                                                <option value="">نوع تخفیف را انتخاب کنید .</option>
+                                                <option @if (old('offType.1') == 'درصد') selected @endif value="درصد">
+                                                    درصدی</option>
+                                                <option @if (old('offType.1') == 'مبلغ') selected @endif value="مبلغ">
+                                                    مبلغ</option>
+                                            </select>
+                                            @error('offType.1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="offPrice">میزان تخفیف</label>
+                                            <input type="text" name="offPrice[]"
+                                                class="form-control offPrice @error('offPrice.1') is-invalid @enderror"
+                                                placeholder="مثلاً 30 یا 100000" value="{{ old('offPrice.1') }}"
+                                                @if (old('offPrice.1') == '') disabled @else enable @endif>
+                                            @error('offPrice.1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        @endif
+
+                        @if ($bedcover->prices->count() < 3)
+                            <div class="prices-3 mt-4 pt-4"
+                                style="border-top: 1px solid lightgray; @if (old('price.2') != '') display: block; @else  display: none; @endif">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="price">قیمت محصول</label>
+                                            <input type="text" name="price[]"
+                                                class="form-control price @error('price.2') is-invalid @enderror"
+                                                placeholder="تنها شامل اعداد" value="{{ old('price.2') }}">
+                                            @error('price.2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="local">واحد</label>
+                                            <select name="local[]"
+                                                class="form-control local @error('local.2') is-invalid @enderror">
+                                                <option value="">واحد پول را انتخاب کنید .</option>
+                                                <option @if (old('local.2') == 'تومان') selected @endif value="تومان">
+                                                    تومان</option>
+                                                <option @if (old('local.2') == '$') selected @endif value="$">
+                                                    $</option>
+                                                <option @if (old('local.2') == '&euro;') selected @endif value="&euro;">
+                                                    &euro;</option>
+                                            </select>
+                                            @error('local.2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2" style="text-align: left;margin: auto;">
+                                        <a href="#" class="btn btn-flat btn-danger delPrice" style="width: 40px"
+                                            data-value="prices-3">-</a>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="offType">نوع تخفیف</label>
+                                            <select name="offType[]"
+                                                class="form-control offType @error('offType.2') is-invalid @enderror">
+                                                <option value="">نوع تخفیف را انتخاب کنید .</option>
+                                                <option @if (old('offType.2') == 'درصد') selected @endif value="درصد">
+                                                    درصدی</option>
+                                                <option @if (old('offType.2') == 'مبلغ') selected @endif value="مبلغ">
+                                                    مبلغ</option>
+                                            </select>
+                                            @error('offType.2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="offPrice">میزان تخفیف</label>
+                                            <input type="text" name="offPrice[]"
+                                                class="form-control offPrice @error('offPrice.2') is-invalid @enderror"
+                                                placeholder="مثلاً 30 یا 100000" value="{{ old('offPrice.2') }}"
+                                                @if (old('offPrice.2') == '') disabled @else enable @endif>
+                                            @error('offPrice.2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="form-group @error('images') is-invalid @enderror">
+                            @php
+                                $existingImages = $bedcover->images()->orderBy('ordering')->get();
+                            @endphp
+
+                            <div id="image-repeater" class="mb-2">
+                                @forelse ($existingImages as $index => $image)
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_{{ $index + 1 }}" data-preview="holder_{{ $index + 1 }}"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_{{ $index + 1 }}" class="form-control" type="text" name="images[]"
+                                                value="{{ $image->name }}" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_{{ $index + 1 }}" src="{{ asset('storage/' . $image->name) }}"
+                                            style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @empty
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_1" data-preview="holder_1"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @endforelse
+                            </div>
+                            <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
+                                <i class="fa fa-plus"></i> افزودن تصویر جدید
+                            </button>
+                            @error('images')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity">موجودی در انبار</label>
+                            <input type="text" name="quantity"
+                                class="form-control @error('quantity') is-invalid @enderror" placeholder="مثلاً 200"
+                                value="{{ old('quantity', $bedcover->quantity) }}">
+                            @error('quantity')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">توضیحات بیشتر</label>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3"
+                                placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{ old('description', $bedcover->description) }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="e_description">توضیحات بیشتر انگلیسی</label>
+                            <textarea name="e_description" class="form-control @error('e_description') is-invalid @enderror" rows="3"
+                                placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{ old('e_description', $bedcover->e_description) }}</textarea>
+                            @error('e_description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" id="store" class="btn btn-flat btn-primary">ثبت</button>
+                            <a href="{{ route('bedcover.index') }}" class="btn btn-flat btn-secondary">بازگشت</a>
                         </div>
                     </div>
-                    <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
-                        <i class="fa fa-plus"></i> افزودن تصویر جدید
-                    </button>
-                    @error('images')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-					<label for="quantity">موجودی در انبار</label>
-					<input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror" placeholder="مثلاً 200" value="{{old('quantity',$bedcover->quantity)}}">
-					@error('quantity')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div>
-
-				<div class="form-group">
-					<label for="description">توضیحات بیشتر</label>
-					<textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('description',$bedcover->description)}}</textarea>
-					@error('description')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div>
-
-	        <!-- /.card-body -->
-
-	        <div class="card-footer">
-	          <button type="submit" id="store" class="btn btn-flat btn-primary">ثبت</button>
-	          <a href="{{ route('bedcover.index') }}" class="btn btn-flat btn-secondary">بازگشت</a>
-	        </div>
 	      </form>
 	    </div>
 	    <!-- /.card -->

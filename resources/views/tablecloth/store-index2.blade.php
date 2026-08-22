@@ -1,10 +1,10 @@
 @extends('shop.layouts.master')
 @section('title', 'محصولات رومیزی')
 @section('head')
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/products.css') }}">
-    @else
+    @if (app()->getLocale() == 'en')
         <link rel="stylesheet" href="{{ asset('shop/css/ltr/products.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/products.css') }}">
     @endif
 @endsection
 @section('content')
@@ -296,10 +296,10 @@
     </div>
 @endsection
 @section('script')
-    @if (app()->getLocale() == 'fa')
-        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
-    @else
+    @if (app()->getLocale() == 'en')
         <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    @else
+        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @endif
 
     <script>
@@ -532,7 +532,8 @@
                 const offType = $btn.data('offType');
                 const pay = $btn.data('pay');
                 const local = $btn.data('local');
-                const title = `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.color') }} ${$btn.data('color')}`;
+                const title =
+                    `${$btn.data('title')} {{ __('products.design') }} ${$btn.data('design')} {{ __('products.color') }} ${$btn.data('color')}`;
                 const image = $btn.data('image') || '/images/no-image.png';
                 const url = `${document.location.origin}/cart/add/${id}/${model}`;
 
@@ -599,7 +600,7 @@
                     // اگر بود، فقط تعداد را افزایش بده
                     const $quantitySpan = existingItem.find('.item-quantity');
                     const currentQuantity = parseInt($quantitySpan.text()) || 0;
-                    newQuantity = currentQuantity +1;
+                    newQuantity = currentQuantity + 1;
                     $quantitySpan.text(currentQuantity + 1);
 
                     const basePrice = existingItem.data('base-price');
@@ -976,7 +977,8 @@
                 // بروزرسانی تعداد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count > 0 ? count - 1 : 0);
-                $badge2.html(count > 0 ? count - 1 + " {{__('products.products')}} " : 0 + " {{__('products.products')}} ");
+                $badge2.html(count > 0 ? count - 1 + " {{ __('products.products') }} " : 0 +
+                    " {{ __('products.products') }} ");
 
                 return "removed";
             }
@@ -984,7 +986,7 @@
                 // افزایش عدد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
-                $badge2.html(count + 1 + " {{__('products.products')}} ");
+                $badge2.html(count + 1 + " {{ __('products.products') }} ");
 
                 const newItem = `
                 <div class="favorites-item"
@@ -1057,8 +1059,8 @@
                 card.removeClass('hovered'); // حذف کلاس
             }
             if (document.activeElement && document.activeElement instanceof HTMLElement) {
-                    document.activeElement.blur();
-                }
+                document.activeElement.blur();
+            }
 
             $.ajax({
                 type: "GET",
@@ -1070,7 +1072,7 @@
                 success: function(data) {
                     document.querySelector(".compare-badge").textContent = data;
                     document.querySelector(".compare-items-count").textContent = data +
-                        " {{__('products.products')}}";
+                        " {{ __('products.products') }}";
                     const $compList = $("#navbarCompareList"); // لیست داخل منو
                     const exists = $compList.find(
                         `.compare-item[data-id="${id}"][data-model="${model}"]`);

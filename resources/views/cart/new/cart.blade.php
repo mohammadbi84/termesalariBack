@@ -358,12 +358,12 @@
                                     </div>
                                     <div class="col-8 col-md-5">
                                         <h5 class="mb-1">
-                                            {{ $product->title ?? (app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title) . ' ' . __('products.design') . '' . (app()->getLocale() == 'fa' ? optional($product->color_design->design)->title : optional($product->color_design->design)->e_title) }}
+                                            {{ $product->title ?? ($product->category->title) . ' ' . __('products.design') . '' . (optional($product->color_design->design)->title) }}
                                             <small class="me-1 text-success" style="font-size: 15px;">(
                                                 {{ number_format($cartItemPrice) }} تومان )</small>
                                         </h5>
                                         <p class="text-muted small mb-2">{{ __('cart.product_row.category_label') }}:
-                                            {{ app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title ?? '—' }}
+                                            {{ $product->category->title ?? '—' }}
                                         </p>
                                         <div class="ml-3 small">
                                             <div>{{ __('cart.product_row.code_label') }}: <span
@@ -443,22 +443,22 @@
                                         <div class="row mt-4 mb-4" id="discountCardRow">
                                             <div class="col-12">
                                                 <div class="input-group input-group-md">
-                                                    @if (app()->getLocale() == 'fa')
-                                                        <input type="text" name="code" id="code"
-                                                            style="border-top-left-radius: 0;border-bottom-left-radius: 0;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
-                                                            placeholder="{{ __('cart.discount.input_placeholder') }}"
-                                                            class="form-control" style="font-size: 0.95rem;">
-                                                        <button type="button border" id="saveDiscountCard"
-                                                            class="btn btn-primary btn-md"
-                                                            style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">{{ __('cart.discount.apply_button') }}</button>
+                                                    @if (app()->getLocale() == 'en')
+                                                    <input type="text" name="code" id="code"
+                                                        style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;border-top-right-radius: 0;border-bottom-right-radius: 0;"
+                                                        placeholder="{{ __('cart.discount.input_placeholder') }}"
+                                                        class="form-control" style="font-size: 0.95rem;">
+                                                    <button type="button border" id="saveDiscountCard"
+                                                        class="btn btn-primary btn-md"
+                                                        style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 0;border-bottom-left-radius: 0;">{{ __('cart.discount.apply_button') }}</button>
                                                     @else
-                                                        <input type="text" name="code" id="code"
-                                                            style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;border-top-right-radius: 0;border-bottom-right-radius: 0;"
-                                                            placeholder="{{ __('cart.discount.input_placeholder') }}"
-                                                            class="form-control" style="font-size: 0.95rem;">
-                                                        <button type="button border" id="saveDiscountCard"
-                                                            class="btn btn-primary btn-md"
-                                                            style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-top-left-radius: 0;border-bottom-left-radius: 0;">{{ __('cart.discount.apply_button') }}</button>
+                                                    <input type="text" name="code" id="code"
+                                                        style="border-top-left-radius: 0;border-bottom-left-radius: 0;border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
+                                                        placeholder="{{ __('cart.discount.input_placeholder') }}"
+                                                        class="form-control" style="font-size: 0.95rem;">
+                                                    <button type="button border" id="saveDiscountCard"
+                                                        class="btn btn-primary btn-md"
+                                                        style="background:#4FBA6C;color:#fff;font-size:0.95rem;border-top-right-radius: 0;border-bottom-right-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">{{ __('cart.discount.apply_button') }}</button>
                                                     @endif
                                                 </div>
                                             </div>
@@ -533,10 +533,10 @@
     </div>
 @endsection
 @section('script')
-    @if (app()->getLocale() == 'fa')
-        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'en')
+    <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
     @else
-        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @endif
     <script src="{{ asset('storetemplate/dist/js/jquery.number.min.js') }}"></script>
     <script>

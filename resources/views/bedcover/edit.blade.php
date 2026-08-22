@@ -128,6 +128,15 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_contains">مشتمل بر ( عربی )</label>
+                            <textarea name="ar_contains" class="form-control @error('ar_contains') is-invalid @enderror" rows="3"
+                                placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{ old('ar_contains', $bedcover->ar_contains) }}</textarea>
+
+                            @error('ar_contains')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="dimensions">ابعاد محصول</label>
@@ -145,6 +154,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_dimensions">ابعاد محصول عربی</label>
+                            <textarea name="ar_dimensions" class="form-control @error('ar_dimensions') is-invalid @enderror" rows="3"
+                                placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{ old('ar_dimensions', $bedcover->ar_dimensions) }}</textarea>
+                            @error('ar_dimensions')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="weight">وزن تقریبی</label>
@@ -159,6 +176,14 @@
                             <textarea name="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3"
                                 placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{ old('e_weight', $bedcover->e_weight) }}</textarea>
                             @error('e_weight')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_weight">وزن تقریبی عربی</label>
+                            <textarea name="ar_weight" class="form-control @error('ar_weight') is-invalid @enderror" rows="3"
+                                placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{ old('ar_weight', $bedcover->ar_weight) }}</textarea>
+                            @error('ar_weight')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -190,6 +215,20 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_kind">جنس محصول عربی</label>
+                            <select name="ar_kind" id="ar_kind"
+                                class="form-control @error('ar_kind') is-invalid @enderror">
+                                {{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                                <option @if (old('ar_kind', $bedcover->ar_kind) == 'ابریشم بلدی (ویسکوز ریون)') selected @endif value="ابریشم بلدی (ویسکوز ریون)">
+                                    ابریشم بلدی (ویسکوز ریون)</option>
+                                <option @if (old('ar_kind', $bedcover->ar_kind) == 'الحرير الصناعي') selected @endif value="الحرير الصناعي">
+                                    الحرير الصناعي</option>
+                            </select>
+                            @error('ar_kind')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="sewingType">نوع دوخت</label>
@@ -212,6 +251,18 @@
                                 <option @if (old('e_sewingType', $bedcover->e_sewingType) == 'Simple') selected @endif value="Simple">Simple</option>
                             </select>
                             @error('e_sewingType')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_sewingType">نوع دوخت ( عربی )</label>
+                            <select name="ar_sewingType" id="ar_sewingType"
+                                class="form-control @error('ar_sewingType') is-invalid @enderror">
+                                {{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                                <option @if (old('ar_sewingType', $bedcover->ar_sewingType) == 'دماغ مطرز') selected @endif value="دماغ مطرز">دماغ مطرز</option>
+                                <option @if (old('ar_sewingType', $bedcover->ar_sewingType) == 'بسيط') selected @endif value="بسيط">بسيط</option>
+                            </select>
+                            @error('ar_sewingType')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -240,6 +291,18 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="ar_haveEster">آستر عربی</label>
+                            <select name="ar_haveEster" id="ar_haveEster"
+                                class="form-control @error('ar_haveEster') is-invalid @enderror">
+                                {{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                                <option @if (old('ar_haveEster', $bedcover->ar_haveEster) == 'نعم') selected @endif value="نعم">نعم</option>
+                                <option @if (old('ar_haveEster', $bedcover->ar_haveEster) == 'لا') selected @endif value="لا">لا</option>
+                            </select>
+                            @error('ar_haveEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="kindOfEster">جنس آستر</label>
@@ -257,6 +320,16 @@
                                 placeholder="مثلاً ساتن مرغوب"
                                 value="{{ old('e_kindOfEster', $bedcover->e_kindOfEster) }}">
                             @error('e_kindOfEster')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_kindOfEster">جنس آستر عربی</label>
+                            <input disabled="disabled" type="text" name="ar_kindOfEster" id="ar_kindOfEster"
+                                class="form-control @error('ar_kindOfEster') is-invalid @enderror"
+                                placeholder="مثلاً ساتن مرغوب"
+                                value="{{ old('ar_kindOfEster', $bedcover->ar_kindOfEster) }}">
+                            @error('ar_kindOfEster')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -287,6 +360,21 @@
                                 </option>
                             </select>
                             @error('e_washable')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ar_washable">قابلیت شستشو عربی</label>
+                            <select name="ar_washable" id="ar_washable"
+                                class="form-control @error('ar_washable') is-invalid @enderror">
+                                <option value="">قابلیت شستشو عربی</option>
+                                <option @if (old('ar_washable', $bedcover->ar_washable) == 'باليد')  @endif value="باليد">باليد</option>
+                                <option @if (old('ar_washable', $bedcover->ar_washable) == 'نعم (ويفضل التنظيف الجاف)') selected @endif
+                                    value="نعم (ويفضل التنظيف الجاف)">نعم (ويفضل التنظيف الجاف)</option>
+                                <option @if (old('ar_washable', $bedcover->ar_washable) == 'لا') selected @endif value="لا">لا
+                                </option>
+                            </select>
+                            @error('ar_washable')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -614,6 +702,7 @@
                             <button type="submit" id="store" class="btn btn-flat btn-primary">ثبت</button>
                             <a href="{{ route('bedcover.index') }}" class="btn btn-flat btn-secondary">بازگشت</a>
                         </div>
+                    </div>
                 </form>
             </div>
             <!-- /.card -->

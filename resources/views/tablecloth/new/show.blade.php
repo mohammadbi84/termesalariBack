@@ -1,12 +1,11 @@
 @extends('shop.layouts.master')
-@section('title', $title . __('products.design') . (app()->getLocale() == 'fa' ?
-    $tablecloth->color_design->design->title : $tablecloth->color_design->design->e_title) . __('products.color') .
+@section('title', $title . __('products.design') . ($tablecloth->color_design->design->title) . __('products.color') .
     ($tablecloth->color_design->color->color))
 @section('head')
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    @if (app()->getLocale() == 'en')
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
     @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
@@ -155,7 +154,7 @@
                             {{ __('product.colors') }}
                         </li>
                         <li>{{ __('product.contains') }}:
-                            {{ app()->getLocale() == 'fa' ? $tablecloth->contains : $tablecloth->e_contains }}</li>
+                            {{ $tablecloth->contains }}</li>
                         <li>{{ __('product.color') }}:
                             {{ $tablecloth->color_design->color->color }}
                         </li>
@@ -264,7 +263,7 @@
                             <h5 class="m-0">{{ __('product.description') }}</h5>
                         </div>
                         <p class="text-justify text-muted">
-                            {{ app()->getLocale() == 'fa' ? $tablecloth->description : $tablecloth->e_description }}
+                            {{ $tablecloth->description }}
                         </p>
                     </div>
                     <div class="bg-white rounded-4 p-4 shadow-sm">
@@ -326,56 +325,56 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.dimensions') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->dimensions : $tablecloth->e_dimensions }}</span>
+                                    class="point-span">{{ $tablecloth->dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.weight') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->weight : $tablecloth->e_weight }}</span>
+                                    class="point-span">{{ $tablecloth->weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.material') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kind : $tablecloth->e_kind }}</span>
+                                    class="point-span">{{ $tablecloth->kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.sewing_type') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->sewingType : $tablecloth->e_sewingType }}</span>
+                                    class="point-span">{{ $tablecloth->sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->haveEster : $tablecloth->e_haveEster }}</span>
+                                    class="point-span">{{ $tablecloth->haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining_material') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->kindOfEster : $tablecloth->e_kindOfEster }}</span>
+                                    class="point-span">{{ $tablecloth->kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.washable') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->washable : $tablecloth->e_washable }}</span>
+                                    class="point-span">{{ $tablecloth->washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.uses') }}</span>
                                 <span
-                                    class="point-span">{{ app()->getLocale() == 'fa' ? $tablecloth->uses : $tablecloth->e_uses }}</span>
+                                    class="point-span">{{ $tablecloth->uses }}</span>
                             </div>
                         </li>
                     </ul>
@@ -511,22 +510,22 @@
                                                                     @elseif($prices->offType == 'درصد')
                                                                         {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
                                                                     @endif
-                                                                    @if (app()->getLocale() == 'fa')
-                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    @if (app()->getLocale() == 'en')
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                    alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @else
                                                                 <span class="price">{{ number_format($prices->price) }}
-                                                                    @if (app()->getLocale() == 'fa')
-                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    @if (app()->getLocale() == 'en')
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @endif
@@ -654,10 +653,10 @@
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    @if (app()->getLocale() == 'fa')
-        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'en')
+    <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
     @else
-        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {

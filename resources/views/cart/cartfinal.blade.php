@@ -96,11 +96,11 @@
                                     <div class="info-product col-md-9">
                                         <div class="col-md-9 float-right">
                                             <h3>
-                                                {{ app()->getLocale() == 'fa' ? $product->category->title : $product->category->e_title }}
+                                                {{ $product->category->title }}
                                                 {{ __('products.design') }}
-                                                {{ app()->getLocale() == 'fa' ? $product->color_design->design->title : $product->color_design->design->e_title }}
+                                                {{ $product->color_design->design->title }}
                                                 {{ __('products.color') }}
-                                                {{ app()->getLocale() == 'fa' ? $product->color_design->color->color : $product->color_design->color->e_color }}
+                                                {{ $product->color_design->color->color }}
                                             </h3>
                                             <h3>{{ __('cart.product_row.code_label') }} {{ $product->code }}</h3>
                                             <h3>{{ __('cart.product_row.subtotal_label') ?? 'تعداد :' }}

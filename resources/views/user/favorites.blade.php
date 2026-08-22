@@ -30,9 +30,9 @@
               @endswitch
             ">
                             <h6 class="pb-2" style="color:black; line-height: 2rem;">
-                                {{ app()->getLocale() == 'fa' ? $favorite->favoriteable->category->title : $favorite->favoriteable->category->e_title }} {{ __('user.favorites.design') }}
-                                {{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->design->title : $favorite->favoriteable->color_design->design->e_title }} {{ __('user.favorites.color') }}
-                                {{ app()->getLocale() == 'fa' ? $favorite->favoriteable->color_design->color->color : $favorite->favoriteable->color_design->color->e_color }}
+                                {{ $favorite->favoriteable->category->title }} {{ __('user.favorites.design') }}
+                                {{ $favorite->favoriteable->color_design->design->title }} {{ __('user.favorites.color') }}
+                                {{ $favorite->favoriteable->color_design->color->color }}
                             </h6>
                         </a>
                         <p>

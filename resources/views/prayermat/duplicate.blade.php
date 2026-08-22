@@ -53,7 +53,7 @@
 					@enderror
 				</div>
 
-				<div class="form-group @error('category_id') is-invalid @enderror">
+                <div class="form-group @error('category_id') is-invalid @enderror">
 					<label for="category_id">دسته بندی محصول</label>
                   	<select name="category_id" id="category_id" class="form-control select2 select2-hidden-accessible " style="width: 100%;">
                   		<option value="">نوع محصول را انتخاب کنید  </option>
@@ -73,7 +73,7 @@
 
 	                    <option value="">نام طرح را انتخاب کنید  </option>
 	                    @foreach($designs as $design)
-	                    	<option @if (old('design_id', $prayermat->color_design->design->id) == $design->id ) selected @endif value="{{$design->id}}">{{$design->title}}</option>
+	                    	<option @if (old('design_id', $prayermat->color_design->design->id) == $design->id ) selected @endif value="{{ $design->id }}">{{ $design->title }}</option>
 	                    @endforeach
 
                   	</select>
@@ -81,7 +81,7 @@
                   	@error('design_id')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
-                </div>
+               </div>
 
 				<div class="form-group">
                 	<label for="color_id">رنگ محصول</label>
@@ -104,10 +104,41 @@
 					@enderror
 				</div>
 
+                <div class="form-group">
+					<label for="e_contains">مشتمل بر ( انگلیسی )</label>
+					<textarea name="e_contains" class="form-control @error('e_contains') is-invalid @enderror" rows="3" placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{old('e_contains',$prayermat->e_contains)}}</textarea>
+
+					@error('e_contains')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="ar_contains">مشتمل بر ( عربی )</label>
+					<textarea name="ar_contains" class="form-control @error('ar_contains') is-invalid @enderror" rows="3" placeholder="مثلا شامل یک رومیزی  مربع و دو رومیزی عسلی">{{old('ar_contains',$prayermat->ar_contains)}}</textarea>
+
+					@error('ar_contains')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+
 				<div class="form-group">
 					<label for="dimensions">ابعاد محصول</label>
 					<textarea name="dimensions" class="form-control @error('dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('dimensions',$prayermat->dimensions)}}</textarea>
 					@error('dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="e_dimensions">ابعاد محصول انگلیسی</label>
+					<textarea name="e_dimensions" class="form-control @error('e_dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('e_dimensions',$prayermat->e_dimensions)}}</textarea>
+					@error('e_dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="ar_dimensions">ابعاد محصول عربی</label>
+					<textarea name="ar_dimensions" class="form-control @error('ar_dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('ar_dimensions',$prayermat->ar_dimensions)}}</textarea>
+					@error('ar_dimensions')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -116,6 +147,20 @@
 					<label for="weight">وزن تقریبی</label>
 					<textarea name="weight" class="form-control @error('weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('weight',$prayermat->weight)}}</textarea>
 					@error('weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="e_weight">وزن تقریبی انگلیسی</label>
+					<textarea name="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('e_weight',$prayermat->e_weight)}}</textarea>
+					@error('e_weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="ar_weight">وزن تقریبی عربی</label>
+					<textarea name="ar_weight" class="form-control @error('ar_weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('ar_weight',$prayermat->ar_weight)}}</textarea>
+					@error('ar_weight')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -131,6 +176,28 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+					<label for="e_kind">جنس محصول انگلیسی</label>
+                    <select name="e_kind" id="e_kind" class="form-control @error('e_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_kind',$prayermat->e_kind) == 'Rayon (viscose rayon)') selected @endif value="Rayon (viscose rayon)">Rayon (viscose rayon)</option>
+						<option  @if (old('e_kind',$prayermat->e_kind) == 'Artificial silk') selected @endif value="Artificial silk">Artificial silk</option>
+                    </select>
+                    @error('e_kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+					<label for="ar_kind">جنس محصول عربی</label>
+                    <select name="ar_kind" id="ar_kind" class="form-control @error('ar_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('ar_kind',$prayermat->ar_kind) == 'ابریشم بلدی (ویسکوز ریون)') selected @endif value="ابریشم بلدی (ویسکوز ریون)">ابریشم بلدی (ویسکوز ریون)</option>
+						<option  @if (old('ar_kind',$prayermat->ar_kind) == 'الحرير الصناعي') selected @endif value="الحرير الصناعي">الحرير الصناعي</option>
+                    </select>
+                    @error('ar_kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
                 <div class="form-group">
                 	<label for="sewingType">نوع دوخت</label>
@@ -140,6 +207,28 @@
 						<option @if (old('sewingType',$prayermat->sewingType) == 'ساده') selected @endif value="ساده">ساده</option>
                     </select>
                     @error('sewingType')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+                	<label for="e_sewingType">نوع دوخت ( انگلیسی )</label>
+                    <select name="e_sewingType" id="e_sewingType" class="form-control @error('e_sewingType') is-invalid @enderror">
+                    	{{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_sewingType',$prayermat->e_sewingType) == 'Bind') selected @endif value="Bind">Bind</option>
+						<option  @if (old('e_sewingType',$prayermat->e_sewingType) == 'Simple') selected @endif value="Simple">Simple</option>
+                    </select>
+                    @error('e_sewingType')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+                	<label for="ar_sewingType">نوع دوخت ( عربی )</label>
+                    <select name="ar_sewingType" id="ar_sewingType" class="form-control @error('ar_sewingType') is-invalid @enderror">
+                    	{{-- <option value="">نوع دوخت را انتخاب کنید .</option> --}}
+                      	<option  @if (old('ar_sewingType',$prayermat->ar_sewingType) == 'دماغ مطرز') selected @endif value="دماغ مطرز">دماغ مطرز</option>
+						<option  @if (old('ar_sewingType',$prayermat->ar_sewingType) == 'بسيط') selected @endif value="بسيط">بسيط</option>
+                    </select>
+                    @error('ar_sewingType')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
@@ -155,6 +244,28 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+                	<label for="e_haveEster">آستر انگلیسی</label>
+                    <select name="e_haveEster" id="e_haveEster" class="form-control @error('e_haveEster') is-invalid @enderror">
+                    	{{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                      	<option @if (old('e_haveEster',$prayermat->e_haveEster) == 'Yes') selected @endif value="Yes">Yes</option>
+						<option @if (old('e_haveEster',$prayermat->e_haveEster) == 'No') selected @endif value="No">No</option>
+                    </select>
+                    @error('e_haveEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+                	<label for="ar_haveEster">آستر عربی</label>
+                    <select name="ar_haveEster" id="ar_haveEster" class="form-control @error('ar_haveEster') is-invalid @enderror">
+                    	{{-- <option value="">آنتخاب ویژگی آستر</option> --}}
+                      	<option @if (old('ar_haveEster',$prayermat->ar_haveEster) == 'نعم') selected @endif value="نعم">نعم</option>
+						<option @if (old('ar_haveEster',$prayermat->ar_haveEster) == 'لا') selected @endif value="لا">لا</option>
+                    </select>
+                    @error('ar_haveEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
 				<div class="form-group">
 					<label for="kindOfEster">جنس آستر</label>
@@ -163,6 +274,21 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+                <div class="form-group">
+					<label for="e_kindOfEster">جنس آستر انگلیسی</label>
+					<input disabled="disabled" type="text" name="e_kindOfEster" id="e_kindOfEster" class="form-control @error('e_kindOfEster') is-invalid @enderror" placeholder="مثلاً ساتن مرغوب" value="{{old('e_kindOfEster',$prayermat->e_kindOfEster)}}"  >
+					@error('e_kindOfEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="ar_kindOfEster">جنس آستر عربی</label>
+					<input disabled="disabled" type="text" name="ar_kindOfEster" id="ar_kindOfEster" class="form-control @error('ar_kindOfEster') is-invalid @enderror" placeholder="مثلاً ساتن مرغوب" value="{{old('ar_kindOfEster',$prayermat->ar_kindOfEster)}}"  >
+					@error('ar_kindOfEster')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+
 
 				<div class="form-group">
                 	<label for="washable">قابلیت شستشو</label>
@@ -176,9 +302,33 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+				<div class="form-group">
+                	<label for="e_washable">قابلیت شستشو انگلیسی</label>
+                    <select name="e_washable" class="form-control @error('e_washable') is-invalid @enderror">
+                    	<option value="">قابلیت شستشو انگلیسی</option>
+                      	<option @if (old('e_washable',$prayermat->e_washable) == 'By hand') selected @endif value="By hand">By hand</option>
+						<option @if (old('e_washable',$prayermat->e_washable) == 'Yes (preferably dry cleaning)') selected @endif value="Yes (preferably dry cleaning)">Yes (preferably dry cleaning)</option>
+						<option @if (old('e_washable',$prayermat->e_washable) == 'No Washing') selected @endif value="No Washing">No Washing</option>
+                    </select>
+                    @error('e_washable')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+				<div class="form-group">
+                	<label for="ar_washable">قابلیت شستشو عربی</label>
+                    <select name="ar_washable" class="form-control @error('ar_washable') is-invalid @enderror">
+                    	<option value="">قابلیت شستشو عربی</option>
+                      	<option @if (old('ar_washable',$prayermat->ar_washable) == 'باليد') selected @endif value="باليد">باليد</option>
+						<option @if (old('ar_washable',$prayermat->ar_washable) == 'نعم (ويفضل التنظيف الجاف)') selected @endif value="نعم (ويفضل التنظيف الجاف)">نعم (ويفضل التنظيف الجاف)</option>
+						<option @if (old('ar_washable',$prayermat->ar_washable) == 'لا') selected @endif value="لا">لا</option>
+                    </select>
+                    @error('ar_washable')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
 				@foreach($prayermat->prices->sortBy('local') as $key=>$prices)
-{{-- @dump(session()->all()) --}}
+					{{-- @dump($key,$prices) --}}
 					<div class="prices-{{ $key + 1 }} @if($key == 1 or $key == 2) mt-4 pt-4 @endif " @if($key == 1 or $key == 2) style="border-top: 1px solid lightgray; @if(old('price.' . $key,$prices->price)!="") display: block; @else  display: none; @endif" @endif>
 						<div class="row">
 							<div class="col-md-5">
@@ -235,7 +385,7 @@
 							<div class="col-md-5">
 								<div class="form-group">
 									<label for="offPrice">میزان تخفیف</label>
-									<input type="text" name="offPrice[]"  class="form-control offPrice @error('offPrice.' . $key) is-invalid @enderror" placeholder="مثلاً 30 یا 100000" value="{{old('offPrice.' .$key ,$prices->offPrice)}}"  {{-- @if(old('offPrice.' . $key , $prices->offPrice)=="" and old('offType.' . $key) == "") disabled @else enabled @endif --}}>
+									<input type="text" name="offPrice[]"  class="form-control offPrice @error('offPrice.' . $key) is-invalid @enderror" placeholder="مثلاً 30 یا 100000" value="{{old('offPrice.' .$key ,$prices->offPrice)?? '0'}}" >
 
 									@error('offPrice.' . $key)
 									    <div class="invalid-feedback">{{  $errors->first('offPrice.' . $key) }}</div>
@@ -383,27 +533,49 @@
 
 					<div class="invalid-feedback d-block" style=""></div> --}}
 
-                    <div id="image-repeater" class="mb-2">
-                        <div class="image-picker-row mb-2">
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <a data-input="thumbnail_1" data-preview="holder_1"
-                                        class="lfm btn btn-primary">
-                                        <i class="fa fa-picture-o"></i> انتخاب تصویر
-                                    </a>
-                                </span>
-                                <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
-                                <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                    @php
+                                $existingImages = $prayermat->images()->orderBy('ordering')->get();
+                            @endphp
+
+                            <div id="image-repeater" class="mb-2">
+                                @forelse ($existingImages as $index => $image)
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_{{ $index + 1 }}" data-preview="holder_{{ $index + 1 }}"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_{{ $index + 1 }}" class="form-control" type="text" name="images[]"
+                                                value="{{ $image->name }}" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_{{ $index + 1 }}" src="{{ asset('storage/' . $image->name) }}"
+                                            style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @empty
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_1" data-preview="holder_1"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @endforelse
                             </div>
-                            <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
-                        </div>
-                    </div>
-                    <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
-                        <i class="fa fa-plus"></i> افزودن تصویر جدید
-                    </button>
-                    @error('images')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
+                            <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
+                                <i class="fa fa-plus"></i> افزودن تصویر جدید
+                            </button>
+                            @error('images')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                 </div>
 
                 <div class="form-group">
@@ -422,6 +594,22 @@
 					@enderror
 				</div>
 
+                <div class="form-group">
+					<label for="e_description">توضیحات بیشتر انگلیسی</label>
+					<textarea name="e_description" class="form-control @error('e_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('e_description',$prayermat->e_description)}}</textarea>
+					@error('e_description')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+                <div class="form-group">
+					<label for="ar_description">توضیحات بیشتر عربی</label>
+					<textarea name="ar_description" class="form-control @error('ar_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('ar_description',$prayermat->ar_description)}}</textarea>
+					@error('ar_description')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+
+            </div>
 	        <!-- /.card-body -->
 
 	        <div class="card-footer">

@@ -62,11 +62,11 @@
                         @endphp
                         <img src="{{ asset('storage/' . $image['name']) }}" alt=""
                             class="img-circle img-size-50 mr-2">
-                        {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->category->title : $orderitem->orderitemable->category->e_title }}
+                        {{ $orderitem->orderitemable->category->title }}
                         {{ __('products.design') }}
-                        {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->color_design->design->title : $orderitem->orderitemable->color_design->design->e_title }}
+                        {{ $orderitem->orderitemable->color_design->design->title }}
                         {{ __('products.color') }}
-                        {{ app()->getLocale() == 'fa' ? $orderitem->orderitemable->color_design->color->color : $orderitem->orderitemable->color_design->color->e_color }}
+                        {{ $orderitem->orderitemable->color_design->color->color }}
                     </td>
                     <td>{{ $orderitem->count }}</td>
                     <td>{{ number_format($orderitem->price) }} {{ $order->local }}</td>

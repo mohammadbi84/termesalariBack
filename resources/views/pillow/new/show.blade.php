@@ -1,12 +1,11 @@
 @extends('shop.layouts.master')
-@section('title', $title . __('products.design') . (app()->getLocale() == 'fa' ?
-    $pillow->color_design->design->title : $pillow->color_design->design->e_title) . __('products.color') .
-    (app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color))
+@section('title', $title . __('products.design') . ($pillow->color_design->design->title) . __('products.color') .
+    ($pillow->color_design->color->color))
 @section('head')
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    @if (app()->getLocale() == 'en')
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
     @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
@@ -25,11 +24,11 @@
                         <li class="breadcrumb-item"><a href="{{ route('pillow.storeIndex') }}"
                                 class="text-decoration-none text-muted">{{ __('products.pillow_products') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            {{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}
+                            {{ $pillow->category->title }}
                             {{ __('products.design') }}
-                            {{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title }}
+                            {{ $pillow->color_design->design->title }}
                             {{ __('products.color') }}
-                            {{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color }}
+                            {{ $pillow->color_design->color->color }}
                         </li>
                     </ol>
                 </nav>
@@ -65,9 +64,8 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image['name']) }}"
-                                            style="border-radius: 10px;" alt="{{ $image['name'] }}"
-                                            class="product-image-show"
+                                        <img src="{{ asset('storage/' . $image['name']) }}" style="border-radius: 10px;"
+                                            alt="{{ $image['name'] }}" class="product-image-show"
                                             data-zoom-src="{{ asset('storage/' . $image['name']) }}">
                                     </div>
                                 @endforeach
@@ -88,9 +86,9 @@
                                 title="{{ __('product.compare') }}" class="share-btn telegram"
                                 data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                 data-moddel="{{ substr($pillow->category->model, 4) }}"
-                                data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
-                                data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"
-                                data-title="{{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}"
+                                data-design="{{ $pillow->color_design->design->title ?? '' }}"
+                                data-color="{{ $pillow->color_design->color->color ?? '' }}"
+                                data-title="{{ $pillow->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}" data-id="{{ $pillow->id }}"
@@ -102,9 +100,9 @@
                                 class="share-btn telegram  favorites-btn @if ($pillow->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                 data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                 data-moddel="{{ substr($pillow->category->model, 4) }}"
-                                data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
-                                data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"
-                                data-title="{{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}"
+                                data-design="{{ $pillow->color_design->design->title ?? '' }}"
+                                data-color="{{ $pillow->color_design->color->color ?? '' }}"
+                                data-title="{{ $pillow->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}" data-id="{{ $pillow->id }}"
@@ -127,11 +125,11 @@
                 <!-- left Column - Additional Info -->
                 <div class="col order-lg-3 mb-2">
                     <h1 class="product-title">
-                        {{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}
+                        {{ $pillow->category->title }}
                         {{ __('products.design') }}
-                        {{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title }}
+                        {{ $pillow->color_design->design->title }}
                         {{ __('products.color') }}
-                        {{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color }}
+                        {{ $pillow->color_design->color->color }}
                     </h1>
                     <div class="rating">
                         @php
@@ -144,7 +142,7 @@
                                 <i class="fa-regular fa-star"></i>
                             @endif
                         @endfor
-                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} ۵ -
+                        <span class="text-muted">({{ number_format($score, 1) }} {{ __('products.of') }} 5 -
                             {{ $comments->count() }}
                             {{ __('products.comment') }})</span>
                     </div>
@@ -155,21 +153,22 @@
                             {{ $pillow->color_design->design->countOfColor }}
                             {{ __('product.colors') }}
                         </li>
-                        <li>{{ __('product.contains') }}: {{ app()->getLocale() == 'fa' ? $pillow->contains : $pillow->e_contains }}</li>
+                        <li>{{ __('product.contains') }}:
+                            {{ $pillow->contains }}</li>
                         <li>{{ __('product.color') }}:
-                            {{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color }}
+                            {{ $pillow->color_design->color->color }}
                         </li>
                     </ul>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.category') }} :</h6>
                         <a href="{{ route('pillow.storeIndex') }}"
-                            class="tag">{{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}</a>
+                            class="tag">{{ $pillow->category->title }}</a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.tags') }} :</h6>
                         <span
-                            class="tag">{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title }}</span>
+                            class="tag">{{ $pillow->color_design->design->title }}</span>
                     </div>
                     <div class="categories-tags">
                         <hr>
@@ -206,9 +205,9 @@
                                 data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                 data-id="{{ $pillow->id }}"
                                 data-moddel="{{ substr($pillow->category->model, 4) }}"
-                                data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
-                                data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"
-                                data-title="{{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}"
+                                data-design="{{ $pillow->color_design->design->title ?? '' }}"
+                                data-color="{{ $pillow->color_design->color->color ?? '' }}"
+                                data-title="{{ $pillow->category->title }}"
                                 data-price="{{ $prices->price }}" data-pay="{{ $price }}"
                                 data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}">{{ __('product.add_to_cart') }}</button>
@@ -264,7 +263,7 @@
                             <h5 class="m-0">{{ __('product.description') }}</h5>
                         </div>
                         <p class="text-justify text-muted">
-                            {{ app()->getLocale() == 'fa' ? $pillow->description : $pillow->e_description }}
+                            {{ $pillow->description }}
                         </p>
                     </div>
                     <div class="bg-white rounded-4 p-4 shadow-sm">
@@ -325,55 +324,63 @@
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.dimensions') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->dimensions : $pillow->e_dimensions }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.weight') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->weight : $pillow->e_weight }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.material') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->kind : $pillow->e_kind }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.sewing_type') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->sewingType : $pillow->e_sewingType }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->haveEster : $pillow->e_haveEster }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining_material') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->kindOfEster : $pillow->e_kindOfEster }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.washable') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->washable : $pillow->e_washable }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.uses') }}</span>
-                                <span class="point-span">{{ app()->getLocale() == 'fa' ? $pillow->uses : $pillow->e_uses }}</span>
+                                <span
+                                    class="point-span">{{ $pillow->uses }}</span>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            @if ($likePillows->count() > 0)
+            @if ($likePillow->count() > 0)
                 <div class="row mb-5 bg-white rounded-4 shadow-sm p-3">
                     {{-- <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
                         <i class="fa-regular fa-comments info-badge-icon"></i>
@@ -403,7 +410,7 @@
                     <div class="splide" id="hot_slider" role="group" aria-label="Splide Basic HTML Example">
                         <div class="splide__track py-3">
                             <ul class="splide__list">
-                                @foreach ($likePillows as $key => $pillow)
+                                @foreach ($likePillow as $key => $pillow)
                                     @php
                                         $prices = $pillow->prices->where('local', 'تومان')->first();
                                     @endphp
@@ -426,17 +433,38 @@
                                         <div class="product-div p-2">
                                             <div class="hot-product-card">
                                                 <div class="hot-image-container">
-                                                    <img src="{{ asset('/storage/' . $pillow->images->first()->name) }}"
-                                                        alt="{{ $pillow->category->title }}"
-                                                        class="hot-product-image">
+                                                    <a
+                                                        href="
+                                                        @switch($pillow->category->model)
+                                                                @case('App\Tablecloth')
+                                                                  {{ route('tablecloth.show', [$pillow->id]) }}
+                                                                  @break
+                                                                @case('App\Pillow')
+                                                                  {{ route('pillow.show', [$pillow->id]) }}
+                                                                  @break
+                                                                @case('App\Prayermat')
+                                                                  {{ route('prayermat.show', [$pillow->id]) }}
+                                                                  @break
+                                                                @case('App\Bedcover')
+                                                                  {{ route('bedcover.show', [$pillow->id]) }}
+                                                                  @break
+                                                                @case('App\Shoe')
+                                                                  {{ route('shoe.show', [$pillow->id]) }}
+                                                                  @break
+                                                            @endswitch
+                                                    ">
+                                                        <img src="{{ asset('/storage/' . $pillow->images->first()->name) }}"
+                                                            alt="{{ $pillow->category->title }}"
+                                                            class="hot-product-image">
+                                                    </a>
                                                 </div>
                                                 <div class="overlay">
                                                     <h3 class="product-title">
-                                                        {{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}
+                                                        {{ $pillow->category->title }}
                                                         {{ __('products.design') }}
-                                                        {{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title }}
+                                                        {{ $pillow->color_design->design->title }}
                                                         {{ __('products.color') }}
-                                                        {{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color }}
+                                                        {{ $pillow->color_design->color->color }}
                                                     </h3>
                                                     <div
                                                         class="product-price w-100 d-flex justify-content-between align-items-center mb-2">
@@ -445,16 +473,16 @@
                                                             <a href="
                                                             @switch($pillow->category->model)
                                                                 @case('App\Tablecloth')
-                                                                  {{ route('pillow.show', [$pillow->id]) }}
+                                                                  {{ route('tablecloth.show', [$pillow->id]) }}
                                                                   @break
                                                                 @case('App\Pillow')
                                                                   {{ route('pillow.show', [$pillow->id]) }}
                                                                   @break
                                                                 @case('App\Prayermat')
-                                                                  {{ route('pillow.show', [$pillow->id]) }}
+                                                                  {{ route('prayermat.show', [$pillow->id]) }}
                                                                   @break
-                                                                @case('App\pillow')
-                                                                  {{ route('pillow.show', [$pillow->id]) }}
+                                                                @case('App\Bedcover')
+                                                                  {{ route('bedcover.show', [$pillow->id]) }}
                                                                   @break
                                                                 @case('App\Shoe')
                                                                   {{ route('shoe.show', [$pillow->id]) }}
@@ -482,22 +510,22 @@
                                                                     @elseif($prices->offType == 'درصد')
                                                                         {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
                                                                     @endif
-                                                                    @if (app()->getLocale() == 'fa')
-                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    @if (app()->getLocale() == 'en')
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @else
                                                                 <span class="price">{{ number_format($prices->price) }}
-                                                                    @if (app()->getLocale() == 'fa')
-                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    @if (app()->getLocale() == 'en')
+                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                            alt="Price" width="20px" height="20px">
+                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                        alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @endif
@@ -514,9 +542,9 @@
                                                             class="buy-button shadow-none add-to-cart favorites-btn @if ($pillow->favorites->where('user_id', Auth::id())->count() > 0) active @endif"
                                                             data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                                             data-moddel="{{ substr($pillow->category->model, 4) }}"
-                                                            data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
-                                                            data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"
-                                                            data-title="{{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}"
+                                                            data-design="{{ $pillow->color_design->design->title ?? '' }}"
+                                                            data-color="{{ $pillow->color_design->color->color ?? '' }}"
+                                                            data-title="{{ $pillow->category->title }}"
                                                             data-price="{{ $prices->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
@@ -534,9 +562,9 @@
                                                             data-image="{{ asset('/storage/' . $pillow->images->first()->name) }}"
                                                             data-id="{{ $pillow->id }}"
                                                             data-moddel="{{ substr($pillow->category->model, 4) }}"
-                                                            data-design="{{ app()->getLocale() == 'fa' ? $pillow->color_design->design->title : $pillow->color_design->design->e_title ?? '' }}"
-                                                            data-color="{{ app()->getLocale() == 'fa' ? $pillow->color_design->color->color : $pillow->color_design->color->e_color ?? '' }}"
-                                                            data-title="{{ app()->getLocale() == 'fa' ? $pillow->category->title : $pillow->category->e_title }}"
+                                                            data-design="{{ $pillow->color_design->design->title ?? '' }}"
+                                                            data-color="{{ $pillow->color_design->color->color ?? '' }}"
+                                                            data-title="{{ $pillow->category->title }}"
                                                             data-price="{{ $prices->price }}"
                                                             data-pay="{{ $price }}"
                                                             data-off="{{ $off }}"
@@ -609,8 +637,8 @@
                             <div class="swiper-wrapper">
                                 @foreach ($images as $key => $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('storage/' . $image['name']) }}"
-                                            alt="{{ $image['name'] }}" class="product-image-show">
+                                        <img src="{{ asset('storage/' . $image['name']) }}" alt="{{ $image['name'] }}"
+                                            class="product-image-show">
                                     </div>
                                 @endforeach
                             </div>
@@ -625,10 +653,10 @@
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    @if (app()->getLocale() == 'fa')
-        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'en')
+    <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
     @else
-        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -704,7 +732,7 @@
                     success: function(data) {
                         document.querySelector(".compare-badge").textContent = data;
                         document.querySelector(".compare-items-count").textContent = data +
-                            " کالا";
+                            " {{ __('products.products') }}";
                         const $compList = $("#navbarCompareList"); // لیست داخل منو
                         const exists = $compList.find(
                             `.compare-item[data-id="${id}"][data-model="${model}"]`);
@@ -1452,7 +1480,8 @@
                 // بروزرسانی تعداد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count > 0 ? count - 1 : 0);
-                $badge2.html(count > 0 ? count - 1 + ' کالا ' : 0 + ' کالا ');
+                $badge2.html(count > 0 ? count - 1 + ' {{ __('products.products') }} ' : 0 +
+                    ' {{ __('products.products') }} ');
 
                 return "removed";
             }
@@ -1460,7 +1489,7 @@
                 // افزایش عدد
                 let count = parseInt($badge.text()) || 0;
                 $badge.text(count + 1);
-                $badge2.html(count + 1 + ' کالا ');
+                $badge2.html(count + 1 + ' {{ __('products.products') }} ');
 
                 const newItem = `
                 <div class="favorites-item"

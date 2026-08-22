@@ -49,10 +49,10 @@
 
 
     <!-- menu styles -->
-    @if (app()->getLocale() == 'fa')
-        <script src="{{ asset('shop/js/main-menu.js') }}"></script>
+    @if (app()->getLocale() == 'en')
+    <script src="{{ asset('shop/js/ltr/main-menu.js') }}"></script>
     @else
-        <script src="{{ asset('shop/js/ltr/main-menu.js') }}"></script>
+    <script src="{{ asset('shop/js/main-menu.js') }}"></script>
     @endif
     <!-- استایل‌های سفارشی -->
 
@@ -60,14 +60,14 @@
     <!-- footer -->
 
     {{-- <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}"> --}}
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/main-menu.css') }}">
-        <link rel="stylesheet" href="{{ asset('shop/css/styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('shop/css/footer.css') }}">
+    @if (app()->getLocale() == 'en')
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/main-menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/footer.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/main-menu.css') }}">
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/main-menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/footer.css') }}">
     @endif
 
 

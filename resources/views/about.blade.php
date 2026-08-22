@@ -7,17 +7,17 @@
     <script src="https://lib.arvancloud.ir/leaflet/1.9.3/leaflet.js"></script>
     <script src="https://lib.arvancloud.ir/leaflet/1.9.3/leaflet.js.map"></script>
     {{-- <link rel="stylesheet" href="{{ asset('shop/css/footerNew.css') }}"> --}}
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/about.css') }}">
+    @if (app()->getLocale() == 'en')
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/about.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/about.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/about.css') }}">
     @endif
     <script src="{{ asset('shop/js/map/mapdata.js') }}"></script>
     <script src="{{ asset('shop/js/map/countrymap.js') }}"></script>
-    @if (app()->getLocale() == 'fa')
-        <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
+    @if (app()->getLocale() == 'en')
+    <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('shop/css/ltr/video.css') }}">
+    <link rel="stylesheet" href="{{ asset('shop/css/video.css') }}">
     @endif
     <script src="{{ asset('shop/js/scripts.js') }}"></script>
 
@@ -525,10 +525,10 @@
     </div>
 @endsection
 @section('script')
-    @if (app()->getLocale() == 'fa')
-        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if (app()->getLocale() == 'en')
+    <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
     @else
-        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @endif
     {{-- <script src="https://unpkg.com/leader-line@1.0.7/leader-line.min.js"></script> --}}
     <script src="https://lib.arvancloud.ir/leader-line/1.0.7/leader-line.min.js"></script>

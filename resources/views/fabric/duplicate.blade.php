@@ -53,15 +53,7 @@
 					@enderror
 				</div>
 
-				{{-- <div class="form-group">
-					<label for="title">عنوان  محصول</label>
-					<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="مثلاً ست رومیزی سه تکه" value="{{old('title',$fabric->title)}}">
-					@error('title')
-					    <div class="invalid-feedback">{{$message}}</div>
-					@enderror
-				</div> --}}
-
-				<div class="form-group @error('category_id') is-invalid @enderror">
+                <div class="form-group @error('category_id') is-invalid @enderror">
 					<label for="category_id">دسته بندی محصول</label>
                   	<select name="category_id" id="category_id" class="form-control select2 select2-hidden-accessible " style="width: 100%;">
                   		<option value="">نوع محصول را انتخاب کنید  </option>
@@ -81,7 +73,7 @@
 
 	                    <option value="">نام طرح را انتخاب کنید  </option>
 	                    @foreach($designs as $design)
-	                    	<option @if (old('design_id', $fabric->color_design->design->id) == $design->id ) selected @endif value="{{$design->id}}">{{$design->title}}</option>
+	                    	<option @if (old('design_id', $fabric->color_design->design->id) == $design->id ) selected @endif value="{{ $design->id }}">{{ $design->title }}</option>
 	                    @endforeach
 
                   	</select>
@@ -89,7 +81,7 @@
                   	@error('design_id')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
-                </div>
+               </div>
 
 				<div class="form-group">
                 	<label for="color_id">رنگ محصول</label>
@@ -110,11 +102,39 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+				<div class="form-group">
+					<label for="e_dimensions">ابعاد محصول انگلیسی</label>
+					<textarea name="e_dimensions" class="form-control @error('e_dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('e_dimensions',$fabric->e_dimensions)}}</textarea>
+					@error('e_dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="ar_dimensions">ابعاد محصول عربی</label>
+					<textarea name="ar_dimensions" class="form-control @error('ar_dimensions') is-invalid @enderror" rows="3" placeholder="ابعاد محصول مثلاً رومیزی مربع با ابعاد 100 * 100 سانتیمتر  &#13;&#10;رومیزی عسلی با ابعاد 50 * 100 سانتیمتر">{{old('ar_dimensions',$fabric->ar_dimensions)}}</textarea>
+					@error('ar_dimensions')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 				<div class="form-group">
 					<label for="weight">وزن تقریبی</label>
 					<textarea name="weight" class="form-control @error('weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('weight',$fabric->weight)}}</textarea>
 					@error('weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="e_weight">وزن تقریبی انگلیسی</label>
+					<textarea name="e_weight" class="form-control @error('e_weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('e_weight',$fabric->e_weight)}}</textarea>
+					@error('e_weight')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="ar_weight">وزن تقریبی عربی</label>
+					<textarea name="ar_weight" class="form-control @error('ar_weight') is-invalid @enderror" rows="3" placeholder="مثلاً رومیزی کوچک تقریباً 200 گرم &#13;&#10; رومیزی بزرگ تقریباً 500 گرم">{{old('ar_weight',$fabric->ar_weight)}}</textarea>
+					@error('ar_weight')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
@@ -127,6 +147,28 @@
 						<option  @if (old('kind',$fabric->kind) == 'ابریشم مصنوعی') selected @endif value="ابریشم مصنوعی">ابریشم مصنوعی</option>
                     </select>
                     @error('kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+					<label for="e_kind">جنس محصول انگلیسی</label>
+                    <select name="e_kind" id="e_kind" class="form-control @error('e_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('e_kind',$fabric->e_kind) == 'Rayon (viscose rayon)') selected @endif value="Rayon (viscose rayon)">Rayon (viscose rayon)</option>
+						<option  @if (old('e_kind',$fabric->e_kind) == 'Artificial silk') selected @endif value="Artificial silk">Artificial silk</option>
+                    </select>
+                    @error('e_kind')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+					<label for="ar_kind">جنس محصول انگلیسی</label>
+                    <select name="ar_kind" id="ar_kind" class="form-control @error('ar_kind') is-invalid @enderror">
+                    	{{-- <option value="">جنس محصول را انتخاب کنید .</option> --}}
+                      	<option  @if (old('ar_kind',$fabric->ar_kind) == 'ابریشم بلدی (ویسکوز ریون)') selected @endif value="ابریشم بلدی (ویسکوز ریون)">ابریشم بلدی (ویسکوز ریون)</option>
+						<option  @if (old('ar_kind',$fabric->ar_kind) == 'الحرير الصناعي') selected @endif value="الحرير الصناعي">الحرير الصناعي</option>
+                    </select>
+                    @error('ar_kind')
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
@@ -143,9 +185,33 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
                 </div>
+                <div class="form-group">
+                	<label for="e_washable">قابلیت شستشو انگلیسی</label>
+                    <select name="e_washable" id="e_washable" class="form-control @error('e_washable') is-invalid @enderror">
+                    	<option value="">قابلیت شستشو انگلیسی</option>
+                      	<option @if (old('e_washable',$fabric->e_washable) == 'By hand')  @endif value="By hand">By hand</option>
+						<option @if (old('e_washable',$fabric->e_washable) == 'Yes (preferably dry cleaning)') selected @endif value="Yes (preferably dry cleaning)">Yes (preferably dry cleaning)</option>
+						<option @if (old('e_washable',$fabric->e_washable) == 'No Washing') selected @endif value="No Washing">No Washing</option>
+                    </select>
+                    @error('e_washable')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
+                <div class="form-group">
+                	<label for="ar_washable">قابلیت شستشو فارسی</label>
+                    <select name="ar_washable" id="ar_washable" class="form-control @error('ar_washable') is-invalid @enderror">
+                    	<option value="">قابلیت شستشو فارسی</option>
+                      	<option @if (old('ar_washable',$fabric->ar_washable) == 'باليد')  @endif value="باليد">باليد</option>
+						<option @if (old('ar_washable',$fabric->ar_washable) == 'نعم (ويفضل التنظيف الجاف)') selected @endif value="نعم (ويفضل التنظيف الجاف)">نعم (ويفضل التنظيف الجاف)</option>
+						<option @if (old('ar_washable',$fabric->ar_washable) == 'لا') selected @endif value="لا">لا</option>
+                    </select>
+                    @error('ar_washable')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+                </div>
 
 				@foreach($fabric->prices->sortBy('local') as $key=>$prices)
-{{-- @dump(session()->all()) --}}
+					{{-- @dump($key,$prices) --}}
 					<div class="prices-{{ $key + 1 }} @if($key == 1 or $key == 2) mt-4 pt-4 @endif " @if($key == 1 or $key == 2) style="border-top: 1px solid lightgray; @if(old('price.' . $key,$prices->price)!="") display: block; @else  display: none; @endif" @endif>
 						<div class="row">
 							<div class="col-md-5">
@@ -203,7 +269,7 @@
 							<div class="col-md-5">
 								<div class="form-group">
 									<label for="offPrice">میزان تخفیف</label>
-									<input type="text" name="offPrice[]"  class="form-control offPrice @error('offPrice.' . $key) is-invalid @enderror" placeholder="مثلاً 30 یا 100000" value="{{old('offPrice.' .$key ,$prices->offPrice)}}"  {{-- @if(old('offPrice.' . $key , $prices->offPrice)=="" and old('offType.' . $key) == "") disabled @else enabled @endif --}}>
+									<input type="text" name="offPrice[]"  class="form-control offPrice @error('offPrice.' . $key) is-invalid @enderror" placeholder="مثلاً 30 یا 100000" value="{{old('offPrice.' .$key ,$prices->offPrice)?? '0'}}"  {{-- @if(old('offPrice.' . $key , $prices->offPrice)=="" and old('offType.' . $key) == "") disabled @else enabled @endif --}}>
 
 									@error('offPrice.' . $key)
 									    <div class="invalid-feedback">{{  $errors->first('offPrice.' . $key) }}</div>
@@ -363,27 +429,49 @@
 
 					<div class="invalid-feedback d-block" style=""></div> --}}
 
-                    <div id="image-repeater" class="mb-2">
-                        <div class="image-picker-row mb-2">
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <a data-input="thumbnail_1" data-preview="holder_1"
-                                        class="lfm btn btn-primary">
-                                        <i class="fa fa-picture-o"></i> انتخاب تصویر
-                                    </a>
-                                </span>
-                                <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
-                                <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                    @php
+                                $existingImages = $fabric->images()->orderBy('ordering')->get();
+                            @endphp
+
+                            <div id="image-repeater" class="mb-2">
+                                @forelse ($existingImages as $index => $image)
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_{{ $index + 1 }}" data-preview="holder_{{ $index + 1 }}"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_{{ $index + 1 }}" class="form-control" type="text" name="images[]"
+                                                value="{{ $image->name }}" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_{{ $index + 1 }}" src="{{ asset('storage/' . $image->name) }}"
+                                            style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @empty
+                                    <div class="image-picker-row mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <a data-input="thumbnail_1" data-preview="holder_1"
+                                                    class="lfm btn btn-primary">
+                                                    <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                                </a>
+                                            </span>
+                                            <input id="thumbnail_1" class="form-control" type="text" name="images[]" placeholder="مسیر تصویر را انتخاب کنید">
+                                            <button type="button" class="btn btn-danger remove-image-picker" aria-label="حذف این تصویر">-</button>
+                                        </div>
+                                        <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
+                                    </div>
+                                @endforelse
                             </div>
-                            <img id="holder_1" style="margin-top:10px;max-height:100px;display:block;">
-                        </div>
-                    </div>
-                    <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
-                        <i class="fa fa-plus"></i> افزودن تصویر جدید
-                    </button>
-                    @error('images')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
+                            <button type="button" id="add-image-picker" class="btn btn-sm btn-outline-primary mb-3">
+                                <i class="fa fa-plus"></i> افزودن تصویر جدید
+                            </button>
+                            @error('images')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                 </div>
 
                 <div class="form-group">
@@ -401,6 +489,20 @@
 					    <div class="invalid-feedback">{{$message}}</div>
 					@enderror
 				</div>
+				<div class="form-group">
+					<label for="e_description">توضیحات بیشتر انگلیسی</label>
+					<textarea name="e_description" class="form-control @error('e_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('e_description',$fabric->e_description)}}</textarea>
+					@error('e_description')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
+				<div class="form-group">
+					<label for="ar_description">توضیحات بیشتر عربی</label>
+					<textarea name="ar_description" class="form-control @error('ar_description') is-invalid @enderror" rows="3" placeholder="توضیحات ، نکات و ویژگی های بیشتر در رابطه به محصول">{{old('ar_description',$fabric->ar_description)}}</textarea>
+					@error('ar_description')
+					    <div class="invalid-feedback">{{$message}}</div>
+					@enderror
+				</div>
 
 	        <!-- /.card-body -->
 
@@ -408,6 +510,7 @@
 	          <button type="submit" id="store" class="btn btn-flat btn-primary">ثبت</button>
 	          <a href="{{ route('fabric.index') }}" class="btn btn-flat btn-secondary">بازگشت</a>
 	        </div>
+            </div>
 	      </form>
 	    </div>
 	    <!-- /.card -->

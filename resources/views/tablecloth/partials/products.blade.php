@@ -25,21 +25,15 @@
                 <h5 class="product-title">
                     @php
                         $name =
-                            (app()->getLocale() == 'fa'
-                                ? $tablecloth->category->title
-                                : $tablecloth->category->e_title) .
+                            $tablecloth->category->title .
                             ' ' .
                             __('products.design') .
                             ' ' .
-                            (app()->getLocale() == 'fa'
-                                ? $tablecloth->color_design->design->title
-                                : $tablecloth->color_design->design->e_title) .
+                            $tablecloth->color_design->design->title .
                             ' ' .
                             __('products.color') .
                             ' ' .
-                            (app()->getLocale() == 'fa'
-                                ? $tablecloth->color_design->color->color
-                                : $tablecloth->color_design->color->e_color);
+                            $tablecloth->color_design->color->color;
                     @endphp
                     {{ Str::limit($name, 35) }}
                     {{-- {{ $tablecloth->category->title }} طرح
@@ -127,22 +121,22 @@
                                         @endif
                                     </div>
                                     <div class="col-3 fs-small">
-                                        @if (app()->getLocale() == 'fa')
-                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
+                                        @if (app()->getLocale() == 'en')
+                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
                                                 width="20px" height="20px">
                                         @else
-                                            <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
+                                            <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
                                                 width="20px" height="20px">
                                         @endif
                                     </div>
                                 </div>
                             @else
                                 <span class="price">{{ number_format($prices->price) }}
-                                    @if (app()->getLocale() == 'fa')
-                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
+                                    @if (app()->getLocale() == 'en')
+                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
                                             width="20px" height="20px">
                                     @else
-                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}" alt="Price"
+                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}" alt="Price"
                                             width="20px" height="20px">
                                     @endif
                                 </span>
@@ -192,10 +186,10 @@
                                     data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                                     data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
                                     data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                    data-title="{{ $tablecloth->category->title }}"
-                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
-                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
-                                    data-local="{{ $prices->local }}" data-id="{{ $tablecloth->id }}"
+                                    data-title="{{ $tablecloth->category->title }}" data-price="{{ $prices->price }}"
+                                    data-pay="{{ $price }}" data-off="{{ $off }}"
+                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                                    data-id="{{ $tablecloth->id }}"
                                     data-model="{{ substr($tablecloth->category->model, 4) }}"><i
                                         class="fa-regular fa-heart text-danger"></i></button>
                             </div>
@@ -206,10 +200,10 @@
                                     data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                                     data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
                                     data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
-                                    data-title="{{ $tablecloth->category->title }}"
-                                    data-price="{{ $prices->price }}" data-pay="{{ $price }}"
-                                    data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
-                                    data-local="{{ $prices->local }}" data-id="{{ $tablecloth->id }}"
+                                    data-title="{{ $tablecloth->category->title }}" data-price="{{ $prices->price }}"
+                                    data-pay="{{ $price }}" data-off="{{ $off }}"
+                                    data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                                    data-id="{{ $tablecloth->id }}"
                                     data-model="{{ substr($tablecloth->category->model, 4) }}"><i
                                         class="fa-solid fa-shuffle"></i></button>
                             </div>
@@ -225,7 +219,7 @@
                                     title="{{ __('products.add_to_cart') }}"
                                     class="buy-button add-to-cart @if ($tablecloth->quantity != 0) addToCart @endif"
                                     data-image="{{ asset('/storage/' . $tablecloth->images->first()->name) }}"
-                                    data-id="{{ $tablecloth->id }}" data-moddel="Tablecloth"
+                                    data-id="{{ $tablecloth->id }}" data-moddel="{{ substr($tablecloth->category->model, 4) }}"
                                     data-design="{{ $tablecloth->color_design->design->title ?? '' }}"
                                     data-color="{{ $tablecloth->color_design->color->color ?? '' }}"
                                     data-title="{{ $tablecloth->category->title }}"

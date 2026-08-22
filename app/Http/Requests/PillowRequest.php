@@ -59,6 +59,11 @@ class PillowRequest extends FormRequest
             'e_weight' => 'required' ,
             'e_kind' => 'required' ,
             'e_description' => 'nullable|string' ,
+
+            'ar_dimensions' => 'required' ,
+            'ar_weight' => 'required' ,
+            'ar_kind' => 'required' ,
+            'ar_description' => 'nullable|string' ,
         ];
     }
 }
