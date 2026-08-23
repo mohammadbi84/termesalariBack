@@ -51,8 +51,10 @@ class BookmarkController extends Controller
         $request->validate([
             'title_fa' => 'required|string',
             'title_en' => 'required|string',
+            'title_ar' => 'required|string',
             'body_fa' => 'required|string',
             'body_en' => 'required|string',
+            'body_ar' => 'required|string',
             'sort' => 'nullable|unique:bookmarks,sort',
             'start_at' => 'nullable',
             'end_at' => 'nullable',
@@ -111,8 +113,10 @@ class BookmarkController extends Controller
         $request->validate([
             'title_fa' => 'required|string',
             'title_en' => 'required|string',
+            'title_ar' => 'required|string',
             'body_fa' => 'required|string',
             'body_en' => 'required|string',
+            'body_ar' => 'required|string',
             'sort' => 'nullable',
             'start_at' => 'nullable',
             'end_at' => 'nullable',

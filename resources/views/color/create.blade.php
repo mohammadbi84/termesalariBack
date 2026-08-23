@@ -33,6 +33,13 @@
 							    <div class="invalid-feedback">{{$message}}</div>
 							@enderror
 						</div>
+                        <div class="form-group">
+							<label for="ar_color">عنوان عربی رنگ</label>
+							<input type="text" name="ar_color" id="ar_color1" class="form-control @error('color') is-invalid @enderror" placeholder="لطفا عنوان انگلیسی رنگ را وارد کنید." value="{{old('ar_color')}}">
+							@error('ar_color')
+							    <div class="invalid-feedback">{{$message}}</div>
+							@enderror
+						</div>
 
 
 						<button type="submit" class="btn btn-flat btn-primary">ثبت اطلاعات</button>

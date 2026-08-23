@@ -56,6 +56,16 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-group @error('title_ar') is-invalid @enderror">
+                                    <label for="title_ar">عنوان عربی</label>
+                                    <input type="text" name="title_ar" id="title_ar" class="form-control"
+                                        placeholder="لطفا عنوان صفحه را وارد کنید." value="{{ old('title_ar') }}">
+                                    @error('title_ar')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group @error('body_fa') is-invalid @enderror">
                             <label for="body_fa">محتوای فارسی</label>
@@ -70,6 +80,14 @@
                             <textarea name="body_en" id="body_en" class="form-control" rows="5">{{ old('body_en') }}</textarea>
 
                             @error('body_en')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group @error('body_ar') is-invalid @enderror">
+                            <label for="body_ar">محتوای عربی</label>
+                            <textarea name="body_ar" id="body_ar" class="form-control" rows="5">{{ old('body_ar') }}</textarea>
+
+                            @error('body_ar')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -258,6 +276,31 @@
                 }
             });
             $('#body_en').summernote({
+                placeholder: 'محتوای صفحه را اینجا وارد کنید ...',
+                tabsize: 2,
+                height: 200,
+                callbacks: {
+                    onImageUpload: function(files) {
+                        let data = new FormData();
+                        data.append("file", files[0]);
+
+                        $.ajax({
+                            url: '/upload-image',
+                            method: 'POST',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>',
+                            },
+                            success: function(response) {
+                                $('#body_fa').summernote('insertImage', response.url);
+                            }
+                        });
+                    }
+                }
+            });
+            $('#body_ar').summernote({
                 placeholder: 'محتوای صفحه را اینجا وارد کنید ...',
                 tabsize: 2,
                 height: 200,

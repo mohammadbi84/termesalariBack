@@ -72,6 +72,16 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="ar_title">عنوان عربی دسته بندی</label>
+                        <input type="text" name="ar_title" id="ar_title"
+                            class="form-control @error('ar_title') is-invalid @enderror"
+                            placeholder="لطفا عنوان انگلیسی دسته بندی را وارد کنید."
+                            value="{{ old('ar_title', $category->ar_title) }}">
+                        @error('ar_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="form-group @error('image') is-invalid @enderror">
                         {{-- <label for="image">انتخاب تصویر </label>

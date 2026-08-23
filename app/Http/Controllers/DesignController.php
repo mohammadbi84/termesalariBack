@@ -56,6 +56,7 @@ class DesignController extends Controller
         $rules = [
            'title' => 'required|string',
            'e_title' => 'required|string',
+           'ar_title' => 'required|string',
            'countOfColor' => 'required|numeric',
            'active' => 'required|numeric' ,
         ];
@@ -103,7 +104,7 @@ class DesignController extends Controller
     {
         $rules = [
            'title' => 'required|string|unique:designs,title,'. $design->id ,
-           'e_title' => 'required|string|unique:designs,e_title,'. $design->id ,
+           'ar_title' => 'required|string|unique:designs,ar_title,'. $design->id ,
            'countOfColor' => 'required|numeric',
            'active' => 'required|numeric' ,
         ];

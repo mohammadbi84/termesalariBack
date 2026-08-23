@@ -40,10 +40,13 @@ class GenerationController extends Controller
         $request->validate([
             'name_fa' => 'required',
             'name_en' => 'required',
+            'name_ar' => 'required',
             'pretext_fa' => 'required',
             'pretext_en' => 'required',
+            'pretext_ar' => 'required',
             'description_fa' => 'required',
             'description_en' => 'required',
+            'description_ar' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -80,10 +83,13 @@ class GenerationController extends Controller
         $request->validate([
             'name_fa' => 'required',
             'name_en' => 'required',
+            'name_ar' => 'required',
             'pretext_fa' => 'required',
             'pretext_en' => 'required',
+            'pretext_ar' => 'required',
             'description_fa' => 'required',
             'description_en' => 'required',
+            'description_ar' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 

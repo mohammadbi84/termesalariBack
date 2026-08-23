@@ -10,6 +10,7 @@ class TrustCounter extends Model
         'trust_section_id',
         'title_fa',
         'title_en',
+        'title_ar',
         'number',
         'order',
     ];

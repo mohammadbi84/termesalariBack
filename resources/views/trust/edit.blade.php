@@ -62,6 +62,21 @@
                             </div>
 
                             <hr>
+                            {{-- ================= عربی ================= --}}
+                            <h5 class="mb-3 text-primary">محتوای عربی</h5>
+
+                            <div class="form-group">
+                                <label>عنوان (عربی)</label>
+                                <input type="text" name="title_ar" class="form-control"
+                                    value="{{ old('title_ar', $section->title_ar ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>توضیحات (عربی)</label>
+                                <textarea name="description_ar" rows="4" class="form-control">{{ old('description_ar', $section->description_ar ?? '') }}</textarea>
+                            </div>
+
+                            <hr>
 
                             {{-- ================= شمارنده‌ها ================= --}}
                             <h5 class="mb-3 text-success">شمارنده‌ها</h5>
@@ -80,6 +95,11 @@
                                                     <input type="text" name="counters[{{ $i }}][title_en]"
                                                         class="form-control mb-1" placeholder="Title English"
                                                         value="{{ $counter->title_en }}">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" name="counters[{{ $i }}][title_ar]"
+                                                        class="form-control mb-1" placeholder="عنوان عربی"
+                                                        value="{{ $counter->title_ar }}">
                                                 </div>
                                                 <div class="col">
                                                     <input type="number" name="counters[{{ $i }}][number]"
@@ -124,6 +144,9 @@
             </div>
             <div class="col">
                 <input type="text" name="counters[${counterIndex}][title_en]" class="form-control mb-1" placeholder="Title English">
+            </div>
+            <div class="col">
+                <input type="text" name="counters[${counterIndex}][title_ar]" class="form-control mb-1" placeholder="عنوان عربی">
             </div>
             <div class="col">
                 <input type="number" name="counters[${counterIndex}][number]" class="form-control mb-1" placeholder="عدد">

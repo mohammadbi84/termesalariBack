@@ -71,7 +71,6 @@
     padding: 4px 10px;
     border-radius: var(--raduis);
     /* added border-radius */
-
 }
 
 .main-menu .navbar .btn-text:hover {
@@ -83,7 +82,6 @@
     font-weight: 300;
     font-size: 14px;
 }
-
 
 .main-menu .nav-link {
     position: relative;
@@ -102,7 +100,7 @@
 
 /* انیمیشن خط زیر لینک‌ها */
 .main-menu .nav-link::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     right: 12%;
@@ -127,12 +125,10 @@
     background-color: #4fba6b;
 }
 
-
 /* .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
 } */
-
 
 #navbarCartList::-webkit-scrollbar {
     width: 5px;
@@ -154,7 +150,7 @@
     /* برای نمایش درست توسط بوت‌استرپ */
 }
 
-.dropdown .show+.dropdown-animated {
+.dropdown .show + .dropdown-animated {
     opacity: 1 !important;
     transform: translateY(0) !important;
     visibility: visible !important;
@@ -254,9 +250,6 @@
     }
 }
 
-
-
-
 /* استایل بوکمارک */
 .bookmark-container {
     position: relative;
@@ -278,7 +271,6 @@
     /* اضافه شده */
     background: transparent;
 }
-
 
 .bookmark.collapsed {
     height: 5px;
@@ -312,11 +304,10 @@
     justify-content: start;
     overflow: hidden;
     /* padding-left: 60px !important; */
-
 }
 
 /* استایل برای محتوای داخل body */
-.bookmark-media>* {
+.bookmark-media > * {
     /* width: 100%; */
     height: 100%;
     object-fit: cover;
@@ -324,7 +315,6 @@
     display: flex;
     align-items: center;
     padding-left: 60px !important;
-
 }
 
 /* اگر body شامل عکس باشد */
@@ -342,7 +332,7 @@
 }
 
 /* اگر body شامل div با بک‌گراند باشد */
-.bookmark-media>div {
+.bookmark-media > div {
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -394,8 +384,6 @@
     opacity: 1;
 }
 
-
-
 #bookmarkToggle {
     padding: 10px;
     position: absolute;
@@ -408,9 +396,6 @@
 .login-link:hover {
     color: var(--primary-color) !important;
 }
-
-
-
 
 /* new ================================================================================================ */
 /* منوی دسته‌بندی برای دسکتاپ */
@@ -549,8 +534,6 @@
     transition: all 0.3s ease;
 }
 
-
-
 /* آکاردئون موبایل */
 .mobile-category-menu {
     position: fixed;
@@ -607,8 +590,8 @@
 }
 
 .mobile-main-category button::after {
-    content: '\f282';
-    font-family: 'bootstrap-icons';
+    content: "\f282";
+    font-family: "bootstrap-icons";
     transition: transform 0.3s ease;
 }
 
@@ -625,7 +608,7 @@
     transition: max-height 0.3s ease;
 }
 
-.mobile-main-category button[aria-expanded="true"]+.mobile-sub-categories {
+.mobile-main-category button[aria-expanded="true"] + .mobile-sub-categories {
     max-height: 500px;
 }
 
@@ -687,9 +670,6 @@
     margin-bottom: 30px;
 }
 
-
-
-
 .quantity-controls {
     display: flex;
     align-items: center;
@@ -721,23 +701,6 @@
     min-width: 30px;
     text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* استایل سبد خرید */
 .cart-container {
@@ -1137,113 +1100,45 @@
     color: #dee2e6;
 }
 
-
-
-
 /* language ============================================================================================================================ */
 /* استایل دکمه انتخاب زبان */
 .language-selector {
     position: relative;
-    display: inline-block;
 }
 
-.language-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: white;
-    padding: 2px;
-    /* height: 40px; */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-    margin-left: 2px;
-}
-
-.language-btn:hover .current-language {
-    color: var(--primary-color);
-}
-
-.language-btn i {
-    font-size: 14px;
-    top: 0 !important;
-    color: #6c757d;
-    transition: transform 0.3s ease;
-}
-
-.language-btn.active .bi-chevron-down {
-    transform: rotate(180deg);
-    color: var(--primary-color);
-}
-
-.language-dropdown {
+.language-menu {
     position: absolute;
-    top: 100%;
+    top: 30px;
     left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #dee2e6;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid #eee;
     border-radius: 8px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    margin-top: 5px;
+    transform: translateY(-5px);
+    transition: 0.2s ease;
 }
 
-.language-selector.active .language-dropdown {
+.language-selector.active .language-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-.language-list {
-    list-style: none;
-    padding: 8px 0;
-    margin: 0;
+.language-menu a {
+    display: block;
+    padding: 8px 12px;
+    color: #555;
+    text-decoration: none;
+    border-radius: 6px;
 }
 
-.language-item {
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.language-item:hover {
-    background-color: #f8f9fa;
-}
-
-.language-item.active {
-    background-color: rgba(25, 135, 84, 0.1);
-    color: var(--primary-color);
-    font-weight: 500;
-}
-
-.language-flag {
-    width: 20px;
-    height: 15px;
-    border-radius: 2px;
-    object-fit: cover;
-}
-
-.language-name {
-    flex: 1;
-}
-
-.language-check {
-    color: var(--primary-color);
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.language-item.active .language-check {
-    opacity: 1;
+.language-menu a:hover,
+.language-menu a.active {
+    background: #f5f5f5;
 }
 
 .favorites-item .favorites-btn:hover i {

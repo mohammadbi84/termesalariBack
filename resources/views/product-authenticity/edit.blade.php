@@ -68,6 +68,21 @@
                             </div>
 
                             <hr>
+                            {{-- ================= عربی ================= --}}
+                            <h5 class="mb-3 text-primary">محتوای عربی</h5>
+
+                            <div class="form-group">
+                                <label>عنوان (عربی)</label>
+                                <input type="text" name="title_ar" class="form-control"
+                                    value="{{ old('title_ar', $section->title_ar ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>توضیحات (عربی)</label>
+                                <textarea name="description_ar" rows="4" class="form-control">{{ old('description_ar', $section->description_ar ?? '') }}</textarea>
+                            </div>
+
+                            <hr>
 
                             {{-- تصویر اصلی --}}
                             <div class="form-group">

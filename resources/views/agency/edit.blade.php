@@ -116,6 +116,11 @@
                                     <input type="text" name="name_en" class="form-control"
                                         value="{{ old('name_en', $agency->name_en) }}">
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label>نام نماینده (عربی)</label>
+                                    <input type="text" name="name_ar" class="form-control"
+                                        value="{{ old('name_ar', $agency->name_ar) }}">
+                                </div>
                                 <div class="form-group col-12">
                                     <label>آدرس کامل (فارسی)</label>
                                     <textarea name="address_fa" class="form-control">{{ old('address_fa', $agency->address_fa) }}</textarea>
@@ -124,6 +129,10 @@
                                 <div class="form-group col-12">
                                     <label>Full Address (English)</label>
                                     <textarea name="address_en" class="form-control">{{ old('address_en', $agency->address_en) }}</textarea>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label>آدرس کامل (عربی)</label>
+                                    <textarea name="address_ar" class="form-control">{{ old('address_ar', $agency->address_ar) }}</textarea>
                                 </div>
                             </div>
 

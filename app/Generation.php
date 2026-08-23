@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Generation extends Model
 {
     protected $fillable = [
-        'name_fa', 'name_en', 'pretext_fa', 'pretext_en', 'description_fa', 'description_en', 'image'
+        'name_fa', 'name_en','name_ar', 'pretext_fa', 'pretext_en','pretext_ar', 'description_fa', 'description_en','description_ar', 'image'
     ];
 
     public function getNameAttribute()

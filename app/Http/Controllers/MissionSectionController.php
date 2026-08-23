@@ -23,11 +23,14 @@ class MissionSectionController extends Controller
             'title_fa' => 'nullable|string|max:255',
             'description_fa' => 'nullable|string',
             'title_en' => 'nullable|string|max:255',
+            'title_ar' => 'nullable|string|max:255',
             'description_en' => 'nullable|string',
+            'description_ar' => 'nullable|string',
             'video' => 'nullable|file|mimes:mp4,mov,avi|max:20480',
             'video_cover' => 'nullable|image|max:4096',
             'counters.*.title_fa' => 'nullable|string|max:255',
             'counters.*.title_en' => 'nullable|string|max:255',
+            'counters.*.title_ar' => 'nullable|string|max:255',
             'counters.*.number' => 'nullable|numeric',
         ]);
 
@@ -40,7 +43,9 @@ class MissionSectionController extends Controller
             $mission->title_fa = $request->title_fa;
             $mission->description_fa = $request->description_fa;
             $mission->title_en = $request->title_en;
+            $mission->title_ar = $request->title_ar;
             $mission->description_en = $request->description_en;
+            $mission->description_ar = $request->description_ar;
 
             // آپلود ویدیو
             if ($request->hasFile('video')) {
@@ -75,6 +80,7 @@ class MissionSectionController extends Controller
                             'mission_section_id' => $mission->id,
                             'title_fa' => $counter['title_fa'],
                             'title_en' => $counter['title_en'],
+                            'title_ar' => $counter['title_ar'],
                             'number' => $counter['number'] ?? 0,
                             'order' => $index,
                         ]);

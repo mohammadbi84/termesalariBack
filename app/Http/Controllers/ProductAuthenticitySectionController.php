@@ -20,8 +20,10 @@ class ProductAuthenticitySectionController extends Controller
         $request->validate([
             'title_fa' => 'nullable|string|max:255',
             'title_en' => 'nullable|string|max:255',
+            'title_ar' => 'nullable|string|max:255',
             'description_fa' => 'nullable|string',
             'description_en' => 'nullable|string',
+            'description_ar' => 'nullable|string',
             'image' => 'nullable|image|max:4096',
             'background_image' => 'nullable|image|max:4096',
         ]);
@@ -34,9 +36,11 @@ class ProductAuthenticitySectionController extends Controller
 
             $section->title_fa = $request->title_fa;
             $section->title_en = $request->title_en;
+            $section->title_ar = $request->title_ar;
 
             $section->description_fa = $request->description_fa;
             $section->description_en = $request->description_en;
+            $section->description_ar = $request->description_ar;
 
             // تصویر اصلی
             if ($request->hasFile('image')) {

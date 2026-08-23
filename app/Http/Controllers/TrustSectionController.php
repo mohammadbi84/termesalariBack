@@ -20,10 +20,13 @@ class TrustSectionController extends Controller
         $request->validate([
             'title_fa' => 'nullable|string|max:255',
             'title_en' => 'nullable|string|max:255',
+            'title_ar' => 'nullable|string|max:255',
             'description_fa' => 'nullable|string',
             'description_en' => 'nullable|string',
+            'description_ar' => 'nullable|string',
             'counters.*.title_fa' => 'nullable|string|max:255',
             'counters.*.title_en' => 'nullable|string|max:255',
+            'counters.*.title_ar' => 'nullable|string|max:255',
             'counters.*.number' => 'nullable|numeric',
         ]);
 
@@ -35,8 +38,10 @@ class TrustSectionController extends Controller
 
             $section->title_fa = $request->title_fa;
             $section->title_en = $request->title_en;
+            $section->title_ar = $request->title_ar;
             $section->description_fa = $request->description_fa;
             $section->description_en = $request->description_en;
+            $section->description_artitle_ar = $request->description_ar;
 
             $section->save();
 
@@ -47,12 +52,13 @@ class TrustSectionController extends Controller
             if ($request->has('counters')) {
                 foreach ($request->counters as $index => $counter) {
 
-                    if (!empty($counter['title_fa']) || !empty($counter['title_en'])) {
+                    if (!empty($counter['title_fa']) || !empty($counter['title_en']) || !empty($counter['title_ar'])) {
 
                         TrustCounter::create([
                             'trust_section_id' => $section->id,
                             'title_fa' => $counter['title_fa'] ?? null,
                             'title_en' => $counter['title_en'] ?? null,
+                            'title_ar' => $counter['title_ar'] ?? null,
                             'number' => $counter['number'] ?? 0,
                             'order' => $index,
                         ]);

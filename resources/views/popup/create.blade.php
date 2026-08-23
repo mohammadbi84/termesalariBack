@@ -124,6 +124,17 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="title_ar">عنوان عربی</label>
+                                <input type="text" name="title_ar" id="title_ar"
+                                    class="form-control @error('title_ar') is-invalid @enderror"
+                                    placeholder="Title (English)" value="{{ old('title_ar') }}">
+                                @error('title_ar')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -144,6 +155,16 @@
                                 <textarea name="description_en" id="description_en" class="form-control @error('description_en') is-invalid @enderror"
                                     rows="3" placeholder="Description (English)">{{ old('description_en') }}</textarea>
                                 @error('description_en')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="description_ar">توضیحات عربی</label>
+                                <textarea name="description_ar" id="description_ar" class="form-control @error('description_ar') is-invalid @enderror"
+                                    rows="3" placeholder="Description (English)">{{ old('description_ar') }}</textarea>
+                                @error('description_ar')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>

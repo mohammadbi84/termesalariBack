@@ -25,7 +25,7 @@ class City extends Model
                 return $this->e_name;
 
             case 'ar':
-                return $this->ar_name;
+                return $this->attributes['name'];
 
             default:
                 return $this->attributes['name'];

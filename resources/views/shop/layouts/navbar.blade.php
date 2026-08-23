@@ -172,16 +172,13 @@
                                 {{ __('menu.amazing') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                                href="/store#newest">{{ __('menu.newest') }}</a>
+                            <a class="nav-link" href="/store#newest">{{ __('menu.newest') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                                href="/store#products">{{ __('menu.bestSeller') }}</a>
+                            <a class="nav-link" href="/store#products">{{ __('menu.bestSeller') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                                href="/store#branchs">{{ __('menu.branchs') }}</a>
+                            <a class="nav-link" href="/store#branchs">{{ __('menu.branchs') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('about') }}">{{ __('menu.aboutUs') }}</a>
@@ -190,11 +187,26 @@
                     <!-- cart language, favorites and login ================================================================================================================== -->
                     <div class="d-flex gap-1 align-items-center justify-content-center position-relative">
                         <div class="language-selector" id="languageSelector">
-                            <button class="language-btn border-0 text-muted" id="languageBtn"
-                                data-lang="{{ app()->getLocale() == 'fa' ? 'en' : 'fa' }}">
-                                <span class="current-language">{{ app()->getLocale() == 'fa' ? 'En' : 'Fa' }}</span>
+                            <button class="language-btn border-0 text-muted bg-white" id="languageBtn" type="button">
+                                <span class="current-language">
+                                    {{ strtoupper(app()->getLocale()) }}
+                                </span>
                                 <i class="bi bi-globe"></i>
                             </button>
+
+                            <div class="language-menu">
+                                <a href="/change-lang/fa" class="{{ app()->getLocale() == 'fa' ? 'active' : '' }}">
+                                    فارسی
+                                </a>
+
+                                <a href="/change-lang/en" class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">
+                                    English
+                                </a>
+
+                                <a href="/change-lang/ar" class="{{ app()->getLocale() == 'ar' ? 'active' : '' }}">
+                                    العربية
+                                </a>
+                            </div>
                         </div>
                         {{-- favorites menu --}}
                         @php
@@ -339,10 +351,20 @@
                                         // تولید عنوان محصول
                                         $title = $product->title;
                                         if (isset($product->color_design->design->title)) {
-                                            $title .= $product->category->title . ' ' .  __("products.design") . ' ' . $product->color_design->design->title;
+                                            $title .=
+                                                $product->category->title .
+                                                ' ' .
+                                                __('products.design') .
+                                                ' ' .
+                                                $product->color_design->design->title;
                                         }
                                         if (isset($product->color_design->color->color)) {
-                                            $title .= $product->category->title . ' ' .  __("products.color") . ' ' . ($product->color_design->color->color);
+                                            $title .=
+                                                $product->category->title .
+                                                ' ' .
+                                                __('products.color') .
+                                                ' ' .
+                                                $product->color_design->color->color;
                                         }
 
                                         // آدرس تصویر
@@ -383,7 +405,8 @@
                                             <div class="cart-item-price">
                                                 @if ($cartOff > 0)
                                                     <span class="cart-item-old-price">{{ $p->offPrice }}</span>
-                                                @endif <small class="fs-10 text-muted">{{ __('menu.pluralPart') }} : </small>
+                                                @endif <small
+                                                    class="fs-10 text-muted">{{ __('menu.pluralPart') }} : </small>
                                                 {{ number_format($cartPrice * $quantity) }} {{ __('menu.toman') }}
                                             </div>
                                             <div class="quantity-controls">
@@ -416,27 +439,27 @@
                 </div>
                 {{-- منوی پروفایل --}}
                 @if (Auth::check())
-                <div class="profile-dropdown">
-                    <div class="profile-items px-4 py-3" id="navbarprofileList">
-                        <li class=" list-unstyled mb-3">
-                            <a class="dropdown-item" href="{{ route('user.profile') }}">
-                                <i class="fa-solid fa-user ms-1 top-0"></i>
-                                <span>{{ __('menu.profile') }}</span>
-                            </a>
-                        </li>
-                        <li class=" list-unstyled">
-                            <a class="dropdown-item text-danger" href="#"
-                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <i class="fa-solid fa-arrow-right-from-bracket ms-1 top-0"></i>
-                                <span>{{ __('menu.logout') }}</span>
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
+                    <div class="profile-dropdown">
+                        <div class="profile-items px-4 py-3" id="navbarprofileList">
+                            <li class=" list-unstyled mb-3">
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">
+                                    <i class="fa-solid fa-user ms-1 top-0"></i>
+                                    <span>{{ __('menu.profile') }}</span>
+                                </a>
+                            </li>
+                            <li class=" list-unstyled">
+                                <a class="dropdown-item text-danger" href="#"
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                    <i class="fa-solid fa-arrow-right-from-bracket ms-1 top-0"></i>
+                                    <span>{{ __('menu.logout') }}</span>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </div>
                     </div>
-                </div>
                 @endif
                 {{-- منوی مقایسه ها --}}
                 <div class="compare-dropdown">
@@ -457,8 +480,8 @@
                                 <div class="compare-item" data-id="{{ $compare->id }}"
                                     data-model="{{ substr($compare->category->model, 4) }}">
                                     @php $image = $compare->images->first(); @endphp
-                                    <img src="{{ asset('storage/' . $image['name']) }}"
-                                        alt="product" class="favorites-item-image">
+                                    <img src="{{ asset('storage/' . $image['name']) }}" alt="product"
+                                        class="favorites-item-image">
                                     <div class="favorites-item-content">
                                         <div class="favorites-item-title">
                                             {{ $compare->category->title }} {{ __('products.design') }}
@@ -490,8 +513,7 @@
                                         </div>
                                         <div
                                             class="d-flex justify-content-start gap-2 align-items-center w-100 bg-white">
-                                            <button class="delete-btn close"
-                                                data-id="{{ $compare->id }}"><i
+                                            <button class="delete-btn close" data-id="{{ $compare->id }}"><i
                                                     class="fa-solid fa-close text-danger"></i></button>
                                         </div>
                                     </div>
@@ -502,7 +524,8 @@
 
                     <div class="cart-footer">
                         <div class="cart-actions justify-content-end align-items-center">
-                            <a href="{{ route('compare.index') }}" class="btn-checkout">{{ __('menu.viewList') }}</a>
+                            <a href="{{ route('compare.index') }}"
+                                class="btn-checkout">{{ __('menu.viewList') }}</a>
                         </div>
                     </div>
                 </div>
@@ -520,12 +543,13 @@
                                 <div class="favorites-item" data-id="{{ $favorite->favoriteable->id }}"
                                     data-model="{{ substr($favorite->favoriteable_type, 4) }}">
                                     @php $image = $favorite->favoriteable->images->first(); @endphp
-                                    <img src="{{ asset('storage/' . $image['name']) }}"
-                                        alt="product" class="favorites-item-image">
+                                    <img src="{{ asset('storage/' . $image['name']) }}" alt="product"
+                                        class="favorites-item-image">
                                     <div class="favorites-item-content">
                                         <div class="favorites-item-title">
-                                            {{ $favorite->favoriteable->category->title }} {{ __("products.design") }}
-                                            {{ $favorite->favoriteable->color_design->design->title }} {{ __("products.color") }}
+                                            {{ $favorite->favoriteable->category->title }} {{ __('products.design') }}
+                                            {{ $favorite->favoriteable->color_design->design->title }}
+                                            {{ __('products.color') }}
                                             {{ $favorite->favoriteable->color_design->color->color }}
                                         </div>
                                         <div class="favorites-item-price">
@@ -574,7 +598,8 @@
                                                 data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
                                                 data-title="{{ $favorite->favoriteable->category->title }}"
                                                 data-price="{{ $price->price }}" data-pay="{{ $price }}"
-                                                data-off="{{ $off }}" data-offType="{{ $price->offType }}"
+                                                data-off="{{ $off }}"
+                                                data-offType="{{ $price->offType }}"
                                                 data-local="{{ $price->local }}"
                                                 data-id="{{ $favorite->favoriteable->id }}"
                                                 data-model="{{ substr($favorite->favoriteable_type, 4) }}"
@@ -587,7 +612,8 @@
                                                 data-color="{{ $favorite->favoriteable->color_design->color->color ?? '' }}"
                                                 data-title="{{ $favorite->favoriteable->category->title }}"
                                                 data-price="{{ $price->price }}" data-pay="{{ $price }}"
-                                                data-off="{{ $off }}" data-offType="{{ $price->offType }}"
+                                                data-off="{{ $off }}"
+                                                data-offType="{{ $price->offType }}"
                                                 data-local="{{ $price->local }}"
                                                 data-id="{{ $favorite->favoriteable->id }}"
                                                 data-model="{{ substr($favorite->favoriteable_type, 4) }}"
@@ -601,7 +627,8 @@
 
                         <div class="cart-footer">
                             <div class="cart-actions justify-content-end align-items-center">
-                                <a href="{{ route('user.favorites') }}" class="btn-checkout">{{ __('menu.viewList') }}</a>
+                                <a href="{{ route('user.favorites') }}"
+                                    class="btn-checkout">{{ __('menu.viewList') }}</a>
                             </div>
                         </div>
                     </div>
@@ -673,18 +700,15 @@
                     {{ __('menu.amazing') }}</a>
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold"
-                    href="/store#newest">{{ __('menu.newest') }}</a>
+                <a class="nav-link fw-bold" href="/store#newest">{{ __('menu.newest') }}</a>
 
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold"
-                    href="/store#products">{{ __('menu.bestSeller') }}</a>
+                <a class="nav-link fw-bold" href="/store#products">{{ __('menu.bestSeller') }}</a>
 
             </div>
             <div class="mobile-main-category py-3">
-                <a class="nav-link fw-bold"
-                    href="/store#branchs">{{ __('menu.branchs') }}</a>
+                <a class="nav-link fw-bold" href="/store#branchs">{{ __('menu.branchs') }}</a>
             </div>
             <div class="mobile-main-category py-3">
                 <a class="nav-link fw-bold" href="{{ route('about') }}">{{ __('menu.aboutUs') }}</a>
@@ -841,7 +865,7 @@
             totalItems += parseInt($(this).text());
         });
         $('.shopping-cart-badge').text(totalItems);
-        $('.cart-items-count').text(totalItems + ' {{ __("menu.product") }}');
+        $('.cart-items-count').text(totalItems + ' {{ __('menu.product') }}');
     }
 
     // ------------------------- جمع کل سبد خرید ------------------------
@@ -874,8 +898,9 @@
         });
 
         // تزریق در HTML
-        $('.cart-total-price').html('<span class="text-muted fs-10">{{ __("menu.amountPayable") }}</span><br>' + totalPayable
-            .toLocaleString() + ' {{ __("products.currency") }}');
+        $('.cart-total-price').html('<span class="text-muted fs-10">{{ __('menu.amountPayable') }}</span><br>' +
+            totalPayable
+            .toLocaleString() + ' {{ __('products.currency') }}');
     }
 
     // مدیریت هاور روی سبد خرید
@@ -1043,7 +1068,8 @@
                     const $badge2 = $("#compare-items-count"); // شمارشگر علاقه‌مندی
                     let count = parseInt($badge.text()) || 0;
                     $badge.text(count > 0 ? count - 1 : 0);
-                    $badge2.html(count > 0 ? count - 1 + ' {{ __("menu.product") }} ' : 0 + ' {{ __("menu.product") }} ');
+                    $badge2.html(count > 0 ? count - 1 + ' {{ __('menu.product') }} ' : 0 +
+                        ' {{ __('menu.product') }} ');
 
                     return "removed";
                 }

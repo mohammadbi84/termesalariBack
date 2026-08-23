@@ -9,8 +9,10 @@ class ProductAuthenticitySection extends Model
     protected $fillable = [
         'title_fa',
         'title_en',
+        'title_an',
         'description_fa',
         'description_en',
+        'description_an',
         'image',
         'background_image',
     ];

@@ -37,7 +37,6 @@
 							<tr>
 								<th>ردیف</th>
 								<th>عنوان</th>
-								<th>عنوان</th>
 								<th>تعداد رنگ بافت</th>
 								<th>وضعیت</th>
 								<th>رنگ بندی</th>
@@ -52,7 +51,6 @@
 								<tr>
 									<td>{{ $loop->iteration }}</td>
 									<td>{{ $design->title }}</td>
-									<td>{{ $design->e_title }}</td>
 									<td>{{ $design->countOfColor }}</td>
 									<td>
 										@if($design->active == 0)

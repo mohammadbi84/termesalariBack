@@ -49,6 +49,7 @@ class ColorController extends Controller
         $color = Color::create([
             'color'=>$request->color,
             'e_color'=>$request->e_color,
+            'ar_color'=>$request->ar_color,
         ]);
 
         return redirect()->route('color.index')->with('success','عملیات با موفقیت انجام شد.');
@@ -89,6 +90,7 @@ class ColorController extends Controller
         $rules = [
            'color' => 'required|string|unique:colors,color,'. $color->id ,
            'e_color' => 'required|string|unique:colors,e_color,'. $color->id ,
+           'ar_color' => 'required|string|unique:colors,ar_color,'. $color->id ,
         ];
         $request->validate($rules);
         $color->fill($request->all());

@@ -41,6 +41,14 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="form-group col-md-6 @error('name_ar') is-invalid @enderror">
+                                <label for="name_ar">نام (عربی)</label>
+                                <input type="text" name="name_ar" id="name_ar" class="form-control"
+                                    placeholder="لطفا نام عربی را وارد کنید." value="{{ old('name_ar',$generation->name_ar) }}">
+                                @error('name_ar')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <div class="form-group col-md-6 @error('pretext_fa') is-invalid @enderror">
                                 <label for="pretext_fa">عنوان (فارسی)</label>
                                 <input type="text" name="pretext_fa" id="pretext_fa" class="form-control"
@@ -57,6 +65,14 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="form-group col-md-6 @error('pretext_ar') is-invalid @enderror">
+                                <label for="pretext_ar">عنوان (عربی)</label>
+                                <input type="text" name="pretext_ar" id="pretext_ar" class="form-control"
+                                    placeholder="لطفا عنوان عربی را وارد کنید." value="{{ old('pretext_ar',$generation->pretext_ar) }}">
+                                @error('pretext_ar')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <div class="form-group col-md-6 @error('description_fa') is-invalid @enderror">
                                 <label for="description_fa">توضیحات (فارسی)</label>
                                 <textarea class="form-control" name="description_fa" id="description_fa" rows="3">{{ old('description_fa',$generation->description_fa) }}</textarea>
@@ -68,6 +84,13 @@
                                 <label for="description_en">توضیحات (انگلیسی)</label>
                                 <textarea class="form-control" name="description_en" id="description_en" rows="3">{{ old('description_en',$generation->description_en) }}</textarea>
                                 @error('description_en')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6 @error('description_ar') is-invalid @enderror">
+                                <label for="description_ar">توضیحات (عربی)</label>
+                                <textarea class="form-control" name="description_ar" id="description_ar" rows="3">{{ old('description_ar',$generation->description_ar) }}</textarea>
+                                @error('description_ar')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

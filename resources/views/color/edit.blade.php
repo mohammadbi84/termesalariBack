@@ -34,6 +34,13 @@
 							    <div class="invalid-feedback">{{$message}}</div>
 							@enderror
 						</div>
+		                <div class="form-group">
+							<label for="ar_color">عنوان عربی رنگ</label>
+							<input type="text" name="ar_color" id="ar_color" class="form-control @error('ar_color') is-invalid @enderror" placeholder="لطفا عنوان انگلیسی رنگ را وارد کنید." value="{{ old('ar_color',$color->ar_color) }}">
+							@error('ar_color')
+							    <div class="invalid-feedback">{{$message}}</div>
+							@enderror
+						</div>
 						<button type="submit" class="btn btn-flat btn-primary">ویرایش اطلاعات</button>
 			          	<a href="{{ route('color.index') }}" class="btn btn flat btn-secondary">بازگشت</a>
 					</form>

@@ -49,6 +49,9 @@ class CategoryController extends Controller
         $category = new Category;
         $category->fill($request->all());
         $category->model = $parent->model;
+        $category->title = $request->title;
+        $category->e_title = $request->e_title;
+        $category->ar_title = $request->ar_title;
         $category->link = "/store/tablecloths/filter?category[]=";
         $category->image = $request->image;
         $category->save();
@@ -93,6 +96,7 @@ class CategoryController extends Controller
         $category->link = "/store/tablecloths/filter?category[]=";
         $category->title = $request->title;
         $category->e_title = $request->e_title;
+        $category->ar_title = $request->ar_title;
         $category->active = $request->active;
         $category->image = $request->image;
         $category->save();

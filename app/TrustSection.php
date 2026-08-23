@@ -9,8 +9,10 @@ class TrustSection extends Model
     protected $fillable = [
         'title_fa',
         'title_en',
+        'title_ar',
         'description_fa',
         'description_en',
+        'description_ar',
     ];
 
     public function counters()

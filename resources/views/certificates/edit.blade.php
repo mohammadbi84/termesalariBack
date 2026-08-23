@@ -61,10 +61,19 @@
                                 <input type="text" name="title_en" class="form-control"
                                     value="{{ old('title_en', $section->title_en ?? '') }}">
                             </div>
+                            <div class="form-group">
+                                <label>عنوان (عربی)</label>
+                                <input type="text" name="title_ar" class="form-control"
+                                    value="{{ old('title_ar', $section->title_ar ?? '') }}">
+                            </div>
 
                             <div class="form-group">
                                 <label>Description (English)</label>
                                 <textarea name="description_en" rows="4" class="form-control">{{ old('description_en', $section->description_en ?? '') }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>توضیحات (عربی)</label>
+                                <textarea name="description_ar" rows="4" class="form-control">{{ old('description_ar', $section->description_ar ?? '') }}</textarea>
                             </div>
 
                             <hr>

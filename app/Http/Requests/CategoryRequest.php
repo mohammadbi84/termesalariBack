@@ -28,6 +28,7 @@ class CategoryRequest extends FormRequest
             // 'model' => 'required|string' ,
             'title' => 'required|string' ,
             'e_title' => 'required|string' ,
+            'ar_title' => 'required|string' ,
             'image' => 'required|string' ,
             // 'link' => 'required|string' ,
             'parent_id' => 'required|numeric',

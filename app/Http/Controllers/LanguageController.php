@@ -9,7 +9,7 @@ class LanguageController extends Controller
 {
     public function change($lang)
     {
-        if (in_array($lang, ['fa', 'en'])) {
+        if (in_array($lang, ['fa', 'en','ar'])) {
             Session::put('locale', $lang);
             App::setLocale($lang);
         }

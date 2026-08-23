@@ -194,15 +194,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     languageSelectors.forEach((selector) => {
         const btn = selector.querySelector(".language-btn");
-        const langSpan = btn.querySelector(".current-language");
-        // کلیک روی دکمه
+
         btn.addEventListener("click", function (e) {
             e.stopPropagation();
-            lang = btn.dataset.lang;
-            window.location = "/change-lang/" + lang;
+
             selector.classList.toggle("active");
-            btn.classList.toggle("active");
-            langSpan.textContent = langSpan.textContent === "Fa" ? "En" : "Fa";
+        });
+    });
+
+    document.addEventListener("click", function () {
+        languageSelectors.forEach((selector) => {
+            selector.classList.remove("active");
         });
     });
 });

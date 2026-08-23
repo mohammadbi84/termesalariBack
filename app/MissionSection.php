@@ -10,7 +10,9 @@ class MissionSection extends Model
         'title_fa',
         'description_fa',
         'title_en',
+        'title_ar',
         'description_en',
+        'description_ar',
         'video_path',
         'video_cover',
     ];

@@ -46,6 +46,11 @@
                                 <input type="text" name="title_en" class="form-control"
                                     value="{{ old('title_en', $mission->title_en ?? '') }}">
                             </div>
+                            <div class="form-group">
+                                <label>عنوان عربی</label>
+                                <input type="text" name="title_ar" class="form-control"
+                                    value="{{ old('title_ar', $mission->title_ar ?? '') }}">
+                            </div>
 
                             {{-- توضیحات --}}
                             <div class="form-group">
@@ -56,6 +61,10 @@
                             <div class="form-group">
                                 <label>توضیحات انگلیسی</label>
                                 <textarea name="description_en" rows="5" class="form-control">{{ old('description_en', $mission->description_en ?? '') }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>توضیحات انگلیسی</label>
+                                <textarea name="description_ar" rows="5" class="form-control">{{ old('description_ar', $mission->description_ar ?? '') }}</textarea>
                             </div>
 
                             {{-- کاور --}}
@@ -91,8 +100,13 @@
                                                 </div>
                                                 <div class="col">
                                                     <input type="text" name="counters[{{ $index }}][title_en]"
-                                                        class="form-control" placeholder="عنوان"
+                                                        class="form-control" placeholder="عنوان انگلیسی"
                                                         value="{{ $counter->title_en }}">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" name="counters[{{ $index }}][title_ar]"
+                                                        class="form-control" placeholder="عنوان عربی"
+                                                        value="{{ $counter->title_ar }}">
                                                 </div>
                                                 <div class="col-md-5">
                                                     <input type="number" name="counters[{{ $index }}][number]"
@@ -144,7 +158,10 @@
 <input type="text" name="counters[${counterIndex}][title_fa]" class="form-control" placeholder="عنوان">
 </div>
 <div class="col">
-<input type="text" name="counters[${counterIndex}][title_en]" class="form-control" placeholder="عنوان">
+<input type="text" name="counters[${counterIndex}][title_en]" class="form-control" placeholder="عنوان انگلیسی">
+</div>
+<div class="col">
+<input type="text" name="counters[${counterIndex}][title_ar]" class="form-control" placeholder="عنوان عربی">
 </div>
 <div class="col-md-5">
 <input type="number" name="counters[${counterIndex}][number]" class="form-control" placeholder="عدد">
@@ -176,6 +193,9 @@
                     }
                     if (name.includes('title_en')) {
                         $(this).attr('name', `counters[${counterIndex}][title_en]`);
+                    }
+                    if (name.includes('title_ar')) {
+                        $(this).attr('name', `counters[${counterIndex}][title_ar]`);
                     }
                     if (name.includes('number')) {
                         $(this).attr('name', `counters[${counterIndex}][number]`);
