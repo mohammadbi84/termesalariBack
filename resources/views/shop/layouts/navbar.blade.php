@@ -199,12 +199,12 @@
                                     فارسی
                                 </a>
 
-                                <a href="/change-lang/en" class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">
-                                    English
-                                </a>
-
                                 <a href="/change-lang/ar" class="{{ app()->getLocale() == 'ar' ? 'active' : '' }}">
                                     العربية
+                                </a>
+
+                                <a href="/change-lang/en" class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">
+                                    English
                                 </a>
                             </div>
                         </div>

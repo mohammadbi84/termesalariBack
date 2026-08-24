@@ -25,7 +25,7 @@ class RecipientController extends Controller
      */
     public function index()
     {
-        $recipients = Recipient::all();
+        $recipients = Recipient::latest()->get();
         // dd($recipients);
         return view('recipient.index')
             ->with('recipients',$recipients);
@@ -38,7 +38,7 @@ class RecipientController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**

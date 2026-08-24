@@ -250,41 +250,67 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('user.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-users"></i>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-credit-card"></i>
                                     <p>
-                                        کاربران
-                                        {{-- <i class="fa fa-angle-left right"></i> --}}
+                                        امور مالی
+                                        <i class="fa fa-angle-left right"></i>
                                     </p>
                                 </a>
-                            </li>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('payment.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-credit-card"></i>
+                                            <p>مبالغ دریافتی</p>
+                                        </a>
+                                    </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('category.index') }}" class="nav-link">
-                                    <i class="fas fa-sitemap"></i>
-                                    <p>
-                                        دسته بندی محصولات
-                                    </p>
-                                </a>
-                            </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('post.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-envelope"></i>
+                                            <p>تعرفه پستی <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('design.index') }}" class="nav-link">
-                                    <i class="fas fa-swatchbook"></i>
-                                    <p>
-                                        طرح ها
-                                    </p>
-                                </a>
+                                    <li class="nav-item">
+                                        <a href="{{ route('discountCard.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-tags"></i>
+                                            <p> کد تخفیف</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('color.index') }}" class="nav-link">
-                                    <i class="fas fa-palette"></i>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
                                     <p>
-                                        رنگ ها
+                                        سفارشات
+                                        <i class="fa fa-angle-left right"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('order.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-shopping-cart"></i>
+                                            <p>سفارش های موفق</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('order.unsuccess.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-exclamation-triangle"></i>
+                                            <p>سفارش های ناموفق</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('recipient.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-user"></i>
+                                            <p>آدرس مشتری ها</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="nav-item has-treeview">
@@ -342,165 +368,221 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('discountCard.index') }}" class="nav-link">
-                                    <i class="fas fa-tags"></i>
-                                    <p> کد تخفیف</p>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-store"></i>
+                                    <p>
+                                        مدیریت محصولات
+                                        <i class="fa fa-angle-left right"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('category.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-sitemap"></i>
+                                            <p>
+                                                دسته بندی محصولات
+                                            </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('design.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-swatchbook"></i>
+                                            <p>
+                                                طرح ها
+                                            </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('color.index') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-palette"></i>
+                                            <p>
+                                                رنگ ها
+                                            </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('userMessage.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-paper-plane "></i>
-                                    <p>پیام ها</p>
-                                </a>
-                            </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('comment.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-comments"></i>
-                                    <p>نظرات</p>
-                                </a>
-                            </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('order.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-shopping-cart"></i>
-                                    <p>سفارش های موفق</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('order.unsuccess.index') }}" class="nav-link">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                    <p>سفارش های ناموفق</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('payment.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-credit-card"></i>
-                                    <p>مبالغ دریافتی</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('recipient.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-user"></i>
-                                    <p>گیرندگان</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('newsletter.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-envelope"></i>
-                                    <p>خبرنامه</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('slideshow.index') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-envelope"></i>
-                                    <p>تصاویر اسلایدشو</p>
-                                </a>
-                            </li>
 
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-box-open"></i>
+                                    <i class="nav-icon fas fa-paper-plane"></i>
                                     <p>
-                                        بخش های جدید
+                                        مدیریت پیام ها
                                         <i class="fa fa-angle-left right"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('post.index') }}" class="nav-link">
+                                        <a href="{{ route('userMessage.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-paper-plane "></i>
+                                            <p>پیام های دریافتی</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('comment.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-comments"></i>
+                                            <p>دیدگاه مشتریان</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('newsletter.index') }}" class="nav-link">
                                             <i class="nav-icon fa fa-envelope"></i>
-                                            <p>شیوه های ارسال</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('popup.index') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-envelope"></i>
-                                            <p>پاپ آپ ها</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('article.index') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>صفحات داخلی</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('bookmark.index') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>بوکمارک ها</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('agency.index') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>نمایندگی ها</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('generation.index') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>خاندان ترمه سالاری</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('mission.edit') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>رسالت ترمه سالاری</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('product-authenticity.edit') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>نشان اصالت محصولات</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('trust.edit') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>اعتماد به ما</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('certificate.edit') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>حقوق مالکیت معنوی</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('client.index') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>مشتری های ما</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('video.edit') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>ویدیو اصلی</p>
+                                            <p>عضویت در خبرنامه</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('user.adminProfile') }}" class="nav-link">
-                                    <i class="nav-icon fas fa-id-card "></i>
-                                    <p>حساب کاربری</p>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        مدیریت اعضا
+                                        <i class="fa fa-angle-left right"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('user.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-users"></i>
+                                            <p>
+                                                کاربران
+                                                {{-- <i class="fa fa-angle-left right"></i> --}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        حساب کاربری
+                                        <i class="fa fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('user.adminProfile') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-id-card "></i>
+                                            <p>پروفایل</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('user.adminChangePassword') }}" class="nav-link">
+                                            <i class="nav-icon fas fa-lock"></i>
+                                            <p>تغییر رمز عبور</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('user.adminChangePassword') }}" class="nav-link">
-                                    <i class="nav-icon fas fa-lock"></i>
-                                    <p>تغییر رمز عبور</p>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-info"></i>
+                                    <p>
+                                        درباره ترمه سالاری
+                                        <i class="fa fa-angle-left right"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('generation.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>خاندان ترمه سالاری <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('mission.edit') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>رسالت ترمه سالاری <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('product-authenticity.edit') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>نشان اصالت محصولات <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('trust.edit') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>اعتماد به ما <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('certificate.edit') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>حقوق مالکیت معنوی <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('client.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>مشتری های ما <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('agency.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>نمایندگی ها <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>
+                                        تنظیمات وب سایت
+                                        <i class="fa fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('slideshow.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-envelope"></i>
+                                            <p>تصاویر اسلایدشو <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('popup.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-envelope"></i>
+                                            <p>پاپ آپ ها <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('article.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>صفحات داخلی <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('bookmark.index') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>بوکمارک ها <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('video.edit') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-file-alt"></i>
+                                            <p>ویدیو اصلی <small>( جدید )</small></p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="nav-item">

@@ -36,7 +36,7 @@
 									<th class="no-sort">جزئیات</th>
 				                </tr>
 			                </thead>
-			                <tbody>	
+			                <tbody>
 				                @foreach($recipients as $recipient)
 				                {{-- {{ dd($recipient) }} --}}
 					                <tr>
