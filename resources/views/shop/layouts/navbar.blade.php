@@ -145,7 +145,7 @@
                         </div>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#specials">
+                            <a class="nav-link" href="/store#specials">
                                 {{-- <img src="{{ asset('shop/assets/svgs/badge-percent.svg') }}" alt="hots"
                                     width="18"> --}}
                                 <svg width="18" viewBox="0 0 63 54" fill="none" class="badge-percent-svg"
