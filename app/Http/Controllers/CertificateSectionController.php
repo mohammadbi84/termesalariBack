@@ -6,6 +6,7 @@ use App\CertificateSection;
 use App\Certificate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class CertificateSectionController extends Controller
@@ -49,12 +50,13 @@ class CertificateSectionController extends Controller
                 foreach ($request->certificates as $index => $file) {
 
                     // $path = $file->store('certificates', 'public');
-
-                    Certificate::create([
-                        'certificate_section_id' => $section->id,
-                        'image' => $file,
-                        'order' => $index,
-                    ]);
+                    if ($file) {
+                        Certificate::create([
+                            'certificate_section_id' => $section->id,
+                            'image' => $file,
+                            'order' => $index,
+                        ]);
+                    }
                 }
             }
 
@@ -62,7 +64,7 @@ class CertificateSectionController extends Controller
 
             return back()->with('success', 'بخش گواهی‌ها با موفقیت ذخیره شد.');
         } catch (\Exception $e) {
-
+            Log::info($e->getMessage());
             DB::rollBack();
             return back()->with('danger', 'خطا در ذخیره اطلاعات');
         }

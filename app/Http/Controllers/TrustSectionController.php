@@ -6,6 +6,7 @@ use App\TrustSection;
 use App\TrustCounter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TrustSectionController extends Controller
 {
@@ -41,7 +42,7 @@ class TrustSectionController extends Controller
             $section->title_ar = $request->title_ar;
             $section->description_fa = $request->description_fa;
             $section->description_en = $request->description_en;
-            $section->description_artitle_ar = $request->description_ar;
+            $section->description_ar = $request->description_ar;
 
             $section->save();
 
@@ -71,7 +72,7 @@ class TrustSectionController extends Controller
             return back()->with('success','بخش اعتماد به ما با موفقیت ذخیره شد.');
 
         } catch (\Exception $e) {
-
+            Log::info($e->getMessage());
             DB::rollBack();
             return back()->with('danger','خطا در ذخیره اطلاعات');
         }

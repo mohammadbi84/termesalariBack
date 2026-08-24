@@ -63,7 +63,7 @@
                                 <textarea name="description_en" rows="5" class="form-control">{{ old('description_en', $mission->description_en ?? '') }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label>توضیحات انگلیسی</label>
+                                <label>توضیحات عربی</label>
                                 <textarea name="description_ar" rows="5" class="form-control">{{ old('description_ar', $mission->description_ar ?? '') }}</textarea>
                             </div>
 
