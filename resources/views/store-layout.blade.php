@@ -219,13 +219,12 @@
                                             @else
                                                 0
                                             @endif
-                                        </span> کالا
+                                        </span> {{ __('layout.cart_items_label') }}
                                     </div>
 
                                     {{-- <span class="float-left"> --}}
                                     <a class="btn btn-flat btn-sm btn-danger mb-2 float-left"
-                                        style="border-radius: 5px 0px;" href="{{ route('cart.index') }}">مشاهده سبد خرید و
-                                        پرداخت</a>
+                                        style="border-radius: 5px 0px;" href="{{ route('cart.index') }}">{{ __('layout.view_cart_and_checkout') }}</a>
                                     {{-- <i class="fa fa-arrow-left"></i> --}}
                                     {{-- </span> --}}
                                 </div>
@@ -302,8 +301,7 @@
                                                         </div>
                                                         <div class="col-6">
                                                             <span class="mt-2 text-muted text-sm">
-                                                                <span
-                                                                    class="cartPrice">{{ number_format($cartPrice) }}</span>
+                                                                <span class="cartPrice">{{ number_format($cartPrice) }}</span>
                                                                 {{ $p->local }}
                                                             </span>
                                                         </div>
@@ -321,7 +319,7 @@
 
                                                 <div class="row mt-2 text-muted text-sm">
                                                     <div class="col-6 text-right">
-                                                        <span class="cartQuantity">{{ $list['quantities'][$key] }}</span> عدد
+                                                        <span class="cartQuantity">{{ $list['quantities'][$key] }}</span> {{ __('layout.unit') }}
                                                     </div>
 
                                                     <div class="col-6 text-left">
@@ -334,24 +332,20 @@
                                             </div>
                                             <div class="dropdown-divider" style="clear: both;"></div>
                                         @endforeach
-                                        {{-- @else
-                    <div style="text-align: center;">
-                      سبد خرید خالی است.
-                    </div> --}}
                                     @endisset
                                 </div>
 
                                 <div class="dropdown-item" id="cartFooter" style="text-align: center;">
 
                                     <span>
-                                        <small class="text-muted text-sm" sty>مبلغ قابل پرداخت : </small>
+                                        <small class="text-muted text-sm">{{ __('layout.payable_amount') }}</small>
                                         <strong id="cartTotalPrice">{{ number_format($price) }}</strong>
-                                        <small class="text-muted text-sm"> تومان</small>
+                                        <small class="text-muted text-sm"> {{ __('layout.currency') }}</small>
                                     </span>
 
                                     @if (!Auth::check())
                                         <a href="{{ route('login') }}" class="btn btn-danger text-sm btn-block"
-                                            style="margin-top: 10px">ورود و ثبت سفارش</a>
+                                            style="margin-top: 10px">{{ __('layout.login_and_order') }}</a>
                                     @endif
 
                                 </div>{{-- cartFooter --}}
@@ -364,8 +358,7 @@
                     @if (!Auth::check())
                         <li class="nav-item dropdown">
                             <a href="{{ route('login') }}" class="btn btn-flat btn-danger login-icon"
-                                style="padding: 5px !important;"> <i class="fa fa-user"></i> ورود به حساب کاربری / ثبت
-                                نام</a>
+                                style="padding: 5px !important;"> <i class="fa fa-user"></i> {{ __('layout.login_register') }}</a>
                         </li>
                     @endif
 
@@ -379,15 +372,15 @@
                                 {{-- <span class="dropdown-item dropdown-header">15 نوتیفیکیشن</span> --}}
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('user.myOrders') }}" class="dropdown-item">
-                                    <i class="fa  fa-shopping-cart ml-2"></i>سفارش های من
+                                    <i class="fa  fa-shopping-cart ml-2"></i>{{ __('layout.my_orders') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('user.profile') }}" class="dropdown-item">
-                                    <i class="fa fa-address-card-o ml-2"></i> تنظیمات حساب کاربری
+                                    <i class="fa fa-address-card-o ml-2"></i> {{ __('layout.account_settings') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('user.changePassword') }}" class="dropdown-item">
-                                    <i class="fa fa-key ml-2"></i>تغییر رمز عبور
+                                    <i class="fa fa-key ml-2"></i>{{ __('layout.change_password') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="" class="dropdown-item"
@@ -396,7 +389,7 @@
                                         style="display: none;">
                                         @csrf
                                     </form>
-                                    <i class="fa fa-sign-out ml-2"></i> خروج
+                                    <i class="fa fa-sign-out ml-2"></i> {{ __('layout.logout') }}
                                     {{-- <span class="float-left text-muted text-sm">12 ساعت</span> --}}
                                 </a>
                                 {{-- <div class="dropdown-divider"></div>
@@ -412,8 +405,8 @@
 
                     <li class="nav-item">
                         <div class="language-selector" id="languageSelector">
-                            <button class="language-btn btn btn-sm bg-transparent border-0 text-white" id="languageBtn"
-                                type="button">
+                            <button class="language-btn btn btn-sm bg-transparent border-0 text-white"
+                                id="languageBtn" type="button">
                                 <span class="current-language">
                                     {{ strtoupper(app()->getLocale()) }}
                                 </span>
@@ -439,9 +432,9 @@
             <div id="logo" class="logo pull-right">
                 <h1>
                     <a href="{{ route('homeStore.index') }}" class="scrollto" style="display: inline-block;">
-                        <img src="{{ asset('/hometemplate/img/logo.png') }}" alt="ترمه سالاری"
-                            title="ترمه سالاری" />
-                        فروشگاه ترمه سالاری
+                        <img src="{{ asset('/hometemplate/img/logo.png') }}" alt="{{ __('layout.store_title') }}"
+                            title="{{ __('layout.store_title') }}" />
+                        {{ __('layout.store_name') }}
                     </a>
                 </h1>
                 <!-- Uncomment below if you prefer to use an image logo -->
@@ -468,38 +461,34 @@
                 <div class="row">
 
                     <div class="col-lg-3 col-md-6 footer-info">
-                        <h3>ترمه سالاری</h3>
-                        <p>ترمه سالاری یزد با بیش از یک قرن تجربه و سیصد طرح متنوع، ارائه دهنده ی معروف ترین و مرغوب
-                            ترین ترمه ها در ایران می باشد. شعار ما "ترمه سالاری برای هر ایرانی با کیفیتی عالی و قیمتی
-                            مناسب" می باشد تا همه اقشار ملت بتوانند از آن بهره مند شوند.</p>
+                        <h3>{{ __('layout.footer_about_title') }}</h3>
+                        <p>{{ __('layout.footer_about_text') }}</p>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>دسترسی سریع</h4>
+                        <h4>{{ __('layout.quick_links_title') }}</h4>
                         <ul>
                             {{-- <li><i class="ion-ios-arrow-left"></i> <a href="#intro">صفحه اصلی</a></li>
               <li><i class="ion-ios-arrow-left"></i> <a href="#services">نمایندگی ها</a></li> --}}
 
-                            <li><i class="ion-ios-arrow-left"></i> <a href="#portfolio">نمونه محصولات</a></li>
-                            <li><i class="ion-ios-arrow-left"></i> <a href="#call-to-action">سفارش محصول</a></li>
+                            <li><i class="ion-ios-arrow-left"></i> <a href="#portfolio">{{ __('layout.quick_links_products') }}</a></li>
+                            <li><i class="ion-ios-arrow-left"></i> <a href="#call-to-action">{{ __('layout.quick_links_order') }}</a></li>
 
-                            <li><i class="ion-ios-arrow-left"></i> <a href="http://www.termehsalari.com/shop">ورود به
-                                    فروشگاه</a></li>
-                            <li><i class="ion-ios-arrow-left"></i> <a href="{{ route('terms') }}">شرایط و قوانین</a>
+                            <li><i class="ion-ios-arrow-left"></i> <a href="http://www.termehsalari.com/shop">{{ __('layout.quick_links_shop') }}</a></li>
+                            <li><i class="ion-ios-arrow-left"></i> <a href="{{ route('terms') }}">{{ __('layout.quick_links_terms') }}</a>
                             </li>
-                            <li><i class="ion-ios-arrow-left"></i> <a href="{{ route('privacy-policy') }}">حریم
-                                    خصوصی</a></li>
+                            <li><i class="ion-ios-arrow-left"></i> <a href="{{ route('privacy-policy') }}">{{ __('layout.quick_links_privacy') }}</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-contact">
-                        <h4>ارتباط با ما</h4>
+                        <h4>{{ __('layout.contact_title') }}</h4>
                         <p>
-                            فروشگاه مرکزی : میدان امیرچقماق<br>
-                            <strong>تلفن:</strong> 37 06 3626 035<br>
-                            فروشگاه شماره2 : جنب شیرینی سازی حاج خلیفه رهبر .سرای ترمه <br>
-                            <strong>تلفن:</strong> 80 38 3622 035<br>
-                            <strong>ایمیل:</strong> Info@TermehSalari.com<br>
+                            {{ __('layout.central_store') }}<br>
+                            <strong>{{ __('layout.phone') }}</strong> 37 06 3626 035<br>
+                            {{ __('layout.branch_store') }} <br>
+                            <strong>{{ __('layout.phone') }}</strong> 80 38 3622 035<br>
+                            <strong>{{ __('layout.email') }}</strong> Info@TermehSalari.com<br>
                             <i class="far fa-paper-plane"></i> <i class="fab fa-whatsapp"></i> 09134577500
                         </p>
 
@@ -518,8 +507,8 @@
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-newsletter">
-                        <h4>خبرنامه</h4>
-                        <p>کاربر گرامی: لطفا برای اطلاع از تخفیف‌ها و جدیدترین‌های ترمه سالاری در خبرنامه عضو شوید.</p>
+                        <h4>{{ __('layout.newsletter_title') }}</h4>
+                        <p>{{ __('layout.newsletter_text') }}</p>
                         {{-- @if (session('status-join', '0') == 1)
                 <div class="sendmessage">
                   شما با موفقیت عضو خبرنامه شدید.<br>
@@ -530,9 +519,9 @@
                             @csrf
                             <input type="email" class=" @error('email_join_newsletter') is-invalid @enderror"
                                 name="email_join_newsletter" id="email_join_newsletter"
-                                placeholder=" آدرس ایمیل خود را بنویسید"
+                                placeholder="{{ __('layout.newsletter_placeholder') }}"
                                 value="{{ old('email_join_newsletter') }}"><input class="joinNewsletter"
-                                type="submit" value="عضویت">
+                                type="submit" value="{{ __('layout.newsletter_submit') }}">
                         </form>
                     </div>
 
@@ -542,10 +531,10 @@
 
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong>termehsalari</strong>. All Rights Reserved
+                {!! __('layout.copyright') !!}
             </div>
             <div class="credits">
-                Designed by <a href="https://www.fazeledu.com/">FazelEdu</a>
+                {!! __('layout.designed_by') !!}
             </div>
         </div>
     </footer><!-- #footer -->
@@ -560,34 +549,33 @@
 
         <div id="chat-box" class="">
             <div class="pt-2 pr-2 pl-2">
-                <p>{{-- سلام، وقت بخیر <br> --}}
-                    ما همیشه همراه شما هستیم، تمامی سوالات خود را با ما در میان بگذارید.</p>
+                <p>{{ __('layout.chat_welcome') }}</p>
             </div>
 
             <form action="{{ route('message.store') }}" class="contactForm pr-2 pl-2 pb-2">
                 @csrf
                 <div class="form-group">
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        id="name" placeholder="نام" data-rule="minlen:2" data-msg="لطفا نام خود را بنویسید ."
+                        id="name" placeholder="{{ __('layout.chat_name_placeholder') }}" data-rule="minlen:2" data-msg="{{ __('layout.chat_name_msg') }}"
                         value="{{ old('name') }}" />
                     <div class="validation"></div>
                 </div>
 
                 <div class="form-group">
                     <input type="mobile" class="form-control @error('mobile') is-invalid @enderror" name="mobile"
-                        id="mobile" maxlength="11" placeholder="شماره موبایل" data-rule="mobile"
-                        data-msg="لطفا شماره موبایل فعال خود را بنویسید ." value="{{ old('mobile') }}" />
+                        id="mobile" maxlength="11" placeholder="{{ __('layout.chat_mobile_placeholder') }}" data-rule="mobile"
+                        data-msg="{{ __('layout.chat_mobile_msg') }}" value="{{ old('mobile') }}" />
                     <div class="validation"></div>
                 </div>
 
                 <div class="form-group">
                     <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" rows="5"
-                        data-rule="required" data-msg="لطفا متن پیام را بنویسید ." placeholder="متن پیام">{{ old('message') }}</textarea>
+                        data-rule="required" data-msg="{{ __('layout.chat_message_msg') }}" placeholder="{{ __('layout.chat_message_placeholder') }}">{{ old('message') }}</textarea>
                     <div class="validation"></div>
                 </div>
 
                 <div class="text-right"><button id="sendMessage" type="submit"
-                        class="btn btn-flat btn-outline-danger btn-sm">ارسال پیام</button></div>
+                        class="btn btn-flat btn-outline-danger btn-sm">{{ __('layout.chat_send_button') }}</button></div>
             </form>
 
             <div class="chat-box-footer">
@@ -736,7 +724,7 @@
                 var email = $(this).parents('form').find('#email_join_newsletter');
                 var url = document.location.origin + "/newsletter";
                 if (email.val() == "") {
-                    swal("توجه", ".لطفا ابتدا آدرس پست الکترونیک خود را وارد کنید", "error");
+                    swal("{{ __('layout.js.alert_attention') }}", "{{ __('layout.js.enter_email') }}", "error");
                     email.addClass("is-invalid").focus();
                     return false;
                 }
@@ -750,9 +738,9 @@
                     success: function(data) {
                         // console.log(data);
                         if (data.res == "error") {
-                            title = "خطا  در اجرای عملیات";
+                            title = "{{ __('layout.js.operation_error') }}";
                         } else if (data.res == "success") {
-                            title = ".شما با موفقیت عضو خبرنامه شدید";
+                            title = "{{ __('layout.js.newsletter_success') }}";
                             email.val("");
                         }
                         swal(title, data.message, data.res);
@@ -776,10 +764,10 @@
 
                 // var cartTotalPrice = thiz.parents('#cartContainer').find('#cartTotalPrice').text().replace(/,/gi,"");
                 swal({
-                        title: "آیا از حذف این محصول مطمئن هستید؟",
-                        text: "این عملیات منجر به حذف محصول از سبد خرید شما خواهد شد.",
+                        title: "{{ __('layout.js.delete_confirm_title') }}",
+                        text: "{{ __('layout.js.delete_confirm_text') }}",
                         icon: "warning",
-                        buttons: ["انصراف", "حذف"],
+                        buttons: ["{{ __('layout.js.cancel') }}", "{{ __('layout.js.delete') }}"],
                         dangerMode: true,
                     })
                     .then((willDelete) => {
@@ -795,7 +783,7 @@
                                 success: function(data) {
                                     // console.log(data);
                                     if (data.status == "error") {
-                                        title = "خطا  در اجرای عملیات";
+                                        title = "{{ __('layout.js.operation_error') }}";
                                     } else if (data.status == "success") {
                                         var itemCount = thiz.parents('.dropdown-item').find(
                                             '.cartQuantity').text();
@@ -814,7 +802,7 @@
                                             parseInt(totalQuantity) - parseInt(
                                                 itemCount));
 
-                                        swal("عملیات با موفقیت انجام شد.", "", data.status);
+                                        swal("{{ __('layout.js.operation_success') }}", "", data.status);
                                         thiz.parents('.dropdown-item').fadeOut();
                                     }
                                 }
@@ -848,6 +836,5 @@
         });
     </script>
 </body>
-
 </html>
 {{-- https://telegram.me/ --}}
