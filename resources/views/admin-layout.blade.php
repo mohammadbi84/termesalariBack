@@ -698,7 +698,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- FastClick -->
     <script src="{{ asset('/storetemplate/plugins/fastclick/fastclick.js') }}"></script>
     {{-- sweetalert --}}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
 
     {{-- <script src="{{asset('/storetemplate/plugins/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{asset('/storetemplate/plugins/nprogress-master/nprogress.js')}}"></script> --}}
