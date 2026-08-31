@@ -58,7 +58,7 @@ class TableclothRequest extends FormRequest
 
             'quantity' => 'required|numeric' ,
             'images' => 'required|array',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg',
+            'images.*' => 'required',
             'description' => 'nullable|string' ,
 
 
