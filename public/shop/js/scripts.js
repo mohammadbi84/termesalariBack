@@ -138,6 +138,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById(rangeElementId).textContent = `${start}-${end}`;
     }
+
+
+    // Article===========================================================================================
+    var ArticleSplide = new Splide("#article_slider", {
+        perPage: 4,
+        padding: "20px",
+        gap: "1.7rem",
+        arrows: false,
+        pagination: false,
+        direction: "rtl",
+        breakpoints: {
+            1024: { perPage: 4 },
+            768: { perPage: 2, focus: "start", padding: { left: "50px" } },
+            480: { perPage: 1, focus: "start", padding: { left: "150px" } },
+        },
+    });
+    ArticleSplide.mount();
+
+    const prevBtnArticle = document.querySelector(".splide-article-prev-btn");
+    const nextBtnArticle = document.querySelector(".splide-article-next-btn");
+
+    // اضافه کردن event listener برای دکمه‌ها
+    if (prevBtnArticle) {
+        prevBtnArticle.addEventListener("click", function () {
+            ArticleSplide.go("<");
+        });
+    }
+
+    if (nextBtnArticle) {
+        nextBtnArticle.addEventListener("click", function () {
+            ArticleSplide.go(">");
+        });
+    }
+
+    // به‌روزرسانی وضعیت دکمه‌ها هنگام تغییر اسلاید
+    ArticleSplide.on("moved", function () {
+        updateButtonStatesArticle();
+        updateRangeDisplay(ArticleSplide, "article-range");
+    });
+
+    // تابع برای به‌روزرسانی وضعیت دکمه‌ها
+    function updateButtonStatesArticle() {
+        const index = ArticleSplide.index;
+        const length = ArticleSplide.length;
+
+        if (prevBtnArticle) {
+            prevBtnArticle.disabled = index === 0;
+        }
+
+        if (nextBtnArticle) {
+            nextBtnArticle.disabled = index >= length - ArticleSplide.options.perPage;
+        }
+    }
+
+    // مقداردهی اولیه وضعیت دکمه‌ها
+    updateButtonStatesArticle();
+    updateRangeDisplay(ArticleSplide, "article-range");
+
+    // تابع برای به‌روزرسانی نمایش بازه
+    function updateRangeDisplay(splide, rangeElementId) {
+        const index = splide.index; // شماره اولین آیتم قابل مشاهده (صفر شروع)
+        const perPage = splide.options.perPage;
+        const total = splide.length;
+
+        const start = index + 1; // چون index از 0 شروع میشه
+        const end = Math.min(index + perPage, total);
+
+        document.getElementById(rangeElementId).textContent = `${start}-${end}`;
+    }
 });
 
 $(document).ready(function () {

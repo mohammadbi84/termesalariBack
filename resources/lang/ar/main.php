@@ -33,6 +33,8 @@ return [
     'intrests' => 'المفضلات',
     'sellsCount' => 'تم البيع',
 
+    'articles'=>'مقالات ذات صلة',
+
     'day' => 'يوم',
     'hour' => 'ساعة',
     'minutes' => 'دقائق',

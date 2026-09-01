@@ -1,6 +1,6 @@
 @extends('admin-layout')
 
-@section('title', 'لیست صفحات داخلی')
+@section('title', 'لیست مقالات')
 
 @push('link')
     <!-- DataTables -->
@@ -8,7 +8,7 @@
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="{{ asset('/storetemplate/plugins/iCheck/all.css') }}">
     <style>
-        .dataTable tr td{
+        .dataTable tr td {
             text-align: center;
         }
     </style>
@@ -36,7 +36,7 @@
         <div class="card-header">
             <a href="{{ route('article.create') }}" class="pr-3 pl-3 pt-2 pb-2 btn btn-flat btn-danger float-left "
                 title="محصول جدید">+</a>
-            <div class="card-title float-right"><span>صفحات داخلی</span></div>
+            <div class="card-title float-right"><span>مقالات</span></div>
         </div>
         <div class="card-body">
             <table id="dataTable-table" class="table table-striped display nowrap dataTable"
@@ -53,6 +53,7 @@
                         <th>لینک</th>
                         <th>نمایش</th>
                         <th>تاریخ ثبت</th>
+                        <th class="no-sort">نمایش</th>
                         <th class="no-sort">ویرایش</th>
                         <th class="no-sort">حذف</th>
                     </tr>
@@ -79,6 +80,15 @@
                             </td>
                             <td>
                                 {{ Verta($article->created_at)->format('%d %B %Y') }}
+                            </td>
+                            <td>
+                                @if ($article->is_active == 0)
+                                    <a class="changeActive" href="#" data-id="{{ $article->id }}"><i
+                                            class="fas fa-close danger-color"></i></a>
+                                @else
+                                    <a class="changeActive" href="#" data-id="{{ $article->id }}"><i
+                                            class="fas fa-check success-color"></i> </a>
+                                @endif
                             </td>
                             <td>
                                 <a href="{{ route('article.edit', [$article]) }}"
@@ -108,6 +118,7 @@
                         <th>لینک</th>
                         <th>نمایش</th>
                         <th>تاریخ ثبت</th>
+                        <th class="no-sort">نمایش</th>
                         <th class="no-sort">ویرایش</th>
                         <th class="no-sort">حذف</th>
                     </tr>
@@ -128,6 +139,43 @@
 <script src="{{ asset('/storetemplate/dist/js/iCheck-custom.js') }}"></script>
 <script>
     $(function() {
+
+        $(".changeActive").click(function(event) {
+            event.preventDefault();
+            $(".loader").show();
+            var id = $(this).data("id");
+            var url = "{{ route('article.change_active', ['id' => ':id']) }}";
+            url = url.replace(':id', id);
+            var $thiz = $(this);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    _token: '<?php echo csrf_token(); ?>',
+                    id: id,
+                },
+                success: function(data) {
+                    var $i = $thiz.children("i");
+                    if ($i.hasClass("fa-check")) {
+                        $i.removeClass("fa-check success-color");
+                        $i.addClass("fa-close danger-color");
+                    } else if ($i.hasClass("fa-close")) {
+                        $i.removeClass("fa-close danger-color");
+                        $i.addClass("fa-check success-color");
+                    }
+
+                    if (data.res == "error") {
+                        title = "خطا  در اجرای عملیات";
+                    } else if (data.res == "success") {
+                        title = "عملیات با موفقیت انجام شد.";
+                    }
+                    swal(title, data.message, data.res);
+                    $(".loader").hide();
+
+                }
+            });
+        });
+
         $(document).on('click', '.delete', function(event) {
             event.preventDefault();
             // event.stopPropagation();

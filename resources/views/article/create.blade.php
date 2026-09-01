@@ -1,6 +1,6 @@
 @extends('admin-layout')
 
-@section('title', 'پنل مدیریت | ایجاد صفحه داخلی')
+@section('title', 'پنل مدیریت | ایجاد مقاله داخلی')
 
 @push('link')
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput.min.css') }}"
@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}"
         media="all">
     <link href="https://lib.arvancloud.ir/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
-
 @endpush
 
 @section('main-content')
@@ -17,7 +16,7 @@
             <div class="card col-md-12 col-sm-12">
                 <div class="card-header">
                     <div class="card-title">
-                        <span>ایجاد صفحه داخلی</span>
+                        <span>ایجاد مقاله</span>
                     </div>
                 </div>
                 <div class="card-body">
@@ -25,19 +24,69 @@
                     <form class="form" role="form" action="{{ route('article.store') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
+                        <div class="form-group">
+                            <label>عکس مقاله</label>
+                            {{-- <input id="image" name="image" type="file"> --}}
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> انتخاب تصویر
+                                    </a>
+                                </span>
+                                <input id="thumbnail" class="form-control" type="text" name="image"
+                                    value="{{ old('image') }}">
+                            </div>
+                            @error('image')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                            <img id="holder" style="margin-top:15px;max-height:100px;"
+                                src="{{ old('image') ? asset('storage/' . old('image')) : '' }}">
+                        </div>
                         <div class="form-group @error('title') is-invalid @enderror">
-                            <label for="title">عنوان صفحه</label>
+                            <label for="title">عنوان مقاله</label>
                             <input type="text" name="title" id="title" class="form-control"
-                                placeholder="لطفا عنوان صفحه را وارد کنید." value="{{ old('title') }}">
+                                placeholder="لطفا عنوان مقاله را وارد کنید." value="{{ old('title') }}">
                             @error('title')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group @error('e_title') is-invalid @enderror">
+                            <label for="e_title">عنوان انگلیسی مقاله</label>
+                            <input type="text" name="e_title" id="e_title" class="form-control"
+                                placeholder="لطفا عنوان انگلیسی مقاله را وارد کنید." value="{{ old('e_title') }}">
+                            @error('e_title')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group @error('ar_title') is-invalid @enderror">
+                            <label for="ar_title">عنوان عربی مقاله</label>
+                            <input type="text" name="ar_title" id="ar_title" class="form-control"
+                                placeholder="لطفا عنوان عربی مقاله را وارد کنید." value="{{ old('ar_title') }}">
+                            @error('ar_title')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="form-group @error('body') is-invalid @enderror">
-                            <label for="body">محتوای صفحه</label>
+                            <label for="body">محتوای مقاله</label>
                             <textarea name="body" id="body" class="form-control" rows="5">{{ old('body') }}</textarea>
 
                             @error('body')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group @error('e_body') is-invalid @enderror">
+                            <label for="e_body">محتوای انگلیسی مقاله</label>
+                            <textarea name="e_body" id="e_body" class="form-control" rows="5">{{ old('e_body') }}</textarea>
+
+                            @error('e_body')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group @error('ar_body') is-invalid @enderror">
+                            <label for="ar_body">محتوای عربی مقاله</label>
+                            <textarea name="ar_body" id="ar_body" class="form-control" rows="5">{{ old('ar_body') }}</textarea>
+
+                            @error('ar_body')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -62,10 +111,12 @@
     <script src="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
 
     <script src="https://lib.arvancloud.ir/summernote/0.8.9/summernote-lite.min.js"></script>
+    <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
     <script>
+        $('#lfm').filemanager('image');
         $(document).ready(function() {
             $('#body').summernote({
-                placeholder: 'محتوای صفحه را اینجا وارد کنید ...',
+                placeholder: 'محتوای مقاله را اینجا وارد کنید ...',
                 tabsize: 2,
                 height: 200,
                 callbacks: {
@@ -84,6 +135,56 @@
                             },
                             success: function(response) {
                                 $('#body').summernote('insertImage', response.url);
+                            }
+                        });
+                    }
+                }
+            });
+            $('#ar_body').summernote({
+                placeholder: 'محتوای عربی مقاله را اینجا وارد کنید ...',
+                tabsize: 2,
+                height: 200,
+                callbacks: {
+                    onImageUpload: function(files) {
+                        let data = new FormData();
+                        data.append("file", files[0]);
+
+                        $.ajax({
+                            url: '/upload-image',
+                            method: 'POST',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>',
+                            },
+                            success: function(response) {
+                                $('#ar_body').summernote('insertImage', response.url);
+                            }
+                        });
+                    }
+                }
+            });
+            $('#e_body').summernote({
+                placeholder: 'محتوای انگلیسی مقاله را اینجا وارد کنید ...',
+                tabsize: 2,
+                height: 200,
+                callbacks: {
+                    onImageUpload: function(files) {
+                        let data = new FormData();
+                        data.append("file", files[0]);
+
+                        $.ajax({
+                            url: '/upload-image',
+                            method: 'POST',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '<?php echo csrf_token(); ?>',
+                            },
+                            success: function(response) {
+                                $('#e_body').summernote('insertImage', response.url);
                             }
                         });
                     }

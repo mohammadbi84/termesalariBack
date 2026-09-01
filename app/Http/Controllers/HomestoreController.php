@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Agency;
 use App\Amazing;
+use App\Article;
 use App\Bedcover;
 use Illuminate\Http\Request;
 use App\Tablecloth;
@@ -152,7 +153,10 @@ class HomestoreController extends Controller
 
         $mainVideo = Mainvideo::first();
 
+        $articles = Article::where('is_active', 1)->limit(8)->get();
+
         return view('shop.shop')
+            ->with('articles', $articles)
             ->with('topRequests', $topRequests)
             ->with('slideshowImagesB', $slideshowImagesB)
             ->with('tableclothsCategories', $tableclothsCategories)

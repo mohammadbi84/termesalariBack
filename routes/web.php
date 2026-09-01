@@ -329,6 +329,8 @@ Route::get('api/active-popup', [PopupController::class, 'getActivePopup']);
 
 // article (صفحه های داخلی)
 Route::resource('article', 'ArticleController');
+Route::post('/article/{id}/change-active', [ArticleController::class, 'change_active'])->name('article.change_active');
+
 
 // bookmarks
 Route::resource('bookmark', 'BookmarkController');

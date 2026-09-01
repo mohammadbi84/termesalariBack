@@ -33,6 +33,8 @@ return [
     'intrests' => 'favorites',
     'sellsCount' => 'sold',
 
+    'articles'=>'related articles',
+
     'day' => 'Day',
     'hour' => 'Hour',
     'minutes' => 'Minutes',

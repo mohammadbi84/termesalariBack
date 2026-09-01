@@ -565,12 +565,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('article.index') }}" class="nav-link">
-                                            <i class="nav-icon fa fa-file-alt"></i>
-                                            <p>صفحات داخلی <small>( جدید )</small></p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="{{ route('bookmark.index') }}" class="nav-link">
                                             <i class="nav-icon fa fa-file-alt"></i>
                                             <p>بوکمارک ها <small>( جدید )</small></p>
@@ -583,6 +577,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </a>
                                     </li>
                                 </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('article.index') }}" class="nav-link">
+                                    <i class="nav-icon fa fa-file-alt"></i>
+                                    <p>مقالات <small>( جدید )</small></p>
+                                </a>
                             </li>
 
                             <li class="nav-item">

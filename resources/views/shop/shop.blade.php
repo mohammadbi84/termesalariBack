@@ -1230,7 +1230,167 @@
             </div>
         </div>
         <!-- end Branchs -->
+
+        <!-- start articles -->
+        <section id="articles">
+            <div class="container mb-5 px-0">
+                <div class=" d-flex align-items-center justify-content-between w-100  p-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="{{ asset('shop/assets/svgs/cart-shopping-solid-full.svg') }}"
+                            alt="{{ __('main.articles') }}" width="30">
+                        <h2 class="title m-0">{{ __('main.articles') }}</h2>
+                    </div>
+                    <div class="">
+                        <!-- دکمه‌های کنترل جداگانه -->
+                        <div class="custom-splide-controls">
+                            <button class="splide-prev-btn splide-article-prev-btn">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                            <span id="article-range" class="slide-range">1-4</span>
+                            <button class="splide-next-btn splide-article-next-btn">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="splide" id="article_slider" role="group" aria-label="Splide Basic HTML Example">
+                    <div class="splide__track py-3">
+                        <ul class="splide__list">
+                            @foreach ($articles as $key => $article)
+                                @php
+                                    $articlePreview = \Illuminate\Support\Str::limit(strip_tags($article->body ?? ''), 90);
+                                @endphp
+                                <li class="splide__slide article-slide">
+                                    <a href="{{ route('article.show', [$article]) }}" class="article-card"
+                                        aria-label="{{ $article->title }}">
+                                        <div class="article-card__image-wrap">
+                                            <img class="article-card__image" src="{{ 'storage/' . $article->image }}"
+                                                alt="{{ $article->title }}" />
+                                        </div>
+                                        <div class="article-card__body">
+                                            <h3 class="article-card__title">{{ $article->title }}</h3>
+                                            @if (!empty($articlePreview))
+                                                <p class="article-card__summary">{{ $articlePreview }}</p>
+                                            @endif
+                                            <span class="article-card__link">
+                                                {{ __('main.moreInfo') }}
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end articles -->
     </main>
+
+    <style>
+        .article-slide {
+            height: auto;
+        }
+
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(255, 250, 242, 0.96) 0%, rgba(255, 255, 255, 1) 100%);
+            border: 1px solid rgba(74, 148, 84, 0.18);
+            border-radius: 14px;
+            box-shadow: 0 8px 10px rgba(40, 32, 20, 0.08);
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(74, 148, 94, 0.4);
+            box-shadow: 0 8px 12px rgba(40, 32, 20, 0.12);
+            text-decoration: none;
+        }
+
+        .article-card__image-wrap {
+            position: relative;
+            overflow: hidden;
+            background: #e7f4eb;
+        }
+
+        .article-card__image {
+            display: block;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .article-card:hover .article-card__image {
+            transform: scale(1.05);
+        }
+
+        .article-card__badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(39, 49, 38, 0.8);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+        }
+
+        .article-card__body {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 18px 18px 20px;
+        }
+
+        .article-card__title {
+            margin: 0 0 10px;
+            font-size: 1.1rem;
+            line-height: 1.8rem;
+            font-weight: 700;
+            color: #1f2a2b;
+        }
+
+        .article-card__summary {
+            margin: 0;
+            color: #5e656d;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .article-card__link {
+            margin-top: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2aab5c;
+            font-size: 0.88rem;
+            font-weight: 700;
+            transition: gap 0.2s ease;
+        }
+
+        .article-card:hover .article-card__link {
+            gap: 12px;
+        }
+
+        @media (max-width: 575.98px) {
+            .article-card__image {
+                height: 200px;
+            }
+        }
+    </style>
 @endsection
 @section('script')
     <script>
