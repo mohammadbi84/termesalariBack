@@ -41,6 +41,16 @@
                                 <input type="text" name="title" class="form-control"
                                     value="{{ old('title', $video->title ?? '') }}">
                             </div>
+                            <div class="form-group">
+                                <label>عنوان انگلیسی ویدیو</label>
+                                <input type="text" name="e_title" class="form-control"
+                                    value="{{ old('e_title', $video->e_title ?? '') }}">
+                            </div>
+                            <div class="form-group">
+                                <label>عنوان عربی ویدیو</label>
+                                <input type="text" name="ar_title" class="form-control"
+                                    value="{{ old('ar_title', $video->ar_title ?? '') }}">
+                            </div>
 
                             {{-- کاور --}}
                             <div class="form-group">
@@ -49,12 +59,36 @@
                                     <input id="cover" name="cover" type="file">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>کاور انگلیسی ویدیو</label>
+                                <div class="file-loading">
+                                    <input id="e_cover" name="e_cover" type="file">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>کاور عربی ویدیو</label>
+                                <div class="file-loading">
+                                    <input id="ar_cover" name="ar_cover" type="file">
+                                </div>
+                            </div>
 
                             {{-- ویدیو --}}
                             <div class="form-group">
                                 <label>ویدیو</label>
                                 <div class="file-loading">
                                     <input id="video" name="video" type="file">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>ویدیو انگلیسی</label>
+                                <div class="file-loading">
+                                    <input id="e_video" name="e_video" type="file">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>ویدیو عربی</label>
+                                <div class="file-loading">
+                                    <input id="ar_video" name="ar_video" type="file">
                                 </div>
                             </div>
                         </div>
@@ -90,6 +124,34 @@
             initialPreviewFileType: "image",
             allowedFileExtensions: ["jpg", "png", "jpeg"]
         });
+        $("#e_cover").fileinput({
+            theme: "fas",
+            language: "fa",
+            showUpload: false,
+            rtl: true,
+            initialPreview: [
+                @if (isset($video) && $video->e_cover)
+                    "{{ asset('storage/' . $video->e_cover) }}"
+                @endif
+            ],
+            initialPreviewAsData: true,
+            initialPreviewFileType: "image",
+            allowedFileExtensions: ["jpg", "png", "jpeg"]
+        });
+        $("#ar_cover").fileinput({
+            theme: "fas",
+            language: "fa",
+            showUpload: false,
+            rtl: true,
+            initialPreview: [
+                @if (isset($video) && $video->ar_cover)
+                    "{{ asset('storage/' . $video->ar_cover) }}"
+                @endif
+            ],
+            initialPreviewAsData: true,
+            initialPreviewFileType: "image",
+            allowedFileExtensions: ["jpg", "png", "jpeg"]
+        });
 
         $("#video").fileinput({
             theme: "fas",
@@ -99,6 +161,34 @@
             initialPreview: [
                 @if (isset($video) && $video->video)
                     "{{ asset('storage/' . $video->video) }}"
+                @endif
+            ],
+            initialPreviewAsData: true,
+            initialPreviewFileType: "video",
+            allowedFileExtensions: ["mp4", "mov", "avi"]
+        });
+        $("#e_video").fileinput({
+            theme: "fas",
+            language: "fa",
+            showUpload: false,
+            rtl: true,
+            initialPreview: [
+                @if (isset($video) && $video->e_video)
+                    "{{ asset('storage/' . $video->e_video) }}"
+                @endif
+            ],
+            initialPreviewAsData: true,
+            initialPreviewFileType: "video",
+            allowedFileExtensions: ["mp4", "mov", "avi"]
+        });
+        $("#ar_video").fileinput({
+            theme: "fas",
+            language: "fa",
+            showUpload: false,
+            rtl: true,
+            initialPreview: [
+                @if (isset($video) && $video->ar_video)
+                    "{{ asset('storage/' . $video->ar_video) }}"
                 @endif
             ],
             initialPreviewAsData: true,

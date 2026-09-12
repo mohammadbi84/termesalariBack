@@ -20,7 +20,13 @@ class MainvideoController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'cover' => 'nullable|image|max:10000',
-            'video' => 'required|file|mimetypes:video/mp4,video/mkv|max:100000'
+            'video' => 'required|file|mimetypes:video/mp4,video/mkv|max:100000',
+            'e_title' => 'required|string|max:255',
+            'e_cover' => 'nullable|image|max:10000',
+            'e_video' => 'required|file|mimetypes:video/mp4,video/mkv|max:100000',
+            'ar_title' => 'required|string|max:255',
+            'ar_cover' => 'nullable|image|max:10000',
+            'ar_video' => 'required|file|mimetypes:video/mp4,video/mkv|max:100000',
         ]);
 
         DB::beginTransaction();
