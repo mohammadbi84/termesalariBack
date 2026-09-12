@@ -26,7 +26,11 @@ class SlideshowRequest extends FormRequest
         return [
             'position' => 'required|string' ,
             'title' => 'required|string' ,
+            'e_title' => 'required|string' ,
+            'ar_title' => 'required|string' ,
             'description' => 'nullable|string' ,
+            'e_description' => 'nullable|string' ,
+            'ar_description' => 'nullable|string' ,
             'image' => 'required',
             'video' => 'nullable',
             'link' => 'required|string' ,

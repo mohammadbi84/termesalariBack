@@ -72,7 +72,11 @@ class SlideshowController extends Controller
         $rules = [
             'position' => 'required|string',
             'title' => 'required|string',
+            'e_title' => 'required|string',
+            'ar_title' => 'required|string',
             'description' => 'nullable|string',
+            'e_description' => 'nullable|string',
+            'ar_description' => 'nullable|string',
             'image' => 'nullable',
             'link' => 'required|string',
             // 'order' => 'required|numeric|'.

@@ -45,7 +45,8 @@
                             <option value="" style="">.موقعیت اسلایدشو را انتخاب کنید</option>
                             <option value="homeStore-A" selected>صفحه اصلی -
                                 موقعیت اول</option>
-                            <option value="homeStore-B" @if (old('position', $slideshow->position) == 'homeStore-B') selected @endif>صفحه ورود</option>
+                            <option value="homeStore-B" @if (old('position', $slideshow->position) == 'homeStore-B') selected @endif>صفحه ورود
+                            </option>
                         </select>
                     </div>
 
@@ -59,12 +60,48 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="e_title">عنوان انگلیسی</label>
+                        <input type="text" name="e_title" id="e_title"
+                            class="form-control @error('e_title') is-invalid @enderror"
+                            placeholder="لطفا عنوان  تصویر را وارد کنید."
+                            value="{{ old('e_title', $slideshow->e_title) }}" maxlength="100">
+                        @error('e_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="ar_title">عنوان عربی</label>
+                        <input type="text" name="ar_title" id="ar_title"
+                            class="form-control @error('ar_title') is-invalid @enderror"
+                            placeholder="لطفا عنوان  تصویر را وارد کنید."
+                            value="{{ old('ar_title', $slideshow->ar_title) }}" maxlength="100">
+                        @error('ar_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="form-group">
                         <label for="description">توضیحات</label>
                         <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
                             placeholder="لطفا توضیحات  تصویر را وارد کنید." maxlength="300">{{ old('description', $slideshow->description) }}</textarea>
                         @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="e_description">توضیحات انگلیسی</label>
+                        <textarea name="e_description" id="e_description" class="form-control @error('e_description') is-invalid @enderror"
+                            placeholder="لطفا توضیحات  تصویر را وارد کنید." maxlength="300">{{ old('e_description', $slideshow->e_description) }}</textarea>
+                        @error('e_description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="ar_description">توضیحات عربی</label>
+                        <textarea name="ar_description" id="ar_description" class="form-control @error('ar_description') is-invalid @enderror"
+                            placeholder="لطفا توضیحات  تصویر را وارد کنید." maxlength="300">{{ old('ar_description', $slideshow->ar_description) }}</textarea>
+                        @error('ar_description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -177,19 +214,29 @@
         var p = $('#position').select2('data');
         var position_value = p[0].id;
         if (position_value != "") {
-            if ($.trim(position_value) == 'homeStore-A')
+            if ($.trim(position_value) == 'homeStore-A') {
                 $('#description').removeAttr('disabled');
-            else
+                $('#e_description').removeAttr('disabled');
+                $('#ar_description').removeAttr('disabled');
+            } else {
                 $('#description').attr('disabled', 'disabled');
+                $('#e_description').attr('disabled', 'disabled');
+                $('#ar_description').attr('disabled', 'disabled');
+            }
         }
 
         $('#position').on('select2:select', function(e) {
             var id = e.params.data.id;
             // console.log(id);
-            if ($.trim(id) == 'homeStore-A')
+            if ($.trim(id) == 'homeStore-A') {
                 $('#description').removeAttr('disabled');
-            else
+                $('#e_description').removeAttr('disabled');
+                $('#ar_description').removeAttr('disabled');
+            } else {
                 $('#description').attr('disabled', 'disabled');
+                $('#e_description').attr('disabled', 'disabled');
+                $('#ar_description').attr('disabled', 'disabled');
+            }
         });
 
 

@@ -1307,9 +1307,8 @@
         }
 
         .article-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(74, 148, 94, 0.4);
-            box-shadow: 0 8px 12px rgba(40, 32, 20, 0.12);
+            border-top: 3px solid var(--primary-color);
+            border-right: 3px solid var(--primary-color);
             text-decoration: none;
         }
 
