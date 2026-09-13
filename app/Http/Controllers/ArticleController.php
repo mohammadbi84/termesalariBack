@@ -51,6 +51,17 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
+        $existingVisit = $article->views()
+            ->where('ip', request()->ip())
+            ->where('user_agent', request()->userAgent())
+            ->where('created_at', '>=', now()->startOfDay())
+            ->first();
+        if (!$existingVisit) {
+            $article->views()->create([
+                'ip' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+            ]);
+        }
         $articles = Article::whereNotIn('id', [$article->id])->where('is_active', 1)->get();
         return view('article.show', compact('article', 'articles'));
     }

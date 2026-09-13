@@ -21,6 +21,11 @@ class Article extends Model
         'is_active' => 'boolean'
     ];
 
+    public function views()
+    {
+        return $this->morphMany(View::class, 'viewable');
+    }
+
     public function getTitleAttribute()
     {
         switch (app()->getLocale()) {

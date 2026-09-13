@@ -101,7 +101,7 @@
         }
 
         .article-title {
-            font-size: 23px;
+            font-size: 20px;
             line-height: 1.8;
             font-weight: 800;
             margin: 8px 0 7px;
@@ -551,15 +551,16 @@
                         <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}">
                     </div>
 
-                    <h1 class="article-title">
-                        {{ $article->title }}
-                    </h1>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="article-title">
+                            {{ $article->title }}
+                        </h1>
 
-                    <div class="article-meta">
-                        {{-- <span><i class="bi bi-person"></i> admin</span> --}}
-                        {{-- <span><i class="bi bi-chat"></i> 7 دیدگاه</span> --}}
-                        {{-- <span><i class="bi bi-eye"></i> 21 بازدید</span> --}}
-                        <span><i class="bi bi-calendar3"></i>{{ Verta($article->created_at)->format('%d %B %Y') }}</span>
+                        <div class="article-meta">
+                            <span><i class="bi bi-person"></i> admin</span>
+                            <span><i class="bi bi-chat"></i> 7 دیدگاه</span>
+                            <span><i class="bi bi-eye"></i> {{$article->views()->count()}} بازدید</span>
+                        </div>
                     </div>
 
                     <div class="soft-card article-content-card">
@@ -574,15 +575,15 @@
                         </div>
 
                         <div class="article-bottom">
-                            <div class="share-list">
-                                <a href="#" id="share-btn"><i class="fa-solid fa-share-nodes"></i></a>
-                                <span class="me-1">اشتراک‌گذاری:</span>
-                            </div>
-
                             <span>
                                 <i class="bi bi-calendar3 ms-1"></i>
                                 آخرین بروزرسانی: {{ Verta($article->updated_at)->format('%d %B %Y') }}
                             </span>
+
+                            <div class="share-list">
+                                <a href="#" id="share-btn"><i class="fa-solid fa-share-nodes"></i></a>
+                                <span class="me-1">اشتراک‌گذاری</span>
+                            </div>
                         </div>
 
                     </div>
@@ -622,90 +623,93 @@
                     @endforeach
                 </div>
 
-                {{-- <div class="soft-card sidebar-card">
+                <div class="soft-card sidebar-card">
                     <div class="sidebar-heading">
                         <span>برچسب‌ها</span>
                         <i class="bi bi-tags"></i>
                     </div>
 
                     <div class="tags">
-                        <a href="#" class="tag">آموزش</a>
-                        <a href="#" class="tag">برنامه‌نویسی</a>
-                        <a href="#" class="tag">لاراول</a>
-                        <a href="#" class="tag">PHP</a>
-                        <a href="#" class="tag">جاوااسکریپت</a>
-                        <a href="#" class="tag">امنیت</a>
-                        <a href="#" class="tag">ووکامرس</a>
+                        <a href="#" class="tag">ترمه</a>
+                        <a href="#" class="tag">رومیزی</a>
+                        <a href="#" class="tag">رومیزی ترمه</a>
+                        <a href="#" class="tag">ترمه یزد</a>
+                        <a href="#" class="tag">ترمه سالاری</a>
                     </div>
-                </div> --}}
+                </div>
 
             </aside>
         </div>
 
         <!-- Related articles -->
-        <section class="related-section">
+        @if ($articles->count())
+            <section class="related-section">
 
-            <div class="section-title">
-                <span>مقالات مرتبط</span>
-                {{-- <a href="#" class="btn-primary-soft">مشاهده همه</a> --}}
-            </div>
-
-            <div id="relatedPosts" class="splide" aria-label="مقالات مرتبط">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        @foreach ($articles as $other_article)
-                            <li class="splide__slide">
-                                <a href="{{ route('article.show', $other_article->id) }}" class="related-card d-block">
-                                    <div class="related-image">
-                                        <img src="{{ asset('storage/' . $other_article->image) }}"
-                                            alt="{{ $other_article->title }}">
-                                    </div>
-                                    <div class="related-body">
-                                        <h3>{{ $other_article->title }}</h3>
-                                    </div>
-                                    <div class="related-footer">
-                                        <span><i class="bi bi-calendar3"></i> {{ Verta($other_article->created_at)->format('%d %B %Y') }}</span>
-                                        {{-- <span class="author">
-                                            admin
-                                            <img src="https://i.pravatar.cc/80?img=12" alt="">
-                                        </span> --}}
-                                    </div>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                <div class="section-title">
+                    <span>مقالات مرتبط</span>
+                    {{-- <a href="#" class="btn-primary-soft">مشاهده همه</a> --}}
                 </div>
-            </div>
 
-        </section>
+                <div id="relatedPosts" class="splide" aria-label="مقالات مرتبط">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            @foreach ($articles as $other_article)
+                                <li class="splide__slide">
+                                    <a href="{{ route('article.show', $other_article->id) }}" class="related-card d-block">
+                                        <div class="related-image">
+                                            <img src="{{ asset('storage/' . $other_article->image) }}"
+                                                alt="{{ $other_article->title }}">
+                                        </div>
+                                        <div class="related-body">
+                                            <h3>{{ $other_article->title }}</h3>
+                                        </div>
+                                        <div class="related-footer">
+                                            <span><i class="bi bi-calendar3"></i>
+                                                {{ Verta($other_article->created_at)->format('%d %B %Y') }}</span>
+                                            <span class="author">
+                                            admin
+                                        </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
 
+            </section>
+        @endif
     </main>
 @endsection
 @section('script')
     <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+    @if ($articles->count())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                new Splide('#relatedPosts', {
+                    direction: 'rtl',
+                    type: 'slide',
+                    perPage: 4,
+                    perMove: 1,
+                    gap: '14px',
+                    pagination: false,
+                    breakpoints: {
+                        992: {
+                            perPage: 3
+                        },
+                        768: {
+                            perPage: 2
+                        },
+                        576: {
+                            perPage: 1
+                        }
+                    }
+                }).mount();
+            });
+        </script>
+    @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            new Splide('#relatedPosts', {
-                direction: 'rtl',
-                type: 'slide',
-                perPage: 4,
-                perMove: 1,
-                gap: '14px',
-                pagination: false,
-                breakpoints: {
-                    992: {
-                        perPage: 3
-                    },
-                    768: {
-                        perPage: 2
-                    },
-                    576: {
-                        perPage: 1
-                    }
-                }
-            }).mount();
-
-
             $('#share-btn').click(function(e) {
                 e.preventDefault();
                 if (navigator.share) {
