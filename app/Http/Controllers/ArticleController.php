@@ -51,7 +51,8 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        return view('article.show', compact('article'));
+        $articles = Article::whereNotIn('id', [$article->id])->where('is_active', 1)->get();
+        return view('article.show', compact('article', 'articles'));
     }
 
     public function edit(Article $article)
