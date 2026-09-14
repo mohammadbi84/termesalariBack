@@ -104,7 +104,7 @@ route::delete('/amazings/{id}/destroy', 'AmazingController@destroy')->name('amaz
 
 Route::get('/tablecloth/duplicate/{tablecloth}', 'TableclothController@duplicate')->name('tablecloth.duplicate');
 
-
+route::get('/comment/articles/show', 'CommentController@articles')->name('comment.articles');
 Route::resource('comment', 'CommentController');
 // Route::post('/comment/store/', 'CommentController@store')->name('comment.store');
 Route::get('/comment/product/{model}/{product}', 'CommentController@showProductComments')->name('comment.product');
@@ -330,7 +330,7 @@ Route::get('api/active-popup', [PopupController::class, 'getActivePopup']);
 // article (صفحه های داخلی)
 Route::resource('article', 'ArticleController');
 Route::post('/article/{id}/change-active', [ArticleController::class, 'change_active'])->name('article.change_active');
-
+Route::get('/articles/search', [ArticleController::class, 'search'])->name('article.search');
 
 // bookmarks
 Route::resource('bookmark', 'BookmarkController');

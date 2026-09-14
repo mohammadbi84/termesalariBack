@@ -167,7 +167,7 @@
                                                 <span class="bg-danger">نظرات</span>
                                             </li>
                                             <!-- /.timeline-label -->
-                                            @foreach ($user->comments as $comment)
+                                            @foreach ($user->comments()->where('commentable_type','!=','App\Article')->get() as $comment)
                                                 <!-- timeline item -->
                                                 <li>
                                                     <i class="fa fa-comments bg-warning"></i>

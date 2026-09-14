@@ -1,6 +1,11 @@
 @extends('shop.layouts.master')
 @section('title', $article->title)
 @section('head')
+    @if (app()->getLocale() == 'en')
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+    @endif
     <style>
         :root {
             --primary: #4FBA6C;
@@ -535,6 +540,211 @@
                 font-size: 14px;
             }
         }
+
+        .article-search-results {
+            position: relative;
+            z-index: 20;
+            margin-top: -17px;
+            margin-bottom: 17px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .07);
+            overflow: hidden;
+        }
+
+        .article-search-result {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: .2s;
+        }
+
+        .article-search-result:last-child {
+            border-bottom: 0;
+        }
+
+        .article-search-result:hover {
+            background: var(--primary-soft);
+        }
+
+        .article-search-result-image {
+            width: 55px;
+            height: 55px;
+            flex: 0 0 55px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .article-search-result-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-search-result-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .article-search-result-title {
+            display: block;
+            color: #444;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.8;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .article-search-result-date {
+            display: block;
+            margin-top: 3px;
+            color: #aaa;
+            font-size: 9px;
+        }
+
+        .article-search-result-date i {
+            color: var(--primary);
+        }
+
+        .article-search-empty {
+            padding: 18px 12px;
+            text-align: center;
+            color: #999;
+            font-size: 11px;
+        }
+
+        .article-search-empty i {
+            display: block;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .article-search-loading {
+            padding: 15px;
+            text-align: center;
+            color: #999;
+            font-size: 11px;
+        }
+
+        .article-search-loading i {
+            color: var(--primary);
+            margin-left: 5px;
+        }
+
+        .fixed_top {
+            position: sticky;
+            top: 100px;
+        }
+    </style>
+    <style>
+        .article-slide {
+            height: auto;
+        }
+
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(255, 250, 242, 0.96) 0%, rgba(255, 255, 255, 1) 100%);
+            border: 1px solid rgba(74, 148, 84, 0.18);
+            border-radius: 14px;
+            box-shadow: 0 8px 10px rgba(40, 32, 20, 0.08);
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .article-card:hover {
+            border-top: 3px solid var(--primary-color);
+            border-right: 3px solid var(--primary-color);
+            text-decoration: none;
+        }
+
+        .article-card__image-wrap {
+            position: relative;
+            overflow: hidden;
+            background: #e7f4eb;
+        }
+
+        .article-card__image {
+            display: block;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .article-card:hover .article-card__image {
+            transform: scale(1.05);
+        }
+
+        .article-card__badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(39, 49, 38, 0.8);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+        }
+
+        .article-card__body {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 18px 18px 20px;
+        }
+
+        .article-card__title {
+            margin: 0 0 10px;
+            font-size: 1.1rem;
+            line-height: 1.8rem;
+            font-weight: 700;
+            color: #1f2a2b;
+        }
+
+        .article-card__summary {
+            margin: 0;
+            color: #5e656d;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .article-card__link {
+            margin-top: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2aab5c;
+            font-size: 0.88rem;
+            font-weight: 700;
+            transition: gap 0.2s ease;
+        }
+
+        .article-card:hover .article-card__link {
+            gap: 12px;
+        }
+
+        @media (max-width: 575.98px) {
+            .article-card__image {
+                height: 200px;
+            }
+        }
     </style>
 @endsection
 @section('content')
@@ -558,8 +768,8 @@
 
                         <div class="article-meta">
                             <span><i class="bi bi-person"></i> admin</span>
-                            <span><i class="bi bi-chat"></i> 7 دیدگاه</span>
-                            <span><i class="bi bi-eye"></i> {{$article->views()->count()}} بازدید</span>
+                            <span><i class="bi bi-chat"></i> 7 {{ __('user.comments.card_title') }}</span>
+                            <span><i class="bi bi-eye"></i> {{ $article->views()->count() }} {{ __('main.view') }}</span>
                         </div>
                     </div>
 
@@ -567,7 +777,7 @@
 
                         <div class="content-heading">
                             <i class="bi bi-file-earmark-text me-1" style="color:var(--primary)"></i>
-                            توضیحات مقاله
+                            {{ __('article.article_description') }}
                         </div>
 
                         <div class="article-body">
@@ -577,12 +787,12 @@
                         <div class="article-bottom">
                             <span>
                                 <i class="bi bi-calendar3 ms-1"></i>
-                                آخرین بروزرسانی: {{ Verta($article->updated_at)->format('%d %B %Y') }}
+                                {{ __('article.last_update') }}: {{ Verta($article->updated_at)->format('%d %B %Y') }}
                             </span>
 
                             <div class="share-list">
                                 <a href="#" id="share-btn"><i class="fa-solid fa-share-nodes"></i></a>
-                                <span class="me-1">اشتراک‌گذاری</span>
+                                <span class="me-1">{{ __('product.share') }}</span>
                             </div>
                         </div>
 
@@ -596,116 +806,300 @@
             <!-- Sidebar -->
             <aside class="col-lg-4 sidebar">
 
-                <div class="search-box">
-                    <input type="text" placeholder="جستجو در مقالات">
-                    <button type="button" aria-label="جستجو">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
+                <div class="fixed_top">
+                    <div class="search-wrapper">
 
-                <div class="soft-card sidebar-card">
-                    <div class="sidebar-heading">
-                        <span>آخرین پست‌ها</span>
+                        <div class="search-box">
+                            <input type="text" id="article-search" placeholder="{{ __('article.search_placeholder') }}"
+                                autocomplete="off">
+
+                            <button type="button" id="article-search-btn"
+                                aria-label="{{ __('article.search_placeholder') }}">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+
+                        {{-- نتایج سرچ --}}
+                        <div id="article-search-results"></div>
+
                     </div>
-                    @foreach ($articles as $other_article)
-                        <a href="{{ route('article.show', $other_article) }}" class="post-item">
-                            <div class="post-thumb">
-                                <img src="{{ asset('storage/' . $other_article->image) }}" alt="">
-                            </div>
-                            <div class="post-info">
-                                <span class="title">{{ $other_article->title }}</span>
-                                <div class="post-stats">
-                                    <span><i
-                                            class="bi bi-calendar3"></i>{{ Verta($other_article->created_at)->format('%d %B %Y') }}</span>
+
+                    <div class="soft-card sidebar-card">
+                        <div class="sidebar-heading">
+                            <span>{{ __('article.latest_posts') }}</span>
+                        </div>
+                        @foreach ($articles as $other_article)
+                            <a href="{{ route('article.show', $other_article) }}" class="post-item">
+                                <div class="post-thumb">
+                                    <img src="{{ asset('storage/' . $other_article->image) }}" alt="">
                                 </div>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
-
-                <div class="soft-card sidebar-card">
-                    <div class="sidebar-heading">
-                        <span>برچسب‌ها</span>
-                        <i class="bi bi-tags"></i>
+                                <div class="post-info">
+                                    <span class="title">{{ $other_article->title }}</span>
+                                    <div class="post-stats">
+                                        <span><i
+                                                class="bi bi-calendar3"></i>{{ Verta($other_article->updated_at)->format('%d %B %Y') }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
                     </div>
 
-                    <div class="tags">
-                        <a href="#" class="tag">ترمه</a>
-                        <a href="#" class="tag">رومیزی</a>
-                        <a href="#" class="tag">رومیزی ترمه</a>
-                        <a href="#" class="tag">ترمه یزد</a>
-                        <a href="#" class="tag">ترمه سالاری</a>
+                    @if ($article->tags()->count())
+                        <div class="soft-card sidebar-card">
+                            <div class="sidebar-heading">
+                                <span>{{ __('article.tags') }}</span>
+                                <i class="bi bi-tags"></i>
+                            </div>
+
+                            <div class="tags">
+                                @foreach ($article->tags as $tag)
+                                    <span class="tag">{{ $tag->name }}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="bg-white rounded-4 p-4 shadow-sm">
+                        <div class="sidebar-heading">
+                            <span>{{ __('product.comments_title') }}</span>
+                            <i class="fa-regular fa-comments info-badge-icon"></i>
+                        </div>
+                        <form action="/comment" method="POST" class="">
+                            @csrf
+                            <input type="hidden" name="product" value="{{ $article->id }}">
+                            <input type="hidden" name="model" value="Article">
+                            <div class="mb-4">
+                                <div class="autocomplete @error('text') filled @enderror" id="autocompleteBoxtext">
+                                    <input type="text" id="searchInputtext" value="{{ old('text') }}" class=""
+                                        name="text" oninput="nameinput('text')">
+                                    <label for="searchInputtext">
+                                        {{ __('product.comment_placeholder') }}
+                                    </label>
+                                    <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
+                                        @if (old('text')) style="display:block !important" @endif>×</span>
+                                </div>
+                                @error('text')
+                                    <small class="text-danger mt-2">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-4 d-flex justify-content-between align-items-center">
+                                {{ __('product.your_rating') }} :
+                                <!-- ریتینگ ستاره‌ها -->
+                                <div class="rating-stars">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                </div>
+
+                                <!-- اینپوت مخفی برای ذخیره امتیاز -->
+                                <input type="hidden" name="rating" id="ratingInput" value="{{ old('rating', 0) }}">
+                            </div>
+                            @if (Auth::check())
+                                <button type="submit"
+                                    class="btn btn-primary w-50 mb-3">{{ __('product.submit_comment') }}</button>
+                            @else
+                                <button type="submit" class="btn btn-primary w-50 mb-3">
+                                    {{ __('product.submit_comment') }}
+                                </button>
+                            @endif
+                        </form>
                     </div>
                 </div>
 
             </aside>
+
         </div>
 
         <!-- Related articles -->
         @if ($articles->count())
-            <section class="related-section">
-
-                <div class="section-title">
-                    <span>مقالات مرتبط</span>
-                    {{-- <a href="#" class="btn-primary-soft">مشاهده همه</a> --}}
-                </div>
-
-                <div id="relatedPosts" class="splide" aria-label="مقالات مرتبط">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            @foreach ($articles as $other_article)
-                                <li class="splide__slide">
-                                    <a href="{{ route('article.show', $other_article->id) }}" class="related-card d-block">
-                                        <div class="related-image">
-                                            <img src="{{ asset('storage/' . $other_article->image) }}"
-                                                alt="{{ $other_article->title }}">
-                                        </div>
-                                        <div class="related-body">
-                                            <h3>{{ $other_article->title }}</h3>
-                                        </div>
-                                        <div class="related-footer">
-                                            <span><i class="bi bi-calendar3"></i>
-                                                {{ Verta($other_article->created_at)->format('%d %B %Y') }}</span>
-                                            <span class="author">
-                                            admin
-                                        </span>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+            <!-- start articles -->
+            <section id="articles" class="related-section">
+                <div class="container mb-5 px-0">
+                    <div class=" d-flex align-items-center justify-content-between w-100  p-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <h4 class="title m-0">{{ __('main.articles') }}</h4>
+                        </div>
+                        <div class="">
+                            <!-- دکمه‌های کنترل جداگانه -->
+                            <div class="custom-splide-controls">
+                                <button class="splide-prev-btn splide-article-prev-btn">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <span id="article-range" class="slide-range">1-4</span>
+                                <button class="splide-next-btn splide-article-next-btn">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="splide" id="article_slider" role="group" aria-label="Splide Basic HTML Example">
+                        <div class="splide__track py-3">
+                            <ul class="splide__list">
+                                @foreach ($articles as $key => $other_article)
+                                    @php
+                                        $other_articlePreview = \Illuminate\Support\Str::limit(
+                                            strip_tags($other_article->body ?? ''),
+                                            90
+                                        );
+                                    @endphp
+                                    <li class="splide__slide article-slide">
+                                        <a href="{{ route('article.show', [$other_article]) }}" class="article-card"
+                                            aria-label="{{ $other_article->title }}">
+                                            <div class="article-card__image-wrap">
+                                                <img class="article-card__image"
+                                                    src="{{ 'storage/' . $other_article->image }}"
+                                                    alt="{{ $other_article->title }}" />
+                                            </div>
+                                            <div class="article-card__body">
+                                                <h3 class="article-card__title">{{ $other_article->title }}</h3>
+                                                @if (!empty($other_articlePreview))
+                                                    <p class="article-card__summary">{{ $other_articlePreview }}</p>
+                                                @endif
+                                                <span class="article-card__link">
+                                                    {{ __('main.moreInfo') }}
+                                                    <i class="fa-solid fa-arrow-left"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
             </section>
+            <!-- end articles -->
         @endif
+
+        <div class="bg-white gap-5 rounded-4 shadow-sm p-3 mt-5">
+            <div class="d-flex justify-content-start align-items-center gap-3 mb-3">
+                {{-- <i class="fa-solid fa-info info-badge-icon top-0"></i> --}}
+                <i class="fa-regular fa-comments info-badge-icon"></i>
+                <div>
+                    <h5 class="m-0">{{ __('product.user_comments') }}</h5>
+                    <span class="point-span">
+                        {{ __('product.comments_count', ['count' => $article->comments()->where('status', 1)->count()]) }}
+                    </span>
+                </div>
+            </div>
+            @foreach ($article->comments()->where('status', 1)->get() as $comment)
+                <div class="col-12 mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="flex-grow-1 d-flex justify-content-start align-items-center gap-3">
+                            <img src="{{ asset('storetemplate/dist/img/' . $comment->user->image) }}"
+                                class="rounded-circle" alt="user" width="60">
+                            <div class="">
+                                <strong>{{ $comment->user->name }} {{ $comment->user->family }}</strong> - <span
+                                    class="point-span">{{ $comment->created_at->format('d F Y') }}</span>
+                                <p class="m-0 text-justify">
+                                    {{ $comment->text }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="rating">
+                                @for ($i = 0; $i < 5; $i++)
+                                    @if ($i < $comment->score ?? 0)
+                                        <i class="fa-solid fa-star"></i>
+                                    @else
+                                        <i class="fa-regular fa-star"></i>
+                                    @endif
+                                @endfor
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </main>
 @endsection
 @section('script')
     <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @if ($articles->count())
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                new Splide('#relatedPosts', {
-                    direction: 'rtl',
-                    type: 'slide',
-                    perPage: 4,
-                    perMove: 1,
-                    gap: '14px',
-                    pagination: false,
-                    breakpoints: {
-                        992: {
-                            perPage: 3
-                        },
-                        768: {
-                            perPage: 2
-                        },
-                        576: {
-                            perPage: 1
+            // Article===========================================================================================
+            var ArticleSplide = new Splide("#article_slider", {
+                perPage: 4,
+                padding: "20px",
+                gap: "1.7rem",
+                arrows: false,
+                pagination: false,
+                direction: "rtl",
+                breakpoints: {
+                    1024: {
+                        perPage: 4
+                    },
+                    768: {
+                        perPage: 2,
+                        focus: "start",
+                        padding: {
+                            left: "50px"
                         }
-                    }
-                }).mount();
+                    },
+                    480: {
+                        perPage: 1,
+                        focus: "start",
+                        padding: {
+                            left: "150px"
+                        }
+                    },
+                },
             });
+            ArticleSplide.mount();
+
+            const prevBtnArticle = document.querySelector(".splide-article-prev-btn");
+            const nextBtnArticle = document.querySelector(".splide-article-next-btn");
+
+            // اضافه کردن event listener برای دکمه‌ها
+            if (prevBtnArticle) {
+                prevBtnArticle.addEventListener("click", function() {
+                    ArticleSplide.go("<");
+                });
+            }
+
+            if (nextBtnArticle) {
+                nextBtnArticle.addEventListener("click", function() {
+                    ArticleSplide.go(">");
+                });
+            }
+
+            // به‌روزرسانی وضعیت دکمه‌ها هنگام تغییر اسلاید
+            ArticleSplide.on("moved", function() {
+                updateButtonStatesArticle();
+                updateRangeDisplay(ArticleSplide, "article-range");
+            });
+
+            // تابع برای به‌روزرسانی وضعیت دکمه‌ها
+            function updateButtonStatesArticle() {
+                const index = ArticleSplide.index;
+                const length = ArticleSplide.length;
+
+                if (prevBtnArticle) {
+                    prevBtnArticle.disabled = index === 0;
+                }
+
+                if (nextBtnArticle) {
+                    nextBtnArticle.disabled = index >= length - ArticleSplide.options.perPage;
+                }
+            }
+
+            // مقداردهی اولیه وضعیت دکمه‌ها
+            updateButtonStatesArticle();
+            updateRangeDisplay(ArticleSplide, "article-range");
+
+            // تابع برای به‌روزرسانی نمایش بازه
+            function updateRangeDisplay(splide, rangeElementId) {
+                const index = splide.index; // شماره اولین آیتم قابل مشاهده (صفر شروع)
+                const perPage = splide.options.perPage;
+                const total = splide.length;
+
+                const start = index + 1; // چون index از 0 شروع میشه
+                const end = Math.min(index + perPage, total);
+
+                document.getElementById(rangeElementId).textContent = `${start}-${end}`;
+            }
         </script>
     @endif
     <script>
@@ -715,13 +1109,274 @@
                 if (navigator.share) {
                     navigator.share({
                         title: "{{ $article->title }}",
-                        text: "مشترک عزیز، این مقاله را ببینید: {{ $article->title }}",
+                        text: "{{ __('article.share_text') }}{{ $article->title }}",
                         url: "{{ url()->current() }}"
                     }).catch((error) => console.log('Error sharing:', error));
                 } else {
-                    alert("مرورگر شما قابلیت اشتراک‌گذاری مستقیم را پشتیبانی نمی‌کند.");
+                    alert("{{ __('article.share_not_supported') }}");
                 }
             });
         });
+
+        $(document).ready(function() {
+
+            let searchTimeout = null;
+
+            const $searchInput = $('#article-search');
+            const $searchResults = $('#article-search-results');
+
+            function searchArticles() {
+                const keyword = $searchInput.val().trim();
+
+                if (keyword.length === 0) {
+                    $searchResults.html('');
+                    return;
+                }
+
+                if (keyword.length < 2) {
+                    $searchResults.html('');
+                    return;
+                }
+
+                $searchResults.html(`
+                <div class="article-search-results">
+                    <div class="article-search-loading">
+                        <i class="bi bi-arrow-repeat"></i>
+                        {{ __('article.searching') }}
+                    </div>
+                </div>
+            `);
+
+                $.ajax({
+                    url: "{{ route('article.search') }}",
+                    type: "GET",
+                    data: {
+                        q: keyword
+                    },
+                    success: function(response) {
+                        $searchResults.html(response);
+                    },
+                    error: function(xhr) {
+                        console.error(xhr);
+                        $searchResults.html(`
+                        <div class="article-search-results">
+                            <div class="article-search-empty">
+                                <i class="bi bi-exclamation-circle"></i>
+                                {{ __('article.search_error') }}
+                            </div>
+                        </div>
+                    `);
+                    }
+                });
+            }
+
+            $searchInput.on('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(function() {
+                    searchArticles();
+                }, 400);
+            });
+
+            $('#article-search-btn').on('click', function() {
+                clearTimeout(searchTimeout);
+                searchArticles();
+            });
+
+            $searchInput.on('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    clearTimeout(searchTimeout);
+                    searchArticles();
+                }
+            });
+
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.search-wrapper').length) {
+                    $searchResults.html('');
+                }
+            });
+
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star');
+            const ratingInput = document.getElementById('ratingInput');
+
+            // ستاره‌های قبلی انتخاب شده
+            stars.forEach(star => {
+                if (star.dataset.value <= ratingInput.value) {
+                    star.classList.add('active');
+                }
+            });
+
+            // هاور روی ستاره‌ها
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    const value = this.dataset.value;
+
+                    stars.forEach(s => {
+                        s.classList.remove('active');
+                        if (s.dataset.value <= value) {
+                            s.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // کلیک روی ستاره
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.dataset.value;
+                    ratingInput.value = value;
+
+                    stars.forEach(s => {
+                        s.classList.remove('active');
+                        if (s.dataset.value <= value) {
+                            s.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // وقتی موس از روی ریتینگ خارج شد
+            document.querySelector('.rating-stars').addEventListener('mouseleave', function() {
+                const currentValue = ratingInput.value;
+
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                    if (s.dataset.value <= currentValue) {
+                        s.classList.add('active');
+                    }
+                });
+            });
+        });
+
+
+        document.getElementById("comment_btn")?.addEventListener("click", function() {
+            Swal.fire({
+                title: `
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('hometemplate/img/logo.png') }}" width="30">
+                                    <h2 class="title m-0">{{ __('js.login_title') }}</h2>
+                                </div>`,
+                html: `
+                        <form id="loginAjaxForm">
+                            <div class="mx-5 text-center">
+                                <div class="mb-3 mt-4">
+                                    <div class="autocomplete" id="autocompleteBoxlogin">
+                                        <input type="text" id="searchInputlogin" class=""
+                                            oninput="nameinput('login')">
+                                        <label for="searchInputlogin">{{ __('js.login_mobile_or_email') }}</label>
+                                        <span class="clear-btn" id="clearBtn_login" onclick="clearInput('login')"
+                                            >×</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="autocomplete" id="autocompleteBoxpassword">
+                                        <input type="password" id="searchInputpassword" class="" name="password"
+                                            oninput="nameinput('password')">
+                                        <label for="searchInputpassword">{{ __('js.login_password') }}</label>
+                                        <span class="clear-btn" id="clearBtn_password" onclick="clearInput('password')">×</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('js.login_button') }}</button>
+                                <div class="text-center">
+                                    @if (Route::has('password.request'))
+                                        <div class="mb-2"><a href="{{ route('password.request') }}">{{ __('js.forgot_password') }}</a>
+                                        </div>
+                                    @endif
+                                    <div class="mb-2">{{ __('js.no_account') }} <a href="{{ route('register') }}">{{ __('js.register_link') }}</a></div>
+                                </div>
+                            </div>
+                        </form>
+                        `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusConfirm: false,
+                allowOutsideClick: true
+            });
+
+            // ارسال فرم لاگین با ایجکس
+            $(document).on("submit", "#loginAjaxForm", function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/login", // مسیر Laravel login
+                    type: "POST",
+                    data: {
+                        login: $("#searchInputlogin").val(),
+                        password: $("#searchInputpassword").val(),
+                        _token: '<?php echo csrf_token(); ?>',
+                    },
+                    success: function(res) {
+                        Swal.close();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "{{ __('js.login_success') }}",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+
+                        setTimeout(() => location.reload(), 1200);
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: "error",
+                            title: "{{ __('js.login_failed') }}",
+                            text: "{{ __('js.login_failed_text') }}"
+                        });
+                    }
+                });
+            });
+
+        });
+
+        $(document).on("input", ".only-number", function() {
+            this.value = this.value.replace(/[^0-9]/g, "");
+            let name = $(this).attr("name");
+            const box = document.getElementById("autocompleteBox" + name);
+            const clearBtn = document.getElementById("clearBtn_" + name);
+            let value2 = $(this).val();
+            if (value2.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
+            }
+        });
+
+        function nameinput(id) {
+            const input = document.getElementById("searchInput" + id);
+            const box = document.getElementById("autocompleteBox" + id);
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            if (input.value.length > 0) {
+                box.classList.add("filled");
+                clearBtn.style.display = "block";
+            } else {
+                box.classList.remove("filled");
+                clearBtn.style.display = "none";
+            }
+        }
+
+        function clearInput(id) {
+            const box = document.getElementById("autocompleteBox" + id);
+            box.classList.remove("filled");
+            const input = document.getElementById("searchInput" + id);
+            input.value = "";
+            const clearBtn = document.getElementById("clearBtn_" + id);
+            clearBtn.style.display = "none";
+
+            if (id == "state") {
+                const box2 = document.getElementById("autocompleteBoxcity");
+                const input2 = document.getElementById("searchInputcity");
+                input2.value = "";
+                document.getElementById("selectedIdcity").value = "";
+                box2.classList.remove("filled");
+                const clearBtn2 = document.getElementById("clearBtn_city");
+                clearBtn2.style.display = "none";
+            }
+        }
     </script>
 @endsection

@@ -26,6 +26,15 @@ class Article extends Model
         return $this->morphMany(View::class, 'viewable');
     }
 
+    public function tags()
+    {
+        return $this->morphMany(Tag::class, 'taggable');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
     public function getTitleAttribute()
     {
         switch (app()->getLocale()) {

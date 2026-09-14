@@ -12,17 +12,17 @@ class CommentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->authorizeResource(Comment::class, 'comment');
+        // $this->authorizeResource(Comment::class, 'comment');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $comments = Comment::all();
-        return view('comment.index')
+        $comments = Comment::where('commentable_type',"!=",'App\Article')->get();
+        return view('comment.index')->with('comments',$comments);
+    }
+    public function articles()
+    {
+        $comments = Comment::where('commentable_type','App\Article')->get();
+        return view('comment.articles')
             ->with('comments',$comments);
     }
 

@@ -433,6 +433,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <p>دیدگاه مشتریان</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('comment.articles') }}" class="nav-link">
+                                            <i class="nav-icon fa fa-comments"></i>
+                                            <p>دیدگاه مقالات</p>
+                                        </a>
+                                    </li>
 
                                     <li class="nav-item">
                                         <a href="{{ route('newsletter.index') }}" class="nav-link">

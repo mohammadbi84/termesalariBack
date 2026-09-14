@@ -8,6 +8,66 @@
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}"
         media="all">
     <link href="https://lib.arvancloud.ir/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+
+    <style>
+        .tag-input-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            min-height: 45px;
+            padding: 7px 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            background: #fff;
+            cursor: text;
+        }
+
+        .tag-input-wrapper:focus-within {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 9px;
+            border-radius: 5px;
+            background: #e9ecef;
+            color: #212529;
+            font-size: 14px;
+        }
+
+        .tag-remove {
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            color: #6c757d;
+        }
+
+        .tag-remove:hover {
+            color: #dc3545;
+        }
+
+        .tag-input {
+            flex: 1;
+            min-width: 150px;
+            border: none;
+            outline: none;
+            padding: 5px;
+            background: transparent;
+        }
+    </style>
 @endpush
 
 @section('main-content')
@@ -89,6 +149,23 @@
                             @error('ar_body')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">برچسب‌ها</label>
+
+                            <div class="tag-input-wrapper" id="tagInputWrapper">
+                                <div id="tagsContainer" class="tags-container"></div>
+
+                                <input type="text" id="tagInput" class="tag-input"
+                                    placeholder="برچسب را بنویسید و Enter بزنید...">
+                            </div>
+
+                            <input type="hidden" name="tags" id="tags">
+
+                            <small class="text-muted">
+                                برای ثبت هر برچسب Enter بزنید.
+                            </small>
                         </div>
 
 
@@ -190,6 +267,96 @@
                     }
                 }
             });
+        });
+    </script>
+
+    <script>
+        const tagInput = document.getElementById('tagInput');
+        const tagsContainer = document.getElementById('tagsContainer');
+        const tagsHiddenInput = document.getElementById('tags');
+        const tagInputWrapper = document.getElementById('tagInputWrapper');
+
+        let tags = [];
+
+        tagInput.addEventListener('keydown', function(event) {
+
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const tag = this.value.trim();
+
+                if (!tag) {
+                    return;
+                }
+
+                if (tags.includes(tag)) {
+                    this.value = '';
+                    return;
+                }
+
+                tags.push(tag);
+
+                renderTags();
+
+                this.value = '';
+            }
+
+            // حذف آخرین تگ با Backspace
+            if (
+                event.key === 'Backspace' &&
+                this.value === '' &&
+                tags.length > 0
+            ) {
+                tags.pop();
+                renderTags();
+            }
+        });
+
+        function renderTags() {
+
+            tagsContainer.innerHTML = '';
+
+            tags.forEach((tag, index) => {
+
+                const tagElement = document.createElement('span');
+
+                tagElement.className = 'tag-item';
+
+                tagElement.innerHTML = `
+                <span>${escapeHtml(tag)}</span>
+
+                <button
+                    type="button"
+                    class="tag-remove"
+                    onclick="removeTag(${index})"
+                >
+                    ×
+                </button>
+            `;
+
+                tagsContainer.appendChild(tagElement);
+            });
+
+            tagsHiddenInput.value = JSON.stringify(tags);
+        }
+
+        function removeTag(index) {
+
+            tags.splice(index, 1);
+
+            renderTags();
+
+            tagInput.focus();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        tagInputWrapper.addEventListener('click', function() {
+            tagInput.focus();
         });
     </script>
 @endpush

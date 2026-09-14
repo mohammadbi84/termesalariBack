@@ -8,6 +8,11 @@ class Tag extends Model
 {
     protected $fillable = ['name'];
 
+    public function taggable()
+    {
+        return $this->morphTo();
+    }
+
     public function bags()
     {
         return $this->morphedByMany('App\Bag', 'taggable');

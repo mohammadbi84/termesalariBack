@@ -46,6 +46,17 @@ class ArticleController extends Controller
         $article->ar_body = $request->ar_body;
         $article->image = $request->image;
         $article->save();
+
+        $tags = json_decode($request->tags, true);
+        foreach ($tags ?? [] as $tag) {
+            $tag = trim($tag);
+            if ($tag === '') {
+                continue;
+            }
+            $article->tags()->create([
+                'name' => $tag,
+            ]);
+        }
         return redirect()->route('article.index')->with('success', 'مقاله با موفقیت ساخته شد.');
     }
 
@@ -98,6 +109,23 @@ class ArticleController extends Controller
         $article->ar_body = $request->ar_body;
         $article->image = $request->image;
         $article->save();
+
+        $tags = json_decode($request->tags, true);
+
+        $article->tags()->delete();
+
+        foreach ($tags ?? [] as $tag) {
+
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $article->tags()->create([
+                'name' => $tag,
+            ]);
+        }
         return redirect()->route('article.index')->with('success', 'مقاله با موفقیت ویرایش شد.');
     }
     public function change_active($id)
@@ -112,5 +140,35 @@ class ArticleController extends Controller
     {
         $article->delete();
         return redirect()->route('article.index')->with('success', 'مقاله با موفقیت حذف شد.');
+    }
+
+
+    public function search(Request $request)
+    {
+        $keyword = trim($request->get('q', ''));
+
+        if (mb_strlen($keyword) < 2) {
+            return response('');
+        }
+
+        $articles = Article::query()
+            ->where(function ($query) use ($keyword) {
+
+                $query->where('title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('e_title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('ar_title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('body', 'LIKE', "%{$keyword}%")
+                    ->orWhere('e_body', 'LIKE', "%{$keyword}%")
+                    ->orWhere('ar_body', 'LIKE', "%{$keyword}%");
+            })
+            ->where('is_active', 1)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view(
+            'article.partials.search-results',
+            compact('articles')
+        );
     }
 }
