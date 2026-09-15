@@ -113,6 +113,17 @@ class PrayermatController extends Controller
                 }
             }
 
+            $tags = json_decode($request->tags, true);
+            foreach ($tags ?? [] as $tag) {
+                $tag = trim($tag);
+                if ($tag === '') {
+                    continue;
+                }
+                $prayermat->tags()->create([
+                    'name' => $tag,
+                ]);
+            }
+
             return redirect()->route('prayermat.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         }//if
@@ -245,6 +256,23 @@ class PrayermatController extends Controller
         }
 
         $prayermat->save();
+
+        $tags = json_decode($request->tags, true);
+
+        $prayermat->tags()->delete();
+
+        foreach ($tags ?? [] as $tag) {
+
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $prayermat->tags()->create([
+                'name' => $tag,
+            ]);
+        }
 
 
 

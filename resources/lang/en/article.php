@@ -15,4 +15,7 @@ return [
     // اشتراک‌گذاری
     'share_text' => 'Dear subscriber, check out this article: ',
     'share_not_supported' => 'Your browser does not support direct sharing.',
+    'comment_placeholder' => 'Write your thoughts on this article...',
+    'comments_count' => ':count reviews submitted for this article',
+    'your_rating' => 'Your rating for this article',
 ];

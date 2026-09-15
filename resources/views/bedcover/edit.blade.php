@@ -696,6 +696,23 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <label class="form-label">برچسب‌ها</label>
+
+                            <div class="tag-input-wrapper" id="tagInputWrapper">
+                                <div id="tagsContainer" class="tags-container"></div>
+
+                                <input type="text" id="tagInput" class="tag-input"
+                                    placeholder="برچسب را بنویسید و Enter بزنید...">
+                            </div>
+
+                            <input type="hidden" name="tags" id="tags">
+
+                            <small class="text-muted">
+                                برای ثبت هر برچسب Enter بزنید.
+                            </small>
+                        </div>
+
                         <!-- /.card-body -->
 
                         <div class="card-footer">
@@ -722,6 +739,102 @@
     <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/themes/fas/theme.min.js') }}"></script>
     <script src="{{ asset('storetemplate/plugins/bootstrap-fileinput-master/js/locales/fa.js') }}"></script>
     <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
+    <script>
+        const tagInput = document.getElementById('tagInput');
+        const tagsContainer = document.getElementById('tagsContainer');
+        const tagsHiddenInput = document.getElementById('tags');
+        const tagInputWrapper = document.getElementById('tagInputWrapper');
+
+        let tags = @json($bedcover->tags->pluck('name')->values());
+
+        function renderTags() {
+
+            tagsContainer.innerHTML = '';
+
+            tags.forEach((tag, index) => {
+
+                const tagElement = document.createElement('span');
+
+                tagElement.className = 'tag-item';
+
+                tagElement.innerHTML = `
+                <span>${escapeHtml(tag)}</span>
+
+                <button
+                    type="button"
+                    class="tag-remove"
+                    onclick="removeTag(${index})"
+                >
+                    ×
+                </button>
+            `;
+
+                tagsContainer.appendChild(tagElement);
+            });
+
+            tagsHiddenInput.value = JSON.stringify(tags);
+        }
+
+        tagInput.addEventListener('keydown', function(event) {
+
+            if (event.key === 'Enter') {
+
+                event.preventDefault();
+
+                const tag = this.value.trim();
+
+                if (!tag) {
+                    return;
+                }
+
+                if (tags.includes(tag)) {
+                    this.value = '';
+                    return;
+                }
+
+                tags.push(tag);
+
+                renderTags();
+
+                this.value = '';
+            }
+
+            if (
+                event.key === 'Backspace' &&
+                this.value === '' &&
+                tags.length > 0
+            ) {
+                tags.pop();
+
+                renderTags();
+            }
+        });
+
+        function removeTag(index) {
+
+            tags.splice(index, 1);
+
+            renderTags();
+
+            tagInput.focus();
+        }
+
+        function escapeHtml(text) {
+
+            const div = document.createElement('div');
+
+            div.textContent = text;
+
+            return div.innerHTML;
+        }
+
+        tagInputWrapper.addEventListener('click', function() {
+            tagInput.focus();
+        });
+
+        // نمایش تگ‌های قبلی مقاله
+        renderTags();
+    </script>
     <script>
         $(function() {
             var imageCounter = {{ $existingImages->count() ?: 1 }};

@@ -108,6 +108,17 @@ class BedcoverController extends Controller
                 }
             }
 
+            $tags = json_decode($request->tags, true);
+            foreach ($tags ?? [] as $tag) {
+                $tag = trim($tag);
+                if ($tag === '') {
+                    continue;
+                }
+                $bedcover->tags()->create([
+                    'name' => $tag,
+                ]);
+            }
+
             return redirect()->route('bedcover.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         } //if
@@ -241,6 +252,22 @@ class BedcoverController extends Controller
         $bedcover->save();
 
 
+        $tags = json_decode($request->tags, true);
+
+        $bedcover->tags()->delete();
+
+        foreach ($tags ?? [] as $tag) {
+
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $bedcover->tags()->create([
+                'name' => $tag,
+            ]);
+        }
 
         return redirect()->route('bedcover.index')
             ->with('success', '::ویرایش با موفقیت انجام شد ::');

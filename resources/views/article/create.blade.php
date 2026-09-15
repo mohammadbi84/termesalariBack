@@ -8,66 +8,6 @@
     <link rel="stylesheet" href="{{ asset('../storetemplate/plugins/bootstrap-fileinput-master/css/fileinput-rtl.min.css') }}"
         media="all">
     <link href="https://lib.arvancloud.ir/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
-
-    <style>
-        .tag-input-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-            min-height: 45px;
-            padding: 7px 10px;
-            border: 1px solid #dee2e6;
-            border-radius: 6px;
-            background: #fff;
-            cursor: text;
-        }
-
-        .tag-input-wrapper:focus-within {
-            border-color: #86b7fe;
-            box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
-        }
-
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .tag-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 9px;
-            border-radius: 5px;
-            background: #e9ecef;
-            color: #212529;
-            font-size: 14px;
-        }
-
-        .tag-remove {
-            border: none;
-            background: transparent;
-            padding: 0;
-            cursor: pointer;
-            font-size: 16px;
-            line-height: 1;
-            color: #6c757d;
-        }
-
-        .tag-remove:hover {
-            color: #dc3545;
-        }
-
-        .tag-input {
-            flex: 1;
-            min-width: 150px;
-            border: none;
-            outline: none;
-            padding: 5px;
-            background: transparent;
-        }
-    </style>
 @endpush
 
 @section('main-content')

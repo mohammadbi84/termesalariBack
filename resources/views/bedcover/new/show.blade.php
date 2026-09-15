@@ -1,11 +1,11 @@
 @extends('shop.layouts.master')
-@section('title', $title . __('products.design') . ($bedcover->color_design->design->title) . __('products.color') .
-    ($bedcover->color_design->color->color))
+@section('title', $title . __('products.design') . $bedcover->color_design->design->title . __('products.color') .
+    $bedcover->color_design->color->color)
 @section('head')
     @if (app()->getLocale() == 'en')
-    <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/ltr/product.css') }}">
     @else
-    <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
+        <link rel="stylesheet" href="{{ asset('shop/css/product.css') }}">
     @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 @endsection
@@ -88,11 +88,10 @@
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ $bedcover->color_design->design->title ?? '' }}"
                                 data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                                data-title="{{ $bedcover->category->title }}"
-                                data-price="{{ $prices->price }}" data-pay="{{ $price }}"
-                                data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
-                                data-local="{{ $prices->local }}" data-id="{{ $bedcover->id }}"
-                                data-model="{{ substr($bedcover->category->model, 4) }}">
+                                data-title="{{ $bedcover->category->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                                data-id="{{ $bedcover->id }}" data-model="{{ substr($bedcover->category->model, 4) }}">
                                 <i class="fa-solid fa-shuffle"></i>
                             </a>
                             <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -102,11 +101,10 @@
                                 data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ $bedcover->color_design->design->title ?? '' }}"
                                 data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                                data-title="{{ $bedcover->category->title }}"
-                                data-price="{{ $prices->price }}" data-pay="{{ $price }}"
-                                data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
-                                data-local="{{ $prices->local }}" data-id="{{ $bedcover->id }}"
-                                data-model="{{ substr($bedcover->category->model, 4) }}">
+                                data-title="{{ $bedcover->category->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}" data-local="{{ $prices->local }}"
+                                data-id="{{ $bedcover->id }}" data-model="{{ substr($bedcover->category->model, 4) }}">
                                 <i class="fas fa-heart"></i>
                             </a>
                         </div>
@@ -162,13 +160,11 @@
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.category') }} :</h6>
-                        <a href="{{ route('bedcover.storeIndex') }}"
-                            class="tag">{{ $bedcover->category->title }}</a>
+                        <a href="{{ route('bedcover.storeIndex') }}" class="tag">{{ $bedcover->category->title }}</a>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="color-title">{{ __('product.tags') }} :</h6>
-                        <span
-                            class="tag">{{ $bedcover->color_design->design->title }}</span>
+                        <span class="tag">{{ $bedcover->color_design->design->title }}</span>
                     </div>
                     <div class="categories-tags">
                         <hr>
@@ -203,13 +199,12 @@
                             </div>
                             <button class="btn btn-primary @if ($bedcover->quantity != 0) addToCart @endif"
                                 data-image="{{ asset('/storage/' . $bedcover->images->first()->name) }}"
-                                data-id="{{ $bedcover->id }}"
-                                data-moddel="{{ substr($bedcover->category->model, 4) }}"
+                                data-id="{{ $bedcover->id }}" data-moddel="{{ substr($bedcover->category->model, 4) }}"
                                 data-design="{{ $bedcover->color_design->design->title ?? '' }}"
                                 data-color="{{ $bedcover->color_design->color->color ?? '' }}"
-                                data-title="{{ $bedcover->category->title }}"
-                                data-price="{{ $prices->price }}" data-pay="{{ $price }}"
-                                data-off="{{ $off }}" data-offType="{{ $prices->offType }}"
+                                data-title="{{ $bedcover->category->title }}" data-price="{{ $prices->price }}"
+                                data-pay="{{ $price }}" data-off="{{ $off }}"
+                                data-offType="{{ $prices->offType }}"
                                 data-local="{{ $prices->local }}">{{ __('product.add_to_cart') }}</button>
                         </div>
                     </div>
@@ -324,57 +319,49 @@
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.dimensions') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->dimensions }}</span>
+                                <span class="point-span">{{ $bedcover->dimensions }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.weight') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->weight }}</span>
+                                <span class="point-span">{{ $bedcover->weight }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.material') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->kind }}</span>
+                                <span class="point-span">{{ $bedcover->kind }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.sewing_type') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->sewingType }}</span>
+                                <span class="point-span">{{ $bedcover->sewingType }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->haveEster }}</span>
+                                <span class="point-span">{{ $bedcover->haveEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.lining_material') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->kindOfEster }}</span>
+                                <span class="point-span">{{ $bedcover->kindOfEster }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.washable') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->washable }}</span>
+                                <span class="point-span">{{ $bedcover->washable }}</span>
                             </div>
                         </li>
                         <li class="list-group-item px-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>{{ __('product.uses') }}</span>
-                                <span
-                                    class="point-span">{{ $bedcover->uses }}</span>
+                                <span class="point-span">{{ $bedcover->uses }}</span>
                             </div>
                         </li>
                     </ul>
@@ -511,21 +498,21 @@
                                                                         {{ $prices->price - $prices->price * ($prices->offPrice / 100) }}
                                                                     @endif
                                                                     @if (app()->getLocale() == 'en')
-                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @else
                                                                 <span class="price">{{ number_format($prices->price) }}
                                                                     @if (app()->getLocale() == 'en')
-                                                                    <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                        <img src="{{ asset('shop/assets/svgs/price_e.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
                                                                     @else
-                                                                    <img src="{{ asset('shop/assets/svgs/price.svg') }}"
-                                                                        alt="Price" width="20px" height="20px">
+                                                                        <img src="{{ asset('shop/assets/svgs/price.svg') }}"
+                                                                            alt="Price" width="20px" height="20px">
                                                                     @endif
                                                                 </span>
                                                             @endif
@@ -622,6 +609,15 @@
                     </div>
                 @endforeach
             </div>
+            @if ($bedcover->tags()->count())
+                <div class="row bg-white rounded-4 shadow-sm mt-5">
+                    <div class="tags">
+                        @foreach ($bedcover->tags as $tag)
+                            <span class="tag">{{ $tag->name }}</span>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
         <!-- Gallery Modal -->
         <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel"
@@ -654,9 +650,9 @@
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     @if (app()->getLocale() == 'en')
-    <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
+        <script src="{{ asset('shop/js/ltr/main-menu-full.js') }}"></script>
     @else
-    <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
+        <script src="{{ asset('shop/js/main-menu-full.js') }}"></script>
     @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {

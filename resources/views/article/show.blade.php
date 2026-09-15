@@ -767,9 +767,9 @@
                         </h1>
 
                         <div class="article-meta">
-                            <span><i class="bi bi-person"></i> admin</span>
-                            <span><i class="bi bi-chat"></i> 7 {{ __('user.comments.card_title') }}</span>
-                            <span><i class="bi bi-eye"></i> {{ $article->views()->count() }} {{ __('main.view') }}</span>
+                            <span>{{$article->comments()->where('status', 1)->count()}} {{ __('user.comments.card_title') }} <i class="bi bi-chat"></i></span>
+                            <span>{{ $article->views()->count() }} {{ __('main.view') }} <i class="bi bi-eye"></i></span>
+                            <span>admin <i class="bi bi-person"></i></span>
                         </div>
                     </div>
 
@@ -873,7 +873,7 @@
                                     <input type="text" id="searchInputtext" value="{{ old('text') }}" class=""
                                         name="text" oninput="nameinput('text')">
                                     <label for="searchInputtext">
-                                        {{ __('product.comment_placeholder') }}
+                                        {{ __('article.comment_placeholder') }}
                                     </label>
                                     <span class="clear-btn" id="clearBtn_text" onclick="clearInput('text')"
                                         @if (old('text')) style="display:block !important" @endif>×</span>
@@ -883,7 +883,7 @@
                                 @enderror
                             </div>
                             <div class="mb-4 d-flex justify-content-between align-items-center">
-                                {{ __('product.your_rating') }} :
+                                {{ __('article.your_rating') }} :
                                 <!-- ریتینگ ستاره‌ها -->
                                 <div class="rating-stars">
                                     <span class="star" data-value="1">★</span>
@@ -980,7 +980,7 @@
                 <div>
                     <h5 class="m-0">{{ __('product.user_comments') }}</h5>
                     <span class="point-span">
-                        {{ __('product.comments_count', ['count' => $article->comments()->where('status', 1)->count()]) }}
+                        {{ __('article.comments_count', ['count' => $article->comments()->where('status', 1)->count()]) }}
                     </span>
                 </div>
             </div>
@@ -992,7 +992,7 @@
                                 class="rounded-circle" alt="user" width="60">
                             <div class="">
                                 <strong>{{ $comment->user->name }} {{ $comment->user->family }}</strong> - <span
-                                    class="point-span">{{ $comment->created_at->format('d F Y') }}</span>
+                                    class="point-span">{{ Verta($comment->created_at)->format('%d %B %Y') }}</span>
                                 <p class="m-0 text-justify">
                                     {{ $comment->text }}
                                 </p>

@@ -113,6 +113,17 @@ class FabricController extends Controller
                 }
             }
 
+            $tags = json_decode($request->tags, true);
+            foreach ($tags ?? [] as $tag) {
+                $tag = trim($tag);
+                if ($tag === '') {
+                    continue;
+                }
+                $fabric->tags()->create([
+                    'name' => $tag,
+                ]);
+            }
+
             return redirect()->route('fabric.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         }//if
@@ -252,6 +263,22 @@ class FabricController extends Controller
         $fabric->save();
 
 
+        $tags = json_decode($request->tags, true);
+
+        $fabric->tags()->delete();
+
+        foreach ($tags ?? [] as $tag) {
+
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $fabric->tags()->create([
+                'name' => $tag,
+            ]);
+        }
 
         return redirect()->route('fabric.index')
             ->with('success', '::ویرایش با موفقیت انجام شد ::');

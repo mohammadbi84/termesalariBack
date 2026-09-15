@@ -622,6 +622,15 @@
                     </div>
                 @endforeach
             </div>
+            @if ($prayermat->tags()->count())
+                <div class="row bg-white rounded-4 shadow-sm mt-5">
+                    <div class="tags">
+                        @foreach ($prayermat->tags as $tag)
+                            <span class="tag">{{ $tag->name }}</span>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
         <!-- Gallery Modal -->
         <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel"

@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #4FBA6C;
+    --primary-color: #4fba6c;
     --secondary-color: #ffffff;
     --dark-color: #343a40;
     --light-color: #f8f9fa;
@@ -58,8 +58,8 @@ html {
 }
 
 .btn-secondary {
-    background-color: #00A594 !important;
-    border: 1px solid #00A594 !important;
+    background-color: #00a594 !important;
+    border: 1px solid #00a594 !important;
 }
 
 .btn-secondary:hover {
@@ -72,7 +72,7 @@ html {
 }
 
 body {
-    font-family: 'Vazirmatn FD NL', sans-serif !important;
+    font-family: "Vazirmatn FD NL", sans-serif !important;
     line-height: 1.6;
     color: #333;
     /* min-height: 200vh; */
@@ -152,7 +152,6 @@ i {
     background-color: #fff;
     z-index: 2;
 }
-
 
 .flip-card-back {
     background-color: #ffffff;
@@ -322,7 +321,6 @@ i {
     height: 40px !important;
 }
 
-
 /* categories */
 .category-card {
     width: 150px;
@@ -339,8 +337,12 @@ i {
 }
 
 .category-card:hover {
-    background: #4FBA6C;
-    background: linear-gradient(90deg, rgba(79, 186, 108, 1) 0%, rgba(94, 224, 129, 1) 100%);
+    background: #4fba6c;
+    background: linear-gradient(
+        90deg,
+        rgba(79, 186, 108, 1) 0%,
+        rgba(94, 224, 129, 1) 100%
+    );
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -387,7 +389,6 @@ i {
 .splide__arrow svg {
     fill: #dfdfdf;
 }
-
 
 /* newest products */
 .product-card {
@@ -538,7 +539,7 @@ i {
 }
 
 .add-to-cart {
-    background-color: #52AC661F;
+    background-color: #52ac661f;
     color: var(--primary-color) !important;
     padding: 0;
     border: 1px solid transparent;
@@ -552,7 +553,7 @@ i {
 }
 
 .add-to-cart.favorites-btn:hover {
-    background-color: #52AC661F !important;
+    background-color: #52ac661f !important;
     color: var(--primary-color) !important;
 }
 
@@ -584,7 +585,7 @@ i {
     margin-right: 0.5rem;
 }
 
-.old-price+.badge {
+.old-price + .badge {
     font-size: 12px;
     padding: 3px 4px 0px;
 }
@@ -612,7 +613,6 @@ i {
     font-weight: 100;
     color: #666;
 }
-
 
 /* hot products======================================================================== */
 .product-div {
@@ -780,8 +780,6 @@ i {
     color: #000;
 }
 
-
-
 /* Branchs=========================================================================================== */
 .slider-container {
     display: flex;
@@ -922,7 +920,7 @@ i {
 }
 
 .right-slider .swiper-slide:hover {
-    background: #52AC661F;
+    background: #52ac661f;
     transform: translateX(-7px);
 }
 
@@ -1077,7 +1075,6 @@ i {
     font-weight: bold;
 }
 
-
 .inner-slider-controls .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
@@ -1187,7 +1184,6 @@ i {
     }
 }
 
-
 /* go to top button */
 /* CSS */
 .back-to-top {
@@ -1231,11 +1227,6 @@ i {
         height: 45px;
     }
 }
-
-
-
-
-
 
 /* map modal ========================================================================================= */
 /* استایل مدال */
@@ -1332,12 +1323,7 @@ i {
     .hot-product-card:hover .hot-description {
         transform: translateY(270px);
     }
-
-
-
 }
-
-
 
 /* popup ============================================================================================ */
 /* modal pup up */
@@ -1457,11 +1443,10 @@ i {
 
 .insta-image {
     height: 160px;
-    margin-top: -120px
+    margin-top: -120px;
 }
 
 @media (max-width: 768px) {
-
     .popup-image-slider .swiper-slide img {
         height: 200px;
     }
@@ -1520,10 +1505,6 @@ i {
     transform: scale(1);
 }
 
-
-
-
-
 /* inputs ========================================================================================================================= */
 /* inputs */
 .autocomplete {
@@ -1551,12 +1532,12 @@ i {
 }
 
 .autocomplete .dropdown .active {
-    background-color: #F2F9FF;
+    background-color: #f2f9ff;
 }
 
-.autocomplete input:focus+label,
+.autocomplete input:focus + label,
 .autocomplete.filled label,
-.autocomplete textarea:focus+label {
+.autocomplete textarea:focus + label {
     outline: none !important;
     border: none !important;
     top: -10px;
@@ -1576,4 +1557,26 @@ i {
     cursor: pointer;
     font-weight: bold;
     color: #888;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 10px;
+}
+
+.tag {
+    padding: 3px 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 7px;
+    color: #777;
+    font-size: 10px;
+    transition: 0.2s;
+}
+
+.tag:hover {
+    border-color: rgba(79, 186, 108, 0.35);
+    background: #eefaf1;
+    color: var(--primary-color);
 }

@@ -189,7 +189,7 @@ class Prayermat extends Model
 
     public function tags()
     {
-        return $this->morphToMany('App\Tag', 'taggable');
+        return $this->morphMany(Tag::class, 'taggable');
     }
 
     public function comments()

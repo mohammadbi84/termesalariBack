@@ -1261,23 +1261,25 @@
                                     $articlePreview = \Illuminate\Support\Str::limit(strip_tags($article->body ?? ''), 90);
                                 @endphp
                                 <li class="splide__slide article-slide">
-                                    <a href="{{ route('article.show', [$article]) }}" class="article-card"
-                                        aria-label="{{ $article->title }}">
-                                        <div class="article-card__image-wrap">
-                                            <img class="article-card__image" src="{{ 'storage/' . $article->image }}"
-                                                alt="{{ $article->title }}" />
-                                        </div>
-                                        <div class="article-card__body">
-                                            <h3 class="article-card__title">{{ $article->title }}</h3>
-                                            @if (!empty($articlePreview))
-                                                <p class="article-card__summary">{{ $articlePreview }}</p>
-                                            @endif
-                                            <span class="article-card__link">
-                                                {{ __('main.moreInfo') }}
-                                                <i class="fa-solid fa-arrow-left"></i>
-                                            </span>
-                                        </div>
-                                    </a>
+                                    <div class="product-div p-2">
+                                        <a href="{{ route('article.show', [$article]) }}" class="article-card"
+                                            aria-label="{{ $article->title }}">
+                                            <div class="article-card__image-wrap">
+                                                <img class="article-card__image" src="{{ 'storage/' . $article->image }}"
+                                                    alt="{{ $article->title }}" />
+                                            </div>
+                                            <div class="article-card__body">
+                                                <h3 class="article-card__title">{{ $article->title }}</h3>
+                                                @if (!empty($articlePreview))
+                                                    <p class="article-card__summary">{{ $articlePreview }}</p>
+                                                @endif
+                                                <span class="article-card__link">
+                                                    {{ __('main.moreInfo') }}
+                                                    <i class="fa-solid fa-arrow-left"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
@@ -1299,16 +1301,16 @@
             height: 100%;
             overflow: hidden;
             background: linear-gradient(180deg, rgba(255, 250, 242, 0.96) 0%, rgba(255, 255, 255, 1) 100%);
-            border: 1px solid rgba(74, 148, 84, 0.18);
+            /* border: 1px solid rgba(74, 148, 84, 0.18); */
             border-radius: 14px;
-            box-shadow: 0 8px 10px rgba(40, 32, 20, 0.08);
+            /* box-shadow: 0 8px 10px rgba(40, 32, 20, 0.08); */
             text-decoration: none;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
 
         .article-card:hover {
-            border-top: 3px solid var(--primary-color);
-            border-right: 3px solid var(--primary-color);
+            /* border-top: 3px solid var(--primary-color); */
+            /* border-right: 3px solid var(--primary-color); */
             text-decoration: none;
         }
 

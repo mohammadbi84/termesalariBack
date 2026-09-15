@@ -111,6 +111,18 @@ class TableclothController extends Controller
                 }
             }
 
+
+            $tags = json_decode($request->tags, true);
+            foreach ($tags ?? [] as $tag) {
+                $tag = trim($tag);
+                if ($tag === '') {
+                    continue;
+                }
+                $tablecloth->tags()->create([
+                    'name' => $tag,
+                ]);
+            }
+
             // if(isset($request->tags)){
             //     foreach($request->tags as $value){
             //         $exist = Tag::where('name',$value)->count();
@@ -278,6 +290,23 @@ class TableclothController extends Controller
         }
 
         $tablecloth->save();
+
+        $tags = json_decode($request->tags, true);
+
+        $tablecloth->tags()->delete();
+
+        foreach ($tags ?? [] as $tag) {
+
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $tablecloth->tags()->create([
+                'name' => $tag,
+            ]);
+        }
 
 
 

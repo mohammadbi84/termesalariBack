@@ -111,6 +111,17 @@ class PillowController extends Controller
                 }
             }
 
+            $tags = json_decode($request->tags, true);
+            foreach ($tags ?? [] as $tag) {
+                $tag = trim($tag);
+                if ($tag === '') {
+                    continue;
+                }
+                $pillow->tags()->create([
+                    'name' => $tag,
+                ]);
+            }
+
             return redirect()->route('pillow.index')
                 ->with('success', 'درج محصول با موفقیت انجام شد');
         }//if
@@ -244,6 +255,23 @@ class PillowController extends Controller
         }
 
         $pillow->save();
+
+        $tags = json_decode($request->tags, true);
+
+        $pillow->tags()->delete();
+
+        foreach ($tags ?? [] as $tag) {
+
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $pillow->tags()->create([
+                'name' => $tag,
+            ]);
+        }
 
         return redirect()->route('pillow.index')
             ->with('success', '::ویرایش با موفقیت انجام شد ::');
